@@ -1,0 +1,17 @@
+{
+  "name": "mafia-bot",
+  "version": "1.0.5",
+  "description": "",
+  "main": "bot.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "ts-node bot.ts"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@discordjs/rest": "^1.1.0",
+    "discord-api-types": "^0.37.5",
+    "discord.js": "^14.3.0"
+  }
+}
