@@ -273,6 +273,32 @@ discordBot.on('interactionCreate', async (interaction: Interaction) => {
             interaction.reply("you are idiot");
             return;
         }
+    }else if (interaction.isButton()){
+        const gameId = Number(interaction.customId.split('').splice(1, 5).join(''))
+        switch (interaction.customId[0]){
+            case 'j':{
+                require('./commands/join').execute(interaction, gameId);
+                break;
+            }
+            case 'c':{
+                require('./commands/cancel').execute(interaction, gameId);
+                break;
+            }
+            case 's':{
+                require('./commands/start').execute(interaction, gameId);
+                break;
+            }
+            case 'l':{
+                require('./commands/leave').execute(interaction, gameId);
+                break;
+            }
+            case 'e':{
+                require('./commands/end').execute(interaction, gameId);
+                break;
+            }
+        }
+
+
     }
 });
 
