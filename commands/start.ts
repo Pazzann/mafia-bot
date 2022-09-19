@@ -14,6 +14,7 @@ import generateUsers from "../Functions/generateUsers";
 import getMafiaRow from "../Functions/SelectRows/getMafiaRow";
 import getPoliceRow from "../Functions/SelectRows/getPoliceRow";
 import getDoctorRow from "../Functions/SelectRows/getDoctorRow";
+import getKillerRow from "../Functions/SelectRows/getKillerRow";
 
 
 
@@ -36,10 +37,11 @@ module.exports.execute = async function (interaction: ChatInputCommandInteractio
                 mafia: [],
                 police: null,
                 doctor: null,
-                killer: "noKiller",
+                killer: users.length > 7 ? null : "noKiller",
                 mistress: "noMistress",
                 beautiful: "noBeautiful"
             },
+            finished: false,
             day: 0,
         });
 
@@ -48,8 +50,7 @@ module.exports.execute = async function (interaction: ChatInputCommandInteractio
             discordBot.users.fetch(item.userid).then(async user => {
                 const dm = user?.dmChannel ?? await user.createDM();
                 dm.send({
-                    content: "Город засыпает",
-                    embeds: [MafiaEmbedBuilder.roleGiver(item.role, users.length, theme, Math.floor(users.length / 3), curHandlingGames.get(gameid))]
+                    embeds: [MafiaEmbedBuilder.sleepTime(), MafiaEmbedBuilder.roleGiver(item.role, users.length, theme, Math.floor(users.length / 3), curHandlingGames.get(gameid))]
                 });
             });
         });
@@ -68,6 +69,12 @@ module.exports.execute = async function (interaction: ChatInputCommandInteractio
             const dm = user?.dmChannel ?? await user.createDM();
             dm.send({components: [getPoliceRow(users)]});
         });
+        if(users.length > 7){
+            discordBot.users.fetch(users.filter(item => item.role === Roles.KILLER)[0].userid).then(async user => {
+                const dm = user?.dmChannel ?? await user.createDM();
+                dm.send({components: [getKillerRow(users)]});
+            });
+        }
         const embed = new EmbedBuilder()
             .setTitle("Игра создана")
             .setDescription(`Successfully started \`\`${gameid}\`\``)

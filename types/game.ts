@@ -15,7 +15,8 @@ export default interface MafiaGame{
         mistress: string | null | "noMistress";
         beautiful: string | null | "noBeautiful" | "notThatMove";
     }
-    votedToKick: vote[]
+    votedToKick: vote[];
+    finished: boolean;
 }
 interface vote{
     userid: string;

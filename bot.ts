@@ -10,6 +10,7 @@ import getDoctorRow from "./Functions/SelectRows/getDoctorRow";
 import getPoliceRow from "./Functions/SelectRows/getPoliceRow";
 import getVoteRow from "./Functions/SelectRows/getVoteRow";
 import endChooseMoveHandler from "./Functions/endChooseMoveHandler";
+import getKillerRow from "./Functions/SelectRows/getKillerRow";
 
 export const discordBot = new Client({
     intents: [
@@ -56,35 +57,60 @@ discordBot.on('interactionCreate', async (interaction: Interaction) => {
                                 if (game.users.filter(item => item.isKilled === false).filter(item => msgCon == item.userid).length > 0 && game.votedToCheck.mafia.filter(item => item.mafia == user.userid).length === 0) {
                                     let userMafiaSelect = game.users.filter((item) => msgCon == item.userid)[0];
                                     game.votedToCheck.mafia.push({mafia: user.userid, target: userMafiaSelect.userid});
-                                    interaction.reply("You have selected");
+                                    interaction.reply(`Вы выбрали ${userMafiaSelect.userTag}!`);
+                                    interaction.message.delete();
                                     game = endChooseMoveHandler(game);
-                                    curHandlingGames.set(game.id, game);
+                                    if (!game.finished)
+                                        curHandlingGames.set(game.id, game);
                                 } else {
                                     interaction.reply('You are an idiot');
                                 }
                                 break;
                             }
                             case Roles.POLICE: {
-                                if (game.users.filter(item => item.isKilled === false).filter(item => msgCon == item.userid).length > 0) {
+                                if (game.users.filter(item => item.isKilled === false).filter(item => msgCon == item.userid).length > 0 && game.votedToCheck.police === null) {
                                     let userSel: User;
                                     game.users.map((item) => msgCon == item.userid ? userSel = item : null);
-                                    interaction.reply(`Его роль ${userSel.role === Roles.MAFIA ? "мафия" : "не мафия"}`);
+                                    interaction.reply(`Pоль ${userSel.userTag} - ${userSel.role === Roles.MAFIA ? "мафия" : "не мафия"}`);
+                                    interaction.message.delete();
                                     game.votedToCheck.police = userSel.userid;
                                     game = endChooseMoveHandler(game);
-                                    curHandlingGames.set(game.id, game);
+                                    if (!game.finished)
+                                        curHandlingGames.set(game.id, game);
+                                } else {
+                                    interaction.reply('Вы уже выбирали')
                                 }
                                 break;
                             }
                             case Roles.DOCTOR: {
-                                if (game.users.filter(item => item.isKilled === false).filter(item => msgCon == item.userid).length > 0) {
+                                if (game.users.filter(item => item.isKilled === false).filter(item => msgCon == item.userid).length > 0 && game.votedToCheck.doctor === null) {
                                     let userSel: User;
                                     game.users.map((item, index) => msgCon == item.userid ? userSel = item : null);
-                                    interaction.reply(`Он будет вылечен!`);
-
+                                    interaction.reply(`${userSel.userTag} будет вылечен!`);
+                                    interaction.message.delete();
                                     game.votedToCheck.doctor = userSel.userid;
                                     game = endChooseMoveHandler(game);
-                                    curHandlingGames.set(game.id, game);
+                                    if (!game.finished)
+                                        curHandlingGames.set(game.id, game);
+                                } else {
+                                    interaction.reply(`Вы уже выбрали!`);
                                 }
+                                break;
+                            }
+                            case Roles.KILLER: {
+                                if (game.users.filter(item => item.isKilled === false).filter(item => msgCon == item.userid).length > 0 && game.votedToCheck.killer === null) {
+                                    let userSel: User;
+                                    game.users.map((item, index) => msgCon == item.userid ? userSel = item : null);
+                                    interaction.reply(`Вы выбрали что хотите убить ${userSel.userTag}!`);
+                                    interaction.message.delete();
+                                    game.votedToCheck.killer = userSel.userid;
+                                    game = endChooseMoveHandler(game);
+                                    if (!game.finished)
+                                        curHandlingGames.set(game.id, game);
+                                } else {
+                                    interaction.reply(`Вы уже выбрали!`);
+                                }
+
                                 break;
                             }
                         }
@@ -100,28 +126,29 @@ discordBot.on('interactionCreate', async (interaction: Interaction) => {
                                 if (game.votedToKick.filter(item => item.userid === interaction.user.id).length !== 0) {
                                     interaction.reply('Вы уже проголосовали');
                                     return;
-                                }else{
+                                } else {
                                     game.votedToKick.push({
                                         userid: interaction.user.id,
                                         forwhom: userSel.userid
                                     });
-                                    interaction.reply("Вы успешно проголосовали")
+                                    interaction.reply("Вы успешно проголосовали");
+                                    interaction.message.delete();
                                 }
 
                             } else {
                                 if (game.votedToKick.filter(item => item.userid === interaction.user.id).length !== 0) {
                                     interaction.reply('Вы уже проголосовали');
                                     return;
-                                }else{
+                                } else {
                                     game.votedToKick.push({
                                         userid: interaction.user.id,
                                         forwhom: "skip_vote"
                                     });
                                     interaction.reply("Вы успешно проголосовали");
+                                    interaction.message.delete();
                                 }
 
                             }
-
 
 
                             if (game.votedToKick.length === game.users.filter(item => item.isKilled === false).length) {
@@ -167,7 +194,7 @@ discordBot.on('interactionCreate', async (interaction: Interaction) => {
                                     let indexOfVotedFor: number;
                                     game.users.map((item, index) => item.userid == curVoted.userid ? indexOfVotedFor = index : null);
                                     game.users[indexOfVotedFor].isKilled = true;
-                                    if (game.users.filter(user => user.role === Roles.MAFIA).filter(mafia => mafia.isKilled === false).length === 0) {
+                                    if (game.users.filter(user => user.role === Roles.MAFIA).filter(mafia => mafia.isKilled === false).length === 0 && game.users.filter(user => user.role === Roles.KILLER).filter(killer => killer.isKilled === false).length === 0) {
                                         game.users.map(item => {
                                             discordBot.users.fetch(item.userid).then(async user => {
                                                 const dm = user?.dmChannel ?? await user.createDM();
@@ -178,14 +205,23 @@ discordBot.on('interactionCreate', async (interaction: Interaction) => {
                                         return;
                                     }
                                     const alive = game.users.filter(item => item.isKilled == false);
-                                    if (alive.length < alive.filter(item => item.role == Roles.MAFIA).length * 2 + 1) {
+                                    if (game.users.length > 7 && game.users.filter(item => item.role === Roles.KILLER)[0]?.isKilled === false && alive.length < 3) {
                                         game.users.map(item => {
                                             discordBot.users.fetch(item.userid).then(async user => {
                                                 const dm = user?.dmChannel ?? await user.createDM();
-                                                dm.send({embeds: [MafiaEmbedBuilder.mafiaWin(game.users.filter(item => item.role === Roles.MAFIA)[0].userTag)]});
-                                                curHandlingGames.delete(game.id);
+                                                dm.send({embeds: [MafiaEmbedBuilder.killerWin(game.users.filter(item => item.role === Roles.KILLER)[0].userTag)]});
+                                            });
+                                            curHandlingGames.delete(game.id);
+                                            return;
+                                        });
+                                    } else if (alive.length < alive.filter(item => item.role == Roles.MAFIA).length * 2 + 1) {
+                                        game.users.map(item => {
+                                            discordBot.users.fetch(item.userid).then(async user => {
+                                                const dm = user?.dmChannel ?? await user.createDM();
+                                                dm.send({embeds: [MafiaEmbedBuilder.mafiaWin(game.users.filter(item => item.role === Roles.MAFIA))]});
                                             });
                                         });
+                                        curHandlingGames.delete(game.id);
                                         return;
                                     }
                                 }
@@ -197,28 +233,33 @@ discordBot.on('interactionCreate', async (interaction: Interaction) => {
                                     police: game.users.filter(item => item.role == Roles.POLICE)[0].isKilled ? "noPolice" : null,
                                     mistress: "noMistress",
                                     beautiful: "noBeautiful",
-                                    killer: "noKiller"
+                                    killer: game.users.length > 7 ? game.users.filter(item => item.role == Roles.KILLER)[0].isKilled ? "noKiller" : null : "noKiller"
                                 }
                                 game.users.map(item => {
                                     discordBot.users.fetch(item.userid).then(async user => {
                                         const dm = user?.dmChannel ?? await user.createDM();
-                                        dm.send(`Город засыпает`);
+                                        dm.send({embeds: [MafiaEmbedBuilder.sleepTime()]});
                                     });
                                 });
                                 discordBot.users.fetch(game.users.filter(item => item.role === Roles.MAFIA && item.isKilled === false)[0].userid).then(async user => {
                                     const dm = user?.dmChannel ?? await user.createDM();
                                     dm.send({components: [getMafiaRow(game.users)]});
                                 });
-                                if(game.users.filter(item => item.role === Roles.DOCTOR && item.isKilled === false).length > 0)
-                                discordBot.users.fetch(game.users.filter(item => item.role === Roles.DOCTOR && item.isKilled === false)[0].userid).then(async user => {
-                                    const dm = user?.dmChannel ?? await user.createDM();
-                                    dm.send({components: [getDoctorRow(game.users)]});
-                                });
-                                if(game.users.filter(item => item.role === Roles.POLICE && item.isKilled === false).length > 0)
-                                discordBot.users.fetch(game.users.filter(item => item.role === Roles.POLICE && item.isKilled === false)[0].userid).then(async user => {
-                                    const dm = user?.dmChannel ?? await user.createDM();
-                                    dm.send({components: [getPoliceRow(game.users)]});
-                                });
+                                if (game.users.filter(item => item.role === Roles.DOCTOR && item.isKilled === false).length > 0)
+                                    discordBot.users.fetch(game.users.filter(item => item.role === Roles.DOCTOR && item.isKilled === false)[0].userid).then(async user => {
+                                        const dm = user?.dmChannel ?? await user.createDM();
+                                        dm.send({components: [getDoctorRow(game.users)]});
+                                    });
+                                if (game.users.filter(item => item.role === Roles.POLICE && item.isKilled === false).length > 0)
+                                    discordBot.users.fetch(game.users.filter(item => item.role === Roles.POLICE && item.isKilled === false)[0].userid).then(async user => {
+                                        const dm = user?.dmChannel ?? await user.createDM();
+                                        dm.send({components: [getPoliceRow(game.users)]});
+                                    });
+                                if (game.users.filter(item => item.role === Roles.KILLER && item.isKilled === false).length > 0)
+                                    discordBot.users.fetch(game.users.filter(item => item.role === Roles.KILLER && item.isKilled === false)[0].userid).then(async user => {
+                                        const dm = user?.dmChannel ?? await user.createDM();
+                                        dm.send({components: [getKillerRow(game.users)]});
+                                    });
                             }
                         }
                         curHandlingGames.set(game.id, game);
@@ -226,7 +267,7 @@ discordBot.on('interactionCreate', async (interaction: Interaction) => {
                     }
                 }
             } catch (err) {
-               console.log("error")
+                console.log("error")
             }
         } else {
             interaction.reply("you are idiot");
