@@ -10,9 +10,9 @@ module.exports.execute = function (interaction: ChatInputCommandInteraction, gam
         if (host.users.includes(interaction.user.id)){
             host.users.splice(host.users.indexOf(interaction.user.id), 1);
             curHostGames.set(gameid, host);
-            interaction.reply('Removed');
+            interaction.reply({content:`<@${interaction.user.id}> покинул игру \`\`${host.id}\`\`, всего в игре \`\`${host.users.length}\`\` участников!`, ephemeral: false});
         }else{
-            interaction.reply("You are an idiot");
+            interaction.reply({content: "Вас там итак нет!", ephemeral: true});
         }
     }else{
         interaction.reply({content: "Неправильный ID игры!", ephemeral: true});

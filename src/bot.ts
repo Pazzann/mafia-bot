@@ -1,4 +1,4 @@
-import {TOKEN} from './config.json';
+import {TOKEN} from '../config.json';
 import {ChatInputCommandInteraction, Client, EmbedBuilder, GatewayIntentBits, Interaction, Partials} from "discord.js";
 import MafiaGame from "./types/game";
 import HostGame from "./types/host";
@@ -30,13 +30,14 @@ export const curHandlingGames: Map<number, MafiaGame> = new Map();
 
 discordBot.on('interactionCreate', async (interaction: Interaction) => {
     if (interaction.isChatInputCommand()) {
+        if (interaction.channel.isDMBased())
+            interaction.reply({content:'Создать игру в мафию вы можете только на сервере!', ephemeral: true});
         const {commandName} = interaction;
         const commandObj = require(`./commands/${commandName}`);
         commandObj.execute(interaction);
     } else if (interaction.isSelectMenu()) {
         let game: MafiaGame | null = null;
         let user: User | null = null;
-        // @ts-ignore
         for (let v of curHandlingGames.values()) {
             if (v.users.filter((item: User) => item.userid === interaction.user.id).length > 0) {
                 game = v;
@@ -45,7 +46,7 @@ discordBot.on('interactionCreate', async (interaction: Interaction) => {
         }
         if (user || game) {
             if (user.isKilled) {
-                interaction.reply("Вы мертв");
+                interaction.reply({content:"Вы мертв", ephemeral: true});
                 return;
             }
             const msgCon = interaction.values[0];
@@ -63,7 +64,7 @@ discordBot.on('interactionCreate', async (interaction: Interaction) => {
                                     if (!game.finished)
                                         curHandlingGames.set(game.id, game);
                                 } else {
-                                    interaction.reply('You are an idiot');
+                                    interaction.reply({content: `Вы уже выбрали!`, ephemeral: true});
                                 }
                                 break;
                             }
@@ -78,7 +79,7 @@ discordBot.on('interactionCreate', async (interaction: Interaction) => {
                                     if (!game.finished)
                                         curHandlingGames.set(game.id, game);
                                 } else {
-                                    interaction.reply('Вы уже выбирали')
+                                    interaction.reply({content: `Вы уже выбрали!`, ephemeral: true})
                                 }
                                 break;
                             }
@@ -93,7 +94,7 @@ discordBot.on('interactionCreate', async (interaction: Interaction) => {
                                     if (!game.finished)
                                         curHandlingGames.set(game.id, game);
                                 } else {
-                                    interaction.reply(`Вы уже выбрали!`);
+                                    interaction.reply({content: `Вы уже выбрали!`, ephemeral: true});
                                 }
                                 break;
                             }
@@ -108,7 +109,7 @@ discordBot.on('interactionCreate', async (interaction: Interaction) => {
                                     if (!game.finished)
                                         curHandlingGames.set(game.id, game);
                                 } else {
-                                    interaction.reply(`Вы уже выбрали!`);
+                                    interaction.reply({content: `Вы уже выбрали!`, ephemeral: true});
                                 }
 
                                 break;
@@ -124,7 +125,7 @@ discordBot.on('interactionCreate', async (interaction: Interaction) => {
                                 let userSel: User;
                                 game.users.map((item) => msgCon == item.userid ? userSel = item : null);
                                 if (game.votedToKick.filter(item => item.userid === interaction.user.id).length !== 0) {
-                                    interaction.reply('Вы уже проголосовали');
+                                    interaction.reply({content:'Вы уже проголосовали', ephemeral: true});
                                     return;
                                 } else {
                                     game.votedToKick.push({
@@ -137,7 +138,7 @@ discordBot.on('interactionCreate', async (interaction: Interaction) => {
 
                             } else {
                                 if (game.votedToKick.filter(item => item.userid === interaction.user.id).length !== 0) {
-                                    interaction.reply('Вы уже проголосовали');
+                                    interaction.reply({content:'Вы уже проголосовали', ephemeral: true});
                                     return;
                                 } else {
                                     game.votedToKick.push({
@@ -270,7 +271,7 @@ discordBot.on('interactionCreate', async (interaction: Interaction) => {
                 console.log("error")
             }
         } else {
-            interaction.reply("you are idiot");
+            interaction.reply({ephemeral: true, content: "Неправильные данные"});
             return;
         }
     }else if (interaction.isButton()){

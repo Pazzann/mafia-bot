@@ -10,7 +10,7 @@ module.exports.execute = function (interaction: ChatInputCommandInteraction, gam
         if (!host.users.includes(interaction.user.id)){
             host.users.push(interaction.user.id);
             curHostGames.set(gameid, host);
-            interaction.reply(`<@${interaction.user.id}> вошёл в игру \`\`${gameid}\`\`, всего в игре \`\`${host.users.length}\`\` участников`);
+            interaction.reply(`<@${interaction.user.id}> вошёл в игру \`\`${gameid}\`\`, всего в игре \`\`${host.users.length}\`\` участников!`);
         }else{
             interaction.reply({content:"Вы уже в этой игре!", ephemeral: true});
         }

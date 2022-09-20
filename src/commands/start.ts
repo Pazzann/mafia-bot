@@ -24,7 +24,7 @@ module.exports.execute = async function (interaction: ChatInputCommandInteractio
         if (curHostGames.get(gameid).author == interaction.user.id) {
             const gameData = curHostGames.get(gameid);
             if (gameData.users.length < 4)
-                return interaction.reply('Недостаточно игроков для старта игры!');
+                return interaction.reply({content:'Недостаточно игроков для старта игры!', ephemeral: true});
             curHostGames.delete(gameid);
             const users = await generateUsers(gameData.users);
             curHandlingGames.set(gameid, {

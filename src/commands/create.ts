@@ -2,6 +2,10 @@ import {ActionRowBuilder, ButtonBuilder, ButtonStyle, ChatInputCommandInteractio
 import {curHostGames} from "../bot";
 
 module.exports.execute = function (interaction: ChatInputCommandInteraction) {
+    for(let v of curHostGames.values()){
+        if(v.author === interaction.user.id)
+            return interaction.reply({content:'Вы итак уже захостили игру, для начала отмените ту!', ephemeral: true})
+    }
     const id = Math.round(Math.random() * 10000);
     curHostGames.set(id, {
         author: interaction.user.id,
