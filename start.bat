@@ -1,1 +1,1 @@
-ts-node bot.ts
+npm run start
