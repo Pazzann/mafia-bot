@@ -1,4 +1,3 @@
-import {TOKEN} from '../config.json';
 import {ChatInputCommandInteraction, Client, EmbedBuilder, GatewayIntentBits, Interaction, Partials} from "discord.js";
 import MafiaGame from "./types/game";
 import HostGame from "./types/host";
@@ -11,6 +10,9 @@ import getPoliceRow from "./Functions/SelectRows/getPoliceRow";
 import getVoteRow from "./Functions/SelectRows/getVoteRow";
 import endChooseMoveHandler from "./Functions/endChooseMoveHandler";
 import getKillerRow from "./Functions/SelectRows/getKillerRow";
+import * as dotenv from 'dotenv'
+dotenv.config()
+const TOKEN = process.env.TOKEN;
 
 export const discordBot = new Client({
     intents: [
