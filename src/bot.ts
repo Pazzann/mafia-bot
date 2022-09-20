@@ -32,8 +32,10 @@ export const curHandlingGames: Map<number, MafiaGame> = new Map();
 
 discordBot.on('interactionCreate', async (interaction: Interaction) => {
     if (interaction.isChatInputCommand()) {
-        if (interaction.channel.isDMBased())
+        if (interaction.channel.isDMBased()){
             interaction.reply({content:'Создать игру в мафию вы можете только на сервере!', ephemeral: true});
+            return;
+        }
         const {commandName} = interaction;
         const commandObj = require(`./commands/${commandName}`);
         commandObj.execute(interaction);
