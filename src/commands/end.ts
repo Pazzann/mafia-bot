@@ -16,9 +16,9 @@ module.exports.execute = function (interaction: ChatInputCommandInteraction, gam
             curHandlingGames.delete(gameid);
             interaction.reply('Игра удалена!');
         } else {
-            interaction.reply("Вы не владелец игры!");
+            interaction.reply({content: "Вы не владелец игры!", ephemeral: true});
         }
     } else {
-        interaction.reply("Неправильный ID игры!");
+        interaction.reply({content:"Неправильный ID игры!", ephemeral: true});
     }
 }

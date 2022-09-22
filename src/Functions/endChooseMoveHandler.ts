@@ -64,6 +64,16 @@ export default function endChooseMoveHandler(game: MafiaGame): MafiaGame {
                 game.finished = true;
                 return game;
             });
+        }else if (alive.filter(item => item.role == Roles.MAFIA).length === 0 && alive.filter(item => item.role == Roles.KILLER).length === 0){
+            game.users.map(item => {
+                discordBot.users.fetch(item.userid).then(async user => {
+                    const dm = user?.dmChannel ?? await user.createDM();
+                    dm.send({embeds: [MafiaEmbedBuilder.peacefulWin()]});
+                });
+            });
+            curHandlingGames.delete(game.id);
+            game.finished = true;
+            return game;
         } else if (alive.length < alive.filter(item => item.role == Roles.MAFIA).length * 2 + 1) {
             game.users.map(item => {
                 discordBot.users.fetch(item.userid).then(async user => {

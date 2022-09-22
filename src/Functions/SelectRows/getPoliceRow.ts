@@ -2,7 +2,7 @@ import User from "../../types/user";
 import {ActionRowBuilder, RestOrArray, SelectMenuBuilder, SelectMenuOptionBuilder} from "discord.js";
 import {Roles} from "../../types/roles";
 
-export default function getPoliceRow(users: User[]){
+export default function getPoliceRow(users: User[], unactive = false){
     const filterUsers = users.filter(item=> item.isKilled === false).filter(item=>item.role!==Roles.POLICE);
     const Emojis: string[] = ['🚓', '👮', '🚔', '🚨'];
     const chooseArr: RestOrArray<SelectMenuOptionBuilder> = [];
@@ -20,7 +20,8 @@ export default function getPoliceRow(users: User[]){
                 .setPlaceholder('Выберите кого хотите проверить...')
                 .setMinValues(1)
                 .setMaxValues(1)
-                .addOptions(chooseArr),
+                .addOptions(chooseArr)
+                .setDisabled(unactive),
         );
     return row;
 }

@@ -63,7 +63,7 @@ discordBot.on('interactionCreate', async (interaction: Interaction) => {
                                     let userMafiaSelect = game.users.filter((item) => msgCon == item.userid)[0];
                                     game.votedToCheck.mafia.push({mafia: user.userid, target: userMafiaSelect.userid});
                                     interaction.reply(`Вы выбрали ${userMafiaSelect.userTag}!`);
-                                    interaction.message.delete();
+                                    interaction.message.edit({components: [getMafiaRow(game.users, true)]});
                                     game = endChooseMoveHandler(game);
                                     if (!game.finished)
                                         curHandlingGames.set(game.id, game);
@@ -77,7 +77,7 @@ discordBot.on('interactionCreate', async (interaction: Interaction) => {
                                     let userSel: User;
                                     game.users.map((item) => msgCon == item.userid ? userSel = item : null);
                                     interaction.reply(`Pоль ${userSel.userTag} - ${userSel.role === Roles.MAFIA ? "мафия" : "не мафия"}`);
-                                    interaction.message.delete();
+                                    interaction.message.edit({components: [getPoliceRow(game.users, true)]});
                                     game.votedToCheck.police = userSel.userid;
                                     game = endChooseMoveHandler(game);
                                     if (!game.finished)
@@ -92,7 +92,7 @@ discordBot.on('interactionCreate', async (interaction: Interaction) => {
                                     let userSel: User;
                                     game.users.map((item, index) => msgCon == item.userid ? userSel = item : null);
                                     interaction.reply(`${userSel.userTag} будет вылечен!`);
-                                    interaction.message.delete();
+                                    interaction.message.edit({components: [getDoctorRow(game.users, true)]});
                                     game.votedToCheck.doctor = userSel.userid;
                                     game = endChooseMoveHandler(game);
                                     if (!game.finished)
@@ -107,7 +107,7 @@ discordBot.on('interactionCreate', async (interaction: Interaction) => {
                                     let userSel: User;
                                     game.users.map((item, index) => msgCon == item.userid ? userSel = item : null);
                                     interaction.reply(`Вы выбрали что хотите убить ${userSel.userTag}!`);
-                                    interaction.message.delete();
+                                    interaction.message.edit({components: [getKillerRow(game.users, true)]});
                                     game.votedToCheck.killer = userSel.userid;
                                     game = endChooseMoveHandler(game);
                                     if (!game.finished)
@@ -136,8 +136,18 @@ discordBot.on('interactionCreate', async (interaction: Interaction) => {
                                         userid: interaction.user.id,
                                         forwhom: userSel.userid
                                     });
+                                    let votes = `${game.votedToKick.length}/${game.users.filter(item=>item.isKilled===false).length}: \n`;
+                                    game.votedToKick.map(item=>{
+                                        votes += `<@${item.userid}> - ${item.forwhom==="skip_vote"? `Пропуск` : `<@${item.forwhom}>`}\n`
+                                    })
+                                    game.users.map(item => {
+                                        discordBot.users.fetch(item.userid).then(async user => {
+                                            const dm = user?.dmChannel ?? await user.createDM();
+                                            dm.send(`${votes}`);
+                                        });
+                                    });
                                     interaction.reply("Вы успешно проголосовали");
-                                    interaction.message.delete();
+                                    interaction.message.edit({components:[getVoteRow(game.users, true)]});
                                 }
 
                             } else {
@@ -149,8 +159,18 @@ discordBot.on('interactionCreate', async (interaction: Interaction) => {
                                         userid: interaction.user.id,
                                         forwhom: "skip_vote"
                                     });
+                                    let votes = `${game.votedToKick.length}/${game.users.filter(item=>item.isKilled===false).length}: \n`;
+                                    game.votedToKick.map(item=>{
+                                        votes += `<@${item.userid}> - ${item.forwhom==="skip_vote"? `Пропуск` : `<@${item.forwhom}>`}\n`
+                                    })
+                                    game.users.map(item => {
+                                        discordBot.users.fetch(item.userid).then(async user => {
+                                            const dm = user?.dmChannel ?? await user.createDM();
+                                            dm.send(`${votes}`);
+                                        });
+                                    });
                                     interaction.reply("Вы успешно проголосовали");
-                                    interaction.message.delete();
+                                    interaction.message.edit({components:[getVoteRow(game.users, true)]});
                                 }
 
                             }
@@ -279,31 +299,37 @@ discordBot.on('interactionCreate', async (interaction: Interaction) => {
             return;
         }
     }else if (interaction.isButton()){
-        const gameId = Number(interaction.customId.split('').splice(1, 5).join(''))
-        switch (interaction.customId[0]){
-            case 'j':{
-                require('./commands/join').execute(interaction, gameId);
-                break;
+        try {
+            if(interaction.customId === "createnew"){
+                require('./commands/create').execute(interaction)
+                return;
             }
-            case 'c':{
-                require('./commands/cancel').execute(interaction, gameId);
-                break;
+            const gameId = Number(interaction.customId.split('').splice(1, 5).join(''))
+            switch (interaction.customId[0]){
+                case 'j':{
+                    require('./commands/join').execute(interaction, gameId);
+                    break;
+                }
+                case 'c':{
+                    require('./commands/cancel').execute(interaction, gameId);
+                    break;
+                }
+                case 's':{
+                    require('./commands/start').execute(interaction, gameId);
+                    break;
+                }
+                case 'l':{
+                    require('./commands/leave').execute(interaction, gameId);
+                    break;
+                }
+                case 'e':{
+                    require('./commands/end').execute(interaction, gameId);
+                    break;
+                }
             }
-            case 's':{
-                require('./commands/start').execute(interaction, gameId);
-                break;
-            }
-            case 'l':{
-                require('./commands/leave').execute(interaction, gameId);
-                break;
-            }
-            case 'e':{
-                require('./commands/end').execute(interaction, gameId);
-                break;
-            }
+        }catch (err){
+
         }
-
-
     }
 });
 

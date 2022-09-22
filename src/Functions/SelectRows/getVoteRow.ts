@@ -1,7 +1,7 @@
 import User from "../../types/user";
 import {ActionRowBuilder, RestOrArray, SelectMenuBuilder, SelectMenuOptionBuilder} from "discord.js";
 
-export default function getVoteRow(users: User[]){
+export default function getVoteRow(users: User[], unactive = false){
     const filterUsers = users.filter(item=> item.isKilled === false);
     const chooseArr: RestOrArray<SelectMenuOptionBuilder> = [];
     const skip = new SelectMenuOptionBuilder()
@@ -25,7 +25,8 @@ export default function getVoteRow(users: User[]){
                 .setPlaceholder('Выберите против кого вы голосуете...')
                 .setMinValues(1)
                 .setMaxValues(1)
-                .addOptions(chooseArr),
+                .addOptions(chooseArr)
+                .setDisabled(unactive),
         );
     return row;
 }

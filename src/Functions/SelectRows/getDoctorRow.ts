@@ -1,7 +1,7 @@
 import User from "../../types/user";
 import {ActionRowBuilder, RestOrArray, SelectMenuBuilder, SelectMenuOptionBuilder} from "discord.js";
 
-export default function getDoctorRow(users: User[]){
+export default function getDoctorRow(users: User[], unactive = false){
     const filterUsers = users.filter(item=> item.isKilled === false);
     const Emojis: string[] = ['💉', '💊', '🧬', '🦠', '🧫', '🧪', '♥️'];
     const chooseArr: RestOrArray<SelectMenuOptionBuilder> = [];
@@ -19,7 +19,8 @@ export default function getDoctorRow(users: User[]){
                 .setPlaceholder('Выберите кого хотите вылечить...')
                 .setMinValues(1)
                 .setMaxValues(1)
-                .addOptions(chooseArr),
+                .addOptions(chooseArr)
+                .setDisabled(unactive),
         );
     return row;
 }

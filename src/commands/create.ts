@@ -39,10 +39,19 @@ module.exports.execute = function (interaction: ChatInputCommandInteraction) {
                 .setCustomId("s" + String(id))
         )
     ;
+    const buttonRow3 = new ActionRowBuilder<ButtonBuilder>()
+        .addComponents(
+            new ButtonBuilder()
+                .setEmoji("👀")
+                .setLabel('⠀⠀⠀⠀Cоздать новую игру⠀⠀⠀⠀⠀')
+                .setStyle(ButtonStyle.Success)
+                .setCustomId("createnew"),
+        )
+    ;
     const embed = new EmbedBuilder()
         .setTitle("Успешно создано")
-        .setDescription(`ID игры: \`\`${id}\`\` \n Подключиться \`\`/join ${id}\`\``)
+        .setDescription(`ID игры: \`\`${id}\`\` \n \n __**Список игроков:**__ \n<@${interaction.user.id}>`)
         .setThumbnail("https://media.discordapp.net/attachments/1015944207220879370/1016009845289275533/unknown.png?width=566&height=566")
         .setColor("#ffec6e")
-    interaction.reply({embeds: [embed], components: [buttonRow1, buttonRow2]});
+    interaction.reply({embeds: [embed], components: [buttonRow1, buttonRow2, buttonRow3]});
 }
