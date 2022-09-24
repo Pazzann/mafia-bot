@@ -13,7 +13,7 @@ module.exports.execute = function (interaction: ChatInputCommandInteraction) {
         users: [interaction.user.id],
         id: id,
         channel: interaction.channel.id,
-        timeout: setTimeout(()=>{cancelGame(interaction, id)}, 30000),
+        timeout: setTimeout(()=>{cancelGame(interaction, id)}, 600000),
         interaction: interaction
     });
     const buttonRow2 = new ActionRowBuilder<ButtonBuilder>()
