@@ -266,9 +266,11 @@ discordBot.on('interactionCreate', async (interaction: Interaction) => {
                                         dm.send({embeds: [MafiaEmbedBuilder.sleepTime()]});
                                     });
                                 });
-                                discordBot.users.fetch(game.users.filter(item => item.role === Roles.MAFIA && item.isKilled === false)[0].userid).then(async user => {
-                                    const dm = user?.dmChannel ?? await user.createDM();
-                                    dm.send({components: [getMafiaRow(game.users)]});
+                                game.users.filter(item => item.role === Roles.MAFIA && item.isKilled === false).map((item)=>{
+                                    discordBot.users.fetch(item.userid).then(async user => {
+                                        const dm = user?.dmChannel ?? await user.createDM();
+                                        dm.send({components: [getMafiaRow(game.users)]});
+                                    });
                                 });
                                 if (game.users.filter(item => item.role === Roles.DOCTOR && item.isKilled === false).length > 0)
                                     discordBot.users.fetch(game.users.filter(item => item.role === Roles.DOCTOR && item.isKilled === false)[0].userid).then(async user => {
