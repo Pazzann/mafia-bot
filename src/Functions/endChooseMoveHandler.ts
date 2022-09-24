@@ -1,7 +1,7 @@
 import {Roles} from "../types/roles";
 import MafiaEmbedBuilder from "../Classes/MafiaEmbedBuilder";
 import getVoteRow from "./SelectRows/getVoteRow";
-import {curHandlingGames, discordBot} from "../bot";
+import {curHandlingGames, discordBot} from "../index";
 import MafiaGame from "../types/game";
 
 export default function endChooseMoveHandler(game: MafiaGame): MafiaGame {

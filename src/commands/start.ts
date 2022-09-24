@@ -1,11 +1,11 @@
 import {
-    ActionRowBuilder, ButtonBuilder, ButtonComponent, ButtonStyle,
+    ActionRowBuilder, ButtonBuilder, ButtonComponent, ButtonInteraction, ButtonStyle,
     ChatInputCommandInteraction, EmbedBuilder,
     RestOrArray,
     SelectMenuBuilder,
     SelectMenuOptionBuilder
 } from "discord.js";
-import {curHandlingGames, curHostGames, discordBot} from "../bot";
+import {curHandlingGames, curHostGames, discordBot} from "../index";
 import User from "../types/user";
 import {Roles} from "../types/roles";
 import MafiaEmbedBuilder from "../Classes/MafiaEmbedBuilder";
@@ -15,14 +15,16 @@ import getMafiaRow from "../Functions/SelectRows/getMafiaRow";
 import getPoliceRow from "../Functions/SelectRows/getPoliceRow";
 import getDoctorRow from "../Functions/SelectRows/getDoctorRow";
 import getKillerRow from "../Functions/SelectRows/getKillerRow";
+import getDisabledButtons from "../Functions/SelectRows/getDisabledButtons";
 
 
-module.exports.execute = async function (interaction: ChatInputCommandInteraction, gameid = 0) {
-    if (!gameid)
-        gameid = interaction.options.getNumber('gameid');
+module.exports.execute = async function (interaction: ButtonInteraction, gameid = 0) {
+    // if (!gameid)
+    //     gameid = interaction.options.getNumber('gameid');
     if (curHostGames.has(gameid))
         if (curHostGames.get(gameid).author == interaction.user.id) {
             const gameData = curHostGames.get(gameid);
+            clearTimeout(gameData.timeout);
             if (gameData.users.length < 4)
                 return interaction.reply({content:'Недостаточно игроков для старта игры!', ephemeral: true});
             curHostGames.delete(gameid);
@@ -76,6 +78,7 @@ module.exports.execute = async function (interaction: ChatInputCommandInteractio
                     dm.send({components: [getKillerRow(users)]});
                 });
             }
+            interaction.message.edit({components: getDisabledButtons(gameid)})
             const buttonRow = new ActionRowBuilder<ButtonBuilder>()
                 .addComponents(
                     new ButtonBuilder()

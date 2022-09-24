@@ -1,5 +1,6 @@
 import {ActionRowBuilder, ButtonBuilder, ButtonInteraction, ButtonStyle, ChatInputCommandInteraction} from "discord.js";
-import {curHandlingGames, curHostGames} from "../bot";
+import {curHandlingGames, curHostGames} from "../index";
+import getDisabledButtons from "../Functions/SelectRows/getDisabledButtons";
 
 module.exports.execute = function (interaction: ButtonInteraction, gameid = 0) {
     // if (!gameid)
@@ -9,47 +10,8 @@ module.exports.execute = function (interaction: ButtonInteraction, gameid = 0) {
     {
         const host = curHostGames.get(gameid);
         if (host.author == interaction.user.id){
-            const buttonRow2 = new ActionRowBuilder<ButtonBuilder>()
-                .addComponents(
-                    new ButtonBuilder()
-                        .setEmoji("🔥")
-                        .setLabel('⠀Отменить⠀⠀')
-                        .setStyle(ButtonStyle.Danger)
-                        .setCustomId("c")
-                        .setDisabled(true),
-                    new ButtonBuilder()
-                        .setEmoji("🔪")
-                        .setLabel('⠀Выйти⠀')
-                        .setStyle(ButtonStyle.Danger)
-                        .setCustomId("l")
-                        .setDisabled(true)
-                );
-            const buttonRow1 = new ActionRowBuilder<ButtonBuilder>()
-                .addComponents(
-                    new ButtonBuilder()
-                        .setEmoji("🌀")
-                        .setLabel('Присоединиться')
-                        .setStyle(ButtonStyle.Primary)
-                        .setCustomId("j")
-                        .setDisabled(true),
-                    new ButtonBuilder()
-                        .setEmoji("✔️")
-                        .setLabel('Начать')
-                        .setStyle(ButtonStyle.Success)
-                        .setCustomId("s")
-                        .setDisabled(true)
-                )
-            ;
-            const buttonRow3 = new ActionRowBuilder<ButtonBuilder>()
-                .addComponents(
-                    new ButtonBuilder()
-                        .setEmoji("👀")
-                        .setLabel('⠀⠀⠀⠀Cоздать новую игру⠀⠀⠀⠀⠀')
-                        .setStyle(ButtonStyle.Success)
-                        .setCustomId("createnew"),
-                )
-            ;
-            interaction.message.edit({content: "canceled", components: [buttonRow1,buttonRow2,buttonRow3]})
+            clearTimeout(host.timeout);
+            interaction.message.edit({content: "**Игра отменена организатором!**", components: getDisabledButtons(gameid)})
             curHostGames.delete(gameid);
             interaction.reply(`Игра \`\`${gameid}\`\` была убрана!`);
         }else{

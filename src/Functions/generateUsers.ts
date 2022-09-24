@@ -1,5 +1,5 @@
 import User from "../types/user";
-import {discordBot} from "../bot";
+import {discordBot} from "../index";
 import {Roles} from "../types/roles";
 
 export default async function generateUsers(users: string[]): Promise<User[]> {

@@ -1,5 +1,5 @@
 import {ChatInputCommandInteraction} from "discord.js";
-import {curHandlingGames, curHostGames, discordBot} from "../bot";
+import {curHandlingGames, curHostGames, discordBot} from "../index";
 
 module.exports.execute = function (interaction: ChatInputCommandInteraction, gameid = 0) {
     if (!gameid)
