@@ -1,10 +1,13 @@
 import {EmbedBuilder} from "discord.js";
-import {Roles} from "../types/roles";
-import MafiaGame from "../types/game";
-import User from "../types/user";
+import {IRolesProps} from "../types/interfaces/IRoles";
+import IMafiaGameProps from "../types/interfaces/IGame";
+import IUserProps from "../types/interfaces/IUser";
+import {ILangProps} from "../types/interfaces/ILang";
+import {Langs} from "../types/Langs";
+import IThemeProps from "../types/interfaces/ITheme";
 
 export default class MafiaEmbedBuilder {
-    public static mafiaWin(mafia: User[]) {
+    public static mafiaWin(mafia: IUserProps[]) {
         const mafiaNames: string[] = [];
         mafia.map(item=>mafiaNames.push(item.userTag))
         const embed = new EmbedBuilder()
@@ -42,7 +45,7 @@ export default class MafiaEmbedBuilder {
         return embed;
     }
 
-    public static sleepTime() {
+    public static sleepTime(local: ILangProps) {
         const embed = new EmbedBuilder()
             .setTitle("Город засыпает!")
             .setColor("#8a1616")
@@ -69,39 +72,39 @@ export default class MafiaEmbedBuilder {
         return embed;
     }
 
-    public static roleGiver(role: Roles, playerCount: number, theme: string, mafiaCount: number, game: MafiaGame) {
+    public static roleGiver(role: IRolesProps, playerCount: number, theme: IThemeProps, mafiaCount: number, game: IMafiaGameProps, local: ILangProps, lang: Langs) {
         const embed = new EmbedBuilder()
-            .setTitle(`Ваша роль: ${role}`)
+            .setTitle(`${local.start_your_role}: ${local[role]}`)
             .setColor("#c468ff")
             .addFields([{
-                name: "Информация",
-                value: `Тема: \`\`${theme}\`\` \n Кол-во игроков: \`\`${playerCount}\`\` \n Кол-во мафий: \`\`${mafiaCount}\`\` \n Доктор: \`\`1\`\` \n Полицейский: \`\`1\`\` \n Маньяк: \`\`${playerCount > 7 ? "1" : "0"}\`\``
+                name: local.start_game_info,
+                value: `${local.start_theme}: \`\`${theme[lang.toUpperCase() as keyof IThemeProps]}\`\` \n ${local.start_player_count}: \`\`${playerCount}\`\` \n ${local.start_mafia_count}: \`\`${mafiaCount}\`\` \n ${local.start_doctor_count}: \`\`1\`\` \n ${local.start_police_count}: \`\`1\`\` \n ${local.start_killer_count}: \`\`${playerCount > 7 ? "1" : "0"}\`\``
             }])
         let mafias = "";
-        game.users.filter(item => item.role == Roles.MAFIA).map(item => mafias += item.userTag + " ")
+        game.users.filter(item => item.role == IRolesProps.MAFIA).map(item => mafias += item.userTag + " ")
         switch (role) {
-            case Roles.DOCTOR: {
-                embed.setDescription("Ваша задача попытаться не дать никому умереть!");
+            case IRolesProps.DOCTOR: {
+                embed.setDescription(local.start_role_doctor);
                 embed.setThumbnail("https://media.discordapp.net/attachments/1015944207220879370/1015959932228616242/unknown.png?width=469&height=469");
                 return embed;
             }
-            case Roles.POLICE: {
-                embed.setDescription("Ваша задача вычислить мафию и убедить всех проголосовать за мафию!");
+            case IRolesProps.POLICE: {
+                embed.setDescription(local.start_role_police);
                 embed.setThumbnail("https://media.discordapp.net/attachments/1015944207220879370/1015960696850223134/unknown.png?width=469&height=469");
                 return embed;
             }
-            case Roles.MAFIA: {
-                embed.setDescription(`Ваша убить всех и самому остаться в живых! \n Ваши мафиозные друзья: ${mafias}`);
+            case IRolesProps.MAFIA: {
+                embed.setDescription(`${local.start_role_mafia} ${mafias}`);
                 embed.setThumbnail("https://media.discordapp.net/attachments/1015944207220879370/1015961438021488781/unknown.png?width=469&height=469");
                 return embed;
             }
-            case Roles.INNOCENT: {
-                embed.setDescription("Ваша задача выжить!");
+            case IRolesProps.INNOCENT: {
+                embed.setDescription(local.start_role_innocent);
                 embed.setThumbnail("https://cdn.discordapp.com/attachments/1015944207220879370/1015962010728538272/unknown.png");
                 return embed;
             }
-            case Roles.KILLER: {
-                embed.setDescription("Ваша задача убить всех и остаться в живих одному!");
+            case IRolesProps.KILLER: {
+                embed.setDescription(local.start_role_killer);
                 embed.setThumbnail("https://media.discordapp.net/attachments/1015944207220879370/1016410832793522297/Boy_From_God_Shrek_peaky_blinders_b11654fb-93f3-4b4a-8389-fbf016d7cc2e.png?width=566&height=566");
                 return embed;
             }

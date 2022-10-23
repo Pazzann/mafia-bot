@@ -1,9 +1,9 @@
-import User from "../../types/user";
+import IUserProps from "../../types/interfaces/IUser";
 import {ActionRowBuilder, RestOrArray, SelectMenuBuilder, SelectMenuOptionBuilder} from "discord.js";
-import {Roles} from "../../types/roles";
+import {IRolesProps} from "../../types/interfaces/IRoles";
 
-export default function getPoliceRow(users: User[], unactive = false){
-    const filterUsers = users.filter(item=> item.isKilled === false).filter(item=>item.role!==Roles.POLICE);
+export default function getPoliceRow(users: IUserProps[], unactive = false){
+    const filterUsers = users.filter(item=> item.isKilled === false).filter(item=>item.role!==IRolesProps.POLICE);
     const Emojis: string[] = ['🚓', '👮', '🚔', '🚨'];
     const chooseArr: RestOrArray<SelectMenuOptionBuilder> = [];
     for (let user of filterUsers){

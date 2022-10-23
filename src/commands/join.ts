@@ -1,29 +1,36 @@
 import {BaseInteraction, ButtonInteraction, ChatInputCommandInteraction, EmbedBuilder} from "discord.js";
-import {curHostGames} from "../index";
+import {curHandlingGames, curHostGames} from "../index";
+import usersRedraw from "../Functions/usersRedraw";
+import User from "../Entities/User";
+import {ILangProps} from "../types/interfaces/ILang";
 
-module.exports.execute = function (interaction: ButtonInteraction, gameid = 0) {
-    // if (!gameid)
-    //     gameid = interaction?.options.getNumber('gameid');
+module.exports.execute = async function (interaction: ButtonInteraction, gameid = 0, user: User, locale: ILangProps) {
     if(curHostGames.has(gameid))
     {
+
         const host = curHostGames.get(gameid);
         if (!host.users.includes(interaction.user.id)){
+            for(let v of curHostGames.values()){
+                if(v.users.includes(interaction.user.id))
+                    return interaction.reply({content: locale.create_error, ephemeral: true}).catch(()=>{});
+            }
+            for(let v of curHandlingGames.values()){
+                v.users.map((item)=>{
+                    if(item.userid === interaction.user.id){
+                        return interaction.reply({content: locale.create_error, ephemeral: true}).catch(()=>{});
+                    }
+                })
+            }
             host.timeout.refresh();
-            const embed = interaction.message.embeds[0];
-            const newEmbed = new EmbedBuilder()
-                .setTitle(embed.title)
-                .setColor(embed.color)
-                .setDescription(embed.description.split('<t:')[0] + `<t:${Math.floor(Date.now()/1000) + 600}:T>` + embed.description.split(':T>')[1] + `\n<@${interaction.user.id}>`)
-                .setThumbnail(embed.thumbnail.url);
-
             host.users.push(interaction.user.id);
             curHostGames.set(gameid, host);
-            interaction.message.edit({embeds: [newEmbed]});
-            interaction.reply({content: `<@${interaction.user.id}> вошёл в игру \`\`${gameid}\`\`, всего в игре \`\`${host.users.length}\`\` участников!`, ephemeral: true});
+            const newEmbed = usersRedraw(host.users, interaction.message.embeds[0]);
+            await interaction.message.edit({embeds: [newEmbed]});
+            await interaction.reply({content: locale.join_game, ephemeral: true}).catch(()=>{});
         }else{
-            interaction.reply({content:"Вы уже в этой игре!", ephemeral: true});
+            interaction.reply({content: locale.error_you_are_already, ephemeral: true}).catch(()=>{});
         }
     }else{
-        interaction.reply({content: "Неправильный ID игры!", ephemeral: true});
+        interaction.reply({content: locale.error_incorrect_game_id, ephemeral: true}).catch(()=>{});
     }
 }

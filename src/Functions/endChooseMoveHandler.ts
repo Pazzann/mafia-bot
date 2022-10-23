@@ -1,15 +1,14 @@
-import {Roles} from "../types/roles";
+import {IRolesProps} from "../types/interfaces/IRoles";
 import MafiaEmbedBuilder from "../Classes/MafiaEmbedBuilder";
 import getVoteRow from "./SelectRows/getVoteRow";
 import {curHandlingGames, discordBot} from "../index";
-import MafiaGame from "../types/game";
+import IMafiaGameProps from "../types/interfaces/IGame";
 
-export default function endChooseMoveHandler(game: MafiaGame): MafiaGame {
+export default function endChooseMoveHandler(game: IMafiaGameProps): IMafiaGameProps {
     if (!(
-        game.votedToCheck.mafia.length === game.users.filter(item => item.isKilled === false).filter(item => item.role == Roles.MAFIA).length &&
+        game.votedToCheck.mafia.length === game.users.filter(item => item.isKilled === false).filter(item => item.role == IRolesProps.MAFIA).length &&
         (game.votedToCheck.doctor === "noDoctor" || game.votedToCheck.doctor != null) &&
         (game.votedToCheck.police === "noPolice" || game.votedToCheck.police != null) &&
-        (game.votedToCheck.beautiful === "noBeautiful" || game.votedToCheck.beautiful !== null) &&
         (game.votedToCheck.mistress === "noMistress" || game.votedToCheck.mistress !== null) &&
         (game.votedToCheck.killer === "noKiller" || game.votedToCheck.killer !== null)
     ))
@@ -34,8 +33,8 @@ export default function endChooseMoveHandler(game: MafiaGame): MafiaGame {
         peopleKilled.add(game.users[targetIndex].userTag);
         game.users[targetIndex].isKilled = true;
     }
-    if (game.users.filter(item => item.role === Roles.KILLER).length > 0) {
-        if (!game.users.filter(item => item.role === Roles.KILLER)[0].isKilled) {
+    if (game.users.filter(item => item.role === IRolesProps.KILLER).length > 0) {
+        if (!game.users.filter(item => item.role === IRolesProps.KILLER)[0].isKilled) {
             let killerTarget = game.users.filter(item => item.userid === game.votedToCheck.killer)[0];
             if (killerTarget.userid !== game.votedToCheck.doctor) {
                 peopleKilled.add(killerTarget.userTag);
@@ -54,17 +53,17 @@ export default function endChooseMoveHandler(game: MafiaGame): MafiaGame {
     }
     if (killed.length > 0) {
         const alive = game.users.filter(item => item.isKilled === false);
-        if (game.users.length > 7 && game.users.filter(item => item.role === Roles.KILLER)[0]?.isKilled === false && alive.length < 3) {
+        if (game.users.length > 7 && game.users.filter(item => item.role === IRolesProps.KILLER)[0]?.isKilled === false && alive.length < 3) {
             game.users.map(item => {
                 discordBot.users.fetch(item.userid).then(async user => {
                     const dm = user?.dmChannel ?? await user.createDM();
-                    dm.send({embeds: [MafiaEmbedBuilder.killerWin(game.users.filter(item => item.role === Roles.KILLER)[0].userTag)]});
+                    dm.send({embeds: [MafiaEmbedBuilder.killerWin(game.users.filter(item => item.role === IRolesProps.KILLER)[0].userTag)]});
                 });
                 curHandlingGames.delete(game.id);
                 game.finished = true;
                 return game;
             });
-        }else if (alive.filter(item => item.role == Roles.MAFIA).length === 0 && alive.filter(item => item.role == Roles.KILLER).length === 0){
+        }else if (alive.filter(item => item.role == IRolesProps.MAFIA).length === 0 && alive.filter(item => item.role == IRolesProps.KILLER).length === 0){
             game.users.map(item => {
                 discordBot.users.fetch(item.userid).then(async user => {
                     const dm = user?.dmChannel ?? await user.createDM();
@@ -74,11 +73,11 @@ export default function endChooseMoveHandler(game: MafiaGame): MafiaGame {
             curHandlingGames.delete(game.id);
             game.finished = true;
             return game;
-        } else if (alive.length < alive.filter(item => item.role == Roles.MAFIA).length * 2 + 1) {
+        } else if (alive.length < alive.filter(item => item.role == IRolesProps.MAFIA).length * 2 + 1) {
             game.users.map(item => {
                 discordBot.users.fetch(item.userid).then(async user => {
                     const dm = user?.dmChannel ?? await user.createDM();
-                    dm.send({embeds: [MafiaEmbedBuilder.mafiaWin(game.users.filter(item => item.role === Roles.MAFIA))]});
+                    dm.send({embeds: [MafiaEmbedBuilder.mafiaWin(game.users.filter(item => item.role === IRolesProps.MAFIA))]});
                 });
             });
             curHandlingGames.delete(game.id);

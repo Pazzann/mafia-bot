@@ -1,11 +1,27 @@
-import {ActionRowBuilder, ButtonBuilder, ButtonStyle, ChatInputCommandInteraction, EmbedBuilder} from "discord.js";
-import {curHostGames} from "../index";
+import {
+    ActionRowBuilder,
+    ButtonBuilder,
+    ButtonStyle,
+    ChatInputCommandInteraction,
+    EmbedBuilder,
+    UserMention
+} from "discord.js";
+import {curHandlingGames, curHostGames, ILocalProps} from "../index";
 import cancelGame from "../Functions/cancelGame";
+import User from "../Entities/User";
+import {ILangProps} from "../types/interfaces/ILang";
 
-module.exports.execute = function (interaction: ChatInputCommandInteraction) {
+module.exports.execute = function (interaction: ChatInputCommandInteraction, user: User, locale: ILangProps) {
     for(let v of curHostGames.values()){
-        if(v.author === interaction.user.id)
-            return interaction.reply({content:'Вы итак уже захостили игру, для начала отмените ту или подождите её автоматическую отмену!', ephemeral: true})
+        if(v.users.includes(interaction.user.id))
+            return interaction.reply({content: locale.create_error, ephemeral: true}).catch(()=>{});
+    }
+    for(let v of curHandlingGames.values()){
+        v.users.map((item)=>{
+            if(item.userid === interaction.user.id){
+                return interaction.reply({content: locale.create_error, ephemeral: true}).catch(()=>{});
+            }
+        })
     }
     const id = Math.round(Math.random() * 10000);
     curHostGames.set(id, {
@@ -13,19 +29,19 @@ module.exports.execute = function (interaction: ChatInputCommandInteraction) {
         users: [interaction.user.id],
         id: id,
         channel: interaction.channel.id,
-        timeout: setTimeout(()=>{cancelGame(interaction, id)}, 600000),
+        timeout: setTimeout(()=>{cancelGame(interaction, id, locale)}, 600000),
         interaction: interaction
     });
     const buttonRow2 = new ActionRowBuilder<ButtonBuilder>()
         .addComponents(
             new ButtonBuilder()
                 .setEmoji("🔥")
-                .setLabel('⠀Отменить⠀⠀')
+                .setLabel(`⠀${locale.create_button_cancel}⠀⠀`)
                 .setStyle(ButtonStyle.Danger)
                 .setCustomId("c" + String(id)),
             new ButtonBuilder()
                 .setEmoji("🔪")
-                .setLabel('⠀Выйти⠀')
+                .setLabel(`⠀${locale.create_button_leave}⠀`)
                 .setStyle(ButtonStyle.Danger)
                 .setCustomId("l" + String(id))
         );
@@ -33,12 +49,12 @@ module.exports.execute = function (interaction: ChatInputCommandInteraction) {
         .addComponents(
             new ButtonBuilder()
                 .setEmoji("🌀")
-                .setLabel('Присоединиться')
+                .setLabel(locale.create_button_join)
                 .setStyle(ButtonStyle.Primary)
                 .setCustomId("j" + String(id)),
             new ButtonBuilder()
                 .setEmoji("✔️")
-                .setLabel('Начать')
+                .setLabel(locale.create_button_start)
                 .setStyle(ButtonStyle.Success)
                 .setCustomId("s" + String(id))
         )
@@ -47,15 +63,15 @@ module.exports.execute = function (interaction: ChatInputCommandInteraction) {
         .addComponents(
             new ButtonBuilder()
                 .setEmoji("👀")
-                .setLabel('⠀⠀⠀⠀Cоздать новую игру⠀⠀⠀⠀⠀')
+                .setLabel(`⠀⠀⠀⠀${locale.create_button_new}⠀⠀⠀⠀⠀`)
                 .setStyle(ButtonStyle.Success)
                 .setCustomId("createnew"),
         )
     ;
     const embed = new EmbedBuilder()
-        .setTitle("Успешно создано")
-        .setDescription(`ID игры: \`\`${id}\`\` \nCancel Date: <t:${Math.floor(Date.now()/1000) + 600}:T> \n \n __**Список игроков:**__ \n<@${interaction.user.id}>`)
+        .setTitle(locale.game_create)
+        .setDescription(`**${locale.create_autocancel}:** <t:${Math.floor(Date.now()/1000) + 600}:R>\n**${locale.create_game_owner}:** <@${interaction.user.id}>\n\n__**${locale.create_player_list}:**__ \n<@${interaction.user.id}>`)
         .setThumbnail("https://media.discordapp.net/attachments/1015944207220879370/1016009845289275533/unknown.png?width=566&height=566")
         .setColor("#ffec6e")
-    interaction.reply({embeds: [embed], components: [buttonRow1, buttonRow2, buttonRow3]});
+    interaction.reply({embeds: [embed], components: [buttonRow1, buttonRow2, buttonRow3]}).catch(()=>{});
 }

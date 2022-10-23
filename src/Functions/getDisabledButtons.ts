@@ -1,18 +1,19 @@
 import {ActionRowBuilder, ButtonBuilder, ButtonComponent, ButtonStyle} from "discord.js";
+import {ILangProps} from "../types/interfaces/ILang";
 
-export default function getDisabledButtons(id: number) {
+export default function getDisabledButtons(id: number, locale: ILangProps) {
     const disabledButtons: ActionRowBuilder<ButtonBuilder>[] = [
         new ActionRowBuilder<ButtonBuilder>()
             .addComponents(
                 new ButtonBuilder()
                     .setEmoji("🌀")
-                    .setLabel('Присоединиться')
+                    .setLabel(locale.create_button_join)
                     .setStyle(ButtonStyle.Primary)
                     .setCustomId("j" + String(id))
                     .setDisabled(true),
                 new ButtonBuilder()
                     .setEmoji("✔️")
-                    .setLabel('Начать')
+                    .setLabel(locale.create_button_start)
                     .setStyle(ButtonStyle.Success)
                     .setCustomId("s" + String(id))
                     .setDisabled(true)
@@ -21,13 +22,13 @@ export default function getDisabledButtons(id: number) {
             .addComponents(
                 new ButtonBuilder()
                     .setEmoji("🔥")
-                    .setLabel('⠀Отменить⠀⠀')
+                    .setLabel(`⠀${locale.create_button_cancel}⠀⠀`)
                     .setStyle(ButtonStyle.Danger)
                     .setCustomId("c" + String(id))
                     .setDisabled(true),
                 new ButtonBuilder()
                     .setEmoji("🔪")
-                    .setLabel('⠀Выйти⠀')
+                    .setLabel(`⠀${locale.create_button_leave}⠀`)
                     .setStyle(ButtonStyle.Danger)
                     .setCustomId("l" + String(id))
                     .setDisabled(true)
@@ -36,7 +37,7 @@ export default function getDisabledButtons(id: number) {
             .addComponents(
                 new ButtonBuilder()
                     .setEmoji("👀")
-                    .setLabel('⠀⠀⠀⠀Cоздать новую игру⠀⠀⠀⠀⠀')
+                    .setLabel(`⠀⠀⠀⠀${locale.create_button_new}⠀⠀⠀⠀⠀`)
                     .setStyle(ButtonStyle.Success)
                     .setCustomId("createnew"),
             )

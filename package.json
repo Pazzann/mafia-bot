@@ -5,7 +5,8 @@
   "main": "index.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "ts-node src/index.ts"
+    "start": "ts-node src/index.ts",
+    "register": "ts-node src/deploy-commands.ts"
   },
   "author": "",
   "license": "ISC",
@@ -14,6 +15,8 @@
     "discord-api-types": "^0.37.5",
     "discord.js": "^14.3.0",
     "dotenv": "^16.0.2",
-    "md5": "^2.3.0"
+    "md5": "^2.3.0",
+    "mysql2": "^2.3.3",
+    "typeorm": "^0.3.10"
   }
 }

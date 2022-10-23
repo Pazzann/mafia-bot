@@ -1,6 +1,6 @@
 import {ChatInputCommandInteraction} from "discord.js";
 
-export default interface HostGame{
+export default interface IHostGameProps {
     author: string;
     users: string[];
     id: number;

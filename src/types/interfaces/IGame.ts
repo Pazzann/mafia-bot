@@ -1,7 +1,7 @@
-import User from "./user";
+import IUserProps from "./IUser";
 
-export default interface MafiaGame{
-    users: Array<User>;
+export default interface IMafiaGameProps {
+    users: Array<IUserProps>;
     author: string;
     day: number;
     id: number
@@ -13,12 +13,11 @@ export default interface MafiaGame{
         mafia: Array<{mafia: string; target: string}>;
         killer: string | null | "noKiller";
         mistress: string | null | "noMistress";
-        beautiful: string | null | "noBeautiful" | "notThatMove";
     }
-    votedToKick: vote[];
+    votedToKick: IVoteProps[];
     finished: boolean;
 }
-interface vote{
+interface IVoteProps{
     userid: string;
     forwhom: string;
 }

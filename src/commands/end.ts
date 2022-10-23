@@ -1,24 +1,24 @@
-import {ChatInputCommandInteraction} from "discord.js";
+import {ButtonInteraction, ChatInputCommandInteraction} from "discord.js";
 import {curHandlingGames, curHostGames, discordBot} from "../index";
+import User from "../Entities/User";
+import {ILangProps} from "../types/interfaces/ILang";
 
-module.exports.execute = function (interaction: ChatInputCommandInteraction, gameid = 0) {
-    if (!gameid)
-        gameid = interaction.options.getNumber('gameid');
+module.exports.execute = function (interaction: ButtonInteraction, gameid = 0, user: User, locale: ILangProps) {
     if (curHandlingGames.has(gameid)) {
-        const host = curHandlingGames.get(gameid);
-        if (host.author == interaction.user.id) {
-            host.users.map(item => {
+        const game = curHandlingGames.get(gameid);
+        if (game.author == interaction.user.id) {
+            game.users.map(item => {
                 discordBot.users.fetch(item.userid).then(async user => {
                     const dm = user?.dmChannel ?? await user.createDM();
-                    dm.send(`Игра преждевременно была завершена организатором`);
+                    dm.send(item.local.game_was_ended);
                 });
             });
             curHandlingGames.delete(gameid);
-            interaction.reply('Игра удалена!');
+            interaction.reply(locale.game_deleted).catch(()=>{});
         } else {
-            interaction.reply({content: "Вы не владелец игры!", ephemeral: true});
+            interaction.reply({content: locale.error_you_are_not_the_owner, ephemeral: true}).catch(()=>{});
         }
     } else {
-        interaction.reply({content:"Неправильный ID игры!", ephemeral: true});
+        interaction.reply({content:locale.error_incorrect_game_id, ephemeral: true}).catch(()=>{});
     }
 }

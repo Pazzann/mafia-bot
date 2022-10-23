@@ -1,7 +1,7 @@
-import User from "../../types/user";
+import IUserProps from "../../types/interfaces/IUser";
 import {ActionRowBuilder, RestOrArray, SelectMenuBuilder, SelectMenuOptionBuilder} from "discord.js";
 
-export default function getVoteRow(users: User[], unactive = false){
+export default function getVoteRow(users: IUserProps[], unactive = false){
     const filterUsers = users.filter(item=> item.isKilled === false);
     const chooseArr: RestOrArray<SelectMenuOptionBuilder> = [];
     const skip = new SelectMenuOptionBuilder()

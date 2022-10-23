@@ -1,7 +1,7 @@
-import User from "../../types/user";
+import IUserProps from "../../types/interfaces/IUser";
 import {ActionRowBuilder, RestOrArray, SelectMenuBuilder, SelectMenuOptionBuilder} from "discord.js";
 
-export default function getMafiaRow(users: User[], unactive = false){
+export default function getMafiaRow(users: IUserProps[], unactive = false){
     const filterUsers = users.filter(item=> item.isKilled === false);
     const Emojis: string[] = ['🔪', '🪓', '🩸']
     const chooseArr: RestOrArray<SelectMenuOptionBuilder> = [];
