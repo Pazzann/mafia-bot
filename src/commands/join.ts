@@ -15,11 +15,9 @@ module.exports.execute = async function (interaction: ButtonInteraction, gameid 
                     return interaction.reply({content: locale.create_error, ephemeral: true}).catch(()=>{});
             }
             for(let v of curHandlingGames.values()){
-                v.users.map((item)=>{
-                    if(item.userid === interaction.user.id){
+                    if(v.HasPlayer(interaction.user.id)){
                         return interaction.reply({content: locale.create_error, ephemeral: true}).catch(()=>{});
                     }
-                })
             }
             host.timeout.refresh();
             host.users.push(interaction.user.id);

@@ -7,11 +7,9 @@ module.exports.execute = function (interaction: ButtonInteraction, gameid = 0, u
     if (curHandlingGames.has(gameid)) {
         const game = curHandlingGames.get(gameid);
         if (game.author == interaction.user.id) {
-            game.users.map(item => {
-                discordBot.users.fetch(item.userid).then(async user => {
-                    const dm = user?.dmChannel ?? await user.createDM();
+            game.Players.map(async item => {
+                    const dm = item.dsUser?.dmChannel ?? await item.dsUser.createDM();
                     dm.send(item.local.game_was_ended);
-                });
             });
             curHandlingGames.delete(gameid);
             interaction.reply(locale.game_deleted).catch(()=>{});

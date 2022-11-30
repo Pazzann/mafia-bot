@@ -5,6 +5,8 @@ import IUserProps from "../types/interfaces/IUser";
 import {ILangProps} from "../types/interfaces/ILang";
 import {Langs} from "../types/Langs";
 import IThemeProps from "../types/interfaces/ITheme";
+import BaseRole from "./Roles/BaseRole";
+import ScriptEngine from "./ScriptEngine";
 
 export default class MafiaEmbedBuilder {
     public static mafiaWin(mafia: IUserProps[]) {
@@ -71,43 +73,18 @@ export default class MafiaEmbedBuilder {
             .setThumbnail("https://media.discordapp.net/attachments/1008571116241047642/1017760387191554069/Boy_From_God_killed_person_in_the_room_f2c4bd1a-6d87-4fcd-9fa8-3aec48ed626d.png?width=566&height=566");
         return embed;
     }
-
-    public static roleGiver(role: IRolesProps, playerCount: number, theme: IThemeProps, mafiaCount: number, game: IMafiaGameProps, local: ILangProps, lang: Langs) {
+    //not finished
+    public static roleGiver(role: BaseRole, playerCount: number, theme: IThemeProps, local: ILangProps, lang: Langs) {
         const embed = new EmbedBuilder()
-            .setTitle(`${local.start_your_role}: ${local[role]}`)
+            .setTitle(`${local.start_your_role}: ${role.NameLocals?role.NameLocals[lang.toUpperCase() as keyof {EN: string, UA: string, RU: string}] : role.RoleName}`)
             .setColor("#c468ff")
             .addFields([{
                 name: local.start_game_info,
-                value: `${local.start_theme}: \`\`${theme[lang.toUpperCase() as keyof IThemeProps]}\`\` \n ${local.start_player_count}: \`\`${playerCount}\`\` \n ${local.start_mafia_count}: \`\`${mafiaCount}\`\` \n ${local.start_doctor_count}: \`\`1\`\` \n ${local.start_police_count}: \`\`1\`\` \n ${local.start_killer_count}: \`\`${playerCount > 7 ? "1" : "0"}\`\``
+                value: `${local.start_theme}: \`\`${theme[lang.toUpperCase() as keyof IThemeProps]}\`\` \n ${local.start_player_count}: \`\`${playerCount}\`\` \n ${local.start_mafia_count}: \`\`soon\`\` \n ${local.start_doctor_count}: \`\`1\`\` \n ${local.start_police_count}: \`\`1\`\` \n ${local.start_killer_count}: \`\`${playerCount > 7 ? "1" : "0"}\`\``
             }])
-        let mafias = "";
-        game.users.filter(item => item.role == IRolesProps.MAFIA).map(item => mafias += item.userTag + " ")
-        switch (role) {
-            case IRolesProps.DOCTOR: {
-                embed.setDescription(local.start_role_doctor);
-                embed.setThumbnail("https://media.discordapp.net/attachments/1015944207220879370/1015959932228616242/unknown.png?width=469&height=469");
-                return embed;
-            }
-            case IRolesProps.POLICE: {
-                embed.setDescription(local.start_role_police);
-                embed.setThumbnail("https://media.discordapp.net/attachments/1015944207220879370/1015960696850223134/unknown.png?width=469&height=469");
-                return embed;
-            }
-            case IRolesProps.MAFIA: {
-                embed.setDescription(`${local.start_role_mafia} ${mafias}`);
-                embed.setThumbnail("https://media.discordapp.net/attachments/1015944207220879370/1015961438021488781/unknown.png?width=469&height=469");
-                return embed;
-            }
-            case IRolesProps.INNOCENT: {
-                embed.setDescription(local.start_role_innocent);
-                embed.setThumbnail("https://cdn.discordapp.com/attachments/1015944207220879370/1015962010728538272/unknown.png");
-                return embed;
-            }
-            case IRolesProps.KILLER: {
-                embed.setDescription(local.start_role_killer);
-                embed.setThumbnail("https://media.discordapp.net/attachments/1015944207220879370/1016410832793522297/Boy_From_God_Shrek_peaky_blinders_b11654fb-93f3-4b4a-8389-fbf016d7cc2e.png?width=566&height=566");
-                return embed;
-            }
-        }
+        //embed.setDescription(ScriptEngine.DescriptionEngine(role.Description));
+        embed.setDescription("nothing here yet");
+        embed.setThumbnail(role.ImageLink);
+        return embed;
     }
 }

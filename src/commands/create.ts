@@ -10,6 +10,7 @@ import {curHandlingGames, curHostGames, ILocalProps} from "../index";
 import cancelGame from "../Functions/cancelGame";
 import User from "../Entities/User";
 import {ILangProps} from "../types/interfaces/ILang";
+import MafiaGame from "../Classes/MafiaGame";
 
 module.exports.execute = function (interaction: ChatInputCommandInteraction, user: User, locale: ILangProps) {
     for(let v of curHostGames.values()){
@@ -17,13 +18,11 @@ module.exports.execute = function (interaction: ChatInputCommandInteraction, use
             return interaction.reply({content: locale.create_error, ephemeral: true}).catch(()=>{});
     }
     for(let v of curHandlingGames.values()){
-        v.users.map((item)=>{
-            if(item.userid === interaction.user.id){
-                return interaction.reply({content: locale.create_error, ephemeral: true}).catch(()=>{});
-            }
-        })
+        if(v.HasPlayer(interaction.user.id)){
+            return interaction.reply({content: locale.create_error, ephemeral: true}).catch(()=>{});
+        }
     }
-    const id = Math.round(Math.random() * 10000);
+    const id = MafiaGame.GenerateId();
     curHostGames.set(id, {
         author: interaction.user.id,
         users: [interaction.user.id],
