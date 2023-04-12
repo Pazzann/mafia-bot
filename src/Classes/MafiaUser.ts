@@ -26,5 +26,35 @@ export default class MafiaUser{
         this.hasAlibi = false;
         this.dsUser = dsUser;
         this.dbUser = dbUser;
+        if(this.role.ActionOnSelect == "no_activity"){
+            this.actionsOnUser.hasDoneAction = true;
+        }
     }
+    public actionsOnUser: {
+        kill: boolean,
+        heal: boolean,
+        alibi: boolean,
+
+        voted: number,
+        hasVoted: boolean,
+        hasDoneAction: boolean,
+    } = {
+        kill: false,
+        heal: false,
+        alibi: false,
+        voted: 0,
+        hasVoted: false,
+        hasDoneAction: false
+    }
+
+
+    public clearActions(){
+        if (this.role.ActionOnSelect == "no_activity"){
+            this.actionsOnUser = { kill: false, heal: false, alibi: false, voted: 0, hasVoted: false, hasDoneAction: true };
+        }else{
+            this.actionsOnUser = { kill: false, heal: false, alibi: false, voted: 0, hasVoted: false, hasDoneAction: false };
+        }
+
+    }
+
 }

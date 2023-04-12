@@ -9,6 +9,7 @@ export default abstract class BaseCondition{
     public WinEmbedTitle: {EN: string, UA: string, RU: string} | string;
     public WinEmbedDescription: {EN: string, UA: string, RU: string} | string
     public WinEmbedThumbnail: string | null;
+    public WinRole: "innocent" | string;
     public GetEmbed(lang: Langs): EmbedBuilder{
         const embed = new EmbedBuilder();
         if(typeof this.WinEmbedTitle !== "string"){

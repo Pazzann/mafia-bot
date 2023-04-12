@@ -12,8 +12,8 @@ export default class ScriptEngine {
         return true;
 
     }
-    //pCount - total count of players
-    //oRolesPCount - other roles that had been generated
+    //{pCount} - total count of players
+    //{oRolesPCount} - other roles that had been generated
     public static RoleCountCalc(eqv: string, pCount: number, oRolesPCount: number) {
         eqv = eqv.replace("{pCount}", String(pCount));
         eqv = eqv.replace("{oRolesPCount}", String(oRolesPCount));
@@ -29,6 +29,7 @@ export default class ScriptEngine {
         }
     }
 
+    // not finished
     //{pCount} - total player count
     //{yRoleCount} - total count of your role players
     //{oPlayersTRole} - all people of his role in format {player}, {player}...
@@ -41,27 +42,59 @@ export default class ScriptEngine {
     //{aPlayerCount} - total alive players
     //{pCount} - total players count
     //{r:<rolename>:count} - count of one role people e.g. {r:mafia:count}
-    //{a:<actionname>:count} - count of people with action e.g. {a:kill:count} //not realized
-    //{aa:<actionname>:count} - count of alive people with action e.g. {aa:kill:count} //not realized
-    //{ar:<rolename>:count} - count of one role alive people e.g. {ar:mafia:count} //not realized
+    //{a:<actionname>:count} - count of people with action e.g. {a:kill:count}
+    //{aa:<actionname>:count} - count of alive people with action e.g. {aa:kill:count}
+    //{ar:<rolename>:count} - count of one role alive people e.g. {ar:mafia:count}
     public static WinningEngine(eqv: string, players: MafiaUser[]): boolean | number{
         eqv = eqv.replace("{pCount}", String(players.length));
-        eqv = eqv.replace("{aPlayerCount}", String(players.filter((item)=>item.isKilled===false)));
+        eqv = eqv.replace("{aPlayerCount}", String(players.filter((item)=>item.isKilled===false).length));
         let arr = eqv.split('{r:');
-        arr.forEach((item, index)=>{
-            if(index!==0){
-                const name = item.split(':count}')[0]
-                const count = String(players.filter(item=>item.role.RoleName == name)).length;
-                return count + item.split(':count}')[1]
+        for(let i = 0; i < arr.length; i++){
+            if(i!==0){
+                const name = arr[i].split(':count}')[0].replace("<", "").replace(">", "");
+                const count = players.filter(item=>item.role.RoleName == name).length;
+                arr[i] = count + arr[i].split(':count}')[1];
+
             }
-        });
+        }
+        eqv = arr.join('');
+        arr = eqv.split('{a:');
+        for(let i = 0; i < arr.length; i++){
+            if(i!==0){
+                const name = arr[i].split(':count}')[0].replace("<", "").replace(">", "");
+                const count = players.filter(item=>item.role.ActionOnSelect == name).length;
+                arr[i] = count + arr[i].split(':count}')[1]
+
+            }
+        }
+        eqv = arr.join('');
+        arr = eqv.split('{aa:');
+        for(let i = 0; i < arr.length; i++){
+            if(i!==0){
+                const name = arr[i].split(':count}')[0].replace("<", "").replace(">", "");
+                const count = players.filter(item=>item.role.ActionOnSelect == name && item.isKilled == false).length;
+                arr[i] = count + arr[i].split(':count}')[1];
+
+
+            }
+        }
+        eqv = arr.join('');
+        arr = eqv.split('{ar:');
+        for(let i = 0; i < arr.length; i++){
+            if(i!==0){
+                const name = arr[i].split(':count}')[0].replace("<", "").replace(">", "");
+                const count = players.filter(item=>item.role.RoleName == name && item.isKilled == false).length;
+                arr[i] = count + arr[i].split(':count}')[1];
+
+            }
+        }
         eqv = arr.join('')
         if(!this.Validator(eqv))
             return NaN;
         try{
             let func = new Function("return (()=>" + eqv+")()");
             let res = func();
-            return res();
+            return res;
         }catch (err){
             return NaN;
         }

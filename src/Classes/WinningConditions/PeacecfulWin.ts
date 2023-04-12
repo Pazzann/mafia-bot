@@ -5,6 +5,7 @@ export default class PeacecfulWin extends BaseCondition{
         super();
         this.Name = "Win of the peaceful!";
         this.NameLocals = null;
+        this.WinRole = "innocent";
         this.Description = "Peaceful win when there is no attackers";
         this.Condition = "{aa:kill:count} == 0";
         this.WinEmbedTitle = {
