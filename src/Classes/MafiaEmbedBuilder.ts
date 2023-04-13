@@ -25,7 +25,7 @@ export default class MafiaEmbedBuilder {
         const embed = new EmbedBuilder()
             .setTitle("Город засыпает!")
             .setColor("#8a1616")
-            .setDescription(`Надеемся никто не умрёт!`)
+            .setDescription(`Надеемся, никто не умрёт!`)
             .setThumbnail("https://cdn.discordapp.com/attachments/1008571116241047642/1017720507816226878/Boy_From_God_sunset_mafia_1beea8f2-1460-4e7a-b503-b1745e76ff51.png");
         return embed;
     }
@@ -43,7 +43,7 @@ export default class MafiaEmbedBuilder {
         const embed = new EmbedBuilder()
             .setTitle("Никто не умер!")
             .setColor("#63ff4f")
-            .setDescription(`Никого не убили за минувшую ночь, возможно стоит отблагодарить доктора?😯`)
+            .setDescription(`За минувшую ночь никого не убили! Возможно, стоит отблагодарить доктора?😯`)
             .setThumbnail("https://media.discordapp.net/attachments/1008571116241047642/1017760387191554069/Boy_From_God_killed_person_in_the_room_f2c4bd1a-6d87-4fcd-9fa8-3aec48ed626d.png?width=566&height=566");
         return embed;
     }
