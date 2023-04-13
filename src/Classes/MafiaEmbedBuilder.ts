@@ -1,4 +1,4 @@
-import {EmbedBuilder} from "discord.js";
+import {Base, EmbedBuilder} from "discord.js";
 import {IRolesProps} from "../types/interfaces/IRoles";
 import IMafiaGameProps from "../types/interfaces/IGame";
 import IUserProps from "../types/interfaces/IUser";
@@ -7,6 +7,7 @@ import {Langs} from "../types/Langs";
 import IThemeProps from "../types/interfaces/ITheme";
 import BaseRole from "./Roles/BaseRole";
 import ScriptEngine from "./ScriptEngine";
+import MafiaUser from "./MafiaUser";
 
 export default class MafiaEmbedBuilder {
     public static mafiaWin(mafia: IUserProps[]) {
@@ -74,17 +75,20 @@ export default class MafiaEmbedBuilder {
         return embed;
     }
     //not finished
-    public static roleGiver(role: BaseRole, playerCount: number, theme: IThemeProps, local: ILangProps, lang: Langs) {
+    public static roleGiver(owner: MafiaUser, players: MafiaUser[], theme: IThemeProps, local: ILangProps, lang: Langs, roles: BaseRole[]) {
+        let rolesValue = "";
+        for (let role of roles) {
+            rolesValue += `${role.RoleName}: \`\`${players.filter(item => item.role.RoleName == role.RoleName).length}\`\` \n `
+        }
         const embed = new EmbedBuilder()
-            .setTitle(`${local.start_your_role}: ${role.NameLocals?role.NameLocals[lang.toUpperCase() as keyof {EN: string, UA: string, RU: string}] : role.RoleName}`)
+            .setTitle(`${local.start_your_role}: ${owner.role.NameLocals?owner.role.NameLocals[lang.toUpperCase() as keyof {EN: string, UA: string, RU: string}] : owner.role.RoleName}`)
             .setColor("#c468ff")
             .addFields([{
                 name: local.start_game_info,
-                value: `${local.start_theme}: \`\`${theme[lang.toUpperCase() as keyof IThemeProps]}\`\` \n ${local.start_player_count}: \`\`${playerCount}\`\` \n ${local.start_mafia_count}: \`\`soon\`\` \n ${local.start_doctor_count}: \`\`1\`\` \n ${local.start_police_count}: \`\`1\`\` \n ${local.start_killer_count}: \`\`${playerCount > 7 ? "1" : "0"}\`\``
+                value: `${local.start_theme}: \`\`${theme[lang.toUpperCase() as keyof IThemeProps]}\`\` \n ${local.start_player_count}: \`\`${players.length}\`\` \n  ${rolesValue}`
             }])
-        //embed.setDescription(ScriptEngine.DescriptionEngine(role.Description));
-        embed.setDescription("nothing here yet");
-        embed.setThumbnail(role.ImageLink);
+        embed.setDescription(ScriptEngine.DescriptionEngine(owner.role.Description, players, owner));
+        embed.setThumbnail(owner.role.ImageLink);
         return embed;
     }
 }

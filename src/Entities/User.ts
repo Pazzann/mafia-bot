@@ -13,4 +13,6 @@ export default class User extends BaseEntity{
     totalWins: number;
     @Column({type: "date"})
     since: string;
+    @Column({type: "boolean", default: false})
+    premium: boolean;
 }

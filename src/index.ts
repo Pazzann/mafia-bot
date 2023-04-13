@@ -151,6 +151,10 @@ discordBot.on('interactionCreate', async (interaction: Interaction) => {
                 require('./commands/create').execute(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps])
                 return;
             }
+            if(interaction.customId === "premium"){
+                require('./commands/premium').execute(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps])
+                return;
+            }
             const gameId = Number(interaction.customId.split('').splice(1, 5).join(''))
             switch (interaction.customId[0]){
                 case 'j':{

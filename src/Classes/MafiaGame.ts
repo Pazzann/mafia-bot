@@ -7,7 +7,13 @@ import ScriptEngine from "./ScriptEngine";
 import {Langs} from "../types/Langs";
 import BaseCondition from "./WinningConditions/BaseCondition";
 import MafiaRole from "./Roles/MafiaRole";
-import {EmbedBuilder, SelectMenuInteraction} from "discord.js";
+import {
+    ActionRowBuilder,
+    EmbedBuilder,
+    SelectMenuBuilder,
+    SelectMenuComponent,
+    SelectMenuInteraction
+} from "discord.js";
 import MafiaEmbedBuilder from "./MafiaEmbedBuilder";
 
 
@@ -194,6 +200,8 @@ export default class MafiaGame {
             return interaction.reply("invalid player");
         if (!this._validateSelection(who, whomU))
             return interaction.reply("invalid player");
+        const row = new SelectMenuBuilder((interaction.component as SelectMenuComponent).data).setDisabled(true);
+        interaction.message.edit({components: [ new ActionRowBuilder<SelectMenuBuilder>().addComponents(row)]});
         switch (this._stage) {
             case "choosing": {
                 const role = this.GetRole(who);
@@ -220,6 +228,7 @@ export default class MafiaGame {
                         break;
                     }
                 }
+
                 this.EndChooseMoveHandler();
                 return;
             }

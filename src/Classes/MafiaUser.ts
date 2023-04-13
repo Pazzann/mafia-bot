@@ -8,8 +8,8 @@ import User from "../Entities/User";
 
 export default class MafiaUser{
     public vote: string | null;
-    public dsUser: DiscordUser;
-    public dbUser: User;
+    public dsUser: DiscordUser | null;
+    public dbUser: User | null;
     public id: string;
     public role: BaseRole;
     public local: ILangProps;

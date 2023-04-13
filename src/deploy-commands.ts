@@ -19,11 +19,25 @@ const commands = [
         .setNameLocalization('uk', "мова")
         .setDescription('Change the bot language')
         .setDescriptionLocalization('ru', 'Выберите язык в боте')
-        .setDescriptionLocalization('uk', 'Виберіть мову в боті')
+        .setDescriptionLocalization('uk', 'Виберіть мову в боті'),
+    new SlashCommandBuilder()
+        .setName('profile')
+        .setNameLocalization('ru', 'профиль')
+        .setNameLocalization('uk', "профіль")
+        .setDescription('See your profile')
+        .setDescriptionLocalization('ru', 'Увидеть свой профиль')
+        .setDescriptionLocalization('uk', 'Побачити свій профіль'),
+    new SlashCommandBuilder()
+        .setName('help')
+        .setNameLocalization('ru', 'помощь')
+        .setNameLocalization('uk', "допомога")
+        .setDescription('Get help by topics')
+        .setDescriptionLocalization('ru', 'Помощь по темам')
+        .setDescriptionLocalization('uk', 'Допомога по темам')
 ]
     .map(command => command.toJSON());
 
-const rest = new REST({ version: '10' }).setToken(TOKEN);
+const rest = new REST().setToken(TOKEN);
 
 
 rest.put(Routes.applicationCommands(CLIENT_ID), { body: commands })

@@ -52,9 +52,9 @@ module.exports.execute = async function (interaction: ButtonInteraction, gameid 
                 const dm = player.dsUser?.dmChannel ?? await player.dsUser.createDM();
                 const row = player.role.GetNightVoteRow(game.GetAliveUsers(), false, player);
                 if(row)
-                    dm.send({content: "test", embeds: [MafiaEmbedBuilder.sleepTime(player.local), MafiaEmbedBuilder.roleGiver(player.role, game.GetAliveUsers().length, theme, player.local, player.lang)], components: [row]}).catch(err=>{console.log(err)});
+                    dm.send({content: "test", embeds: [MafiaEmbedBuilder.sleepTime(player.local), MafiaEmbedBuilder.roleGiver(player, game.GetAliveUsers(), theme, player.local, player.lang, roles)], components: [row]}).catch(err=>{console.log(err)});
                 else
-                    dm.send({content: "test", embeds: [MafiaEmbedBuilder.sleepTime(player.local), MafiaEmbedBuilder.roleGiver(player.role, game.GetAliveUsers().length, theme, player.local, player.lang)]}).catch(err=>{console.log(err)});
+                    dm.send({content: "test", embeds: [MafiaEmbedBuilder.sleepTime(player.local), MafiaEmbedBuilder.roleGiver(player, game.GetAliveUsers(), theme, player.local, player.lang, roles)]}).catch(err=>{console.log(err)});
             }
             await interaction.message.edit({components: getDisabledButtons(gameid, locale)})
             const buttonRow = new ActionRowBuilder<ButtonBuilder>()
