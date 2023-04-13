@@ -1,5 +1,5 @@
 import {ActionRowBuilder, ButtonBuilder, ButtonStyle, ChatInputCommandInteraction, EmbedBuilder} from "discord.js";
-import User from "../Entities/User";
+import User from "../Entities/User.entity";
 import {ILangProps} from "../types/interfaces/ILang";
 
 module.exports.execute = async function (interaction: ChatInputCommandInteraction, user: User, locale: ILangProps) {

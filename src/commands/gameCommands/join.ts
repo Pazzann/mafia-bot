@@ -1,8 +1,8 @@
 import {BaseInteraction, ButtonInteraction, ChatInputCommandInteraction, EmbedBuilder} from "discord.js";
-import {curHandlingGames, curHostGames} from "../index";
-import usersRedraw from "../Functions/usersRedraw";
-import User from "../Entities/User";
-import {ILangProps} from "../types/interfaces/ILang";
+import {curHandlingGames, curHostGames} from "../../index";
+import usersRedraw from "../../Functions/usersRedraw";
+import User from "../../Entities/User.entity";
+import {ILangProps} from "../../types/interfaces/ILang";
 
 module.exports.execute = async function (interaction: ButtonInteraction, gameid = 0, user: User, locale: ILangProps) {
     if(curHostGames.has(gameid))

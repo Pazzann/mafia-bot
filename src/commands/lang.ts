@@ -1,5 +1,5 @@
 import {ButtonInteraction, ChatInputCommandInteraction} from "discord.js";
-import User from "../Entities/User";
+import User from "../Entities/User.entity";
 import {ILangProps} from "../types/interfaces/ILang";
 import getLangButtons from "../Functions/getLangButtons";
 

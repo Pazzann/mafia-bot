@@ -1,7 +1,7 @@
 import {ButtonInteraction, ChatInputCommandInteraction} from "discord.js";
-import {curHandlingGames, curHostGames, discordBot} from "../index";
-import User from "../Entities/User";
-import {ILangProps} from "../types/interfaces/ILang";
+import {curHandlingGames, curHostGames, discordBot} from "../../index";
+import User from "../../Entities/User.entity";
+import {ILangProps} from "../../types/interfaces/ILang";
 
 module.exports.execute = function (interaction: ButtonInteraction, gameid = 0, user: User, locale: ILangProps) {
     if (curHandlingGames.has(gameid)) {

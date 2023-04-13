@@ -1,0 +1,1 @@
+export type Action = "kill" | "heal" | "alibi" | "check" | "full_check" | "no_activity";

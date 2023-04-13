@@ -1,11 +1,12 @@
 import {ActionRowBuilder, RestOrArray, SelectMenuBuilder, SelectMenuOptionBuilder} from "discord.js";
 import MafiaUser from "../MafiaUser";
 import IUserProps from "../../types/interfaces/IUser";
+import {Action} from "../../types/Action";
 
 export default abstract class BaseRole {
     public RoleName: string;
     public NameLocals: { EN: string, UA: string, RU: string } | null;
-    public ActionOnSelect: "kill" | "heal" | "alibi" | "check" | "full_check" | "no_activity";
+    public ActionOnSelect: Action;
     public DelayForActivity: number | "never";
     public GroupDecision: boolean;
     public Count: number | string;

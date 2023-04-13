@@ -8,36 +8,9 @@ import IThemeProps from "../types/interfaces/ITheme";
 import BaseRole from "./Roles/BaseRole";
 import ScriptEngine from "./ScriptEngine";
 import MafiaUser from "./MafiaUser";
+import Role from "../Entities/Role.entity";
 
 export default class MafiaEmbedBuilder {
-    public static mafiaWin(mafia: IUserProps[]) {
-        const mafiaNames: string[] = [];
-        mafia.map(item=>mafiaNames.push(item.userTag))
-        const embed = new EmbedBuilder()
-            .setTitle("Мафия победила!")
-            .setColor("#ff8484")
-            .setDescription(`Игра закончилась победой мафии, то есть ${mafiaNames.join(", ")} победил!`)
-            .setThumbnail("https://media.discordapp.net/attachments/1008571069797507102/1015711526553911456/Mafia_don_vs_Shrek_b61ff9c7-9ffc-4001-a4ab-8f7f49b3d98c.png?width=566&height=566")
-        return embed;
-    }
-
-    public static killerWin(killer: string) {
-        const embed = new EmbedBuilder()
-            .setTitle("Маньяк победил!")
-            .setColor("#ff8484")
-            .setDescription(`Игра закончилась победой маньяка, то есть ${killer.split('#')[0]} победил!`)
-            .setThumbnail("https://media.discordapp.net/attachments/1015944207220879370/1017716202400911410/Boy_From_God_Killer_win_390235dc-e631-4da2-8eb5-d3d29d4b8147.png?width=566&height=566")
-        return embed;
-    }
-
-    public static peacefulWin() {
-        const embed = new EmbedBuilder()
-            .setTitle("Мирные победили!")
-            .setColor("#88ff84")
-            .setDescription(`Игра закончилась победой мирных, все убийцы были выброщены голосованием или застрелились!`)
-            .setThumbnail("https://media.discordapp.net/attachments/1015944207220879370/1016412374049243276/Boy_From_God_happy_shreks_team_mafia_4K_cinematic_f5a1d0da-49ed-4158-94b0-510ebcc89d1e.png?width=566&height=566");
-        return embed;
-    }
 
     public static wakeUp() {
         const embed = new EmbedBuilder()
@@ -74,7 +47,7 @@ export default class MafiaEmbedBuilder {
             .setThumbnail("https://media.discordapp.net/attachments/1008571116241047642/1017760387191554069/Boy_From_God_killed_person_in_the_room_f2c4bd1a-6d87-4fcd-9fa8-3aec48ed626d.png?width=566&height=566");
         return embed;
     }
-    //not finished
+
     public static roleGiver(owner: MafiaUser, players: MafiaUser[], theme: IThemeProps, local: ILangProps, lang: Langs, roles: BaseRole[]) {
         let rolesValue = "";
         for (let role of roles) {
@@ -89,6 +62,43 @@ export default class MafiaEmbedBuilder {
             }])
         embed.setDescription(ScriptEngine.DescriptionEngine(owner.role.Description, players, owner));
         embed.setThumbnail(owner.role.ImageLink);
+        return embed;
+    }
+    public static roleEmbed(role: Role, land: ILangProps){
+        const embed = new EmbedBuilder()
+            .setTitle(role.name)
+            .setDescription(role.description)
+            .addFields(
+                {
+                    name: "Action",
+                    value: role.action,
+                },
+                {
+                    name: "Group Decision",
+                    value: role.groupDec.toString(),
+                },
+                {
+                    name: "Spawn From",
+                    value: role.spawnFrom.toString(),
+                },
+                {
+                    name: "Self Selectable",
+                    value: role.selfSelectable.toString(),
+                },
+                {
+                    name: "Count",
+                    value: role.count,
+                },
+                {
+                    name: "PlaceHolder",
+                    value: role.placeHolder,
+                },
+                {
+                    name: "Delay",
+                    value: role.delay.toString(),
+                },)
+            .setColor("#ffb0b0")
+            .setThumbnail(role.imageLink);
         return embed;
     }
 }

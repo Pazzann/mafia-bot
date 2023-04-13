@@ -4,7 +4,7 @@ import {Langs} from "../types/Langs";
 import BaseRole from "./Roles/BaseRole";
 import {ILocalProps, localisations} from "../index";
 import {User as DiscordUser} from "discord.js";
-import User from "../Entities/User";
+import User from "../Entities/User.entity";
 
 export default class MafiaUser{
     public vote: string | null;

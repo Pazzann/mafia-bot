@@ -1,5 +1,5 @@
 import {ActionRowBuilder, ButtonBuilder, ButtonStyle, ChatInputCommandInteraction, EmbedBuilder} from "discord.js";
-import User from "../Entities/User";
+import User from "../Entities/User.entity";
 import {ILangProps} from "../types/interfaces/ILang";
 
 
@@ -20,6 +20,12 @@ module.exports.execute = async function (interaction: ChatInputCommandInteractio
                     .setLabel("Premium")
                     .setStyle(ButtonStyle.Primary)
                     .setCustomId("premium")
+                    .setDisabled(false),
+                new ButtonBuilder()
+                    .setEmoji("🧐")
+                    .setLabel("Custom")
+                    .setStyle(ButtonStyle.Primary)
+                    .setCustomId("custom")
                     .setDisabled(false),
 
             );

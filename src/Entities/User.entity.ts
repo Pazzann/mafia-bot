@@ -1,5 +1,7 @@
-import {BaseEntity, Column, Entity, PrimaryColumn} from "typeorm";
+import {BaseEntity, Column, Entity, OneToMany, PrimaryColumn} from "typeorm";
 import {Langs} from "../types/Langs";
+import WinningCondition from "./WinningCondition.entity";
+import Role from "./Role.entity";
 
 @Entity("users")
 export default class User extends BaseEntity{
@@ -13,6 +15,10 @@ export default class User extends BaseEntity{
     totalWins: number;
     @Column({type: "date"})
     since: string;
+    @OneToMany(()=> WinningCondition, (condition) => condition.user)
+    conditions: WinningCondition[];
+    @OneToMany(()=> Role, (role) => role.user)
+    customRoles: Role[];
     @Column({type: "boolean", default: false})
     premium: boolean;
 }

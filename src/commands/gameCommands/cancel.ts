@@ -1,8 +1,8 @@
 import {ActionRowBuilder, ButtonBuilder, ButtonInteraction, ButtonStyle, ChatInputCommandInteraction} from "discord.js";
-import {curHandlingGames, curHostGames} from "../index";
-import getDisabledButtons from "../Functions/getDisabledButtons";
-import User from "../Entities/User";
-import {ILangProps} from "../types/interfaces/ILang";
+import {curHandlingGames, curHostGames} from "../../index";
+import getDisabledButtons from "../../Functions/getDisabledButtons";
+import User from "../../Entities/User.entity";
+import {ILangProps} from "../../types/interfaces/ILang";
 
 module.exports.execute = function (interaction: ButtonInteraction, gameid = 0, user: User, locale: ILangProps) {
     if(curHostGames.has(gameid))

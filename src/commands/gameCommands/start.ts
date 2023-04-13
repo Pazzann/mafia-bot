@@ -5,24 +5,24 @@ import {
     ButtonStyle,
     EmbedBuilder
 } from "discord.js";
-import {curHandlingGames, curHostGames} from "../index";
-import MafiaEmbedBuilder from "../Classes/MafiaEmbedBuilder";
-import GetRandomTheme from "../Functions/themes";
-import getDisabledButtons from "../Functions/getDisabledButtons";
-import User from "../Entities/User";
-import {ILangProps} from "../types/interfaces/ILang";
-import MafiaGame from "../Classes/MafiaGame";
-import BaseRole from "../Classes/Roles/BaseRole";
-import MafiaRole from "../Classes/Roles/MafiaRole";
-import PoliceRole from "../Classes/Roles/PoliceRole";
-import DoctorRole from "../Classes/Roles/DoctorRole";
-import KillerRole from "../Classes/Roles/KillerRole";
-import MistressRole from "../Classes/Roles/MisstressRole";
-import PeacefulRole from "../Classes/Roles/PeacefulRole";
-import BaseCondition from "../Classes/WinningConditions/BaseCondition";
-import MafiaWin from "../Classes/WinningConditions/MafiaWin";
-import KillerWIn from "../Classes/WinningConditions/KillerWIn";
-import PeacecfulWin from "../Classes/WinningConditions/PeacecfulWin";
+import {curHandlingGames, curHostGames} from "../../index";
+import MafiaEmbedBuilder from "../../Classes/MafiaEmbedBuilder";
+import GetRandomTheme from "../../Functions/themes";
+import getDisabledButtons from "../../Functions/getDisabledButtons";
+import User from "../../Entities/User.entity";
+import {ILangProps} from "../../types/interfaces/ILang";
+import MafiaGame from "../../Classes/MafiaGame";
+import BaseRole from "../../Classes/Roles/BaseRole";
+import MafiaRole from "../../Classes/Roles/MafiaRole";
+import PoliceRole from "../../Classes/Roles/PoliceRole";
+import DoctorRole from "../../Classes/Roles/DoctorRole";
+import KillerRole from "../../Classes/Roles/KillerRole";
+import MistressRole from "../../Classes/Roles/MisstressRole";
+import PeacefulRole from "../../Classes/Roles/PeacefulRole";
+import BaseCondition from "../../Classes/WinningConditions/BaseCondition";
+import MafiaWin from "../../Classes/WinningConditions/MafiaWin";
+import KillerWIn from "../../Classes/WinningConditions/KillerWIn";
+import PeacecfulWin from "../../Classes/WinningConditions/PeacecfulWin";
 
 
 module.exports.execute = async function (interaction: ButtonInteraction, gameid = 0, user: User, locale: ILangProps) {

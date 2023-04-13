@@ -2,12 +2,14 @@ import {Client, EmbedBuilder, GatewayIntentBits, Interaction, Partials} from "di
 import IHostGameProps from "./types/interfaces/IHost";
 import * as dotenv from 'dotenv'
 import {DataSource} from "typeorm";
-import User from "./Entities/User";
+import User from "./Entities/User.entity";
 import getLangButtons from "./Functions/getLangButtons";
 import {Langs} from "./types/Langs";
 import {ILangProps} from "./types/interfaces/ILang";
 import dateParser from "./Functions/dateParser";
 import MafiaGame from "./Classes/MafiaGame";
+import WinningCondition from "./Entities/WinningCondition.entity";
+import Role from "./Entities/Role.entity";
 
 dotenv.config();
 
@@ -45,7 +47,7 @@ export const AppDataSource = new DataSource({
     database: process.env.SQLDATABASE,
     synchronize: true,
     logging: false,
-    entities: [User],
+    entities: [User, Role, WinningCondition],
     subscribers: [],
     migrations: [],
 });
@@ -61,7 +63,7 @@ export const curHostGames: Map<number, IHostGameProps> = new Map();
 export const curHandlingGames: Map<number, MafiaGame> = new Map();
 
 discordBot.on('interactionCreate', async (interaction: Interaction) => {
-    const dataUser = await User.findOneBy({userid: interaction.user.id})
+    const dataUser = await User.findOne({where: {userid: interaction.user.id }, relations: ["customRoles", "conditions"]})
     if (interaction.isChatInputCommand()) {
         if(!dataUser){
             interaction.reply({content: "To use the bot, select the language, first", ephemeral: true, components: getLangButtons()}).catch(()=>{});
@@ -75,6 +77,16 @@ discordBot.on('interactionCreate', async (interaction: Interaction) => {
         const commandObj = require(`./commands/${commandName}`);
         commandObj.execute(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps]);
     } else if (interaction.isSelectMenu()) {
+        if(interaction.customId == "editrole"){
+            let roleId = interaction.values[0].split("editrole").join("");
+            require('./commands/profileCommands/editroleselectmenu').execute(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps], roleId)
+            return;
+        }
+        if(interaction.customId == "editroleselection"){
+            require('./commands/profileCommands/editrolecomplete').execute(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps])
+            return;
+        }
+
         let mafGame: MafiaGame = null;
         for (let game of curHandlingGames.values()){
             if (game.HasPlayer(interaction.user.id)){
@@ -148,39 +160,58 @@ discordBot.on('interactionCreate', async (interaction: Interaction) => {
                 return;
             }
             if(interaction.customId === "createnew"){
-                require('./commands/create').execute(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps])
+                require('./commands/gameCommands/create').execute(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps])
                 return;
             }
-            if(interaction.customId === "premium"){
-                require('./commands/premium').execute(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps])
+            if(["premium", "editrole", "editcondition", "custom", "createrole", "deleterole", "createcondition", "deletecondition"].includes(interaction.customId)){
+                require(`./commands/profileCommands/${interaction.customId}`).execute(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps]);
                 return;
             }
+            if(interaction.customId.includes("newrolehalfbut")){
+                let id = Number(interaction.customId.split("newrolehalfbut").join(''));
+                require(`./commands/profileCommands/newrolehalfbut`).execute(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps], id);
+                return;
+            }
+
             const gameId = Number(interaction.customId.split('').splice(1, 5).join(''))
             switch (interaction.customId[0]){
                 case 'j':{
-                    require('./commands/join').execute(interaction, gameId, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps]);
+                    require('./commands/gameCommands/join').execute(interaction, gameId, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps]);
                     break;
                 }
                 case 'c':{
-                    require('./commands/cancel').execute(interaction, gameId, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps]);
+                    require('./commands/gameCommands/cancel').execute(interaction, gameId, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps]);
                     break;
                 }
                 case 's':{
-                    require('./commands/start').execute(interaction, gameId, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps]);
+                    require('./commands/gameCommands/start').execute(interaction, gameId, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps]);
                     break;
                 }
                 case 'l':{
-                    require('./commands/leave').execute(interaction, gameId, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps]);
+                    require('./commands/gameCommands/leave').execute(interaction, gameId, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps]);
                     break;
                 }
                 case 'e':{
-                    require('./commands/end').execute(interaction, gameId, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps]);
+                    require('./commands/gameCommands/end').execute(interaction, gameId, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps]);
                     break;
                 }
             }
         }catch (err){
 
         }
+    }else if(interaction.isModalSubmit()){
+        try {
+            if(interaction.customId.includes("newRolePartTwo")){
+                let id = Number(interaction.customId.split("newRolePartTwo").join(''));
+                require(`./commands/modals/newRolePartTwo`).execute(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps], id);
+                return;
+            }
+            if(["newRolePartOne"].includes(interaction.customId)){
+                require(`./commands/modals/${interaction.customId}`).execute(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps]);
+                return;
+            }
+        }catch (err){}
+
     }
 });
 
