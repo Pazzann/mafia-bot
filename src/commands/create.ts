@@ -6,20 +6,20 @@ import {
     EmbedBuilder,
     UserMention
 } from "discord.js";
-import {curHandlingGames, curHostGames, ILocalProps} from "../../index";
-import cancelGame from "../../Functions/cancelGame";
-import User from "../../Entities/User.entity";
-import {ILangProps} from "../../types/interfaces/ILang";
-import MafiaGame from "../../Classes/MafiaGame";
-import MafiaRole from "../../Classes/Roles/MafiaRole";
-import PoliceRole from "../../Classes/Roles/PoliceRole";
-import DoctorRole from "../../Classes/Roles/DoctorRole";
-import KillerRole from "../../Classes/Roles/KillerRole";
-import MistressRole from "../../Classes/Roles/MisstressRole";
-import PeacefulRole from "../../Classes/Roles/PeacefulRole";
-import MafiaWin from "../../Classes/WinningConditions/MafiaWin";
-import PeacecfulWin from "../../Classes/WinningConditions/PeacecfulWin";
-import KillerWIn from "../../Classes/WinningConditions/KillerWIn";
+import {curHandlingGames, curHostGames, ILocalProps} from "../index";
+import cancelGame from "../Functions/cancelGame";
+import User from "../Entities/User.entity";
+import {ILangProps} from "../types/interfaces/ILang";
+import MafiaGame from "../Classes/MafiaGame";
+import MafiaRole from "../Classes/Roles/MafiaRole";
+import PoliceRole from "../Classes/Roles/PoliceRole";
+import DoctorRole from "../Classes/Roles/DoctorRole";
+import KillerRole from "../Classes/Roles/KillerRole";
+import MistressRole from "../Classes/Roles/MisstressRole";
+import PeacefulRole from "../Classes/Roles/PeacefulRole";
+import MafiaWin from "../Classes/WinningConditions/MafiaWin";
+import PeacecfulWin from "../Classes/WinningConditions/PeacecfulWin";
+import KillerWIn from "../Classes/WinningConditions/KillerWIn";
 
 module.exports.execute = function (interaction: ChatInputCommandInteraction, user: User, locale: ILangProps) {
     for(let v of curHostGames.values()){

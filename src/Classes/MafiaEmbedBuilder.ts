@@ -64,37 +64,37 @@ export default class MafiaEmbedBuilder {
         embed.setThumbnail(owner.role.ImageLink);
         return embed;
     }
-    public static roleEmbed(role: Role, lang: ILangProps){
+    public static roleEmbed(role: Role, local: ILangProps){
         const embed = new EmbedBuilder()
             .setTitle(role.name)
             .setDescription(role.description)
             .addFields(
                 {
-                    name: "Action",
+                    name: local.role_embed_action_name,
                     value: role.action,
                 },
                 {
-                    name: "Group Decision",
+                    name: local.role_embed_groupDec_name,
                     value: role.groupDec.toString(),
                 },
                 {
-                    name: "Spawn From",
+                    name: local.role_embed_spawnFrom_name,
                     value: role.spawnFrom.toString(),
                 },
                 {
-                    name: "Self Selectable",
+                    name: local.role_embed_selfSelectable_name,
                     value: role.selfSelectable.toString(),
                 },
                 {
-                    name: "Count",
+                    name: local.role_embed_count_name,
                     value: role.count,
                 },
                 {
-                    name: "PlaceHolder",
+                    name: local.role_embed_placeHolder_name,
                     value: role.placeHolder,
                 },
                 {
-                    name: "Delay",
+                    name: local.role_embed_delay_name,
                     value: role.delay.toString(),
                 },)
             .setColor("#ffb0b0")

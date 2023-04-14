@@ -100,7 +100,7 @@ module.exports.execute = async function (interaction: SelectMenuInteraction, use
                     }]);
                 curHostGames.set(gameid, host);
                 await host.interaction.editReply({embeds: [host.embed]});
-                await interaction.reply(JSON.stringify("ok"));
+                await interaction.reply({content: "done", ephemeral: true});
             } else {
                 interaction.reply({content: locale.error_you_are_not_the_owner, ephemeral: true}).catch(() => {
                 });

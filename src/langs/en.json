@@ -43,12 +43,19 @@
   "start_role_mistress": "string",
 
   "wake_up_title": "The city wakes up!",
-  "wake_up_description": "Good morning! But is the morning actually good?.. It's time to обирати підозрюваного ⚖",
+  "wake_up_description": "Good morning! But is the morning actually good?.. It's time to share your suspicions ⚖",
   "sleep_time_title": "The city falls asleep...",
-  "sleep_time_description": "Сподіваємося, усі доживуть до ранку!",
-  "kills_title": "Вранішнє сонце висвітлило сліди жахливих злодіянь.",
-  "kills_description_one": "став жертвою беззаконня.",
-  "kills_description_many": "стали жертвами беззаконня.",
-  "no_kills_title": "Ніхто не загинув!",
-  "no_kills_description": "Минулої ночі нікого не вбили! Може, варто подякувати лікарю?\uD83D\uDE2F"
+  "sleep_time_description": "Hope everyone makes it to the morning!",
+  "kills_title": "The rising sun illuminated the traces of horrible atrocities",
+  "kills_description_one": "fell victim to iniquity.",
+  "kills_description_many": "fell victim to iniquity.",
+  "no_kills_title": "Nobody died!",
+  "no_kills_description": "Nobody was killed last night! Perhaps you should thank the doctor?\uD83D\uDE2F",
+  "role_embed_action_name": "Action",
+  "role_embed_groupDec_name": "Does play in a group?",
+  "role_embed_spawnFrom_name": "Minimal number of players to spawn",
+  "role_embed_selfSelectable_name": "Is self selectable?",
+  "role_embed_count_name": "Count",
+  "role_embed_placeHolder_name": "Call to action",
+  "role_embed_delay_name": "Delay between actions"
 }

@@ -74,7 +74,7 @@ module.exports.execute = async function (interaction: ModalSubmitInteraction, us
 
         }
         role.save();
-        interaction.reply({ephemeral: true, content: "succesfully", embeds:[MafiaEmbedBuilder.roleEmbed(role, locale)]})
+        interaction.reply({ephemeral: false, content: "succesfully", embeds:[MafiaEmbedBuilder.roleEmbed(role, locale)]})
 
 
     }catch (err) {

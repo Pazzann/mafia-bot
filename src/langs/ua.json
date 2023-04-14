@@ -48,9 +48,16 @@
   "wake_up_description": "Доброго ранку! А ранок точно добрий?.. Час обирати підозрюваного ⚖",
   "sleep_time_title": "Місто засинає...",
   "sleep_time_description": "Сподіваємося, усі доживуть до ранку!",
-  "kills_title": "Вранішнє сонце висвітлило сліди жахливих злодіянь.",
+  "kills_title": "Вранішнє сонце висвітлило сліди жахливих злодіянь",
   "kills_description_one": "став жертвою беззаконня.",
   "kills_description_many": "стали жертвами беззаконня.",
   "no_kills_title": "Ніхто не загинув!",
-  "no_kills_description": "Минулої ночі нікого не вбили! Може, варто подякувати лікарю?\uD83D\uDE2F"
+  "no_kills_description": "Минулої ночі нікого не вбили! Може, варто подякувати лікарю?\uD83D\uDE2F",
+  "role_embed_action_name": "Дія",
+  "role_embed_groupDec_name": "Чи грає в групі?",
+  "role_embed_spawnFrom_name": "Мінімальна кількість гравців для появи",
+  "role_embed_selfSelectable_name": "Чи може обирати себе?",
+  "role_embed_count_name": "Кількість",
+  "role_embed_placeHolder_name": "Заклик до дії",
+  "role_embed_delay_name": "Затримка між діями"
 }

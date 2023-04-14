@@ -60,22 +60,31 @@ module.exports.execute = async function (interaction: ButtonInteraction, user: U
                 .setDisabled(false),
 
         );
-    const chooseArr: RestOrArray<SelectMenuOptionBuilder> = [];
 
-    for (let role of user.customRoles){
-        const roleOption = new SelectMenuOptionBuilder()
-            .setLabel(role.name)
-            .setValue("viewrole"  + String(role.id));
-        chooseArr.push(roleOption)
+
+    if(user.customRoles.length > 0){
+        const chooseArr: RestOrArray<SelectMenuOptionBuilder> = [];
+        for (let role of user.customRoles){
+            const roleOption = new SelectMenuOptionBuilder()
+                .setLabel(role.name)
+                .setValue("viewrole"  + String(role.id));
+            chooseArr.push(roleOption)
+        }
+        const row = new ActionRowBuilder<SelectMenuBuilder>()
+            .addComponents(
+                new SelectMenuBuilder()
+                    .setCustomId("viewrole")
+                    .setPlaceholder('choose role to view')
+                    .setMinValues(1)
+                    .setMaxValues(1)
+                    .addOptions(chooseArr)
+            );
+        interaction.reply({content: "Choose action", components: [buttons, buttons2, row], ephemeral: true});
+    }else{
+        interaction.reply({content: "Choose action", components: [buttons, buttons2], ephemeral: true});
     }
-    const row = new ActionRowBuilder<SelectMenuBuilder>()
-        .addComponents(
-            new SelectMenuBuilder()
-                .setCustomId("viewrole")
-                .setPlaceholder('choose role to view')
-                .setMinValues(1)
-                .setMaxValues(1)
-                .addOptions(chooseArr)
-        );
-    interaction.reply({content: "Choose action", components: [buttons, buttons2, row], ephemeral: true});
+
+
+
+
 }

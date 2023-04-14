@@ -43,13 +43,27 @@ export interface ILangProps {
     start_role_police: string;
     start_role_killer: string;
     start_role_mistress: string;
+
+    /*L10N comment (EN):
+    Phrases like "The city wakes up / falls asleep" seem to be not very common among English speakers.
+    However, it was decided to use them to popularize and convey the game's atmosphere.*/
     wake_up_title: string;
     wake_up_description: string;
     sleep_time_title: string;
     sleep_time_description: string;
     kills_title: string;
+    /*L10N comment (EN):
+    ills_description_one & kills_description_many are the same*/
     kills_description_one: string;  //usage: "${kills.join(", ")} kills_description_one"
     kills_description_many: string;  //usage: "${kills.join(", ")} kills_description_many"
     no_kills_title: string;
     no_kills_description: string;
+    role_embed_action_name: string;
+    role_embed_groupDec_name: string;
+    role_embed_spawnFrom_name: string;
+    role_embed_selfSelectable_name: string;
+    role_embed_count_name: string;
+    role_embed_placeHolder_name: string;
+    role_embed_delay_name: string;
+
 }

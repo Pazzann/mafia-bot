@@ -49,7 +49,7 @@ export default class MafiaGame {
                         item.dbUser.save();
                     });
                 }else {
-                    this.Players.filter(item =>{item.role.RoleName == condition.WinRole}).map(item=>{
+                    this.Players.filter(item =>item.role.RoleName == condition.WinRole).map(item=>{
                         item.dbUser.totalWins++;
                         item.dbUser.save();
                     });
@@ -85,7 +85,11 @@ export default class MafiaGame {
                         });
                     }
                 });
-                let SelectedUser: MafiaUser = arrChoose.sort((a, b) => b.times - a.times)[0].user;
+                if(arrChoose.length===0){
+                    item.clearSelection();
+                    return;
+                }
+                let SelectedUser: MafiaUser = arrChoose.sort((a, b) => b.times - a.times)[0]?.user;
                 switch (item.ActionOnSelect) {
                     case "kill": {
                         SelectedUser.actionsOnUser.kill = true;

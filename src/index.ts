@@ -64,7 +64,9 @@ export const curHandlingGames: Map<number, MafiaGame> = new Map();
 
 discordBot.on('interactionCreate', async (interaction: Interaction) => {
     const dataUser = await User.findOne({where: {userid: interaction.user.id }, relations: ["customRoles", "conditions"]})
+
     if (interaction.isChatInputCommand()) {
+        //interaction.deferReply();
         if(!dataUser){
             interaction.reply({content: "To use the bot, select the language, first", ephemeral: true, components: getLangButtons()}).catch(()=>{});
             return;
@@ -74,14 +76,15 @@ discordBot.on('interactionCreate', async (interaction: Interaction) => {
             interaction.reply({content:'Создать игру в мафию вы можете только на сервере!', ephemeral: true}).catch(()=>{});
             return;
         }
-        if(commandName === "create"){
-            let commandObj = require(`./commands/gameCommands/create`);
-             commandObj.execute(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps]);
-        }
+        // if(commandName === "create"){
+        //     let commandObj = require(`./commands/gameCommands/create`);
+        //      commandObj.execute(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps]);
+        // }
 
         let commandObj = require(`./commands/${commandName}`);
         commandObj.execute(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps]);
     } else if (interaction.isSelectMenu()) {
+        //interaction.deferReply();
         if(interaction.customId == "editrole"){
             let roleId = interaction.values[0].split("editrole").join("");
             require('./commands/profileCommands/editroleselectmenu').execute(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps], roleId)
@@ -117,6 +120,7 @@ discordBot.on('interactionCreate', async (interaction: Interaction) => {
 
     }else if (interaction.isButton()){
         try {
+            //interaction.deferReply();
             switch (interaction.customId){
                 case "en":{
                     if(!dataUser){
@@ -173,7 +177,7 @@ discordBot.on('interactionCreate', async (interaction: Interaction) => {
                 return;
             }
             if(interaction.customId === "createnew"){
-                require('./commands/gameCommands/create').execute(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps])
+                require('./commands/create').execute(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps])
                 return;
             }
             if(["premium", "editrole", "editcondition", "custom", "createrole", "deleterole", "createcondition", "deletecondition"].includes(interaction.customId)){
@@ -218,6 +222,7 @@ discordBot.on('interactionCreate', async (interaction: Interaction) => {
         }
     }else if(interaction.isModalSubmit()){
         try {
+            //interaction.deferReply();
             if(interaction.customId.includes("newRolePartTwo")){
                 let id = Number(interaction.customId.split("newRolePartTwo").join(''));
                 require(`./commands/modals/newRolePartTwo`).execute(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps], id);

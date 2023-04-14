@@ -52,5 +52,12 @@
   "kills_description_one": "пал жертвой беззакония.",
   "kills_description_many": "пали жертвами беззакония.",
   "no_kills_title": "Никто не погиб!",
-  "no_kills_description": "За минувшую ночь никого не убили! Возможно, стоит отблагодарить доктора?\uD83D\uDE2F"
+  "no_kills_description": "За минувшую ночь никого не убили! Возможно, стоит отблагодарить доктора?\uD83D\uDE2F",
+  "role_embed_action_name": "Действие",
+  "role_embed_groupDec_name": "Играет в группе?",
+  "role_embed_spawnFrom_name": "Минимальное количество игроков для появления",
+  "role_embed_selfSelectable_name": "Может выбирать себя?",
+  "role_embed_count_name": "Количество",
+  "role_embed_placeHolder_name": "Призыв к действию",
+  "role_embed_delay_name": "Задержка между действиями"
 }
