@@ -16,8 +16,8 @@ module.exports.execute = async function (interaction: ButtonInteraction, user: U
         interaction.reply({content: "You don't have premium to create custom roles and conditions, sorry!", ephemeral: true})
         return;
     }
-    if(user.customRoles.length>=25){
-        interaction.reply({content: "You can't create more then 25 roles, sorry!", ephemeral: true})
+    if(user.customRoles.length>=19){
+        interaction.reply({content: "You can't create more then 19 roles, sorry!", ephemeral: true})
         return;
     }
 
@@ -39,7 +39,8 @@ module.exports.execute = async function (interaction: ButtonInteraction, user: U
         .setCustomId('roleDescription')
         .setLabel("Description")
         .setPlaceholder("Description. For more information see /help Scripting")
-        .setStyle(TextInputStyle.Paragraph);
+        .setStyle(TextInputStyle.Paragraph)
+        .setRequired(true);
     const imageInput = new TextInputBuilder()
         .setCustomId('roleImage')
         .setLabel("Image link")
@@ -50,7 +51,8 @@ module.exports.execute = async function (interaction: ButtonInteraction, user: U
         .setCustomId('roleCount')
         .setLabel("Count")
         .setPlaceholder("Enter count. For more information see /help Scripting")
-        .setStyle(TextInputStyle.Paragraph);
+        .setStyle(TextInputStyle.Paragraph)
+        .setRequired(true);
     const placeHolderInput = new TextInputBuilder()
         .setCustomId('rolePlaceHolder')
         .setLabel("Place holder")

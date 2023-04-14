@@ -6,7 +6,7 @@
   "create_button_cancel": "Отменить",
   "create_button_leave": "Покинуть",
   "create_button_new": "Создать новую игру",
-  "create_autocancel": "Дата авто отмены",
+  "create_autocancel": "Дата автоотмены",
   "create_game_owner": "Владелец игры",
   "create_player_list": "Список игроков",
   "cancel_content_message": "Игра была отменена организатором!",
@@ -42,5 +42,15 @@
   "start_role_doctor": "Ваша задача попытаться не дать никому умереть!",
   "start_role_police": "Ваша задача вычислить мафию и убедить всех проголосовать за мафию!",
   "start_role_killer": "Ваша задача убить всех и остаться в живих одному!",
-  "start_role_mistress": "string"
+  "start_role_mistress": "string",
+
+  "wake_up_title": "Город просыпается!",
+  "wake_up_description": "С добрым утром! Или не очень добрым... Время выбирать подозреваемого ⚖",
+  "sleep_time_title": "Город засыпает...",
+  "sleep_time_description": "Надеемся, все доживут до утра!",
+  "kills_title": "Утреннее солнце осветило следы ужасных злодеяний",
+  "kills_description_one": "пал жертвой беззакония.",
+  "kills_description_many": "пали жертвами беззакония.",
+  "no_kills_title": "Никто не погиб!",
+  "no_kills_description": "За минувшую ночь никого не убили! Возможно, стоит отблагодарить доктора?\uD83D\uDE2F"
 }

@@ -12,8 +12,9 @@ module.exports.execute = function (interaction: ButtonInteraction, gameid = 0, u
         if (host.users.includes(interaction.user.id)){
             host.timeout.refresh();
             host.users.splice(host.users.indexOf(interaction.user.id), 1);
+            const newEmbed = usersRedraw(host.users, host.embed, locale, host);
+            host.embed = newEmbed;
             curHostGames.set(gameid, host);
-            const newEmbed = usersRedraw(host.users, interaction.message.embeds[0]);
             interaction.message.edit({embeds: [newEmbed]});
             interaction.reply({content: locale.leave_game, ephemeral: true}).catch(()=>{});
         }else{

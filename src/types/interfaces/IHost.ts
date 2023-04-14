@@ -1,4 +1,6 @@
-import {ChatInputCommandInteraction} from "discord.js";
+import {ChatInputCommandInteraction, Embed, EmbedBuilder} from "discord.js";
+import BaseRole from "../../Classes/Roles/BaseRole";
+import BaseCondition from "../../Classes/WinningConditions/BaseCondition";
 
 export default interface IHostGameProps {
     author: string;
@@ -7,4 +9,7 @@ export default interface IHostGameProps {
     channel: string;
     timeout: ReturnType<typeof setTimeout>;
     interaction: ChatInputCommandInteraction;
+    roles: BaseRole[];
+    conditions: BaseCondition[];
+    embed: EmbedBuilder;
 }

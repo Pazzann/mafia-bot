@@ -1,16 +1,14 @@
 import {Embed, EmbedBuilder} from "discord.js";
+import {ILangProps} from "../types/interfaces/ILang";
+import IHostGameProps from "../types/interfaces/IHost";
 
-export default function usersRedraw(users: string[], embed: Embed){
-    let a = embed.description.split('<t:')[0] + `<t:${Math.floor(Date.now()/1000) + 600}:R>` + embed.description.split(':R>')[1];
-    a = a.split('**__')[0] + '**__ \n';
+export default function usersRedraw(users: string[], embed: EmbedBuilder, locale: ILangProps, host: IHostGameProps){
+    let a = "";
+
     users.map(item=>{
         a += `<@${item}> \n`
     })
+    embed.setDescription(`**${locale.create_autocancel}:** <t:${Math.floor(Date.now()/1000) + 600}:R>\n**${locale.create_game_owner}:** <@${host.author}>\n\n__**${locale.create_player_list}:**__ \n ${a}`)
 
-    const newEmbed = new EmbedBuilder()
-        .setTitle(embed.title)
-        .setColor(embed.color)
-        .setDescription(a)
-        .setThumbnail(embed.thumbnail.url);
-    return newEmbed;
+    return embed;
 }

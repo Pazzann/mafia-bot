@@ -57,6 +57,15 @@ const players = [
     @test 'Description 5' () {
         expect(ScriptEngine.DescriptionEngine(players[3].role.Description, players, players[3])).to.be.equal("Your objective is to survive!");
     }
+    @test 'Match Numbers 1' () {
+        expect("sdfsdf213".match(/[0-9]+/)[0]).to.be.equal("213");
+    }
+    @test 'Match Numbers 2' () {
+        expect("sdfsdf21334".match(/[0-9]+/)[0]).to.be.equal("21334");
+    }
+    @test 'Match Numbers 3' () {
+        expect("sdfsdf2".match(/[0-9]+/)[0]).to.be.equal("2");
+    }
 }
 
 

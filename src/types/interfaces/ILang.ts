@@ -43,4 +43,13 @@ export interface ILangProps {
     start_role_police: string;
     start_role_killer: string;
     start_role_mistress: string;
+    wake_up_title: string;
+    wake_up_description: string;
+    sleep_time_title: string;
+    sleep_time_description: string;
+    kills_title: string;
+    kills_description_one: string;  //usage: "${kills.join(", ")} kills_description_one"
+    kills_description_many: string;  //usage: "${kills.join(", ")} kills_description_many"
+    no_kills_title: string;
+    no_kills_description: string;
 }

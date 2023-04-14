@@ -6,7 +6,7 @@ export default class KillerRole extends BaseRole{
         this.NameLocals = {
             EN: "Killer",
             RU: "Маньяк",
-            UA: "Ман'як"
+            UA: "Маніяк"
         }
         this.RoleName = "killer";
         this.DelayForActivity = 2;

@@ -42,5 +42,15 @@
   "start_role_doctor": "Урятуйте населення Січі від смерті!",
   "start_role_police": "Знайдіть бандитів та звинуватьте їх!",
   "start_role_killer": "Ви Олексій Мільчаков, установіть усський мир.",
-  "start_role_mistress": "string"
+  "start_role_mistress": "string",
+
+  "wake_up_title": "Місто прокидається!",
+  "wake_up_description": "Доброго ранку! А ранок точно добрий?.. Час обирати підозрюваного ⚖",
+  "sleep_time_title": "Місто засинає...",
+  "sleep_time_description": "Сподіваємося, усі доживуть до ранку!",
+  "kills_title": "Вранішнє сонце висвітлило сліди жахливих злодіянь.",
+  "kills_description_one": "став жертвою беззаконня.",
+  "kills_description_many": "стали жертвами беззаконня.",
+  "no_kills_title": "Ніхто не загинув!",
+  "no_kills_description": "Минулої ночі нікого не вбили! Може, варто подякувати лікарю?\uD83D\uDE2F"
 }

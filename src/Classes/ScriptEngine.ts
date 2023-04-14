@@ -74,14 +74,10 @@ export default class ScriptEngine {
         if (!this.Validator(eqv))
             return "NaN";
         try {
-            console.log(eqv);
-
             let func = new Function("return (()=>" + eqv + ")()");
             let res = func();
             return res;
-
         } catch (err) {
-            console.log(err);
             return "NaN";
         }
     }

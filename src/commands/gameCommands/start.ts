@@ -13,12 +13,6 @@ import User from "../../Entities/User.entity";
 import {ILangProps} from "../../types/interfaces/ILang";
 import MafiaGame from "../../Classes/MafiaGame";
 import BaseRole from "../../Classes/Roles/BaseRole";
-import MafiaRole from "../../Classes/Roles/MafiaRole";
-import PoliceRole from "../../Classes/Roles/PoliceRole";
-import DoctorRole from "../../Classes/Roles/DoctorRole";
-import KillerRole from "../../Classes/Roles/KillerRole";
-import MistressRole from "../../Classes/Roles/MisstressRole";
-import PeacefulRole from "../../Classes/Roles/PeacefulRole";
 import BaseCondition from "../../Classes/WinningConditions/BaseCondition";
 import MafiaWin from "../../Classes/WinningConditions/MafiaWin";
 import KillerWIn from "../../Classes/WinningConditions/KillerWIn";
@@ -32,12 +26,15 @@ module.exports.execute = async function (interaction: ButtonInteraction, gameid 
             clearTimeout(gameData.timeout);
             if (gameData.users.length < 4)
                 return interaction.reply({content:locale.error_not_enough_players, ephemeral: true}).catch(()=>{});
+            if (gameData.roles.length < 1)
+                return interaction.reply({content:"not enough roles", ephemeral: true}).catch(()=>{});
             curHostGames.delete(gameid);
             const win:BaseCondition[] =  [new MafiaWin(), new KillerWIn(), new PeacecfulWin()];
-            const roles: BaseRole[] = [new MafiaRole(), new PoliceRole(), new DoctorRole(), new KillerRole(), new MistressRole(), new PeacefulRole()];
+            const roles: BaseRole[] = gameData.roles;
             const game = new MafiaGame( gameid, gameData.author);
             const vRoles = await game.GenerateUsers(gameData.users, roles);
             const vWins = game.RegisterWins(win);
+
             let winStr = "";
             let roleStr = "";
             for (let role of vRoles){
@@ -46,15 +43,16 @@ module.exports.execute = async function (interaction: ButtonInteraction, gameid 
             for(let win of vWins){
                 winStr += "\`\`" + win.Name + "\`\`\n";
             }
+
             curHandlingGames.set(gameid, game);
             const theme = GetRandomTheme();
             for(let player of game.Players){
                 const dm = player.dsUser?.dmChannel ?? await player.dsUser.createDM();
                 const row = player.role.GetNightVoteRow(game.GetAliveUsers(), false, player);
                 if(row)
-                    dm.send({content: "test", embeds: [MafiaEmbedBuilder.sleepTime(player.local), MafiaEmbedBuilder.roleGiver(player, game.GetAliveUsers(), theme, player.local, player.lang, roles)], components: [row]}).catch(err=>{console.log(err)});
+                    dm.send({ embeds: [MafiaEmbedBuilder.sleepTime(player.local), MafiaEmbedBuilder.roleGiver(player, game.GetAliveUsers(), theme, player.local, player.lang, roles)], components: [row]}).catch(err=>{console.log(err)});
                 else
-                    dm.send({content: "test", embeds: [MafiaEmbedBuilder.sleepTime(player.local), MafiaEmbedBuilder.roleGiver(player, game.GetAliveUsers(), theme, player.local, player.lang, roles)]}).catch(err=>{console.log(err)});
+                    dm.send({ embeds: [MafiaEmbedBuilder.sleepTime(player.local), MafiaEmbedBuilder.roleGiver(player, game.GetAliveUsers(), theme, player.local, player.lang, roles)]}).catch(err=>{console.log(err)});
             }
             await interaction.message.edit({components: getDisabledButtons(gameid, locale)})
             const buttonRow = new ActionRowBuilder<ButtonBuilder>()

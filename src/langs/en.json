@@ -40,5 +40,15 @@
   "start_role_doctor": "Your objective is to save people from death!",
   "start_role_police": "Your objective is to find mafia!",
   "start_role_killer": "Your objective is to kill everyone and survive!",
-  "start_role_mistress": "string"
+  "start_role_mistress": "string",
+
+  "wake_up_title": "The city wakes up!",
+  "wake_up_description": "Good morning! But is the morning actually good?.. It's time to обирати підозрюваного ⚖",
+  "sleep_time_title": "The city falls asleep...",
+  "sleep_time_description": "Сподіваємося, усі доживуть до ранку!",
+  "kills_title": "Вранішнє сонце висвітлило сліди жахливих злодіянь.",
+  "kills_description_one": "став жертвою беззаконня.",
+  "kills_description_many": "стали жертвами беззаконня.",
+  "no_kills_title": "Ніхто не загинув!",
+  "no_kills_description": "Минулої ночі нікого не вбили! Може, варто подякувати лікарю?\uD83D\uDE2F"
 }

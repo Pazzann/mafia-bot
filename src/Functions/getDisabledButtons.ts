@@ -36,6 +36,15 @@ export default function getDisabledButtons(id: number, locale: ILangProps) {
         new ActionRowBuilder<ButtonBuilder>()
             .addComponents(
                 new ButtonBuilder()
+                    .setEmoji("✏️")
+                    .setLabel(`⠀⠀⠀⠀Edit⠀⠀⠀⠀⠀`)
+                    .setStyle(ButtonStyle.Success)
+                    .setCustomId("e" + String(id))
+                    .setDisabled(true),
+            ),
+        new ActionRowBuilder<ButtonBuilder>()
+            .addComponents(
+                new ButtonBuilder()
                     .setEmoji("👀")
                     .setLabel(`⠀⠀⠀⠀${locale.create_button_new}⠀⠀⠀⠀⠀`)
                     .setStyle(ButtonStyle.Success)
