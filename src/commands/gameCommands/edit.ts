@@ -17,6 +17,9 @@ import PeacefulRole from "../../Classes/Roles/PeacefulRole";
 import KillerRole from "../../Classes/Roles/KillerRole";
 import PoliceRole from "../../Classes/Roles/PoliceRole";
 import DoctorRole from "../../Classes/Roles/DoctorRole";
+import KillerWIn from "../../Classes/WinningConditions/KillerWIn";
+import MafiaWin from "../../Classes/WinningConditions/MafiaWin";
+import PeacecfulWin from "../../Classes/WinningConditions/PeacecfulWin";
 
 module.exports.execute = async function (interaction: ButtonInteraction, gameid = 0, user: User, locale: ILangProps) {
     if (curHostGames.has(gameid)) {
@@ -84,7 +87,50 @@ module.exports.execute = async function (interaction: ButtonInteraction, gameid 
                         .setMaxValues(chooseArr.length)
                         .addOptions(chooseArr)
                 );
-            interaction.reply({ephemeral: true, components: [row]})
+
+            const chooseArr2: RestOrArray<SelectMenuOptionBuilder> = [];
+
+
+            chooseArr2.push(
+                new SelectMenuOptionBuilder()
+                    .setLabel(new KillerWIn().Name)
+                    .setValue(String(host.id) + "%" + String(new KillerWIn().Name)),
+                new SelectMenuOptionBuilder()
+                    .setLabel(new MafiaWin().Name)
+                    .setValue(String(host.id) + "%" + String(new MafiaWin().Name)),
+                new SelectMenuOptionBuilder()
+                    .setLabel(new PeacecfulWin().Name)
+                    .setValue(String(host.id) + "%" + String(new PeacecfulWin().Name)),
+            )
+            if(host.conditions.filter(item=>item.Name === new KillerWIn().Name).length > 0){
+                chooseArr2[0].setDefault(true);
+            }
+            if(host.conditions.filter(item=>item.Name === new MafiaWin().Name).length > 0){
+                chooseArr2[1].setDefault(true);
+            }
+            if(host.conditions.filter(item=>item.Name === new PeacecfulWin().Name).length > 0){
+                chooseArr2[2].setDefault(true);
+            }
+
+            for (let condition of user.conditions) {
+                const conditionOption = new SelectMenuOptionBuilder()
+                    .setLabel(condition.name)
+                    .setValue(String(host.id) + "%" + String(condition.id));
+                if(host.conditions.filter(item=>item.Name===condition.name).length > 0)
+                    conditionOption.setDefault(true);
+                chooseArr2.push(conditionOption)
+            }
+            const row2 = new ActionRowBuilder<SelectMenuBuilder>()
+                .addComponents(
+                    new SelectMenuBuilder()
+                        .setCustomId("editcondtiongamelist")
+                        .setPlaceholder('choose conditions')
+                        .setMinValues(1)
+                        .setMaxValues(chooseArr2.length)
+                        .addOptions(chooseArr2)
+                );
+
+            interaction.reply({ephemeral: true, components: [row, row2]})
         } else {
             interaction.reply({content: locale.error_you_are_not_the_owner, ephemeral: true}).catch(() => {
             });

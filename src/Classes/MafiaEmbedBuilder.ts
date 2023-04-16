@@ -9,6 +9,7 @@ import BaseRole from "./Roles/BaseRole";
 import ScriptEngine from "./ScriptEngine";
 import MafiaUser from "./MafiaUser";
 import Role from "../Entities/Role.entity";
+import WinningCondition from "../Entities/WinningCondition.entity";
 
 export default class MafiaEmbedBuilder {
 
@@ -99,6 +100,27 @@ export default class MafiaEmbedBuilder {
                 },)
             .setColor("#ffb0b0")
             .setThumbnail(role.imageLink);
+        return embed;
+    }
+    public static conditionEmbed(condition: WinningCondition, local: ILangProps){
+        const embed = new EmbedBuilder()
+            .setTitle(condition.name)
+            .addFields([{
+                name: "Condition",
+                value: condition.condition
+            }, {
+                name: "Embed Title",
+                value: condition.embedTitle
+            }, {
+                name: "Embed Description",
+                value: condition.embedDescription
+            }, {
+                name: "Win Role",
+                value: condition.winRole
+            } ])
+            .setThumbnail(condition.embedThumbnail)
+            .setColor('#d96565')
+
         return embed;
     }
 }

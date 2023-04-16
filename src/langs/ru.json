@@ -59,5 +59,11 @@
   "role_embed_selfSelectable_name": "Может выбирать себя?",
   "role_embed_count_name": "Количество",
   "role_embed_placeHolder_name": "Призыв к действию",
-  "role_embed_delay_name": "Задержка между действиями"
+  "role_embed_delay_name": "Задержка между действиями",
+  "role_mafia_name": "Мафия",
+  "role_mafia_placeHolder": "Выберите жертву...",
+  "role_mafia_description": "%УБИВАЙТЕ И ВЫЖИВИТЕ! ☠\nВы выигрываете, если мафия составляет не менее половины всех живых игроков. Исключение: если осталось двое игроков — мафия и маньяк — побеждает маньяк.\nС вами в команде: % + %{oPlayersTRole}%",
+  "role_killer_name": "Маньяк",
+  "role_killer_placeHolder": "Выберите жертву...",
+  "role_killer_description": "%УБЕЙТЕ ВСЕХ И ВЫЖИВИТЕ! \uD83E\uDE93\nВы выигрываете, если кроме вас остаётся в живых не более одного игрока. Не щадите никого!"
 }

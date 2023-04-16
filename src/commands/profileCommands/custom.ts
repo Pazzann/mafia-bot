@@ -60,7 +60,7 @@ module.exports.execute = async function (interaction: ButtonInteraction, user: U
                 .setDisabled(false),
 
         );
-
+    const components: ActionRowBuilder<ButtonBuilder | SelectMenuBuilder>[] = [buttons, buttons2];
 
     if(user.customRoles.length > 0){
         const chooseArr: RestOrArray<SelectMenuOptionBuilder> = [];
@@ -79,12 +79,28 @@ module.exports.execute = async function (interaction: ButtonInteraction, user: U
                     .setMaxValues(1)
                     .addOptions(chooseArr)
             );
-        interaction.reply({content: "Choose action", components: [buttons, buttons2, row], ephemeral: true});
-    }else{
-        interaction.reply({content: "Choose action", components: [buttons, buttons2], ephemeral: true});
+        components.push(row)
+    }
+    if(user.conditions.length > 0){
+        const chooseArr: RestOrArray<SelectMenuOptionBuilder> = [];
+        for (let condition of user.conditions){
+            const conditionOption = new SelectMenuOptionBuilder()
+                .setLabel(condition.name)
+                .setValue("viewcondition"  + String(condition.id));
+            chooseArr.push(conditionOption)
+        }
+        const row = new ActionRowBuilder<SelectMenuBuilder>()
+            .addComponents(
+                new SelectMenuBuilder()
+                    .setCustomId("viewcondition")
+                    .setPlaceholder('choose condition to view')
+                    .setMinValues(1)
+                    .setMaxValues(1)
+                    .addOptions(chooseArr)
+            );
+        components.push(row)
     }
 
 
-
-
+    interaction.reply({content: "Choose action", components, ephemeral: true});
 }

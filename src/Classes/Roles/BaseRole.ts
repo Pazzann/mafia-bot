@@ -7,7 +7,7 @@ export default abstract class BaseRole {
     public RoleName: string;
     public NameLocals: { EN: string, UA: string, RU: string } | null;
     public ActionOnSelect: Action;
-    public DelayForActivity: number | "never";
+    public DelayForActivity: number;
     public GroupDecision: boolean;
     public Count: number | string;
     public Emojis: string[] | null;
@@ -18,12 +18,13 @@ export default abstract class BaseRole {
     public Description: string;
     public SelfSelectable: boolean;
     public Selection: MafiaUser[] = [];
+    public DescriptionLocals: { EN: string, UA: string, RU: string } | null = null;
 
     public clearSelection() {
         this.Selection = []
     }
 
-    public GetNightVoteRow(aliveUsers: MafiaUser[], unactive = false, owner: MafiaUser) {
+    public GetNightVoteRow(aliveUsers: MafiaUser[], inactive = false, owner: MafiaUser) {
         if (this.ActionOnSelect == "no_activity")
             return null;
         const chooseArr: RestOrArray<SelectMenuOptionBuilder> = [];
@@ -44,11 +45,11 @@ export default abstract class BaseRole {
                     .setMinValues(1)
                     .setMaxValues(1)
                     .addOptions(chooseArr)
-                    .setDisabled(unactive),
+                    .setDisabled(inactive),
             );
     }
 
-    GetVoteRow(aliveUsers: MafiaUser[], unactive = false) {
+    GetVoteRow(aliveUsers: MafiaUser[], inactive = false) {
         const NonAlibiAndAliveUsers: MafiaUser[] = aliveUsers.filter(item => item.actionsOnUser.alibi === false);
         const chooseArr: RestOrArray<SelectMenuOptionBuilder> = [];
         // const skip = new SelectMenuOptionBuilder()
@@ -56,7 +57,7 @@ export default abstract class BaseRole {
         //     .setEmoji("▶️")
         //     .setValue("skip_vote");
         // chooseArr.push(skip);
-        const Emojis: string[] = ['🗳️', '📄', '✒️', '🖋', '⏱'];
+        const Emojis: string[] = ['🗳️', '📄', '✒' , '🖋', '⏱'];
 
         for (let user of NonAlibiAndAliveUsers) {
             const chooser = new SelectMenuOptionBuilder()
@@ -69,11 +70,11 @@ export default abstract class BaseRole {
             .addComponents(
                 new SelectMenuBuilder()
                     .setCustomId("vote_select")
-                    .setPlaceholder('Выберите против кого вы голосуете...')
+                    .setPlaceholder('Выберите, против кого вы голосуете...')
                     .setMinValues(1)
                     .setMaxValues(1)
                     .addOptions(chooseArr)
-                    .setDisabled(unactive),
+                    .setDisabled(inactive),
             );
     }
 

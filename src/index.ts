@@ -64,181 +64,203 @@ export const curHandlingGames: Map<number, MafiaGame> = new Map();
 
 discordBot.on('interactionCreate', async (interaction: Interaction) => {
     const dataUser = await User.findOne({where: {userid: interaction.user.id }, relations: ["customRoles", "conditions"]})
-
-    if (interaction.isChatInputCommand()) {
-        //interaction.deferReply();
-        if(!dataUser){
-            interaction.reply({content: "To use the bot, select the language, first", ephemeral: true, components: getLangButtons()}).catch(()=>{});
-            return;
-        }
-        const {commandName} = interaction;
-        if (interaction.channel.isDMBased() && commandName === "create"){
-            interaction.reply({content:'Создать игру в мафию вы можете только на сервере!', ephemeral: true}).catch(()=>{});
-            return;
-        }
-        // if(commandName === "create"){
-        //     let commandObj = require(`./commands/gameCommands/create`);
-        //      commandObj.execute(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps]);
-        // }
-
-        let commandObj = require(`./commands/${commandName}`);
-        commandObj.execute(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps]);
-    } else if (interaction.isSelectMenu()) {
-        //interaction.deferReply();
-        if(interaction.customId == "editrole"){
-            let roleId = interaction.values[0].split("editrole").join("");
-            require('./commands/profileCommands/editroleselectmenu').execute(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps], roleId)
-            return;
-        }
-        if(interaction.customId == "viewrole"){
-            let roleId = interaction.values[0].split("viewrole").join("");
-            require('./commands/profileCommands/viewrole').execute(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps], roleId)
-            return;
-        }
-        if(interaction.customId == "editroleselection"){
-            require('./commands/profileCommands/editrolecomplete').execute(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps])
-            return;
-        }
-        if(interaction.customId == "editrolegamelist"){
-            require('./commands/gameCommands/editrolegamelist').execute(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps])
-            return;
-        }
-        let mafGame: MafiaGame = null;
-        for (let game of curHandlingGames.values()){
-            if (game.HasPlayer(interaction.user.id)){
-                mafGame = game;
-            }
-        }
-        if(!mafGame) {
-            interaction.reply("You are not playing a game").catch(()=>{});
-            return;
-        }
-        const voteForId = interaction.values[0];
-        mafGame.Choose(mafGame.GetUser(interaction.user.id), voteForId, interaction);
-
-
-
-    }else if (interaction.isButton()){
-        try {
+    try{
+        if (interaction.isChatInputCommand()) {
             //interaction.deferReply();
-            switch (interaction.customId){
-                case "en":{
-                    if(!dataUser){
-                        await User.create({
-                            userid: interaction.user.id,
-                            lang: Langs.EN,
-                            totalGames: 0,
-                            totalWins: 0,
-                            since: dateParser(new Date())
-                        }).save();
-                    }else{
-                        dataUser.lang = Langs.EN;
-                        await dataUser.save();
-                    }
-                    interaction.reply({content: "Successfully set english!", ephemeral: true}).catch(()=>{});
-                    return;
-                }
-                case "ru": {
-                    if(!dataUser){
-                        await User.create({
-                            userid: interaction.user.id,
-                            lang: Langs.RU,
-                            totalGames: 0,
-                            totalWins: 0,
-                            since: dateParser(new Date())
-                        }).save();
-                    }else{
-                        dataUser.lang = Langs.RU;
-                        await dataUser.save();
-                    }
-                    interaction.reply({content: "Язык изменён на русский!", ephemeral: true}).catch(()=>{});
-                    return;
-                }
-                case "ua":{
-                    if(!dataUser){
-                        await User.create({
-                            userid: interaction.user.id,
-                            lang: Langs.UA,
-                            totalGames: 0,
-                            totalWins: 0,
-                            since: dateParser(new Date())
-                        }).save();
-                    }else{
-                        dataUser.lang = Langs.UA;
-                        await dataUser.save();
-                    }
-                    interaction.reply({content: "Успішно встановлено українську!", ephemeral: true}).catch(()=>{});
-                    return;
-                }
-
-            }
             if(!dataUser){
                 interaction.reply({content: "To use the bot, select the language, first", ephemeral: true, components: getLangButtons()}).catch(()=>{});
                 return;
             }
-            if(interaction.customId === "createnew"){
-                require('./commands/create').execute(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps])
+            const {commandName} = interaction;
+            if (interaction.channel.isDMBased() && commandName === "create"){
+                interaction.reply({content:'Создать игру в мафию вы можете только на сервере!', ephemeral: true}).catch(()=>{});
                 return;
             }
-            if(["premium", "editrole", "editcondition", "custom", "createrole", "deleterole", "createcondition", "deletecondition"].includes(interaction.customId)){
-                require(`./commands/profileCommands/${interaction.customId}`).execute(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps]);
-                return;
-            }
-            if(interaction.customId.includes("newrolehalfbut")){
-                let id = Number(interaction.customId.split("newrolehalfbut").join(''));
-                require(`./commands/profileCommands/newrolehalfbut`).execute(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps], id);
-                return;
-            }
+            // if(commandName === "create"){
+            //     let commandObj = require(`./commands/gameCommands/create`);
+            //      commandObj.execute(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps]);
+            // }
 
-            const gameId = Number(interaction.customId.split('').splice(1, 5).join(''))
-            switch (interaction.customId[0]){
-                case 'j':{
-                    require('./commands/gameCommands/join').execute(interaction, gameId, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps]);
-                    break;
-                }
-                case 'c':{
-                    require('./commands/gameCommands/cancel').execute(interaction, gameId, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps]);
-                    break;
-                }
-                case 's':{
-                    require('./commands/gameCommands/start').execute(interaction, gameId, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps]);
-                    break;
-                }
-                case 'l':{
-                    require('./commands/gameCommands/leave').execute(interaction, gameId, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps]);
-                    break;
-                }
-                case 'e':{
-                    require('./commands/gameCommands/end').execute(interaction, gameId, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps]);
-                    break;
-                }
-                case 'r':{
-                    require('./commands/gameCommands/edit').execute(interaction, gameId, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps]);
-                    break;
-                }
-            }
-        }catch (err){
-
-        }
-    }else if(interaction.isModalSubmit()){
-        try {
+            let commandObj = require(`./commands/${commandName}`);
+            commandObj.execute(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps]);
+        } else if (interaction.isSelectMenu()) {
             //interaction.deferReply();
-            if(interaction.customId.includes("newRolePartTwo")){
-                let id = Number(interaction.customId.split("newRolePartTwo").join(''));
-                require(`./commands/modals/newRolePartTwo`).execute(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps], id);
+            if(interaction.customId == "editrole"){
+                let roleId = interaction.values[0].split("editrole").join("");
+                require('./commands/profileCommands/editroleselectmenu').execute(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps], roleId)
                 return;
             }
-            if(interaction.customId.includes("editRole")){
-                require(`./commands/modals/editRole`).execute(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps], interaction.customId);
+            if(interaction.customId == "viewrole"){
+                let roleId = interaction.values[0].split("viewrole").join("");
+                require('./commands/profileCommands/viewrole').execute(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps], roleId)
                 return;
             }
-            if(["newRolePartOne"].includes(interaction.customId)){
-                require(`./commands/modals/${interaction.customId}`).execute(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps]);
+            if(interaction.customId == "viewcondition"){
+                let conditionId = interaction.values[0].split("viewcondition").join("");
+                require('./commands/profileCommands/viewcondition').execute(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps], conditionId)
                 return;
             }
-        }catch (err){}
+            if(interaction.customId == "editroleselection"){
+                require('./commands/profileCommands/editrolecomplete').execute(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps])
+                return;
+            }
+            if(interaction.customId == "editrolegamelist"){
+                require('./commands/gameCommands/editrolegamelist').execute(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps])
+                return;
+            }
+            if(interaction.customId == "editcondtiongamelist"){
+                require('./commands/gameCommands/editconditiongamelist').execute(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps])
+                return;
+            }
+            let mafGame: MafiaGame = null;
+            for (let game of curHandlingGames.values()){
+                if (game.HasPlayer(interaction.user.id)){
+                    mafGame = game;
+                }
+            }
+            if(!mafGame) {
+                interaction.reply("You are not playing a game").catch(()=>{});
+                return;
+            }
+            const voteForId = interaction.values[0];
+            mafGame.Choose(mafGame.GetUser(interaction.user.id), voteForId, interaction);
 
+
+
+        }else if (interaction.isButton()){
+            try {
+                //interaction.deferReply();
+                switch (interaction.customId){
+                    case "en":{
+                        if(!dataUser){
+                            await User.create({
+                                userid: interaction.user.id,
+                                lang: Langs.EN,
+                                totalGames: 0,
+                                totalWins: 0,
+                                since: dateParser(new Date())
+                            }).save();
+                        }else{
+                            dataUser.lang = Langs.EN;
+                            await dataUser.save();
+                        }
+                        interaction.reply({content: "Successfully set english!", ephemeral: true}).catch(()=>{});
+                        return;
+                    }
+                    case "ru": {
+                        if(!dataUser){
+                            await User.create({
+                                userid: interaction.user.id,
+                                lang: Langs.RU,
+                                totalGames: 0,
+                                totalWins: 0,
+                                since: dateParser(new Date())
+                            }).save();
+                        }else{
+                            dataUser.lang = Langs.RU;
+                            await dataUser.save();
+                        }
+                        interaction.reply({content: "Язык изменён на русский!", ephemeral: true}).catch(()=>{});
+                        return;
+                    }
+                    case "ua":{
+                        if(!dataUser){
+                            await User.create({
+                                userid: interaction.user.id,
+                                lang: Langs.UA,
+                                totalGames: 0,
+                                totalWins: 0,
+                                since: dateParser(new Date())
+                            }).save();
+                        }else{
+                            dataUser.lang = Langs.UA;
+                            await dataUser.save();
+                        }
+                        interaction.reply({content: "Успішно встановлено українську!", ephemeral: true}).catch(()=>{});
+                        return;
+                    }
+
+                }
+                if(!dataUser){
+                    interaction.reply({content: "To use the bot, select the language, first", ephemeral: true, components: getLangButtons()}).catch(()=>{});
+                    return;
+                }
+                if(interaction.customId === "createnew"){
+                    require('./commands/create').execute(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps])
+                    return;
+                }
+                if(["premium", "editrole", "editcondition", "custom", "createrole", "deleterole", "createcondition", "deletecondition"].includes(interaction.customId)){
+                    require(`./commands/profileCommands/${interaction.customId}`).execute(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps]);
+                    return;
+                }
+                if(interaction.customId.includes("newrolehalfbut")){
+                    let id = Number(interaction.customId.split("newrolehalfbut").join(''));
+                    require(`./commands/profileCommands/newrolehalfbut`).execute(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps], id);
+                    return;
+                }
+                if(interaction.customId.includes("newconditionhalfbut")){
+                    require(`./commands/profileCommands/newconditionhalfbut`).execute(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps]);
+                    return;
+                }
+
+                const gameId = Number(interaction.customId.split('').splice(1, 5).join(''))
+                switch (interaction.customId[0]){
+                    case 'j':{
+                        require('./commands/gameCommands/join').execute(interaction, gameId, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps]);
+                        break;
+                    }
+                    case 'c':{
+                        require('./commands/gameCommands/cancel').execute(interaction, gameId, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps]);
+                        break;
+                    }
+                    case 's':{
+                        require('./commands/gameCommands/start').execute(interaction, gameId, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps]);
+                        break;
+                    }
+                    case 'l':{
+                        require('./commands/gameCommands/leave').execute(interaction, gameId, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps]);
+                        break;
+                    }
+                    case 'e':{
+                        require('./commands/gameCommands/end').execute(interaction, gameId, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps]);
+                        break;
+                    }
+                    case 'r':{
+                        require('./commands/gameCommands/edit').execute(interaction, gameId, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps]);
+                        break;
+                    }
+                }
+            }catch (err){
+
+            }
+        }else if(interaction.isModalSubmit()){
+            try {
+                //interaction.deferReply();
+                if(interaction.customId.includes("newRolePartTwo")){
+                    let id = Number(interaction.customId.split("newRolePartTwo").join(''));
+                    require(`./commands/modals/newRolePartTwo`).execute(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps], id);
+                    return;
+                }
+                if(interaction.customId.includes("editRole")){
+                    require(`./commands/modals/editRole`).execute(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps], interaction.customId);
+                    return;
+                }
+                if(interaction.customId.includes("newConditionPartTwo")){
+                    require(`./commands/modals/newConditionPartTwo`).execute(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps], interaction.customId);
+                    return;
+                }
+                if(["newRolePartOne", "newConditionPartOne"].includes(interaction.customId)){
+                    require(`./commands/modals/${interaction.customId}`).execute(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps]);
+                    return;
+                }
+            }catch (err){
+
+            }
+        }
+    }catch (err){
+        console.log(err);
     }
+
 });
 
 discordBot.on('ready', () => {

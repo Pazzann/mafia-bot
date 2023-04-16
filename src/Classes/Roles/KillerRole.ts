@@ -1,12 +1,13 @@
 import BaseRole from "./BaseRole";
+import {localisations} from "../../index";
 
-export default class KillerRole extends BaseRole{
+export default class KillerRole extends BaseRole {
     constructor() {
         super()
         this.NameLocals = {
-            EN: "Killer",
-            RU: "Маньяк",
-            UA: "Маніяк"
+            EN: localisations.EN.role_killer_name,
+            RU: localisations.RU.role_killer_name,
+            UA: localisations.UA.role_killer_name
         }
         this.RoleName = "killer";
         this.DelayForActivity = 2;
@@ -15,10 +16,19 @@ export default class KillerRole extends BaseRole{
         this.Count = 1;
         this.Emojis = ['🪓'];
         this.SpawnFrom = 8;
-        this.PlaceHolder = "Выберите жертву...";
-        this.PlaceHolderLocals = null;
-        this.ImageLink="https://media.discordapp.net/attachments/1015944207220879370/1015959932228616242/unknown.png?width=469&height=469";
+        this.PlaceHolder = "Choose your victim...";
+        this.PlaceHolderLocals = {
+            EN: localisations.EN.role_killer_placeHolder,
+            RU: localisations.RU.role_killer_placeHolder,
+            UA: localisations.UA.role_killer_placeHolder
+        };
+        this.ImageLink = "https://media.discordapp.net/attachments/1015944207220879370/1015959932228616242/unknown.png?width=469&height=469";
         this.SelfSelectable = true;
-        this.Description = "%Your objective is to kill everyone and survive!%"
+        this.Description = "%KILL EVERYONE AND SURVIVE! \uD83E\uDE93\nYou win if no more than one player besides you is alive. Spare nobody!";
+        this.DescriptionLocals = {
+            EN: localisations.EN.role_killer_description,
+            RU: localisations.RU.role_killer_description,
+            UA: localisations.UA.role_killer_description
+        }
     }
 }

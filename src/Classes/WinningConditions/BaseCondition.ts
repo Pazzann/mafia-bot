@@ -20,7 +20,7 @@ export default abstract class BaseCondition{
         if(typeof this.WinEmbedDescription !== "string"){
             embed.setDescription(this.WinEmbedDescription[lang.toUpperCase() as keyof {EN: string, UA: string, RU: string}]);
         }else{
-            embed.setTitle(this.WinEmbedDescription);
+            embed.setDescription(this.WinEmbedDescription);
         }
         embed.setThumbnail(this.WinEmbedThumbnail);
         return embed;

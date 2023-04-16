@@ -65,5 +65,11 @@ export interface ILangProps {
     role_embed_count_name: string;
     role_embed_placeHolder_name: string;
     role_embed_delay_name: string;
-
+    role_mafia_name: string;
+    role_mafia_placeHolder: string;
+    role_mafia_description: string;
+    //killer = maniac
+    role_killer_name: string;
+    role_killer_placeHolder: string;
+    role_killer_description: string;
 }

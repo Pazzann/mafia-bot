@@ -16,6 +16,8 @@
   "error_incorrect_game_id": "Incorrect game id!",
   "game_was_ended": "The game was stopped by the owner",
   "game_deleted": "The game was deleted!",
+  "error_you_are_already": "You are already in the game!",
+  "join_game": "You have successfully joined!",
   "error_you_are_not_already": "You aren't in the game!",
   "leave_game": "You have left the game!",
   "error_not_enough_players": "Not enough players to start the game!",
@@ -57,5 +59,11 @@
   "role_embed_selfSelectable_name": "Is self selectable?",
   "role_embed_count_name": "Count",
   "role_embed_placeHolder_name": "Call to action",
-  "role_embed_delay_name": "Delay between actions"
+  "role_embed_delay_name": "Delay between actions",
+  "role_mafia_name": "Mafia",
+  "role_mafia_placeHolder": "Choose your victim...",
+  "role_mafia_description": "%KILL AND SURVIVE! ☠\nYou win if the mafia is at least half of all players. Exception: if there are two players left — the mafia and the maniac — the maniac wins.\nYour teammates: % + %{oPlayersTRole}%",
+  "role_killer_name": "Maniac",
+  "role_killer_placeHolder": "Choose your victim...",
+  "role_killer_description": "%KILL EVERYONE AND SURVIVE! \uD83E\uDE93\nYou win if no more than one player besides you is alive. Spare nobody!"
 }
