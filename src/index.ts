@@ -95,9 +95,19 @@ discordBot.on('interactionCreate', async (interaction: Interaction) => {
                 require('./commands/profileCommands/viewrole').execute(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps], roleId)
                 return;
             }
+            if(interaction.customId == "deleterole"){
+                let roleId = interaction.values[0].split("deleterole").join("");
+                require('./commands/profileCommands/deleteroleselect').execute(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps], roleId)
+                return;
+            }
             if(interaction.customId == "viewcondition"){
                 let conditionId = interaction.values[0].split("viewcondition").join("");
                 require('./commands/profileCommands/viewcondition').execute(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps], conditionId)
+                return;
+            }
+            if(interaction.customId == "deletecondition"){
+                let roleId = interaction.values[0].split("deletecondition").join("");
+                require('./commands/profileCommands/deleteconditionselect').execute(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps], roleId)
                 return;
             }
             if(interaction.customId == "editroleselection"){

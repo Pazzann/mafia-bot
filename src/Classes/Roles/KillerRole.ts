@@ -24,7 +24,7 @@ export default class KillerRole extends BaseRole {
         };
         this.ImageLink = "https://media.discordapp.net/attachments/1015944207220879370/1015959932228616242/unknown.png?width=469&height=469";
         this.SelfSelectable = true;
-        this.Description = "%KILL EVERYONE AND SURVIVE! \uD83E\uDE93\nYou win if no more than one player besides you is alive. Spare nobody!";
+        this.Description = "%KILL EVERYONE AND SURVIVE! \uD83E\uDE93\nYou win if no more than one player besides you remains in the city. Spare nobody!%";
         this.DescriptionLocals = {
             EN: localisations.EN.role_killer_description,
             RU: localisations.RU.role_killer_description,
