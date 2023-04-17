@@ -60,8 +60,13 @@ export default class MafiaEmbedBuilder {
             .addFields([{
                 name: local.start_game_info,
                 value: `${local.start_theme}: \`\`${theme[lang.toUpperCase() as keyof IThemeProps]}\`\` \n ${local.start_player_count}: \`\`${players.length}\`\` \n  ${rolesValue}`
-            }])
-        embed.setDescription(ScriptEngine.DescriptionEngine(owner.role.Description, players, owner));
+            }]);
+        if(owner.role.DescriptionLocals !== null){
+            embed.setDescription(ScriptEngine.DescriptionEngine(owner.role.DescriptionLocals[lang.toUpperCase() as keyof {EN: string, UA: string, RU: string}], players, owner));
+        }else{
+            embed.setDescription(ScriptEngine.DescriptionEngine(owner.role.Description, players, owner));
+        }
+
         embed.setThumbnail(owner.role.ImageLink);
         return embed;
     }

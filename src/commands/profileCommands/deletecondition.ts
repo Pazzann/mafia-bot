@@ -20,7 +20,7 @@ module.exports.execute = async function (interaction: ButtonInteraction, user: U
             .addComponents(
                 new SelectMenuBuilder()
                     .setCustomId("deletecondition")
-                    .setPlaceholder('choose condition to view')
+                    .setPlaceholder('choose condition to delete')
                     .setMinValues(1)
                     .setMaxValues(1)
                     .addOptions(chooseArr)

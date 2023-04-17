@@ -73,6 +73,11 @@ export interface ILangProps {
     role_killer_placeHolder: string;
     role_killer_description: string;
     role_peaceful_name: string;
-    role_peaceful_placeHolder: string;
     role_peaceful_description: string;
+    role_doctor_name: string;
+    role_doctor_placeHolder: string;
+    role_doctor_description: string;
+    role_police_name: string;
+    role_police_placeHolder: string;
+    role_police_description: string;
 }

@@ -62,11 +62,16 @@
   "role_embed_delay_name": "Delay between actions",
   "role_mafia_name": "Mafia",
   "role_mafia_placeHolder": "Choose your victim...",
-  "role_mafia_description": "%KILL AND SURVIVE! ☠\nYou win if the mafia is at least half of all active players. Exception: if there are two players left — the mafia and the maniac — the maniac wins.\nYour teammates: % + %{oPlayersTRole}%",
+  "role_mafia_description": "%KILL AND SURVIVE! ☠\nEvery night the mafia kills one player for whom its members give the most votes (in case of a tie the player is chosen at random). But remember: the victim may be cured by the doctor.\nThe mafia wins if it is at least half of all active players. Exception: if there are two players left — a mafia member and the maniac — the maniac wins.\nYour teammates: % + %{oPlayersTRole}%",
   "role_killer_name": "Maniac",
   "role_killer_placeHolder": "Choose your victim...",
-  "role_killer_description": "%KILL EVERYONE AND SURVIVE! \uD83E\uDE93\nYou win if no more than one player besides you remains in the city. Spare nobody!%",
+  "role_killer_description": "%KILL EVERYONE AND SURVIVE! \uD83E\uDE93\nOnce every two nights you kill any player you want. But remember: the victim may be cured by the doctor.\nYou win if no more than one player besides you remains in the city. Spare nobody!%",
   "role_peaceful_name": "Innocent",
-  "role_peaceful_placeHolder": "A",
-  "role_peaceful_description": "%Your goal is to survive and protect the city from criminals!\nYou win if there are no murderers left in the city. Be careful: if the mafia is at least half of all active players, they will take over the city and you will lose!%"
+  "role_peaceful_description": "%Your goal is to save the city from criminals! \uD83D\uDD4A\nReveal the identities of the villains and achieve their expulsion from the city.\nThe innocents win if there are no murderers left in the city. Be careful: if the mafia is at least half of all active players, they take over the city and win!%",
+  "role_doctor_name": "Doctor",
+  "role_doctor_placeHolder": "Choose who you want to heal...",
+  "role_doctor_description": "%You save people's lives! ♥\nEvery night you heal one player. If this player is chosen by the criminals, he or she will stay alive.\nYou win with the innocents if there are no murderers left in the city. Be careful: if the mafia is at least half of all active players, they take over the city and win!%",
+  "role_police_name": "Detective",
+  "role_police_placeHolder": "Choose who you want to check...",
+  "role_police_description": "%You investigate crimes in the city! \uD83D\uDD0D\nEvery night you check one player and find out if he or she belongs to the mafia.\nYou win with the innocents if there are no murderers left in the city. Be careful: if the mafia is at least half of all active players, they take over the city and win!%"
 }

@@ -9,3 +9,8 @@ export default function dateParser(t: Date){
     let time_of_call = YYYY+'-'+MM+'-'+DD+' '+HH+':'+mm+':'+ss;
     return time_of_call;
 }
+
+export function dbDateToDate(t: string): number{
+    let d = new Date(t);
+    return d.getTime();
+}

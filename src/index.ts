@@ -110,6 +110,11 @@ discordBot.on('interactionCreate', async (interaction: Interaction) => {
                 require('./commands/profileCommands/deleteconditionselect').execute(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps], roleId)
                 return;
             }
+            if(interaction.customId == "editcondition"){
+                let roleId = interaction.values[0];
+                require('./commands/profileCommands/editconditionselect').execute(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps], roleId)
+                return;
+            }
             if(interaction.customId == "editroleselection"){
                 require('./commands/profileCommands/editrolecomplete').execute(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps])
                 return;
@@ -199,7 +204,7 @@ discordBot.on('interactionCreate', async (interaction: Interaction) => {
                     require('./commands/create').execute(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps])
                     return;
                 }
-                if(["premium", "editrole", "editcondition", "custom", "createrole", "deleterole", "createcondition", "deletecondition"].includes(interaction.customId)){
+                if(["premium", "editrole", "editcondition", "custom", "createrole", "deleterole", "createcondition", "deletecondition", "news"].includes(interaction.customId)){
                     require(`./commands/profileCommands/${interaction.customId}`).execute(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps]);
                     return;
                 }
@@ -253,6 +258,11 @@ discordBot.on('interactionCreate', async (interaction: Interaction) => {
                 }
                 if(interaction.customId.includes("editRole")){
                     require(`./commands/modals/editRole`).execute(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps], interaction.customId);
+                    return;
+                }
+                if(interaction.customId.includes("editCondition")){
+                    let id = interaction.customId.split("editCondition").join('');
+                    require(`./commands/modals/editCondition`).execute(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps], id);
                     return;
                 }
                 if(interaction.customId.includes("newConditionPartTwo")){

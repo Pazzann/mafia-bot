@@ -21,4 +21,6 @@ export default class User extends BaseEntity{
     customRoles: Role[];
     @Column({type: "boolean", default: false})
     premium: boolean;
+    @Column({type: "boolean", default: false})
+    notifications: boolean;
 }
