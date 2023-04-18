@@ -64,8 +64,8 @@ module.exports.execute = async function (interaction: ButtonInteraction, gameid 
                         .setStyle(ButtonStyle.Danger)
                 );
             const embed = new EmbedBuilder()
-                .setTitle(locale.game_create)
-                .setDescription(`**${locale.create_game_owner}:** <@${interaction.user.id}>! \n Roles:\n ${roleStr}\n Winning Conditions:\n ${winStr}`)
+                .setTitle(locale.game_started)
+                .setDescription(`**${locale.game_created_gameOwner}:** <@${interaction.user.id}>! \n Roles:\n ${roleStr}\n Winning Conditions:\n ${winStr}`)
                 .setColor("#99ffb5")
                 .setThumbnail("https://media.discordapp.net/attachments/1015944207220879370/1016410833112268910/Boy_From_God_Shrek_peaky_blinders_family_2a6ce986-1bad-472e-b288-481161d806af.png?width=566&height=566");
             return interaction.reply({embeds: [embed], components: [buttonRow]}).catch(()=>{});

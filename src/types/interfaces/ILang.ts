@@ -1,14 +1,16 @@
 export interface ILangProps {
-    game_create: string;
+    game_created: string;
     create_error: string;
     create_button_join: string;
     create_button_start: string;
     create_button_cancel: string;
     create_button_leave: string;
     create_button_new: string;
-    create_autocancel: string;          //usage: **${locale.create_autocancel}:** <t:${Math.floor(Date.now()/1000) + 600}:R>
-    create_game_owner: string;          //usage: **${locale.create_game_owner}:** <@${interaction.user.id}>
-    create_player_list: string;         //usage: __**${locale.create_player_list}:**__ \n<@${interaction.user.id}>
+    game_created_autocancel: string;          //usage: **${locale.game_created_autocancel}:** <t:${Math.floor(Date.now()/1000) + 600}:R>
+    game_created_gameOwner: string;          //usage: **${locale.game_created_gameOwner}:** <@${interaction.user.id}>
+    game_created_playerList: string;         //usage: __**${locale.game_created_playerList}:**__ \n<@${interaction.user.id}>
+    game_created_roles: string;
+    game_created_gameEndConditions: string;
     cancel_content_message: string;
     cancel_confirm_message: string;
     auto_cancel_content_message: string;
@@ -22,7 +24,7 @@ export interface ILangProps {
     leave_game: string;
     error_not_enough_players: string;
     pre_end_game: string;
-    game_created: string;
+    game_started: string;
     innocent: string;
     mafia: string;
     doctor: string;

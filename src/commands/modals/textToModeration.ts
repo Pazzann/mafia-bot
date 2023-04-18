@@ -1,11 +1,6 @@
 import {
-    ActionRowBuilder,
-    ButtonInteraction,
     Client, EmbedBuilder,
-    ModalBuilder,
-    ModalSubmitInteraction,
-    TextInputBuilder,
-    TextInputStyle
+    ModalSubmitInteraction
 } from "discord.js";
 import User from "../../Entities/User.entity";
 import {ILangProps} from "../../types/interfaces/ILang";

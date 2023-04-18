@@ -42,7 +42,8 @@ module.exports.execute = function (interaction: ChatInputCommandInteraction, use
         interaction: interaction,
         roles: [new MafiaRole(), new PoliceRole(), new DoctorRole(), new KillerRole(), new MistressRole(), new PeacefulRole()],
         conditions: [new MafiaWin(), new PeacecfulWin(), new KillerWIn()],
-        embed: new EmbedBuilder()
+        embed: new EmbedBuilder(),
+        hostLocale: locale
     });
     let winStr = "";
     let roleStr = "";
@@ -53,30 +54,17 @@ module.exports.execute = function (interaction: ChatInputCommandInteraction, use
         winStr += "\`\`" + win.Name + "\`\`\n";
     }
     const embed = new EmbedBuilder()
-        .setTitle(locale.game_create)
-        .setDescription(`**${locale.create_autocancel}:** <t:${Math.floor(Date.now()/1000) + 600}:R>\n**${locale.create_game_owner}:** <@${interaction.user.id}>\n\n__**${locale.create_player_list}:**__ \n<@${interaction.user.id}>`)
+        .setTitle(locale.game_created)
+        .setDescription(`**${locale.game_created_autocancel}:** <t:${Math.floor(Date.now()/1000) + 600}:R>\n**${locale.game_created_gameOwner}:** <@${interaction.user.id}>\n\n__**${locale.game_created_playerList}:**__ \n<@${interaction.user.id}>`)
         .addFields([{
             value: roleStr,
-            name: "Roles"
+            name: locale.game_created_roles
         }, {
             value: winStr,
-            name: "Winning Conditions"
+            name: locale.game_created_gameEndConditions
         }])
         .setThumbnail("https://media.discordapp.net/attachments/1015944207220879370/1016009845289275533/unknown.png?width=566&height=566")
         .setColor("#ffec6e")
-    const buttonRow2 = new ActionRowBuilder<ButtonBuilder>()
-        .addComponents(
-            new ButtonBuilder()
-                .setEmoji("🔥")
-                .setLabel(`⠀${locale.create_button_cancel}⠀⠀`)
-                .setStyle(ButtonStyle.Danger)
-                .setCustomId("c" + String(id)),
-            new ButtonBuilder()
-                .setEmoji("🔪")
-                .setLabel(`⠀${locale.create_button_leave}⠀`)
-                .setStyle(ButtonStyle.Danger)
-                .setCustomId("l" + String(id))
-        );
     const buttonRow1 = new ActionRowBuilder<ButtonBuilder>()
         .addComponents(
             new ButtonBuilder()
@@ -85,16 +73,30 @@ module.exports.execute = function (interaction: ChatInputCommandInteraction, use
                 .setStyle(ButtonStyle.Primary)
                 .setCustomId("j" + String(id)),
             new ButtonBuilder()
-                .setEmoji("✔️")
+                .setEmoji("✔")
                 .setLabel(locale.create_button_start)
                 .setStyle(ButtonStyle.Success)
                 .setCustomId("s" + String(id))
         )
     ;
+    const buttonRow2 = new ActionRowBuilder<ButtonBuilder>()
+        .addComponents(
+            new ButtonBuilder()
+                .setEmoji("🔥")
+                .setLabel(locale.create_button_cancel)
+                .setStyle(ButtonStyle.Danger)
+                .setCustomId("c" + String(id)),
+            new ButtonBuilder()
+                .setEmoji("🔪")
+                .setLabel(locale.create_button_leave)
+                .setStyle(ButtonStyle.Danger)
+                .setCustomId("l" + String(id))
+        )
+    ;
     const buttonRow3 = new ActionRowBuilder<ButtonBuilder>()
         .addComponents(
             new ButtonBuilder()
-                .setEmoji("✏️")
+                .setEmoji("✏")
                 .setLabel(`⠀⠀⠀⠀Edit⠀⠀⠀⠀⠀`)
                 .setStyle(ButtonStyle.Success)
                 .setCustomId("r" + String(id)),

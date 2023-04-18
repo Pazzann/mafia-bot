@@ -204,7 +204,7 @@ discordBot.on('interactionCreate', async (interaction: Interaction) => {
                     require('./commands/create').execute(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps])
                     return;
                 }
-                if(["premium", "editrole", "editcondition", "custom", "createrole", "deleterole", "createcondition", "deletecondition", "news", "helpmessage"].includes(interaction.customId)){
+                if(["premium", "editrole", "editcondition", "custom", "createrole", "deleterole", "createcondition", "deletecondition", "news", "helpmessage", "rules", "scripting"].includes(interaction.customId)){
                     require(`./commands/profileCommands/${interaction.customId}`).execute(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps]);
                     return;
                 }
