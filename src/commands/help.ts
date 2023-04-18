@@ -28,7 +28,7 @@ module.exports.execute = async function (interaction: ChatInputCommandInteractio
             value: '\u200B'
         }, {
             name: "🗒Credentials and Tech Info:",
-            value: "\`Version:\` 2.0.5.\n\`Source code:\` https://github.com/Pazzann/mafia-bot.\n\`Developer:\` Boy From God#2772\n\`Localization:\` denyshon#9143\n\`Art:\` Midjourney, popa_sani#4041"
+            value: "\`Version:\` 2.0.5.\n\`Source code:\` https://github.com/Pazzann/mafia-bot.\n\`Support server:\` https://discord.gg/ZWnx8rqGTD.\n\`Developer:\` Boy From God#2772\n\`Localization:\` denyshon#9143\n\`Art:\` Midjourney, popa_sani#4041"
         }])
         .setDescription(`Mafia bot is bot to create and customize your mafia games, enjoy!`)
         .setColor('#b0ff9c')
@@ -36,12 +36,6 @@ module.exports.execute = async function (interaction: ChatInputCommandInteractio
 
     const buttons = new ActionRowBuilder<ButtonBuilder>()
         .addComponents(
-            new ButtonBuilder()
-                .setEmoji("💵")
-                .setLabel("Premium")
-                .setStyle(ButtonStyle.Primary)
-                .setCustomId("premium")
-                .setDisabled(false),
             new ButtonBuilder()
                 .setEmoji("📙")
                 .setLabel("Game Rules")

@@ -1,12 +1,12 @@
 {
-  "game_create": "Успешно создано",
-  "create_error": "Вы итак уже захостили игру, для начала отмените ту или подождите её автоматическую отмену!",
+  "game_create": "Игра создана",
+  "create_error": "Вы уже создали одну игру, сначала отмените её или дождитесь автоотмены!",
   "create_button_join": "Присоединиться",
   "create_button_start": "Старт",
   "create_button_cancel": "Отменить",
   "create_button_leave": "Покинуть",
   "create_button_new": "Создать новую игру",
-  "create_autocancel": "Дата автоотмены",
+  "create_autocancel": "Автоотмена через",
   "create_game_owner": "Владелец игры",
   "create_player_list": "Список игроков",
   "cancel_content_message": "Игра была отменена организатором!",
@@ -44,6 +44,7 @@
   "start_role_killer": "Ваша задача убить всех и остаться в живих одному!",
   "start_role_mistress": "string",
 
+
   "wake_up_title": "Город просыпается!",
   "wake_up_description": "С добрым утром! Или не очень добрым... Время выбирать подозреваемого ⚖",
   "sleep_time_title": "Город засыпает...",
@@ -53,13 +54,19 @@
   "kills_description_many": "пали жертвами беззакония.",
   "no_kills_title": "Никто не погиб!",
   "no_kills_description": "За минувшую ночь никого не убили! Возможно, стоит отблагодарить доктора?\uD83D\uDE2F",
+
   "role_embed_action_name": "Действие",
   "role_embed_groupDec_name": "Играет в группе?",
   "role_embed_spawnFrom_name": "Минимальное количество игроков для появления",
   "role_embed_selfSelectable_name": "Может выбирать себя?",
   "role_embed_count_name": "Количество",
-  "role_embed_placeHolder_name": "Призыв к действию",
+  "role_embed_placeHolder_name": "Плейсхолдер для меню действия",
   "role_embed_delay_name": "Задержка между действиями",
+  "condition_embed_condition_name": "Условие",
+  "condition_embed_embedTitle_name": "Embed Title",
+  "condition_embed_embedDescription_name": "Embed Description",
+  "condition_embed_winRole_name": "Win Role",
+
   "role_mafia_name": "Мафия",
   "role_mafia_placeHolder": "Выберите жертву...",
   "role_mafia_description": "%УБИВАЙТЕ И ВЫЖИВИТЕ! ☠\nКаждую ночь мафия убивает одного игрока, за которого её члены отдают наибольшее число голосов (в случае равенства игрок выбирается случайным образом). Но помните: жертву может вылечить доктор.\nМафия побеждает, если составляет не менее половины всех активных игроков. Исключение: если осталось двое игроков — представитель мафии и маньяк — побеждает маньяк.\nС вами в команде: % + %{oPlayersTRole}%",
@@ -73,5 +80,18 @@
   "role_doctor_description": "%Вы спасаете жизни людей! ♥\nКаждую ночь вы лечите одного игрока. Если этого игрока выбрали преступники, он не пострадает.\nВы побеждаете вместе с мирными, если в городе не остаётся убийц. Будьте осторожны: если мафия составляет хотя бы половину активных игроков, она захватывает город и выигрывает!%",
   "role_police_name": "Детектив",
   "role_police_placeHolder": "Выберите, кого хотите проверить...",
-  "role_police_description": "%Вы расследуете преступления в городе! \uD83D\uDD0D\nКаждую ночь вы проверяете одного игрока и выясняете, принадлежит ли он к мафии.\nВы побеждаете вместе с мирными, если в городе не остаётся убийц. Будьте осторожны: если мафия составляет хотя бы половину активных игроков, она захватывает город и выигрывает!%"
+  "role_police_description": "%Вы расследуете преступления в городе! \uD83D\uDD0D\nКаждую ночь вы проверяете одного игрока и выясняете, принадлежит ли он к мафии.\nВы побеждаете вместе с мирными, если в городе не остаётся убийц. Будьте осторожны: если мафия составляет хотя бы половину активных игроков, она захватывает город и выигрывает!%",
+
+
+  "profile_title": "Ваш профиль \uD83D\uDC64",
+  "profile_mafiaAccountSince": "Аккаунт в «Мафии» с:",
+  "profile_accountSince": "Аккаунт с:",
+  "profile_totalGames": "\uD83C\uDFAE Всего игр:",
+  "profile_totalWins": "\uD83C\uDFC6 Всего побед:",
+  "profile_premium": "\uD83D\uDCB5 Premium:",
+  "profile_premium_purchased": "приобретён",
+  "profile_premium_notPurchased": "не приобретён",
+  "profile_button_premium": "Premium",
+  "profile_button_custom": "Кастомизация",
+  "profile_button_news": "Уведомления о новостях"
 }

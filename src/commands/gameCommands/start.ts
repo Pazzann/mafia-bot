@@ -15,7 +15,7 @@ import MafiaGame from "../../Classes/MafiaGame";
 import BaseRole from "../../Classes/Roles/BaseRole";
 import BaseCondition from "../../Classes/WinningConditions/BaseCondition";
 import MafiaWin from "../../Classes/WinningConditions/MafiaWin";
-import KillerWIn from "../../Classes/WinningConditions/KillerWIn";
+import KillerWIn from "../../Classes/WinningConditions/KillerWín";
 import PeacecfulWin from "../../Classes/WinningConditions/PeacecfulWin";
 
 

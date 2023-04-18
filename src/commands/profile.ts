@@ -8,23 +8,23 @@ module.exports.execute = async function (interaction: ChatInputCommandInteractio
 
 
     const embed = new EmbedBuilder()
-        .setTitle("Your profile👤")
-        .setDescription(`⌛**Mafia account since:** <t:${Math.round(dbDateToDate(user.since) / 1000)}:d>\n⌚**Account since:** <t:${Math.round(interaction.user.createdAt.getTime() / 1000)}:d>`)
+        .setTitle(locale.profile_title)
+        .setDescription(`⌛**${locale.profile_mafiaAccountSince}** <t:${Math.round(dbDateToDate(user.since) / 1000)}:d>\n⌚**${locale.profile_accountSince}** <t:${Math.round(interaction.user.createdAt.getTime() / 1000)}:d>`)
         .setColor('#b73131')
         .addFields([
             {
-                name: "🎮 Total Games:",
+                name: locale.profile_totalGames,
                 value: String(user.totalGames),
                 inline: true
             },
             {
-                name: "🏆 Total Wins:",
+                name: locale.profile_totalWins,
                 value: String(user.totalWins),
                 inline: true
             },
             {
-                name: "💵 Premium:",
-                value: user.premium ? "purchased" : "not purchased",
+                name: locale.profile_premium,
+                value: user.premium ? locale.profile_premium_purchased : locale.profile_premium_notPurchased,
                 inline: true
             },
         ])
@@ -34,19 +34,19 @@ module.exports.execute = async function (interaction: ChatInputCommandInteractio
         .addComponents(
             new ButtonBuilder()
                 .setEmoji("💵")
-                .setLabel("Premium")
+                .setLabel(locale.profile_button_premium)
                 .setStyle(ButtonStyle.Primary)
                 .setCustomId("premium")
                 .setDisabled(user.premium),
             new ButtonBuilder()
                 .setEmoji("🧐")
-                .setLabel("Custom")
+                .setLabel(locale.profile_button_custom)
                 .setStyle(ButtonStyle.Primary)
                 .setCustomId("custom")
                 .setDisabled(false),
             new ButtonBuilder()
                 .setEmoji("📬")
-                .setLabel("News Notification")
+                .setLabel(locale.profile_button_news)
                 .setStyle(user.notifications ? ButtonStyle.Success : ButtonStyle.Danger)
                 .setCustomId("news")
                 .setDisabled(false)

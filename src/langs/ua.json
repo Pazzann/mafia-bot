@@ -1,12 +1,12 @@
 {
-  "game_create": "Успішно створено",
-  "create_error": "Ви вже створили гру, спочатку скасуйте її або дочекайтесь автоскасування!",
+  "game_create": "Гру створено",
+  "create_error": "Ви вже створили одну гру, спочатку скасуйте її або дочекайтесь автоскасування!",
   "create_button_join": "Приєднатися",
   "create_button_start": "Почати",
   "create_button_cancel": "Скасувати",
   "create_button_leave": "Покинути",
   "create_button_new": "Створити нову гру",
-  "create_autocancel": "Дата автоскасування",
+  "create_autocancel": "Автоскасування за",
   "create_game_owner": "Власник гри",
   "create_player_list": "Список гравців",
   "cancel_content_message": "Гру скасовано організатором!",
@@ -44,6 +44,7 @@
   "start_role_killer": "Ви Олексій Мільчаков, установіть усський мир.",
   "start_role_mistress": "string",
 
+
   "wake_up_title": "Місто прокидається!",
   "wake_up_description": "Доброго ранку! А ранок точно добрий?.. Час обирати підозрюваного ⚖",
   "sleep_time_title": "Місто засинає...",
@@ -53,13 +54,19 @@
   "kills_description_many": "стали жертвами беззаконня.",
   "no_kills_title": "Ніхто не загинув!",
   "no_kills_description": "Минулої ночі нікого не вбили! Може, варто подякувати лікарю?\uD83D\uDE2F",
+
   "role_embed_action_name": "Дія",
   "role_embed_groupDec_name": "Чи грає в групі?",
   "role_embed_spawnFrom_name": "Мінімальна кількість гравців для появи",
   "role_embed_selfSelectable_name": "Чи може обирати себе?",
   "role_embed_count_name": "Кількість",
-  "role_embed_placeHolder_name": "Заклик до дії",
+  "role_embed_placeHolder_name": "Плейсхолдер для меню дії",
   "role_embed_delay_name": "Затримка між діями",
+  "condition_embed_condition_name": "Умова",
+  "condition_embed_embedTitle_name": "Embed Title",
+  "condition_embed_embedDescription_name": "Embed Description",
+  "condition_embed_winRole_name": "Win Role",
+
   "role_mafia_name": "Мафія",
   "role_mafia_placeHolder": "Оберіть жертву...",
   "role_mafia_description": "%УБИВАЙТЕ ТА ВИЖИВІТЬ! ☠\nЩоночі мафія вбиває одного гравця, за якого її члени віддають найбільше голосів (у разі рівної кількості гравець обирається випадко). Але пам'ятайте: жертву може вилікувати доктор.\nМафія перемагає, якщо складає не менше половини всіх активних гравців. Виняток: якщо залишилося двоє гравців — представник мафії та маніяк — перемагає маніяк.\nЗ вами в команді: % + %{oPlayersTRole}%",
@@ -73,5 +80,18 @@
   "role_doctor_description": "%Ви рятуєте життя людей! ♥\nЩоночі ви лікуєте одного гравця. Якщо цього гравця обрали злочинці, він не постраждає.\nВи перемагаєте разом із мирними, якщо в місті не залишається вбивць. Будьте обережні: якщо мафія складає хоча б половину активних гравців, вона захоплює місто та виграє!%",
   "role_police_name": "Детектив",
   "role_police_placeHolder": "Оберіть, кого хочете перевірити...",
-  "role_police_description": "%Ви розслідуєте злочини в місті! \uD83D\uDD0D\nЩоночі ви перевіряєте одного гравця та з'ясовуєте, чи належить він до мафії.\nВи перемагаєте разом із мирними, якщо в місті не залишається вбивць. Будьте обережні: якщо мафія складає хоча б половину активних гравців, вона захоплює місто та виграє!%"
+  "role_police_description": "%Ви розслідуєте злочини в місті! \uD83D\uDD0D\nЩоночі ви перевіряєте одного гравця та з'ясовуєте, чи належить він до мафії.\nВи перемагаєте разом із мирними, якщо в місті не залишається вбивць. Будьте обережні: якщо мафія складає хоча б половину активних гравців, вона захоплює місто та виграє!%",
+
+
+  "profile_title": "Ваш профіль \uD83D\uDC64",
+  "profile_mafiaAccountSince": "Акаунт у «Мафії» з:",
+  "profile_accountSince": "Акаунт з:",
+  "profile_totalGames": "\uD83C\uDFAE Усього ігор:",
+  "profile_totalWins": "\uD83C\uDFC6 Усього перемог:",
+  "profile_premium": "\uD83D\uDCB5 Premium:",
+  "profile_premium_purchased": "придбано",
+  "profile_premium_notPurchased": "не придбано",
+  "profile_button_premium": "Premium",
+  "profile_button_custom": "Кастомізація",
+  "profile_button_news": "Повідомлення про новини"
 }

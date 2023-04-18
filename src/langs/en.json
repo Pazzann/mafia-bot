@@ -1,12 +1,12 @@
 {
-  "game_create": "Successfully created",
-  "create_error": "You have already hosted a game, cancel it or wait auto cancel!",
+  "game_create": "Game Created",
+  "create_error": "You have already created a game, please cancel it or wait for autocancel!",
   "create_button_join": "Join",
   "create_button_start": "Start",
   "create_button_cancel": "Cancel",
   "create_button_leave": "Leave",
   "create_button_new": "Create New Game",
-  "create_autocancel": "AutoCancel Date",
+  "create_autocancel": "Autocancel in",
   "create_game_owner": "Game Owner",
   "create_player_list": "Player List",
   "cancel_content_message": "The game was canceled by its author!",
@@ -44,6 +44,7 @@
   "start_role_killer": "Your objective is to kill everyone and survive!",
   "start_role_mistress": "string",
 
+
   "wake_up_title": "The city wakes up!",
   "wake_up_description": "Good morning! But is the morning actually good?.. It's time to share your suspicions ⚖",
   "sleep_time_title": "The city falls asleep...",
@@ -53,13 +54,19 @@
   "kills_description_many": "fell victim to iniquity.",
   "no_kills_title": "Nobody died!",
   "no_kills_description": "Nobody was killed last night! Perhaps you should thank the doctor?\uD83D\uDE2F",
+
   "role_embed_action_name": "Action",
   "role_embed_groupDec_name": "Does play in a group?",
   "role_embed_spawnFrom_name": "Minimal number of players to spawn",
   "role_embed_selfSelectable_name": "Is self selectable?",
   "role_embed_count_name": "Count",
-  "role_embed_placeHolder_name": "Call to action",
+  "role_embed_placeHolder_name": "Placeholder for action menu",
   "role_embed_delay_name": "Delay between actions",
+  "condition_embed_condition_name": "Condition",
+  "condition_embed_embedTitle_name": "Embed Title",
+  "condition_embed_embedDescription_name": "Embed Description",
+  "condition_embed_winRole_name": "Win Role",
+
   "role_mafia_name": "Mafia",
   "role_mafia_placeHolder": "Choose your victim...",
   "role_mafia_description": "%KILL AND SURVIVE! ☠\nEvery night the mafia kills one player for whom its members give the most votes (in case of a tie the player is chosen at random). But remember: the victim may be cured by the doctor.\nThe mafia wins if it is at least half of all active players. Exception: if there are two players left — a mafia member and the maniac — the maniac wins.\nYour teammates: % + %{oPlayersTRole}%",
@@ -73,5 +80,18 @@
   "role_doctor_description": "%You save people's lives! ♥\nEvery night you heal one player. If this player is chosen by the criminals, he or she will stay alive.\nYou win with the innocents if there are no murderers left in the city. Be careful: if the mafia is at least half of all active players, they take over the city and win!%",
   "role_police_name": "Detective",
   "role_police_placeHolder": "Choose who you want to check...",
-  "role_police_description": "%You investigate crimes in the city! \uD83D\uDD0D\nEvery night you check one player and find out if he or she belongs to the mafia.\nYou win with the innocents if there are no murderers left in the city. Be careful: if the mafia is at least half of all active players, they take over the city and win!%"
+  "role_police_description": "%You investigate crimes in the city! \uD83D\uDD0D\nEvery night you check one player and find out if he or she belongs to the mafia.\nYou win with the innocents if there are no murderers left in the city. Be careful: if the mafia is at least half of all active players, they take over the city and win!%",
+
+
+  "profile_title": "Your profile \uD83D\uDC64",
+  "profile_mafiaAccountSince": "Mafia account since:",
+  "profile_accountSince": "Account since:",
+  "profile_totalGames": "\uD83C\uDFAE Total Games:",
+  "profile_totalWins": "\uD83C\uDFC6 Total Wins:",
+  "profile_premium": "\uD83D\uDCB5 Premium:",
+  "profile_premium_purchased": "purchased",
+  "profile_premium_notPurchased": "not purchased",
+  "profile_button_premium": "Premium",
+  "profile_button_custom": "Custom",
+  "profile_button_news": "News Notifications"
 }

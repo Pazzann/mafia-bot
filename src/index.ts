@@ -204,7 +204,7 @@ discordBot.on('interactionCreate', async (interaction: Interaction) => {
                     require('./commands/create').execute(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps])
                     return;
                 }
-                if(["premium", "editrole", "editcondition", "custom", "createrole", "deleterole", "createcondition", "deletecondition", "news"].includes(interaction.customId)){
+                if(["premium", "editrole", "editcondition", "custom", "createrole", "deleterole", "createcondition", "deletecondition", "news", "helpmessage"].includes(interaction.customId)){
                     require(`./commands/profileCommands/${interaction.customId}`).execute(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps]);
                     return;
                 }
@@ -269,8 +269,8 @@ discordBot.on('interactionCreate', async (interaction: Interaction) => {
                     require(`./commands/modals/newConditionPartTwo`).execute(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps], interaction.customId);
                     return;
                 }
-                if(["newRolePartOne", "newConditionPartOne"].includes(interaction.customId)){
-                    require(`./commands/modals/${interaction.customId}`).execute(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps]);
+                if(["newRolePartOne", "newConditionPartOne", "textToModeration"].includes(interaction.customId)){
+                    require(`./commands/modals/${interaction.customId}`).execute(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps], discordBot);
                     return;
                 }
             }catch (err){

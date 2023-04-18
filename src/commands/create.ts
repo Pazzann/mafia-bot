@@ -19,7 +19,7 @@ import MistressRole from "../Classes/Roles/MisstressRole";
 import PeacefulRole from "../Classes/Roles/PeacefulRole";
 import MafiaWin from "../Classes/WinningConditions/MafiaWin";
 import PeacecfulWin from "../Classes/WinningConditions/PeacecfulWin";
-import KillerWIn from "../Classes/WinningConditions/KillerWIn";
+import KillerWIn from "../Classes/WinningConditions/KillerWín";
 
 module.exports.execute = function (interaction: ChatInputCommandInteraction, user: User, locale: ILangProps) {
     for(let v of curHostGames.values()){
@@ -27,9 +27,8 @@ module.exports.execute = function (interaction: ChatInputCommandInteraction, use
             return interaction.reply({content: locale.create_error, ephemeral: true}).catch(()=>{});
     }
     for(let v of curHandlingGames.values()){
-        if(v.HasPlayer(interaction.user.id)){
+        if(v.HasPlayer(interaction.user.id))
             return interaction.reply({content: locale.create_error, ephemeral: true}).catch(()=>{});
-        }
     }
     const id = MafiaGame.GenerateId();
 

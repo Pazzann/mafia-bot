@@ -17,7 +17,7 @@ import PeacefulRole from "../../Classes/Roles/PeacefulRole";
 import KillerRole from "../../Classes/Roles/KillerRole";
 import PoliceRole from "../../Classes/Roles/PoliceRole";
 import DoctorRole from "../../Classes/Roles/DoctorRole";
-import KillerWIn from "../../Classes/WinningConditions/KillerWIn";
+import KillerWIn from "../../Classes/WinningConditions/KillerWín";
 import MafiaWin from "../../Classes/WinningConditions/MafiaWin";
 import PeacecfulWin from "../../Classes/WinningConditions/PeacecfulWin";
 

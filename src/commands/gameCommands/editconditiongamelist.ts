@@ -19,7 +19,7 @@ import MafiaRole from "../../Classes/Roles/MafiaRole";
 import CustomRole from "../../Classes/Roles/CustomRole";
 import {Action} from "../../types/Action";
 import PeacecfulWin from "../../Classes/WinningConditions/PeacecfulWin";
-import KillerWIn from "../../Classes/WinningConditions/KillerWIn";
+import KillerWIn from "../../Classes/WinningConditions/KillerWín";
 import MafiaWin from "../../Classes/WinningConditions/MafiaWin";
 import WinningCondition from "../../Entities/WinningCondition.entity";
 import CustomWin from "../../Classes/WinningConditions/CustomWin";
