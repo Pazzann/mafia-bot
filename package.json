@@ -18,7 +18,8 @@
     "dotenv": "^16.0.2",
     "md5": "^2.3.0",
     "mysql2": "^2.3.3",
-    "typeorm": "^0.3.10"
+    "typeorm": "^0.3.10",
+    "valid-url": "^1.0.9"
   },
   "devDependencies": {
     "@testdeck/mocha": "^0.3.2",

@@ -36,25 +36,25 @@ export default class MafiaGame {
     }
 
     public CheckEndGame(): boolean {
-        for(let condition of this._winCond) {
-            if (ScriptEngine.WinningEngine(condition.Condition, this.Players)){
-                this.Players.map(item=>{
+        for (let condition of this._winCond) {
+            if (ScriptEngine.WinningEngine(condition.Condition, this.Players)) {
+                this.Players.map(item => {
                     item.dsUser.dmChannel.send({
                         embeds: [condition.GetEmbed(item.lang)]
                     });
                 });
-                if(condition.WinRole == "innocent"){
-                    this.GetPeacefulUsers().map(item =>{
+                if (condition.WinRole == "innocent") {
+                    this.GetPeacefulUsers().map(item => {
                         item.dbUser.totalWins++;
                         item.dbUser.save();
                     });
-                }else {
-                    this.Players.filter(item =>item.role.RoleName == condition.WinRole).map(item=>{
+                } else {
+                    this.Players.filter(item => item.role.RoleName == condition.WinRole).map(item => {
                         item.dbUser.totalWins++;
                         item.dbUser.save();
                     });
                 }
-                this.Players.map(item =>{
+                this.Players.map(item => {
                     item.dbUser.totalGames++;
                     item.dbUser.save();
                 })
@@ -85,7 +85,7 @@ export default class MafiaGame {
                         });
                     }
                 });
-                if(arrChoose.length===0){
+                if (arrChoose.length === 0) {
                     item.clearSelection();
                     return;
                 }
@@ -121,7 +121,7 @@ export default class MafiaGame {
                     embeds: [MafiaEmbedBuilder.wakeUp(item.local), killEmbed],
                 });
             });
-            if(this.CheckEndGame()){
+            if (this.CheckEndGame()) {
                 this._finished = true;
 
                 curHandlingGames.delete(this._id);
@@ -129,7 +129,7 @@ export default class MafiaGame {
             }
             this.GetAliveUsers().map(item => {
                 item.dsUser.dmChannel.send({
-                    components: [item.role.GetVoteRow(this.GetAliveUsers(), false)]
+                    components: [item.role.GetVoteRow(this.GetAliveUsers(), false, item.local)]
                 });
             });
             this._stage = "discussion";
@@ -156,17 +156,17 @@ export default class MafiaGame {
             this.Players.map(item => {
                 item.dsUser.dmChannel.send({embeds: [voteEmded]});
             });
-            if(votedForUsers[0].numbersOfVotes == votedForUsers[1].numbersOfVotes){
+            if (votedForUsers[0].numbersOfVotes == votedForUsers[1].numbersOfVotes) {
                 this.Players.map(item => {
                     item.dsUser.dmChannel.send("Стол попилили");
                 });
-            }else{
+            } else {
                 this.Players.map(item => {
                     item.dsUser.dmChannel.send(this.GetUser(votedForUsers[0].userid).dsUser.tag + " выгнан голосованием");
                 });
                 this.GetUser(votedForUsers[0].userid).isKilled = true;
             }
-            if(this.CheckEndGame()){
+            if (this.CheckEndGame()) {
                 this._finished = true;
                 curHandlingGames.delete(this._id);
                 return;
@@ -181,7 +181,7 @@ export default class MafiaGame {
             })
             this.GetAliveUsers().map(item => {
                 let row = item.role.GetNightVoteRow(this.GetAliveUsers(), false, item);
-                if(row) {
+                if (row) {
                     item.dsUser.dmChannel.send({
                         components: [row]
                     });
@@ -201,12 +201,12 @@ export default class MafiaGame {
         if (!this.HasPlayer(whom))
             return interaction.reply("invalid player");
         let whomU = this.GetUser(whom);
-        if(whomU.isKilled)
+        if (whomU.isKilled)
             return interaction.reply("invalid player");
         if (!this._validateSelection(who, whomU))
             return interaction.reply("invalid player");
         const row = new SelectMenuBuilder((interaction.component as SelectMenuComponent).data).setDisabled(true);
-        interaction.message.edit({components: [ new ActionRowBuilder<SelectMenuBuilder>().addComponents(row)]});
+        interaction.message.edit({components: [new ActionRowBuilder<SelectMenuBuilder>().addComponents(row)]});
         switch (this._stage) {
             case "choosing": {
                 const role = this.GetRole(who);
@@ -294,8 +294,9 @@ export default class MafiaGame {
     public GetAliveUsers(): MafiaUser[] {
         return this.Players.filter((player) => player.isKilled == false);
     }
+
     public GetPeacefulUsers(): MafiaUser[] {
-        return this.Players.filter((player) => player.role.ActionOnSelect != "kill" );
+        return this.Players.filter((player) => player.role.ActionOnSelect != "kill");
     }
 
     public static GenerateId(): number {

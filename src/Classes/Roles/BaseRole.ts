@@ -1,24 +1,59 @@
 import {ActionRowBuilder, RestOrArray, SelectMenuBuilder, SelectMenuOptionBuilder} from "discord.js";
 import MafiaUser from "../MafiaUser";
-import IUserProps from "../../types/interfaces/IUser";
 import {Action} from "../../types/Action";
+import {Langs} from "../../types/Langs";
+import {ILangProps} from "../../types/interfaces/ILang";
+import {ILocalProps, localisations} from "../../index";
 
 export default abstract class BaseRole {
-    public RoleName: string;
-    public NameLocals: { EN: string, UA: string, RU: string } | null;
+    protected _roleName: string;
+    protected _nameLocals: string | null = null;
+    protected _placeHolder: string;
+    protected _placeHolderLocals: string | null = null;
+    protected _description: string;
+    protected _descriptionLocals: string | null = null;
     public ActionOnSelect: Action;
     public DelayForActivity: number;
     public GroupDecision: boolean;
     public Count: number | string;
     public Emojis: string[] | null;
     public SpawnFrom: number;
-    public PlaceHolder: string;
-    public PlaceHolderLocals: { EN: string, UA: string, RU: string } | null = null;
     public ImageLink: string | null;
-    public Description: string;
     public SelfSelectable: boolean;
     public Selection: MafiaUser[] = [];
-    public DescriptionLocals: { EN: string, UA: string, RU: string } | null = null;
+
+    get RoleName(): string {
+        return this._roleName;
+    }
+
+    public GetRoleName(lang: Langs): string {
+        if(this._nameLocals === null)
+            return this._roleName;
+        if(localisations?.[lang.toUpperCase() as keyof ILocalProps]?.[this._nameLocals as keyof ILangProps]){
+            return localisations[lang.toUpperCase() as keyof ILocalProps][this._nameLocals as keyof ILangProps];
+        }else{
+            return localisations.EN?.[this._nameLocals as keyof ILangProps];
+        }
+    }
+    public GetPlaceHolder(lang: Langs): string {
+        if(this._placeHolderLocals === null)
+            return this._placeHolder;
+        if(localisations?.[lang.toUpperCase() as keyof ILocalProps]?.[this._placeHolderLocals as keyof ILangProps]){
+            return localisations[lang.toUpperCase() as keyof ILocalProps][this._placeHolderLocals as keyof ILangProps];
+        }else{
+            return localisations.EN?.[this._placeHolderLocals as keyof ILangProps];
+        }
+    }
+    public GetDescription(lang: Langs): string {
+        if(this._descriptionLocals === null)
+            return this._description;
+        if(localisations?.[lang.toUpperCase() as keyof ILocalProps]?.[this._descriptionLocals as keyof ILangProps]){
+            return localisations[lang.toUpperCase() as keyof ILocalProps][this._descriptionLocals as keyof ILangProps];
+        }else{
+            return localisations.EN?.[this._descriptionLocals as keyof ILangProps];
+        }
+    }
+
 
     public clearSelection() {
         this.Selection = []
@@ -40,8 +75,8 @@ export default abstract class BaseRole {
         return new ActionRowBuilder<SelectMenuBuilder>()
             .addComponents(
                 new SelectMenuBuilder()
-                    .setCustomId(this.RoleName + "_select")
-                    .setPlaceholder(this.PlaceHolderLocals ? this.PlaceHolderLocals[owner.lang.toUpperCase() as keyof { EN: string, RU: string, UA: string }] : this.PlaceHolder)
+                    .setCustomId(this._roleName + "_select")
+                    .setPlaceholder(this.GetPlaceHolder(owner.lang))
                     .setMinValues(1)
                     .setMaxValues(1)
                     .addOptions(chooseArr)
@@ -49,7 +84,7 @@ export default abstract class BaseRole {
             );
     }
 
-    GetVoteRow(aliveUsers: MafiaUser[], inactive = false) {
+    GetVoteRow(aliveUsers: MafiaUser[], inactive = false, locale: ILangProps) {
         const NonAlibiAndAliveUsers: MafiaUser[] = aliveUsers.filter(item => item.actionsOnUser.alibi === false);
         const chooseArr: RestOrArray<SelectMenuOptionBuilder> = [];
         // const skip = new SelectMenuOptionBuilder()

@@ -20,6 +20,7 @@ import PeacefulRole from "../Classes/Roles/PeacefulRole";
 import MafiaWin from "../Classes/WinningConditions/MafiaWin";
 import PeacecfulWin from "../Classes/WinningConditions/PeacecfulWin";
 import KillerWIn from "../Classes/WinningConditions/KillerWín";
+import getDisabledButtons from "../Functions/getDisabledButtons";
 
 module.exports.execute = function (interaction: ChatInputCommandInteraction, user: User, locale: ILangProps) {
     for(let v of curHostGames.values()){
@@ -58,62 +59,17 @@ module.exports.execute = function (interaction: ChatInputCommandInteraction, use
         .setDescription(`**${locale.game_created_autocancel}:** <t:${Math.floor(Date.now()/1000) + 600}:R>\n**${locale.game_created_gameOwner}:** <@${interaction.user.id}>\n\n__**${locale.game_created_playerList}:**__ \n<@${interaction.user.id}>`)
         .addFields([{
             value: roleStr,
-            name: locale.game_created_roles
+            name: `__**${locale.game_created_roles}**__`
         }, {
             value: winStr,
-            name: locale.game_created_gameEndConditions
+            name: `__**${locale.game_created_gameEndConditions}**__`
         }])
         .setThumbnail("https://media.discordapp.net/attachments/1015944207220879370/1016009845289275533/unknown.png?width=566&height=566")
         .setColor("#ffec6e")
-    const buttonRow1 = new ActionRowBuilder<ButtonBuilder>()
-        .addComponents(
-            new ButtonBuilder()
-                .setEmoji("🌀")
-                .setLabel(locale.create_button_join)
-                .setStyle(ButtonStyle.Primary)
-                .setCustomId("j" + String(id)),
-            new ButtonBuilder()
-                .setEmoji("✔")
-                .setLabel(locale.create_button_start)
-                .setStyle(ButtonStyle.Success)
-                .setCustomId("s" + String(id))
-        )
-    ;
-    const buttonRow2 = new ActionRowBuilder<ButtonBuilder>()
-        .addComponents(
-            new ButtonBuilder()
-                .setEmoji("🔥")
-                .setLabel(locale.create_button_cancel)
-                .setStyle(ButtonStyle.Danger)
-                .setCustomId("c" + String(id)),
-            new ButtonBuilder()
-                .setEmoji("🔪")
-                .setLabel(locale.create_button_leave)
-                .setStyle(ButtonStyle.Danger)
-                .setCustomId("l" + String(id))
-        )
-    ;
-    const buttonRow3 = new ActionRowBuilder<ButtonBuilder>()
-        .addComponents(
-            new ButtonBuilder()
-                .setEmoji("✏")
-                .setLabel(`⠀⠀⠀⠀Edit⠀⠀⠀⠀⠀`)
-                .setStyle(ButtonStyle.Success)
-                .setCustomId("r" + String(id)),
-        )
-    ;
-    const buttonRow4 = new ActionRowBuilder<ButtonBuilder>()
-        .addComponents(
-            new ButtonBuilder()
-                .setEmoji("👀")
-                .setLabel(`⠀⠀⠀⠀${locale.create_button_new}⠀⠀⠀⠀⠀`)
-                .setStyle(ButtonStyle.Success)
-                .setCustomId("createnew"),
-        )
-    ;
+
     let host = curHostGames.get(id);
     host.embed = embed;
     curHostGames.set(id, host);
 
-    interaction.reply({embeds: [embed], components: [buttonRow1, buttonRow2, buttonRow3, buttonRow4]}).catch(()=>{});
+    interaction.reply({embeds: [embed], components: getDisabledButtons(id, locale, false)}).catch(()=>{});
 }

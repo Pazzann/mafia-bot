@@ -1,16 +1,17 @@
 export interface ILangProps {
     game_created: string;
     create_error: string;
-    create_button_join: string;
-    create_button_start: string;
-    create_button_cancel: string;
-    create_button_leave: string;
-    create_button_new: string;
     game_created_autocancel: string;          //usage: **${locale.game_created_autocancel}:** <t:${Math.floor(Date.now()/1000) + 600}:R>
     game_created_gameOwner: string;          //usage: **${locale.game_created_gameOwner}:** <@${interaction.user.id}>
     game_created_playerList: string;         //usage: __**${locale.game_created_playerList}:**__ \n<@${interaction.user.id}>
     game_created_roles: string;
     game_created_gameEndConditions: string;
+    game_created_button_join: string;
+    game_created_button_start: string;
+    game_created_button_cancel: string;
+    game_created_button_leave: string;
+    game_created_button_edit: string;
+    game_created_button_new: string;
     cancel_content_message: string;
     cancel_confirm_message: string;
     auto_cancel_content_message: string;
@@ -64,10 +65,10 @@ export interface ILangProps {
     role_embed_count_name: string;
     role_embed_placeHolder_name: string;
     role_embed_delay_name: string;
-    condition_embed_condition_name: string;             //TODO
-    condition_embed_embedTitle_name: string;            //TODO
-    condition_embed_embedDescription_name: string;      //TODO
-    condition_embed_winRole_name: string;               //TODO
+    condition_embed_condition_name: string;
+    condition_embed_embedTitle_name: string;
+    condition_embed_embedDescription_name: string;
+    condition_embed_winRole_name: string;
 
     role_mafia_name: string;
     role_mafia_placeHolder: string;
@@ -83,7 +84,9 @@ export interface ILangProps {
     role_police_name: string;           //police = detective
     role_police_placeHolder: string;
     role_police_description: string;
-    //TODO: mistress
+    role_mistress_name: string;             //TODO
+    role_mistress_placeHolder: string;      //TODO "Выберите к кому хотите сходить..."
+    role_mistress_description: string;      //TODO "%You know what to do ;)!%"
 
     profile_title: string;
     profile_mafiaAccountSince: string;  //usage: ⌛**${locale.profile_mafiaAccountSince}** <t:${Math.round(dbDateToDate(user.since) / 1000)}:d>
@@ -96,4 +99,19 @@ export interface ILangProps {
     profile_button_premium: string;
     profile_button_custom: string;
     profile_button_news: string;
+
+    create_condition_title1: string;
+    create_condition_conditionName_label: string;
+    create_condition_conditionName_placeHolder: string;
+    create_condition_title2: string;    //usage: locale.create_condition_title2 + name
+    create_condition_condition_label: string;
+    create_condition_condition_placeHolder: string;
+    create_condition_embedTitle_label: string;
+    create_condition_embedTitle_placeHolder: string;
+    create_condition_embedDescription_label: string;
+    create_condition_embedDescription_placeHolder: string;
+    create_condition_embedThumbnail_label: string;
+    create_condition_embedThumbnail_placeHolder: string;
+    create_condition_winRole_label: string;
+    create_condition_winRole_placeHolder: string;
 }

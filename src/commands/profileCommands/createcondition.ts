@@ -15,12 +15,12 @@ module.exports.execute = async function (interaction: ButtonInteraction, user: U
 
 
     const modal = new ModalBuilder()
-        .setCustomId('newConditionPartOne')
-        .setTitle('Condition Creation');
+        .setCustomId("newConditionPartOne")
+        .setTitle("Condition Creation");
 
 
     const nameInput = new TextInputBuilder()
-        .setCustomId('conditionName')
+        .setCustomId("conditionName")
         .setLabel("Name")
         .setPlaceholder("What is the name of your condition?")
         .setStyle(TextInputStyle.Short)

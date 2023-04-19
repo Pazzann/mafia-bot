@@ -23,7 +23,7 @@ export default class ScriptEngine {
 
 
     //runs equation
-    public runEquation(): unknown | number {
+    public runEquation(): unknown | number {    
         if (!this.validate(this._eqv))
             return NaN;
         try {

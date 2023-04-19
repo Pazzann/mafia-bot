@@ -10,10 +10,10 @@ module.exports.execute = async function (interaction: ButtonInteraction, user: U
     }
     const name = interaction.customId.split("newconditionhalfbut").join("");
     const modal = new ModalBuilder()
-        .setCustomId('newConditionPartTwo' + name)
-        .setTitle(name + ' Creation');
+        .setCustomId("newConditionPartTwo" + name)
+        .setTitle("Condition Creation: " + name);
     const conditionInput = new TextInputBuilder()
-        .setCustomId('condition')
+        .setCustomId("condition")
         .setLabel("Condition")
         .setPlaceholder("Enter condition. For more information see /help Scripting")
         .setStyle(TextInputStyle.Paragraph)

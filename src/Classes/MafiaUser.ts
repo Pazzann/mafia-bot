@@ -1,4 +1,3 @@
-import {IRolesProps} from "../types/interfaces/IRoles";
 import {ILangProps} from "../types/interfaces/ILang";
 import {Langs} from "../types/Langs";
 import BaseRole from "./Roles/BaseRole";
