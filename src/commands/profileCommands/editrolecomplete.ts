@@ -13,7 +13,7 @@ import Role from "../../Entities/Role.entity";
 module.exports.execute = async function (interaction: SelectMenuInteraction, user: User, locale: ILangProps) {
     try {
         if(!user.premium){
-            interaction.reply({content: "You don't have premium to create custom roles and conditions, sorry!", ephemeral: true})
+            interaction.followUp({content: "You don't have premium to create custom roles and conditions, sorry!", ephemeral: true})
             return;
         }
 
@@ -21,11 +21,11 @@ module.exports.execute = async function (interaction: SelectMenuInteraction, use
         let action = interaction.values[0].split("editrole").join('').split(String(roleId)).join('');
         const role = await Role.findOne({where: {id: roleId}, relations: ["user"]});
         if (role == null) {
-            interaction.reply({content: "No role found!", ephemeral: true})
+            interaction.followUp({content: "No role found!", ephemeral: true})
             return;
         }
         if (role.user.userid != user.userid) {
-            interaction.reply({content: "You don't have permission to edit this role, sorry!", ephemeral: true})
+            interaction.followUp({content: "You don't have permission to edit this role, sorry!", ephemeral: true})
             return;
         }
         const modal = new ModalBuilder()

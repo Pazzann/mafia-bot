@@ -1,4 +1,12 @@
-import {Client, EmbedBuilder, GatewayIntentBits, Interaction, Partials} from "discord.js";
+import {
+    ButtonInteraction,
+    ChatInputCommandInteraction,
+    Client,
+    EmbedBuilder,
+    GatewayIntentBits,
+    Interaction, ModalSubmitInteraction,
+    Partials, SelectMenuInteraction
+} from "discord.js";
 import IHostGameProps from "./types/interfaces/IHost";
 import * as dotenv from 'dotenv'
 import {DataSource} from "typeorm";
@@ -64,16 +72,17 @@ AppDataSource.initialize()
 export const curHostGames: Map<number, IHostGameProps> = new Map();
 export const curHandlingGames: Map<number, MafiaGame> = new Map();
 
-discordBot.on('interactionCreate', async (interaction: Interaction) => {
-    const dataUser = await User.findOne({
-        where: {userid: interaction.user.id},
-        relations: ["customRoles", "conditions"]
-    })
+discordBot.on('interactionCreate', async (interaction: ChatInputCommandInteraction | ButtonInteraction | SelectMenuInteraction | ModalSubmitInteraction) => {
     try {
+        await interaction.deferReply();
+        const dataUser = await User.findOne({
+            where: {userid: interaction.user.id},
+            relations: ["customRoles", "conditions"]
+        })
+
         if (interaction.isChatInputCommand()) {
-            //interaction.deferReply();
             if (!dataUser) {
-                interaction.reply({
+                interaction.followUp({
                     content: "To use the bot, select the language, first",
                     ephemeral: true,
                     components: getLangButtons()
@@ -83,7 +92,7 @@ discordBot.on('interactionCreate', async (interaction: Interaction) => {
             }
             const {commandName} = interaction;
             if (interaction.channel.isDMBased() && commandName === "create") {
-                interaction.reply({
+                interaction.followUp({
                     content: 'Создать игру в мафию вы можете только на сервере!',
                     ephemeral: true
                 }).catch(() => {
@@ -98,7 +107,6 @@ discordBot.on('interactionCreate', async (interaction: Interaction) => {
             let commandObj = require(`./commands/${commandName}`);
             commandObj.execute(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps]);
         } else if (interaction.isSelectMenu()) {
-            //interaction.deferReply();
             if (interaction.customId == "editrole") {
                 let roleId = interaction.values[0].split("editrole").join("");
                 require('./commands/profileCommands/editroleselectmenu').execute(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps], roleId)
@@ -148,7 +156,7 @@ discordBot.on('interactionCreate', async (interaction: Interaction) => {
                 }
             }
             if (!mafGame) {
-                interaction.reply("You are not playing a game").catch(() => {
+                interaction.followUp("You are not playing a game").catch(() => {
                 });
                 return;
             }
@@ -158,7 +166,6 @@ discordBot.on('interactionCreate', async (interaction: Interaction) => {
 
         } else if (interaction.isButton()) {
             try {
-                //interaction.deferReply();
                 switch (interaction.customId) {
                     case "en": {
                         if (!dataUser) {
@@ -173,7 +180,7 @@ discordBot.on('interactionCreate', async (interaction: Interaction) => {
                             dataUser.lang = Langs.EN;
                             await dataUser.save();
                         }
-                        interaction.reply({content: "Successfully set english!", ephemeral: true}).catch(() => {
+                        interaction.followUp({content: "Successfully set english!", ephemeral: true}).catch(() => {
                         });
                         return;
                     }
@@ -190,7 +197,7 @@ discordBot.on('interactionCreate', async (interaction: Interaction) => {
                             dataUser.lang = Langs.RU;
                             await dataUser.save();
                         }
-                        interaction.reply({content: "Язык изменён на русский!", ephemeral: true}).catch(() => {
+                        interaction.followUp({content: "Язык изменён на русский!", ephemeral: true}).catch(() => {
                         });
                         return;
                     }
@@ -207,14 +214,17 @@ discordBot.on('interactionCreate', async (interaction: Interaction) => {
                             dataUser.lang = Langs.UA;
                             await dataUser.save();
                         }
-                        interaction.reply({content: "Успішно встановлено українську!", ephemeral: true}).catch(() => {
+                        interaction.followUp({
+                            content: "Успішно встановлено українську!",
+                            ephemeral: true
+                        }).catch(() => {
                         });
                         return;
                     }
 
                 }
                 if (!dataUser) {
-                    interaction.reply({
+                    interaction.followUp({
                         content: "To use the bot, select the language, first",
                         ephemeral: true,
                         components: getLangButtons()
@@ -272,7 +282,6 @@ discordBot.on('interactionCreate', async (interaction: Interaction) => {
             }
         } else if (interaction.isModalSubmit()) {
             try {
-                //interaction.deferReply();
                 if (interaction.customId.includes("newRolePartTwo")) {
                     let id = Number(interaction.customId.split("newRolePartTwo").join(''));
                     require(`./commands/modals/newRolePartTwo`).execute(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps], id);

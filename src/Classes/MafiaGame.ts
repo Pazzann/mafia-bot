@@ -199,12 +199,12 @@ export default class MafiaGame {
 
     public async Choose(who: MafiaUser, whom: string, interaction: SelectMenuInteraction) {
         if (!this.HasPlayer(whom))
-            return interaction.reply("invalid player");
+            return interaction.followUp("invalid player");
         let whomU = this.GetUser(whom);
         if (whomU.isKilled)
-            return interaction.reply("invalid player");
+            return interaction.followUp("invalid player");
         if (!this._validateSelection(who, whomU))
-            return interaction.reply("invalid player");
+            return interaction.followUp("invalid player");
         const row = new SelectMenuBuilder((interaction.component as SelectMenuComponent).data).setDisabled(true);
         interaction.message.edit({components: [new ActionRowBuilder<SelectMenuBuilder>().addComponents(row)]});
         switch (this._stage) {
@@ -212,23 +212,23 @@ export default class MafiaGame {
                 const role = this.GetRole(who);
                 switch (who.role.ActionOnSelect) {
                     case "check": {
-                        interaction.reply(whomU.role.RoleName == "mafia" ? "mafia" : "not mafia");
+                        interaction.followUp(whomU.role.RoleName == "mafia" ? "mafia" : "not mafia");
                         who.actionsOnUser.hasDoneAction = true;
                         break;
                     }
 
                     case "full_check": {
-                        interaction.reply(whomU.role.RoleName);
+                        interaction.followUp(whomU.role.RoleName);
                         who.actionsOnUser.hasDoneAction = true;
                         break;
                     }
                     case "no_activity": {
-                        interaction.reply("Who are you?");
+                        interaction.followUp("Who are you?");
                         break;
                     }
                     default: {
                         role.Selection.push(whomU);
-                        interaction.reply("ok");
+                        interaction.followUp("ok");
                         who.actionsOnUser.hasDoneAction = true;
                         break;
                     }
@@ -240,7 +240,7 @@ export default class MafiaGame {
             case "discussion": {
                 whomU.actionsOnUser.voted++;
                 who.actionsOnUser.hasVoted = true;
-                interaction.reply("ok");
+                interaction.followUp("ok");
                 this.SendToAll(this.GetVotedLength() + "/" + this.GetAliveUsers().length + "\n" + who.dsUser.tag + " - " + whomU.dsUser.tag);
                 this.EndVoteMoveHandler();
                 return;

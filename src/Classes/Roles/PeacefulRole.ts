@@ -5,7 +5,7 @@ export default class PeacefulRole extends BaseRole {
     constructor() {
         super()
         this._nameLocals = "role_peaceful_name";
-        this._roleName = "innocent";
+        this._roleName = localisations.EN.role_peaceful_name;
         this.DelayForActivity = 0;
         this.ActionOnSelect = "no_activity";
         this.GroupDecision = true;

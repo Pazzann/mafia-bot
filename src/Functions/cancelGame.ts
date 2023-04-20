@@ -7,6 +7,6 @@ export default function cancelGame(interaction: ChatInputCommandInteraction, id:
     if(curHostGames.has(id))
         curHostGames.delete(id);
 
-    interaction.reply({components: getDisabledButtons(id, locale), content: `**${locale.auto_cancel_content_message}**`}).catch(()=>{});
+    interaction.followUp({components: getDisabledButtons(id, locale), content: `**${locale.auto_cancel_content_message}**`}).catch(()=>{});
 
 }

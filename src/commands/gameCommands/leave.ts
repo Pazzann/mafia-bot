@@ -16,11 +16,11 @@ module.exports.execute = function (interaction: ButtonInteraction, gameid = 0, u
             host.embed = newEmbed;
             curHostGames.set(gameid, host);
             interaction.message.edit({embeds: [newEmbed]});
-            interaction.reply({content: locale.leave_game, ephemeral: true}).catch(()=>{});
+            interaction.followUp({content: locale.leave_game, ephemeral: true}).catch(()=>{});
         }else{
-            interaction.reply({content: locale.error_you_are_not_already, ephemeral: true}).catch(()=>{});
+            interaction.followUp({content: locale.error_you_are_not_already, ephemeral: true}).catch(()=>{});
         }
     }else{
-        interaction.reply({content: locale.error_incorrect_game_id, ephemeral: true}).catch(()=>{});
+        interaction.followUp({content: locale.error_incorrect_game_id, ephemeral: true}).catch(()=>{});
     }
 }

@@ -14,22 +14,22 @@ import {getTreeRepository} from "typeorm";
 
 module.exports.execute = async function (interaction: ModalSubmitInteraction, user: User, locale: ILangProps, customid: string) {
     if(!user.premium){
-        interaction.reply({content: "You don't have premium to create custom roles and conditions, sorry!", ephemeral: true})
+        interaction.followUp({content: "You don't have premium to create custom roles and conditions, sorry!", ephemeral: true})
         return;
     }
     let id = +customid.match(/[0-9]+/)[0];
     try{
         const role = await Role.findOne({where: {id: id}, relations: ["user"]});
         if(role == null){
-            interaction.reply({content: "No role found!", ephemeral: true})
+            interaction.followUp({content: "No role found!", ephemeral: true})
             return;
         }
         if(role.user.userid != user.userid){
-            interaction.reply({content: "You don't have permission to edit this role, sorry!", ephemeral: true})
+            interaction.followUp({content: "You don't have permission to edit this role, sorry!", ephemeral: true})
             return;
         }
         let IdOfInput = (interaction.components[0].components[0] as TextInputComponent).customId;
-        // interaction.reply(JSON.stringify(interaction.components[0], null, 2));
+
         switch (IdOfInput){
             case "editRolename":{
                 role.name = (interaction.components[0].components[0] as TextInputComponent).value;
@@ -74,7 +74,7 @@ module.exports.execute = async function (interaction: ModalSubmitInteraction, us
 
         }
         role.save();
-        interaction.reply({ephemeral: false, content: "succesfully", embeds:[MafiaEmbedBuilder.roleEmbed(role, locale)]})
+        interaction.followUp({ephemeral: false, content: "succesfully", embeds:[MafiaEmbedBuilder.roleEmbed(role, locale)]})
 
 
     }catch (err) {

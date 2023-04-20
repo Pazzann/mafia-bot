@@ -25,11 +25,11 @@ import getDisabledButtons from "../Functions/getDisabledButtons";
 module.exports.execute = function (interaction: ChatInputCommandInteraction, user: User, locale: ILangProps) {
     for(let v of curHostGames.values()){
         if(v.users.includes(interaction.user.id))
-            return interaction.reply({content: locale.create_error, ephemeral: true}).catch(()=>{});
+            return interaction.followUp({content: locale.create_error, ephemeral: true}).catch(()=>{});
     }
     for(let v of curHandlingGames.values()){
         if(v.HasPlayer(interaction.user.id))
-            return interaction.reply({content: locale.create_error, ephemeral: true}).catch(()=>{});
+            return interaction.followUp({content: locale.create_error, ephemeral: true}).catch(()=>{});
     }
     const id = MafiaGame.GenerateId();
 
@@ -71,5 +71,5 @@ module.exports.execute = function (interaction: ChatInputCommandInteraction, use
     host.embed = embed;
     curHostGames.set(id, host);
 
-    interaction.reply({embeds: [embed], components: getDisabledButtons(id, locale, false)}).catch(()=>{});
+    interaction.followUp({embeds: [embed], components: getDisabledButtons(id, locale, false)}).catch(()=>{});
 }

@@ -12,11 +12,11 @@ module.exports.execute = function (interaction: ButtonInteraction, gameid = 0, u
             clearTimeout(host.timeout);
             interaction.message.edit({content: `**${locale.cancel_content_message}**`, components: getDisabledButtons(gameid, locale)})
             curHostGames.delete(gameid);
-            interaction.reply(locale.cancel_confirm_message).catch(()=>{});
+            interaction.followUp(locale.cancel_confirm_message).catch(()=>{});
         }else{
-            interaction.reply({content: locale.error_you_are_not_the_owner, ephemeral: true}).catch(()=>{});
+            interaction.followUp({content: locale.error_you_are_not_the_owner, ephemeral: true}).catch(()=>{});
         }
     }else{
-        interaction.reply({content: locale.error_incorrect_game_id, ephemeral: true}).catch(()=>{});
+        interaction.followUp({content: locale.error_incorrect_game_id, ephemeral: true}).catch(()=>{});
     }
 }

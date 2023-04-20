@@ -26,7 +26,7 @@ module.exports.execute = async function (interaction: SelectMenuInteraction, use
             const host = curHostGames.get(gameid);
             if (host.author == interaction.user.id) {
                 if (!user.premium) {
-                    interaction.reply("You don't have premium to change game preset");
+                    interaction.followUp("You don't have premium to change game preset");
                     return;
                 }
                 host.roles = [];
@@ -100,16 +100,16 @@ module.exports.execute = async function (interaction: SelectMenuInteraction, use
                     }]);
                 curHostGames.set(gameid, host);
                 await host.interaction.editReply({embeds: [host.embed]});
-                await interaction.reply({content: "done", ephemeral: true});
+                await interaction.followUp({content: "done", ephemeral: true});
             } else {
-                interaction.reply({content: locale.error_you_are_not_the_owner, ephemeral: true}).catch(() => {
+                interaction.followUp({content: locale.error_you_are_not_the_owner, ephemeral: true}).catch(() => {
                 });
             }
         } else {
-            interaction.reply({content: locale.error_incorrect_game_id, ephemeral: true}).catch(() => {
+            interaction.followUp({content: locale.error_incorrect_game_id, ephemeral: true}).catch(() => {
             });
         }
     } catch (err) {
-        interaction.reply({content: err, ephemeral: true})
+        interaction.followUp({content: err, ephemeral: true})
     }
 }

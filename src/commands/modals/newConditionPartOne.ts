@@ -6,7 +6,7 @@ import Role from "../../Entities/Role.entity";
 module.exports.execute = async function (interaction: ModalSubmitInteraction, user: User, locale: ILangProps) {
 
     if(!user.premium){
-        interaction.reply({content: "You don't have premium to create custom roles and conditions, sorry!", ephemeral: true})
+        interaction.followUp({content: "You don't have premium to create custom roles and conditions, sorry!", ephemeral: true})
         return;
     }
     const name = interaction.fields.getTextInputValue("conditionName");
@@ -20,6 +20,6 @@ module.exports.execute = async function (interaction: ModalSubmitInteraction, us
                 .setCustomId("newconditionhalfbut" + name)
                 .setDisabled(false),
         );
-    await interaction.reply({content: "Click the button", ephemeral: true, components: [buttons]})
+    await interaction.followUp({content: "Click the button", ephemeral: true, components: [buttons]})
 
 }

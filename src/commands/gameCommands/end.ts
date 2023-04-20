@@ -12,11 +12,11 @@ module.exports.execute = function (interaction: ButtonInteraction, gameid = 0, u
                     dm.send(item.local.game_was_ended);
             });
             curHandlingGames.delete(gameid);
-            interaction.reply(locale.game_deleted).catch(()=>{});
+            interaction.followUp(locale.game_deleted).catch(()=>{});
         } else {
-            interaction.reply({content: locale.error_you_are_not_the_owner, ephemeral: true}).catch(()=>{});
+            interaction.followUp({content: locale.error_you_are_not_the_owner, ephemeral: true}).catch(()=>{});
         }
     } else {
-        interaction.reply({content:locale.error_incorrect_game_id, ephemeral: true}).catch(()=>{});
+        interaction.followUp({content:locale.error_incorrect_game_id, ephemeral: true}).catch(()=>{});
     }
 }

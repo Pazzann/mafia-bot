@@ -25,9 +25,9 @@ module.exports.execute = async function (interaction: ButtonInteraction, gameid 
             const gameData = curHostGames.get(gameid);
             clearTimeout(gameData.timeout);
             if (gameData.users.length < 4)
-                return interaction.reply({content:locale.error_not_enough_players, ephemeral: true}).catch(()=>{});
+                return interaction.followUp({content:locale.error_not_enough_players, ephemeral: true}).catch(()=>{});
             if (gameData.roles.length < 1)
-                return interaction.reply({content:"not enough roles", ephemeral: true}).catch(()=>{});
+                return interaction.followUp({content:"not enough roles", ephemeral: true}).catch(()=>{});
             curHostGames.delete(gameid);
             const win:BaseCondition[] =  [new MafiaWin(), new KillerWIn(), new PeacecfulWin()];
             const roles: BaseRole[] = gameData.roles;
@@ -68,10 +68,10 @@ module.exports.execute = async function (interaction: ButtonInteraction, gameid 
                 .setDescription(`**${locale.game_created_gameOwner}:** <@${interaction.user.id}>! \n Roles:\n ${roleStr}\n Winning Conditions:\n ${winStr}`)
                 .setColor("#99ffb5")
                 .setThumbnail("https://media.discordapp.net/attachments/1015944207220879370/1016410833112268910/Boy_From_God_Shrek_peaky_blinders_family_2a6ce986-1bad-472e-b288-481161d806af.png?width=566&height=566");
-            return interaction.reply({embeds: [embed], components: [buttonRow]}).catch(()=>{});
+            return interaction.followUp({embeds: [embed], components: [buttonRow]}).catch(()=>{});
         } else {
-            return interaction.reply({content: locale.error_you_are_not_the_owner, ephemeral: true}).catch(()=>{});
+            return interaction.followUp({content: locale.error_you_are_not_the_owner, ephemeral: true}).catch(()=>{});
         }
     else
-        return interaction.reply({content: locale.error_incorrect_game_id, ephemeral: true}).catch(()=>{});
+        return interaction.followUp({content: locale.error_incorrect_game_id, ephemeral: true}).catch(()=>{});
 }

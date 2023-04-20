@@ -6,7 +6,7 @@ import WinningCondition from "../../Entities/WinningCondition.entity";
 module.exports.execute = async function (interaction: SelectMenuInteraction, user: User, locale: ILangProps, conditionId: number) {
 
     if (!user.premium) {
-        interaction.reply({
+        interaction.followUp({
             content: "You don't have premium to create custom roles and conditions, sorry!",
             ephemeral: true
         })
@@ -15,11 +15,11 @@ module.exports.execute = async function (interaction: SelectMenuInteraction, use
 
     const condition = await WinningCondition.findOne({where: {id: conditionId}, relations: ["user"]});
     if (condition == null) {
-        interaction.reply({content: "No condition found!", ephemeral: true})
+        interaction.followUp({content: "No condition found!", ephemeral: true})
         return;
     }
     if (condition.user.userid != user.userid) {
-        interaction.reply({content: "You don't have permission to delete this condition, sorry!", ephemeral: true})
+        interaction.followUp({content: "You don't have permission to delete this condition, sorry!", ephemeral: true})
         return;
     }
 

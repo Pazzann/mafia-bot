@@ -14,8 +14,8 @@ module.exports.execute = async function (interaction: ModalSubmitInteraction, us
             .setColor("#ffffff")
             .setAuthor({iconURL: interaction.user.avatarURL(), name: interaction.user.tag})
         await dm.send({embeds: [embed]});
-        await interaction.reply({content: "sended", ephemeral: true});
+        await interaction.followUp({content: "sended", ephemeral: true});
     }).catch(async () => {
-        await interaction.reply({content: "unsuccessful", ephemeral: true});
+        await interaction.followUp({content: "unsuccessful", ephemeral: true});
     });
 }
