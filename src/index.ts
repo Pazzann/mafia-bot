@@ -273,6 +273,7 @@ discordBot.on('interactionCreate', async (interaction: ChatInputCommandInteracti
                         break;
                     }
                     case 's': {
+
                         require('./commands/gameCommands/start').execute(interaction, gameId, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps]);
                         break;
                     }

@@ -10,7 +10,7 @@ export default class DoctorRole extends BaseRole {
         this.ActionOnSelect = "heal";
         this.GroupDecision = false;
         this.Count = 1;
-        this.Emojis = ['💉', '💊', '🩹', '🩺', '🧬', '🦠', '🧫', '🧪', '♥'];
+        this.Emojis = ['💉', '💊', '🩹', '🩺', '🚑', '🧫', '🧪', '♥'];
         this.SpawnFrom = 0;
         this._placeHolder = localisations.EN.role_doctor_placeHolder;
         this._placeHolderLocals = "role_doctor_placeHolder";

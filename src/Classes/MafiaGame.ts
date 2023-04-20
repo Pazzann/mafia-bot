@@ -40,7 +40,7 @@ export default class MafiaGame {
             if (ScriptEngine.WinningEngine(condition.Condition, this.Players)) {
                 this.Players.map(item => {
                     item.dsUser.dmChannel.send({
-                        embeds: [condition.GetEmbed(item.lang)]
+                        embeds: [condition.GetEmbed(item.lang, this.Players)]
                     });
                 });
                 if (condition.WinRole == "innocent") {

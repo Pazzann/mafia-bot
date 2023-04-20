@@ -5,42 +5,42 @@ import {ILangProps} from "../../types/interfaces/ILang";
 module.exports.execute = async function (interaction: ButtonInteraction, user: User, locale: ILangProps) {
 
     if(!user.premium){
-        interaction.reply({content: "You don't have premium to create custom roles and conditions, sorry!", ephemeral: true})
+        interaction.reply({content: locale.create_condition_error_premium, ephemeral: true})
         return;
     }
     const name = interaction.customId.split("newconditionhalfbut").join("");
     const modal = new ModalBuilder()
         .setCustomId("newConditionPartTwo" + name)
-        .setTitle("Condition Creation: " + name);
+        .setTitle(locale.create_condition_title2 + name);
     const conditionInput = new TextInputBuilder()
         .setCustomId("condition")
-        .setLabel("Condition")
-        .setPlaceholder("your condition; for more information see _/help -> Scripting_")
+        .setLabel(locale.create_condition_condition_label)
+        .setPlaceholder(locale.create_condition_condition_placeHolder)
         .setStyle(TextInputStyle.Paragraph)
         .setValue("false")
         .setRequired(true);
     const embedTitleInput = new TextInputBuilder()
         .setCustomId("embedTitle")
-        .setLabel("Title")
-        .setPlaceholder("Mafia wins ;)")
+        .setLabel(locale.create_condition_embedTitle_label)
+        .setPlaceholder(locale.create_condition_embedTitle_placeHolder)
         .setStyle(TextInputStyle.Short)
         .setRequired(true);
     const embedDescriptionInput = new TextInputBuilder()
         .setCustomId("embedDescription")
-        .setLabel("Description")
-        .setPlaceholder("Mysteriously the mafia has won...")
+        .setLabel(locale.create_condition_embedDescription_label)
+        .setPlaceholder(locale.create_condition_embedDescription_placeHolder)
         .setStyle(TextInputStyle.Short)
         .setRequired(true);
     const embedThumbnailInput = new TextInputBuilder()
         .setCustomId("embedThumbnail")
-        .setLabel("Thumbnail")
-        .setPlaceholder("crazy kitty image link")
+        .setLabel(locale.create_condition_embedThumbnail_label)
+        .setPlaceholder(locale.create_condition_embedThumbnail_placeHolder)
         .setStyle(TextInputStyle.Short)
         .setRequired(true);
     const winRoleInput = new TextInputBuilder()
         .setCustomId("winRole")
-        .setLabel("Winning Role")
-        .setPlaceholder("just a winning role name")
+        .setLabel(locale.create_condition_winRole_label)
+        .setPlaceholder(locale.create_condition_winRole_placeHolder)
         .setValue("innocent")
         .setStyle(TextInputStyle.Short)
         .setRequired(true);

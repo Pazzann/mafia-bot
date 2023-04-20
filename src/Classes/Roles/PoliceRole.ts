@@ -10,7 +10,7 @@ export default class PoliceRole extends BaseRole {
         this.ActionOnSelect = "check";
         this.GroupDecision = false;
         this.Count = 1;
-        this.Emojis = ['🔍', '🔎', '🚓', '👮', '🚔', '🚨'];
+        this.Emojis = ['🔍', '🔎', '🚓', '👮', '👮‍', '🕵️', '🕵️‍', '🚔', '🚨', '📔'];
         this.SpawnFrom = 0;
         this._placeHolder = localisations.EN.role_police_placeHolder;
         this._placeHolderLocals = "role_police_placeHolder";

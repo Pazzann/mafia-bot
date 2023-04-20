@@ -5,24 +5,24 @@ import {ILangProps} from "../../types/interfaces/ILang";
 module.exports.execute = async function (interaction: ButtonInteraction, user: User, locale: ILangProps) {
 
     if(!user.premium){
-        interaction.reply({content: "You don't have premium to create custom roles and conditions, sorry!", ephemeral: true})
+        interaction.reply({content: locale.create_condition_error_premium, ephemeral: true})
         return;
     }
     if(user.customRoles.length>=19){
-        interaction.reply({content: "You can't create more then 21 conditions, sorry!", ephemeral: true})
+        interaction.reply({content: locale.create_condition_error_number, ephemeral: true})
         return;
     }
 
 
     const modal = new ModalBuilder()
         .setCustomId("newConditionPartOne")
-        .setTitle("Condition Creation");
+        .setTitle(locale.create_condition_title1);
 
 
     const nameInput = new TextInputBuilder()
         .setCustomId("conditionName")
-        .setLabel("Name")
-        .setPlaceholder("What is the name of your condition?")
+        .setLabel(locale.create_condition_conditionName_label)
+        .setPlaceholder(locale.create_condition_conditionName_placeHolder)
         .setStyle(TextInputStyle.Short)
         .setMaxLength(20)
         .setMinLength(3)

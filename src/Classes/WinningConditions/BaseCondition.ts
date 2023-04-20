@@ -2,6 +2,8 @@ import {EmbedBuilder} from "discord.js";
 import {Langs} from "../../types/Langs";
 import {ILocalProps, localisations} from "../../index";
 import {ILangProps} from "../../types/interfaces/ILang";
+import MafiaUser from "../MafiaUser";
+import ScriptEngine from "../ScriptEngine";
 
 export default abstract class BaseCondition {
     protected _name: string;
@@ -46,10 +48,11 @@ export default abstract class BaseCondition {
     }
 
 
-    public GetEmbed(lang: Langs): EmbedBuilder{
+    public GetEmbed(lang: Langs, players: MafiaUser[]): EmbedBuilder{
         const embed = new EmbedBuilder();
         embed.setTitle(this.GetEmbedTitle(lang));
-        embed.setDescription(this.GetEmbedDescription(lang));
+        const description = ScriptEngine.ConditionEmbedDescription(this.GetEmbedDescription(lang), players);
+        embed.setDescription(String(description));
         embed.setThumbnail(this.WinEmbedThumbnail);
         return embed;
     }

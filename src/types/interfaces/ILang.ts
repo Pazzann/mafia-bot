@@ -111,6 +111,8 @@ export interface ILangProps {
     profile_button_custom: string;
     profile_button_news: string;
 
+    create_condition_error_premium: string;
+    create_condition_error_number: string;
     create_condition_title1: string;
     create_condition_conditionName_label: string;
     create_condition_conditionName_placeHolder: string;

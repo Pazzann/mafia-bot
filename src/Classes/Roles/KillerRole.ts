@@ -10,7 +10,7 @@ export default class KillerRole extends BaseRole {
         this.ActionOnSelect = "kill";
         this.GroupDecision = false;
         this.Count = 1;
-        this.Emojis = ['🪓'];
+        this.Emojis = ['🪓', '🪚', '🔪', '🔨', '🪛', '🦴', '☠', '🩸'];
         this.SpawnFrom = 8;
         this._placeHolder = localisations.EN.role_killer_placeHolder;
         this._placeHolderLocals = "role_killer_placeHolder";
