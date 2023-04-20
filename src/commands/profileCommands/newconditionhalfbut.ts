@@ -5,7 +5,7 @@ import {ILangProps} from "../../types/interfaces/ILang";
 module.exports.execute = async function (interaction: ButtonInteraction, user: User, locale: ILangProps) {
 
     if(!user.premium){
-        interaction.followUp({content: "You don't have premium to create custom roles and conditions, sorry!", ephemeral: true})
+        interaction.reply({content: "You don't have premium to create custom roles and conditions, sorry!", ephemeral: true})
         return;
     }
     const name = interaction.customId.split("newconditionhalfbut").join("");
@@ -15,32 +15,32 @@ module.exports.execute = async function (interaction: ButtonInteraction, user: U
     const conditionInput = new TextInputBuilder()
         .setCustomId("condition")
         .setLabel("Condition")
-        .setPlaceholder("Enter condition. For more information see /help Scripting")
+        .setPlaceholder("your condition; for more information see _/help -> Scripting_")
         .setStyle(TextInputStyle.Paragraph)
         .setValue("false")
         .setRequired(true);
     const embedTitleInput = new TextInputBuilder()
-        .setCustomId('embedTitle')
-        .setLabel("Embed Title")
+        .setCustomId("embedTitle")
+        .setLabel("Title")
         .setPlaceholder("Mafia wins ;)")
         .setStyle(TextInputStyle.Short)
         .setRequired(true);
     const embedDescriptionInput = new TextInputBuilder()
-        .setCustomId('embedDescription')
-        .setLabel("Embed Description")
-        .setPlaceholder("Mafia has won somehow")
+        .setCustomId("embedDescription")
+        .setLabel("Description")
+        .setPlaceholder("Mysteriously the mafia has won...")
         .setStyle(TextInputStyle.Short)
         .setRequired(true);
     const embedThumbnailInput = new TextInputBuilder()
-        .setCustomId('embedThumbnail')
-        .setLabel("Embed Thumbnail")
-        .setPlaceholder("Crazy kitty image")
+        .setCustomId("embedThumbnail")
+        .setLabel("Thumbnail")
+        .setPlaceholder("crazy kitty image link")
         .setStyle(TextInputStyle.Short)
         .setRequired(true);
     const winRoleInput = new TextInputBuilder()
-        .setCustomId('winRole')
-        .setLabel("Win role")
-        .setPlaceholder("just a role name")
+        .setCustomId("winRole")
+        .setLabel("Winning Role")
+        .setPlaceholder("just a winning role name")
         .setValue("innocent")
         .setStyle(TextInputStyle.Short)
         .setRequired(true);

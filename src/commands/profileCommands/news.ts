@@ -12,7 +12,7 @@ import {ILangProps} from "../../types/interfaces/ILang";
 
 module.exports.execute = async function (interaction: ButtonInteraction, user: User, locale: ILangProps) {
     if (interaction.message.interaction.user.id !== interaction.user.id){
-        interaction.followUp({ephemeral: true, content: "You are not the owner"})
+        interaction.reply({ephemeral: true, content: "You are not the owner"})
         return;
     }
 
@@ -49,5 +49,5 @@ module.exports.execute = async function (interaction: ButtonInteraction, user: U
     await user.save();
     const buttons = new ActionRowBuilder<ButtonBuilder>().addComponents(...buttonBuilders);
     await interaction.message.edit({components: [buttons]})
-    await interaction.followUp({ephemeral: true, content: "Successfully"});
+    await interaction.reply({ephemeral: true, content: "Successfully"});
 }

@@ -27,29 +27,31 @@ export default abstract class BaseRole {
     }
 
     public GetRoleName(lang: Langs): string {
-        if(this._nameLocals === null)
+        if (this._nameLocals === null)
             return this._roleName;
-        if(localisations?.[lang.toUpperCase() as keyof ILocalProps]?.[this._nameLocals as keyof ILangProps]){
+        if (localisations?.[lang.toUpperCase() as keyof ILocalProps]?.[this._nameLocals as keyof ILangProps]) {
             return localisations[lang.toUpperCase() as keyof ILocalProps][this._nameLocals as keyof ILangProps];
-        }else{
+        } else {
             return localisations.EN?.[this._nameLocals as keyof ILangProps];
         }
     }
+
     public GetPlaceHolder(lang: Langs): string {
-        if(this._placeHolderLocals === null)
+        if (this._placeHolderLocals === null)
             return this._placeHolder;
-        if(localisations?.[lang.toUpperCase() as keyof ILocalProps]?.[this._placeHolderLocals as keyof ILangProps]){
+        if (localisations?.[lang.toUpperCase() as keyof ILocalProps]?.[this._placeHolderLocals as keyof ILangProps]) {
             return localisations[lang.toUpperCase() as keyof ILocalProps][this._placeHolderLocals as keyof ILangProps];
-        }else{
+        } else {
             return localisations.EN?.[this._placeHolderLocals as keyof ILangProps];
         }
     }
+
     public GetDescription(lang: Langs): string {
-        if(this._descriptionLocals === null)
+        if (this._descriptionLocals === null)
             return this._description;
-        if(localisations?.[lang.toUpperCase() as keyof ILocalProps]?.[this._descriptionLocals as keyof ILangProps]){
+        if (localisations?.[lang.toUpperCase() as keyof ILocalProps]?.[this._descriptionLocals as keyof ILangProps]) {
             return localisations[lang.toUpperCase() as keyof ILocalProps][this._descriptionLocals as keyof ILangProps];
-        }else{
+        } else {
             return localisations.EN?.[this._descriptionLocals as keyof ILangProps];
         }
     }
@@ -92,7 +94,7 @@ export default abstract class BaseRole {
         //     .setEmoji("▶️")
         //     .setValue("skip_vote");
         // chooseArr.push(skip);
-        const Emojis: string[] = ['🗳️', '📄', '✒' , '🖋', '⏱'];
+        const Emojis: string[] = ['🗳️', '📄', '✒', '🖋', '⏱'];
 
         for (let user of NonAlibiAndAliveUsers) {
             const chooser = new SelectMenuOptionBuilder()
@@ -105,7 +107,7 @@ export default abstract class BaseRole {
             .addComponents(
                 new SelectMenuBuilder()
                     .setCustomId("vote_select")
-                    .setPlaceholder('Выберите, против кого вы голосуете...')
+                    .setPlaceholder(locale.vote_select)
                     .setMinValues(1)
                     .setMaxValues(1)
                     .addOptions(chooseArr)

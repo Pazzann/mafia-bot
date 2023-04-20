@@ -1,23 +1,9 @@
 import {
-    ActionRowBuilder,
-    ButtonInteraction,
-    ModalBuilder,
     SelectMenuInteraction,
-    TextInputBuilder,
-    TextInputStyle
 } from "discord.js";
 import User from "../../Entities/User.entity";
 import {ILangProps} from "../../types/interfaces/ILang";
-import Role from "../../Entities/Role.entity";
 import {curHostGames} from "../../index";
-import MistressRole from "../../Classes/Roles/MisstressRole";
-import PeacefulRole from "../../Classes/Roles/PeacefulRole";
-import KillerRole from "../../Classes/Roles/KillerRole";
-import PoliceRole from "../../Classes/Roles/PoliceRole";
-import DoctorRole from "../../Classes/Roles/DoctorRole";
-import MafiaRole from "../../Classes/Roles/MafiaRole";
-import CustomRole from "../../Classes/Roles/CustomRole";
-import {Action} from "../../types/Action";
 import PeacecfulWin from "../../Classes/WinningConditions/PeacecfulWin";
 import KillerWIn from "../../Classes/WinningConditions/KillerWín";
 import MafiaWin from "../../Classes/WinningConditions/MafiaWin";
@@ -32,7 +18,7 @@ module.exports.execute = async function (interaction: SelectMenuInteraction, use
             const host = curHostGames.get(gameid);
             if (host.author == interaction.user.id) {
                 if (!user.premium) {
-                    interaction.followUp("You don't have premium to change game preset");
+                    interaction.reply("You don't have premium to change game preset");
                     return;
                 }
                 host.conditions = [];
@@ -74,10 +60,10 @@ module.exports.execute = async function (interaction: SelectMenuInteraction, use
                 let winStr = "";
                 let roleStr = "";
                 for (let role of host.roles){
-                    roleStr += "\`\`" + role.RoleName + "\`\`\n";
+                    roleStr += "\`\`" + role.GetRoleName(user.lang) + "\`\`\n";
                 }
                 for(let win of host.conditions){
-                    winStr += "\`\`" + win.Name + "\`\`\n";
+                    winStr += "\`\`" + win.GetName(user.lang) + "\`\`\n";
                 }
                 host.embed.setFields([
                     {
@@ -90,16 +76,16 @@ module.exports.execute = async function (interaction: SelectMenuInteraction, use
                     }]);
                 curHostGames.set(gameid, host);
                 await host.interaction.editReply({embeds: [host.embed]});
-                await interaction.followUp({content: "done", ephemeral: true});
+                await interaction.reply({content: "done", ephemeral: true});
             } else {
-                interaction.followUp({content: locale.error_you_are_not_the_owner, ephemeral: true}).catch(() => {
+                interaction.reply({content: locale.error_you_are_not_the_owner, ephemeral: true}).catch(() => {
                 });
             }
         } else {
-            interaction.followUp({content: locale.error_incorrect_game_id, ephemeral: true}).catch(() => {
+            interaction.reply({content: locale.error_incorrect_game_id, ephemeral: true}).catch(() => {
             });
         }
     } catch (err) {
-        interaction.followUp({content: err, ephemeral: true})
+        interaction.reply({content: err, ephemeral: true})
     }
 }

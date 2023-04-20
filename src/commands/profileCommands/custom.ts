@@ -12,7 +12,7 @@ import {ILangProps} from "../../types/interfaces/ILang";
 module.exports.execute = async function (interaction: ButtonInteraction, user: User, locale: ILangProps) {
 
     if(!user.premium){
-        interaction.followUp({content: "You don't have premium to create custom roles and conditions, sorry!", ephemeral: true})
+        interaction.reply({content: "You don't have premium to create custom roles and conditions, sorry!", ephemeral: true})
         return;
     }
 
@@ -102,5 +102,5 @@ module.exports.execute = async function (interaction: ButtonInteraction, user: U
     }
 
 
-    interaction.followUp({content: "Choose action", components, ephemeral: true});
+    interaction.reply({content: "Choose action", components, ephemeral: true});
 }

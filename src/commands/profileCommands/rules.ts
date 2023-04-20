@@ -10,5 +10,5 @@ module.exports.execute = async function (interaction: ChatInputCommandInteractio
         .setDescription("The rules of the game.")
         .setColor("#329fff")
 
-    interaction.followUp({embeds: [embed]});
+    interaction.reply({embeds: [embed]});
 }

@@ -26,7 +26,7 @@ module.exports.execute = async function (interaction: ButtonInteraction, gameid 
         const host = curHostGames.get(gameid);
         if (host.author == interaction.user.id) {
             if (!user.premium) {
-                interaction.followUp("You don't have premium to change game preset");
+                interaction.reply("You don't have premium to change game preset");
                 return;
             }
             const chooseArr: RestOrArray<SelectMenuOptionBuilder> = [];
@@ -130,13 +130,13 @@ module.exports.execute = async function (interaction: ButtonInteraction, gameid 
                         .addOptions(chooseArr2)
                 );
 
-            interaction.followUp({ephemeral: true, components: [row, row2]})
+            interaction.reply({ephemeral: true, components: [row, row2]})
         } else {
-            interaction.followUp({content: locale.error_you_are_not_the_owner, ephemeral: true}).catch(() => {
+            interaction.reply({content: locale.error_you_are_not_the_owner, ephemeral: true}).catch(() => {
             });
         }
     } else {
-        interaction.followUp({content: locale.error_incorrect_game_id, ephemeral: true}).catch(() => {
+        interaction.reply({content: locale.error_incorrect_game_id, ephemeral: true}).catch(() => {
         });
     }
 }

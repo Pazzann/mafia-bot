@@ -12,7 +12,7 @@ let validUrl = require('valid-url');
 module.exports.execute = async function (interaction: ModalSubmitInteraction, user: User, locale: ILangProps) {
 
     if (!user.premium) {
-        interaction.followUp({
+        interaction.reply({
             content: "You don't have premium to create custom roles and conditions, sorry!",
             ephemeral: true
         })
@@ -47,6 +47,6 @@ module.exports.execute = async function (interaction: ModalSubmitInteraction, us
                 .setCustomId("newrolehalfbut" + role.id)
                 .setDisabled(false),
         );
-    await interaction.followUp({content: "Click the button", ephemeral: true, components: [buttons]})
+    await interaction.reply({content: "Click the button", ephemeral: true, components: [buttons]})
 
 }

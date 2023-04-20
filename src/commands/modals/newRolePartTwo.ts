@@ -6,17 +6,17 @@ import MafiaEmbedBuilder from "../../Classes/MafiaEmbedBuilder";
 
 module.exports.execute = async function (interaction: ModalSubmitInteraction, user: User, locale: ILangProps, id: number) {
     if(!user.premium){
-        interaction.followUp({content: "You don't have premium to create custom roles and conditions, sorry!", ephemeral: true})
+        interaction.reply({content: "You don't have premium to create custom roles and conditions, sorry!", ephemeral: true})
         return;
     }
     try{
         const role = await Role.findOne({where: {id: id}, relations: ["user"]});
         if(role == null){
-            interaction.followUp({content: "No role found!", ephemeral: true})
+            interaction.reply({content: "No role found!", ephemeral: true})
             return;
         }
         if(role.user.userid != user.userid){
-            interaction.followUp({content: "You don't have permission to edit this role, sorry!", ephemeral: true})
+            interaction.reply({content: "You don't have permission to edit this role, sorry!", ephemeral: true})
             return;
         }
 
@@ -31,9 +31,9 @@ module.exports.execute = async function (interaction: ModalSubmitInteraction, us
         await role.save();
 
         const embed = MafiaEmbedBuilder.roleEmbed(role, locale);
-        await interaction.followUp({content: "Successfully", embeds: [embed]});
+        await interaction.reply({content: "Successfully", embeds: [embed]});
     }catch (err) {
-        await interaction.followUp("Error: " + err.message);
+        await interaction.reply("Error: " + err.message);
     }
 
 }

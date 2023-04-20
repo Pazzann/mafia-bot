@@ -51,5 +51,5 @@ module.exports.execute = async function (interaction: ChatInputCommandInteractio
                 .setCustomId("news")
                 .setDisabled(false)
         );
-    interaction.followUp({embeds: [embed], components: [buttons]});
+    interaction.reply({embeds: [embed], components: [buttons]});
 }

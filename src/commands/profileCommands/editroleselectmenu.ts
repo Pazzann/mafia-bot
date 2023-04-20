@@ -13,7 +13,7 @@ import MafiaEmbedBuilder from "../../Classes/MafiaEmbedBuilder";
 module.exports.execute = async function (interaction: SelectMenuInteraction, user: User, locale: ILangProps, roleId: number) {
 
     if (!user.premium) {
-        interaction.followUp({
+        interaction.reply({
             content: "You don't have premium to create custom roles and conditions, sorry!",
             ephemeral: true
         })
@@ -21,11 +21,11 @@ module.exports.execute = async function (interaction: SelectMenuInteraction, use
     }
     const role = await Role.findOne({where: {id: roleId}, relations: ["user"]});
     if (role == null) {
-        interaction.followUp({content: "No role found!", ephemeral: true})
+        interaction.reply({content: "No role found!", ephemeral: true})
         return;
     }
     if (role.user.userid != user.userid) {
-        interaction.followUp({content: "You don't have permission to edit this role, sorry!", ephemeral: true})
+        interaction.reply({content: "You don't have permission to edit this role, sorry!", ephemeral: true})
         return;
     }
     const embed = MafiaEmbedBuilder.roleEmbed(role, locale);
@@ -71,5 +71,5 @@ module.exports.execute = async function (interaction: SelectMenuInteraction, use
                 ])
         );
 
-    interaction.followUp({content: "Choose option to edit", ephemeral: true, embeds: [embed], components: [row]})
+    interaction.reply({content: "Choose option to edit", ephemeral: true, embeds: [embed], components: [row]})
 }

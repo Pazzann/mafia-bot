@@ -5,7 +5,7 @@ import {ILangProps} from "../../types/interfaces/ILang";
 module.exports.execute = async function (interaction: ButtonInteraction, user: User, locale: ILangProps) {
 
     if(!user.premium){
-        interaction.followUp({content: "You don't have premium to create custom roles and conditions, sorry!", ephemeral: true})
+        interaction.reply({content: "You don't have premium to create custom roles and conditions, sorry!", ephemeral: true})
         return;
     }
     const chooseArr: RestOrArray<SelectMenuOptionBuilder> = [];
@@ -25,5 +25,5 @@ module.exports.execute = async function (interaction: ButtonInteraction, user: U
                 .setMaxValues(1)
                 .addOptions(chooseArr)
         );
-    interaction.followUp({ephemeral:true, content: "choose role to edit", components: [row]});
+    interaction.reply({ephemeral:true, content: "choose role to edit", components: [row]});
 }

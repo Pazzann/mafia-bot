@@ -5,7 +5,7 @@ import {ILangProps} from "../../types/interfaces/ILang";
 module.exports.execute = async function (interaction: ButtonInteraction, user: User, locale: ILangProps) {
 
     if(!user.premium){
-        interaction.followUp({content: "You don't have premium to create custom roles and conditions, sorry!", ephemeral: true})
+        interaction.reply({content: "You don't have premium to create custom roles and conditions, sorry!", ephemeral: true})
         return;
     }
     if(user.conditions.length > 0){
@@ -25,8 +25,8 @@ module.exports.execute = async function (interaction: ButtonInteraction, user: U
                     .setMaxValues(1)
                     .addOptions(chooseArr)
             );
-        interaction.followUp({ ephemeral: true, components: [row]});
+        interaction.reply({ ephemeral: true, components: [row]});
     }else{
-        interaction.followUp({ephemeral: true, content: "You don't have roles"})
+        interaction.reply({ephemeral: true, content: "You don't have roles"})
     }
 }

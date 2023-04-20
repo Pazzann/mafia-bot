@@ -58,18 +58,7 @@ export interface ILangProps {
     no_kills_title: string;
     no_kills_description: string;
 
-    role_embed_action_name: string;
-    role_embed_groupDec_name: string;
-    role_embed_spawnFrom_name: string;
-    role_embed_selfSelectable_name: string;
-    role_embed_count_name: string;
-    role_embed_placeHolder_name: string;
-    role_embed_delay_name: string;
-    condition_embed_condition_name: string;
-    condition_embed_embedTitle_name: string;
-    condition_embed_embedDescription_name: string;
-    condition_embed_winRole_name: string;
-
+    vote_select: string;
     role_mafia_name: string;
     role_mafia_placeHolder: string;
     role_mafia_description: string;
@@ -84,9 +73,31 @@ export interface ILangProps {
     role_police_name: string;           //police = detective
     role_police_placeHolder: string;
     role_police_description: string;
-    role_mistress_name: string;             //TODO
-    role_mistress_placeHolder: string;      //TODO "Выберите к кому хотите сходить..."
-    role_mistress_description: string;      //TODO "%You know what to do ;)!%"
+    role_mistress_name: string;
+    role_mistress_placeHolder: string;
+    role_mistress_description: string;
+
+    condition_mafiaWin_name: string;
+    condition_mafiaWin_WinEmbedTitle: string;
+    condition_mafiaWin_WinEmbedDescription: string;
+    condition_killerWin_name: string;
+    condition_killerWin_WinEmbedTitle: string;
+    condition_killerWin_WinEmbedDescription: string;
+    condition_peacefulWin_name: string;
+    condition_peacefulWin_WinEmbedTitle: string;
+    condition_peacefulWin_WinEmbedDescription: string;
+
+    role_embed_action_name: string;
+    role_embed_groupDec_name: string;
+    role_embed_spawnFrom_name: string;
+    role_embed_selfSelectable_name: string;
+    role_embed_count_name: string;
+    role_embed_placeHolder_name: string;
+    role_embed_delay_name: string;
+    condition_embed_condition_name: string;         // = create_condition_condition_label
+    condition_embed_embedTitle_name: string;        // = create_condition_embedTitle_label
+    condition_embed_embedDescription_name: string;  // = create_condition_embedDescription_label
+    condition_embed_winRole_name: string;           // = create_condition_winRole_label
 
     profile_title: string;
     profile_mafiaAccountSince: string;  //usage: ⌛**${locale.profile_mafiaAccountSince}** <t:${Math.round(dbDateToDate(user.since) / 1000)}:d>

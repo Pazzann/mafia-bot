@@ -10,7 +10,7 @@ export default class MistressRole extends BaseRole {
         this.ActionOnSelect = "alibi";
         this.GroupDecision = false;
         this.Count = 1;
-        this.Emojis = ['♥'];
+        this.Emojis = ['♥', '💖', '🍓', '💋', '👠'];
         this.SpawnFrom = 6;
         this._placeHolder = localisations.EN.role_mistress_placeHolder;
         this._placeHolderLocals = "role_mistress_placeHolder";

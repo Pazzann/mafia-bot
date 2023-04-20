@@ -10,7 +10,7 @@ let validUrl = require('valid-url');
 module.exports.execute = async function (interaction: ModalSubmitInteraction, user: User, locale: ILangProps) {
 
     if (!user.premium) {
-        interaction.followUp({
+        interaction.reply({
             content: "You don't have premium to create custom roles and conditions, sorry!",
             ephemeral: true
         })
@@ -37,5 +37,5 @@ module.exports.execute = async function (interaction: ModalSubmitInteraction, us
 
     const embed = MafiaEmbedBuilder.conditionEmbed(condition, locale);
 
-    await interaction.followUp({content: "Succesfully", embeds: [embed]});
+    await interaction.reply({content: "Succesfully", embeds: [embed]});
 }

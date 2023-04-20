@@ -74,7 +74,7 @@ export const curHandlingGames: Map<number, MafiaGame> = new Map();
 
 discordBot.on('interactionCreate', async (interaction: ChatInputCommandInteraction | ButtonInteraction | SelectMenuInteraction | ModalSubmitInteraction) => {
     try {
-        await interaction.deferReply();
+        // await interaction.deferReply();
         const dataUser = await User.findOne({
             where: {userid: interaction.user.id},
             relations: ["customRoles", "conditions"]
@@ -82,7 +82,8 @@ discordBot.on('interactionCreate', async (interaction: ChatInputCommandInteracti
 
         if (interaction.isChatInputCommand()) {
             if (!dataUser) {
-                interaction.followUp({
+
+                interaction.reply({
                     content: "To use the bot, select the language, first",
                     ephemeral: true,
                     components: getLangButtons()
@@ -92,60 +93,66 @@ discordBot.on('interactionCreate', async (interaction: ChatInputCommandInteracti
             }
             const {commandName} = interaction;
             if (interaction.channel.isDMBased() && commandName === "create") {
-                interaction.followUp({
+
+                interaction.reply({
                     content: 'Создать игру в мафию вы можете только на сервере!',
                     ephemeral: true
                 }).catch(() => {
                 });
                 return;
             }
-            // if(commandName === "create"){
-            //     let commandObj = require(`./commands/gameCommands/create`);
-            //      commandObj.execute(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps]);
-            // }
 
             let commandObj = require(`./commands/${commandName}`);
             commandObj.execute(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps]);
         } else if (interaction.isSelectMenu()) {
             if (interaction.customId == "editrole") {
+
                 let roleId = interaction.values[0].split("editrole").join("");
                 require('./commands/profileCommands/editroleselectmenu').execute(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps], roleId)
                 return;
             }
             if (interaction.customId == "viewrole") {
+
                 let roleId = interaction.values[0].split("viewrole").join("");
                 require('./commands/profileCommands/viewrole').execute(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps], roleId)
                 return;
             }
             if (interaction.customId == "deleterole") {
+
                 let roleId = interaction.values[0].split("deleterole").join("");
                 require('./commands/profileCommands/deleteroleselect').execute(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps], roleId)
                 return;
             }
             if (interaction.customId == "viewcondition") {
+
                 let conditionId = interaction.values[0].split("viewcondition").join("");
                 require('./commands/profileCommands/viewcondition').execute(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps], conditionId)
                 return;
             }
             if (interaction.customId == "deletecondition") {
+
                 let roleId = interaction.values[0].split("deletecondition").join("");
                 require('./commands/profileCommands/deleteconditionselect').execute(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps], roleId)
                 return;
             }
             if (interaction.customId == "editcondition") {
+
                 let roleId = interaction.values[0];
                 require('./commands/profileCommands/editconditionselect').execute(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps], roleId)
                 return;
             }
             if (interaction.customId == "editroleselection") {
+
                 require('./commands/profileCommands/editrolecomplete').execute(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps])
                 return;
             }
             if (interaction.customId == "editrolegamelist") {
+
                 require('./commands/gameCommands/editrolegamelist').execute(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps])
                 return;
             }
             if (interaction.customId == "editcondtiongamelist") {
+
                 require('./commands/gameCommands/editconditiongamelist').execute(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps])
                 return;
             }
@@ -156,7 +163,8 @@ discordBot.on('interactionCreate', async (interaction: ChatInputCommandInteracti
                 }
             }
             if (!mafGame) {
-                interaction.followUp("You are not playing a game").catch(() => {
+
+                interaction.reply("You are not playing a game").catch(() => {
                 });
                 return;
             }
@@ -180,7 +188,8 @@ discordBot.on('interactionCreate', async (interaction: ChatInputCommandInteracti
                             dataUser.lang = Langs.EN;
                             await dataUser.save();
                         }
-                        interaction.followUp({content: "Successfully set english!", ephemeral: true}).catch(() => {
+
+                        interaction.reply({content: "Successfully set english!", ephemeral: true}).catch(() => {
                         });
                         return;
                     }
@@ -197,7 +206,8 @@ discordBot.on('interactionCreate', async (interaction: ChatInputCommandInteracti
                             dataUser.lang = Langs.RU;
                             await dataUser.save();
                         }
-                        interaction.followUp({content: "Язык изменён на русский!", ephemeral: true}).catch(() => {
+
+                        interaction.reply({content: "Язык изменён на русский!", ephemeral: true}).catch(() => {
                         });
                         return;
                     }
@@ -214,7 +224,8 @@ discordBot.on('interactionCreate', async (interaction: ChatInputCommandInteracti
                             dataUser.lang = Langs.UA;
                             await dataUser.save();
                         }
-                        interaction.followUp({
+
+                        interaction.reply({
                             content: "Успішно встановлено українську!",
                             ephemeral: true
                         }).catch(() => {
@@ -224,7 +235,8 @@ discordBot.on('interactionCreate', async (interaction: ChatInputCommandInteracti
 
                 }
                 if (!dataUser) {
-                    interaction.followUp({
+
+                    interaction.reply({
                         content: "To use the bot, select the language, first",
                         ephemeral: true,
                         components: getLangButtons()

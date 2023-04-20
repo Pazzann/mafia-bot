@@ -5,5 +5,5 @@ import {ILangProps} from "../../types/interfaces/ILang";
 module.exports.execute = async function (interaction: ButtonInteraction, user: User, locale: ILangProps) {
 
 
-    interaction.followUp("doesn't work")
+    interaction.reply("doesn't work")
 }

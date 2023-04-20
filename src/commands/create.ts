@@ -25,11 +25,11 @@ import getDisabledButtons from "../Functions/getDisabledButtons";
 module.exports.execute = function (interaction: ChatInputCommandInteraction, user: User, locale: ILangProps) {
     for(let v of curHostGames.values()){
         if(v.users.includes(interaction.user.id))
-            return interaction.followUp({content: locale.create_error, ephemeral: true}).catch(()=>{});
+            return interaction.reply({content: locale.create_error, ephemeral: true}).catch(()=>{});
     }
     for(let v of curHandlingGames.values()){
         if(v.HasPlayer(interaction.user.id))
-            return interaction.followUp({content: locale.create_error, ephemeral: true}).catch(()=>{});
+            return interaction.reply({content: locale.create_error, ephemeral: true}).catch(()=>{});
     }
     const id = MafiaGame.GenerateId();
 
@@ -49,10 +49,10 @@ module.exports.execute = function (interaction: ChatInputCommandInteraction, use
     let winStr = "";
     let roleStr = "";
     for (let role of curHostGames.get(id).roles){
-        roleStr += "\`\`" + role.RoleName + "\`\`\n";
+        roleStr += "\`\`" + role.GetRoleName(user.lang) + "\`\`\n";
     }
     for(let win of curHostGames.get(id).conditions){
-        winStr += "\`\`" + win.Name + "\`\`\n";
+        winStr += "\`\`" + win.GetName(user.lang) + "\`\`\n";
     }
     const embed = new EmbedBuilder()
         .setTitle(locale.game_created)
@@ -71,5 +71,5 @@ module.exports.execute = function (interaction: ChatInputCommandInteraction, use
     host.embed = embed;
     curHostGames.set(id, host);
 
-    interaction.followUp({embeds: [embed], components: getDisabledButtons(id, locale, false)}).catch(()=>{});
+    interaction.reply({embeds: [embed], components: getDisabledButtons(id, locale, false)}).catch(()=>{});
 }

@@ -10,5 +10,5 @@ module.exports.execute = async function (interaction: ChatInputCommandInteractio
         .setDescription("This is a quick look through the scripting in the bot.")
         .setColor("#1751bd")
 
-    interaction.followUp({embeds: [embed]});
+    interaction.reply({embeds: [embed]});
 }
