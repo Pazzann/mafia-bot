@@ -24,10 +24,10 @@ module.exports.execute = async function (interaction: SelectMenuInteraction, use
             return;
         }
         await Role.delete({id: roleId});
-        interaction.reply("successfully deleted");
-    }catch (err){
+        interaction.reply({content: "successfully deleted", ephemeral: true});
+    } catch (err) {
 
-        interaction.reply("not deleted");
+        interaction.reply({content: "not deleted", ephemeral: true});
     }
 
 }

@@ -53,6 +53,7 @@ export default abstract class BaseCondition {
         embed.setTitle(this.GetEmbedTitle(lang));
         const description = ScriptEngine.ConditionEmbedDescription(this.GetEmbedDescription(lang), players);
         embed.setDescription(String(description));
+        embed.setColor("#047bff")
         embed.setThumbnail(this.WinEmbedThumbnail);
         return embed;
     }

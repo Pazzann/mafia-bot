@@ -132,11 +132,11 @@ module.exports.execute = async function (interaction: ButtonInteraction, gameid 
 
             interaction.reply({ephemeral: true, components: [row, row2]})
         } else {
-            interaction.reply({content: locale.error_you_are_not_the_owner, ephemeral: true}).catch(() => {
+            interaction.reply({content: locale.game_start_error_noAccess, ephemeral: true}).catch(() => {
             });
         }
     } else {
-        interaction.reply({content: locale.error_incorrect_game_id, ephemeral: true}).catch(() => {
+        interaction.reply({content: locale.game_error_incorrectGameID, ephemeral: true}).catch(() => {
         });
     }
 }

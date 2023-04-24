@@ -12,18 +12,12 @@ import {ILangProps} from "../../types/interfaces/ILang";
 module.exports.execute = async function (interaction: ButtonInteraction, user: User, locale: ILangProps) {
 
     if(!user.premium){
-        interaction.reply({content: "You don't have premium to create custom roles and conditions, sorry!", ephemeral: true})
+        interaction.reply({content: locale.error_premium, ephemeral: true})
         return;
     }
 
     const buttons  = new ActionRowBuilder<ButtonBuilder>()
         .addComponents(
-            new ButtonBuilder()
-                .setEmoji("💵")
-                .setLabel("Delete Role")
-                .setStyle(ButtonStyle.Danger)
-                .setCustomId("deleterole")
-                .setDisabled(false),
             new ButtonBuilder()
                 .setEmoji("🧐")
                 .setLabel("Create Role")
@@ -35,17 +29,16 @@ module.exports.execute = async function (interaction: ButtonInteraction, user: U
                 .setLabel("Edit Role")
                 .setStyle(ButtonStyle.Primary)
                 .setCustomId("editrole")
-                .setDisabled(false),
-
+                .setDisabled(!user.customRoles.length),
+            new ButtonBuilder()
+                .setEmoji("💵")
+                .setLabel("Delete Role")
+                .setStyle(ButtonStyle.Danger)
+                .setCustomId("deleterole")
+                .setDisabled(!user.customRoles.length),
         );
     const buttons2  = new ActionRowBuilder<ButtonBuilder>()
         .addComponents(
-            new ButtonBuilder()
-                .setEmoji("💵")
-                .setLabel("Delete Condition")
-                .setStyle(ButtonStyle.Danger)
-                .setCustomId("deletecondition")
-                .setDisabled(false),
             new ButtonBuilder()
                 .setEmoji("🧐")
                 .setLabel("Create Condition")
@@ -57,8 +50,13 @@ module.exports.execute = async function (interaction: ButtonInteraction, user: U
                 .setLabel("Edit Condition")
                 .setStyle(ButtonStyle.Primary)
                 .setCustomId("editcondition")
-                .setDisabled(false),
-
+                .setDisabled(!user.conditions.length),
+            new ButtonBuilder()
+                .setEmoji("💵")
+                .setLabel("Delete Condition")
+                .setStyle(ButtonStyle.Danger)
+                .setCustomId("deletecondition")
+                .setDisabled(!user.conditions.length),
         );
     const components: ActionRowBuilder<ButtonBuilder | SelectMenuBuilder>[] = [buttons, buttons2];
 

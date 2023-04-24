@@ -91,12 +91,12 @@ export default class ScriptEngine {
         return this;
     }
 
-    //{oPlayersAllRoles} - all people roles in format {player} - {role}, \n
+    //{oPlayersAllRoles} - all people roles in format {player} — {role}, \n
     public setAllPlayersAllRoles(players: MafiaUser[]) {
         if (this._eqv.includes("{oPlayersAllRoles}")) {
             let aPlayers = "";
             players.map(item => {
-                aPlayers += item.dsUser?.tag + " - " + item.role.RoleName + " \n";
+                aPlayers += item.dsUser?.tag + " — " + item.role.RoleName + " \n";
             })
             this._eqv = this._eqv.replace("{oPlayersAllRoles}", aPlayers);
         }
@@ -124,7 +124,7 @@ export default class ScriptEngine {
         return this;
     }
 
-    //{sr:<rolename>:string} - string of one role people e.g. {r:mafia:string} - {player}, {player}...
+    //{sr:<rolename>:string} - string of one role people e.g. {sr:mafia:string} - {player}, {player}...
     public setRoleStringByName(players: MafiaUser[]) {
         let arr = this._eqv.split('{sr:');
         for (let i = 0; i < arr.length; i++) {
@@ -135,6 +135,7 @@ export default class ScriptEngine {
                 playersNames.map(item => {
                     a += item.dsUser.tag + ", ";
                 })
+                a = a.slice(0, a.length - 2);
                 arr[i] = a + arr[i].split(':string}')[1];
             }
         }
@@ -157,8 +158,7 @@ export default class ScriptEngine {
         this._eqv = arr.join('');
         return this;
     }
-
-    //{sa:<actionname>:string} - string of one role people e.g. {sa:kill:string} - {player}, {player}...
+    //{sa:<actionname>:string} - string of people with action e.g. {sa:kill:string} - {player}, {player}...
     public setActionStringByName(players: MafiaUser[]) {
         let arr = this._eqv.split('{sa:');
         for (let i = 0; i < arr.length; i++) {
@@ -169,6 +169,7 @@ export default class ScriptEngine {
                 playersNames.map(item => {
                     a += item.dsUser.tag + ", ";
                 })
+                a = a.slice(0, a.length - 2);
                 arr[i] = a + arr[i].split(':string}')[1];
             }
         }
@@ -202,7 +203,8 @@ export default class ScriptEngine {
                 let a = "";
                 playersNames.map(item => {
                     a += item.dsUser.tag + ", ";
-                })
+                });
+                a = a.slice(0, a.length - 2);
                 arr[i] = a + arr[i].split(':string}')[1];
             }
         }
@@ -235,7 +237,8 @@ export default class ScriptEngine {
                 let a = "";
                 playersNames.map(item => {
                     a += item.dsUser.tag + ", ";
-                })
+                });
+                a = a.slice(0, a.length - 2);
                 arr[i] = a + arr[i].split(':string}')[1];
             }
         }

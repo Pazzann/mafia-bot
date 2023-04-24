@@ -4,11 +4,11 @@ import {ILangProps} from "../../types/interfaces/ILang";
 
 module.exports.execute = async function (interaction: ButtonInteraction, user: User, locale: ILangProps) {
 
-    if(!user.premium){
-        interaction.reply({content: "You don't have premium to create custom roles and conditions, sorry!", ephemeral: true})
+    if (!user.premium) {
+        interaction.reply({content: locale.error_premium, ephemeral: true})
         return;
     }
-    if(user.conditions.length > 0){
+    if (user.conditions.length > 0) {
         const chooseArr: RestOrArray<SelectMenuOptionBuilder> = [];
         for (let condition of user.conditions){
             const conditionOption = new SelectMenuOptionBuilder()
@@ -20,13 +20,13 @@ module.exports.execute = async function (interaction: ButtonInteraction, user: U
             .addComponents(
                 new SelectMenuBuilder()
                     .setCustomId("deletecondition")
-                    .setPlaceholder('choose condition to delete')
+                    .setPlaceholder(locale.condition_delete_choose_placeHolder)
                     .setMinValues(1)
                     .setMaxValues(1)
                     .addOptions(chooseArr)
             );
         interaction.reply({ ephemeral: true, components: [row]});
-    }else{
-        interaction.reply({ephemeral: true, content: "You don't have roles"})
-    }
+    }/*else{
+        interaction.reply({ephemeral: true, content: "You don't have conditions"})
+    }*/
 }

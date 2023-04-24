@@ -6,7 +6,7 @@ export default class MafiaWin extends BaseCondition{
         this._name = "Win of the mafia!";
         this._nameLocals = "condition_mafiaWin_name";
         this.WinRole = "mafia";
-        this.Description = "Mafia wins when the mafia count";
+        this.Description = "Mafia wins when the mafia count";           //deprecated
         this.Condition = "{ar:mafia:count} * 2 + 1 > {aPlayerCount} ";
         this._winEmbedTitle = "condition_mafiaWin_WinEmbedTitle";
         this._winEmbedDescription = "condition_mafiaWin_WinEmbedDescription";

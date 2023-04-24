@@ -7,27 +7,23 @@ import WinningCondition from "../../Entities/WinningCondition.entity";
 module.exports.execute = async function (interaction: SelectMenuInteraction, user: User, locale: ILangProps, conditionId: number) {
 
     if (!user.premium) {
-        interaction.reply({
-            content: "You don't have premium to create custom roles and conditions, sorry!",
-            ephemeral: true
-        })
+        interaction.reply({content: locale.error_premium, ephemeral: true})
         return;
     }
     try {
         const role = await WinningCondition.findOne({where: {id: conditionId}, relations: ["user"]});
         if (role == null) {
-            interaction.reply({content: "No condition found!", ephemeral: true})
+            interaction.reply({content: locale.condition_delete_error_notFound, ephemeral: true})
             return;
         }
         if (role.user.userid != user.userid) {
-            interaction.reply({content: "You don't have permission to delete this condition, sorry!", ephemeral: true})
+            interaction.reply({content: locale.condition_delete_error_noAccess, ephemeral: true})
             return;
         }
         await WinningCondition.delete({id: conditionId});
-        interaction.reply("successfully deleted");
-    }catch (err){
-
-        interaction.reply("not deleted");
+        interaction.reply({content: locale.condition_delete_success_message, ephemeral: true});
+    } catch (err) {
+        interaction.reply({content: locale.failure_message, ephemeral: true});
     }
 
 }

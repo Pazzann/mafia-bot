@@ -5,12 +5,12 @@ export default class PoliceRole extends BaseRole {
     constructor() {
         super()
         this._nameLocals = "role_police_name"
-        this._roleName = localisations.EN.role_police_name;
+        this._roleName = "police";
         this.DelayForActivity = 1;
         this.ActionOnSelect = "check";
         this.GroupDecision = false;
         this.Count = 1;
-        this.Emojis = ['🔍', '🔎', '🚓', '👮', '👮‍', '🕵️', '🕵️‍', '🚔', '🚨', '📔'];
+        this.Emojis = ['🔍', '🔎', '🚓', '👮', '🕵', '🚔', '🚨', '📔'];
         this.SpawnFrom = 0;
         this._placeHolder = localisations.EN.role_police_placeHolder;
         this._placeHolderLocals = "role_police_placeHolder";

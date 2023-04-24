@@ -1,5 +1,5 @@
 import MafiaUser from "./MafiaUser";
-import {curHandlingGames, discordBot} from "../index";
+import {curHandlingGames, discordBot, localisations} from "../index";
 import User from "../Entities/User.entity";
 import BaseRole from "./Roles/BaseRole";
 import shuffle from "../Functions/shuffle";

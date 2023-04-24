@@ -25,11 +25,11 @@ import getDisabledButtons from "../Functions/getDisabledButtons";
 module.exports.execute = function (interaction: ChatInputCommandInteraction, user: User, locale: ILangProps) {
     for(let v of curHostGames.values()){
         if(v.users.includes(interaction.user.id))
-            return interaction.reply({content: locale.create_error, ephemeral: true}).catch(()=>{});
+            return interaction.reply({content: locale.game_create_error, ephemeral: true}).catch(()=>{});
     }
     for(let v of curHandlingGames.values()){
         if(v.HasPlayer(interaction.user.id))
-            return interaction.reply({content: locale.create_error, ephemeral: true}).catch(()=>{});
+            return interaction.reply({content: locale.game_create_error, ephemeral: true}).catch(()=>{});
     }
     const id = MafiaGame.GenerateId();
 
@@ -55,8 +55,8 @@ module.exports.execute = function (interaction: ChatInputCommandInteraction, use
         winStr += "\`\`" + win.GetName(user.lang) + "\`\`\n";
     }
     const embed = new EmbedBuilder()
-        .setTitle(locale.game_created)
-        .setDescription(`**${locale.game_created_autocancel}:** <t:${Math.floor(Date.now()/1000) + 600}:R>\n**${locale.game_created_gameOwner}:** <@${interaction.user.id}>\n\n__**${locale.game_created_playerList}:**__ \n<@${interaction.user.id}>`)
+        .setTitle(locale.game_created_title)
+        .setDescription(`**${locale.game_created_autocancel}:** <t:${Math.floor(Date.now()/1000) + 600}:R>\n**${locale.game_created_gameHost}:** <@${interaction.user.id}>\n\n__**${locale.game_created_playerList}:**__ \n<@${interaction.user.id}>`)
         .addFields([{
             value: roleStr,
             name: `__**${locale.game_created_roles}**__`
@@ -64,8 +64,8 @@ module.exports.execute = function (interaction: ChatInputCommandInteraction, use
             value: winStr,
             name: `__**${locale.game_created_gameEndConditions}**__`
         }])
-        .setThumbnail("https://media.discordapp.net/attachments/1015944207220879370/1016009845289275533/unknown.png?width=566&height=566")
         .setColor("#ffec6e")
+        .setThumbnail("https://media.discordapp.net/attachments/1015944207220879370/1016009845289275533/unknown.png?width=566&height=566")
 
     let host = curHostGames.get(id);
     host.embed = embed;

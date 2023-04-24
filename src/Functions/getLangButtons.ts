@@ -12,13 +12,13 @@ export default function getLangButtons() {
                     .setDisabled(false),
                 new ButtonBuilder()
                     .setEmoji("🇱🇺")
-                    .setLabel('Русский')
+                    .setLabel("Русский")
                     .setStyle(ButtonStyle.Primary)
                     .setCustomId("ru")
                     .setDisabled(false),
                 new ButtonBuilder()
                     .setEmoji("🇬🇧")
-                    .setLabel('English')
+                    .setLabel("English")
                     .setStyle(ButtonStyle.Primary)
                     .setCustomId("en")
                     .setDisabled(false)

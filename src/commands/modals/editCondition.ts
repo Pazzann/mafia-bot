@@ -7,18 +7,18 @@ import WinningCondition from "../../Entities/WinningCondition.entity";
 
 module.exports.execute = async function (interaction: ModalSubmitInteraction, user: User, locale: ILangProps, conditionId: string) {
     if(!user.premium){
-        interaction.reply({content: "You don't have premium to create custom roles and conditions, sorry!", ephemeral: true})
+        interaction.reply({content: locale.error_premium, ephemeral: true})
         return;
     }
 
     try{
         const condition = await WinningCondition.findOne({where: {id: +conditionId}, relations: ["user"]});
-        if(condition == null){
-            interaction.reply({content: "No role found!", ephemeral: true})
+        if (condition == null) {
+            interaction.reply({content: locale.condition_edit_error_notFound, ephemeral: true})
             return;
         }
-        if(condition.user.userid != user.userid){
-            interaction.reply({content: "You don't have permission to edit this role, sorry!", ephemeral: true})
+        if (condition.user.userid != user.userid) {
+            interaction.reply({content: locale.condition_edit_error_noAccess, ephemeral: true})
             return;
         }
 
@@ -32,7 +32,7 @@ module.exports.execute = async function (interaction: ModalSubmitInteraction, us
 
 
 
-        interaction.reply({ephemeral: false, content: "succesfully", embeds:[MafiaEmbedBuilder.conditionEmbed(condition, locale)]})
+        interaction.reply({ephemeral: false, content: locale.condition_edit_success_message, embeds:[MafiaEmbedBuilder.conditionEmbed(condition, locale)]})
 
 
     }catch (err) {

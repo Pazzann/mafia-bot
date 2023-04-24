@@ -1,8 +1,9 @@
 export interface ILangProps {
-    game_created: string;
-    create_error: string;
+    game_error_incorrectGameID: string;
+    game_create_error: string;
+    game_created_title: string;
     game_created_autocancel: string;          //usage: **${locale.game_created_autocancel}:** <t:${Math.floor(Date.now()/1000) + 600}:R>
-    game_created_gameOwner: string;          //usage: **${locale.game_created_gameOwner}:** <@${interaction.user.id}>
+    game_created_gameHost: string;          //usage: **${locale.game_created_gameHost}:** <@${interaction.user.id}>
     game_created_playerList: string;         //usage: __**${locale.game_created_playerList}:**__ \n<@${interaction.user.id}>
     game_created_roles: string;
     game_created_gameEndConditions: string;
@@ -12,40 +13,42 @@ export interface ILangProps {
     game_created_button_leave: string;
     game_created_button_edit: string;
     game_created_button_new: string;
-    cancel_content_message: string;
-    cancel_confirm_message: string;
-    auto_cancel_content_message: string;
-    error_you_are_not_the_owner: string;
-    error_incorrect_game_id: string;
-    game_was_ended: string;
-    game_deleted: string;
-    error_you_are_already: string;
-    join_game: string;
-    error_you_are_not_already: string;
-    leave_game: string;
-    error_not_enough_players: string;
-    pre_end_game: string;
-    game_started: string;
-    innocent: string;
-    mafia: string;
-    doctor: string;
-    police: string;
-    killer: string;
-    mistress: string;
-    start_your_role: string;
-    start_game_info: string;
-    start_theme: string;
-    start_player_count: string;
-    start_mafia_count: string;
-    start_doctor_count: string;
-    start_police_count: string;
-    start_killer_count: string;
-    start_role_innocent: string;
-    start_role_mafia: string;
-    start_role_doctor: string;
-    start_role_police: string;
-    start_role_killer: string;
-    start_role_mistress: string;
+    game_cancel_error_noAccess: string;
+    game_cancel_success_message_aboveEmbed: string;
+    game_cancel_success_message: string;
+    game_autocancel_message: string;
+    game_start_error_noAccess: string;
+    game_start_error_notEnoughPlayers: string;
+    game_start_error_notEnoughRoles: string;
+    game_started_button_endGame: string;
+    game_started_title: string;
+    game_end_error_noAccess: string;
+    game_end_success_message: string;
+    game_end_success_privateMessage: string;
+    error_you_are_already: string;          //TODO: review
+    join_game: string;                      //TODO: review
+    error_you_are_not_already: string;      //TODO: review
+    leave_game: string;                     //TODO: review
+    innocent: string;                       //TODO: review
+    mafia: string;                          //TODO: review
+    doctor: string;                         //TODO: review
+    police: string;                         //TODO: review
+    killer: string;                         //TODO: review
+    mistress: string;                       //TODO: review
+    start_your_role: string;                //TODO: review
+    start_game_info: string;                //TODO: review
+    start_theme: string;                    //TODO: review
+    start_player_count: string;             //TODO: review
+    start_mafia_count: string;              //TODO: review
+    start_doctor_count: string;             //TODO: review
+    start_police_count: string;             //TODO: review
+    start_killer_count: string;             //TODO: review
+    start_role_innocent: string;            //TODO: review
+    start_role_mafia: string;               //TODO: review
+    start_role_doctor: string;              //TODO: review
+    start_role_police: string;              //TODO: review
+    start_role_killer: string;              //TODO: review
+    start_role_mistress: string;            //TODO: review
 
     /*EN: Phrases like "The city wakes up / falls asleep" seem to be not very common among English speakers. However, it was decided to use them to popularize and convey the game's atmosphere.*/
     wake_up_title: string;
@@ -94,10 +97,10 @@ export interface ILangProps {
     role_embed_count_name: string;
     role_embed_placeHolder_name: string;
     role_embed_delay_name: string;
-    condition_embed_condition_name: string;         // = create_condition_condition_label
-    condition_embed_embedTitle_name: string;        // = create_condition_embedTitle_label
-    condition_embed_embedDescription_name: string;  // = create_condition_embedDescription_label
-    condition_embed_winRole_name: string;           // = create_condition_winRole_label
+    condition_embed_condition_name: string;         // = condition_create_condition_label
+    condition_embed_embedTitle_name: string;        // = condition_create_embedTitle_label
+    condition_embed_embedDescription_name: string;  // = condition_create_embedDescription_label
+    condition_embed_winRole_name: string;           // = condition_create_winRole_label
 
     profile_title: string;
     profile_mafiaAccountSince: string;  //usage: ⌛**${locale.profile_mafiaAccountSince}** <t:${Math.round(dbDateToDate(user.since) / 1000)}:d>
@@ -111,20 +114,49 @@ export interface ILangProps {
     profile_button_custom: string;
     profile_button_news: string;
 
-    create_condition_error_premium: string;
-    create_condition_error_number: string;
-    create_condition_title1: string;
-    create_condition_conditionName_label: string;
-    create_condition_conditionName_placeHolder: string;
-    create_condition_title2: string;    //usage: locale.create_condition_title2 + name
-    create_condition_condition_label: string;
-    create_condition_condition_placeHolder: string;
-    create_condition_embedTitle_label: string;
-    create_condition_embedTitle_placeHolder: string;
-    create_condition_embedDescription_label: string;
-    create_condition_embedDescription_placeHolder: string;
-    create_condition_embedThumbnail_label: string;
-    create_condition_embedThumbnail_placeHolder: string;
-    create_condition_winRole_label: string;
-    create_condition_winRole_placeHolder: string;
+    condition_create_error_number: string;
+    condition_create_title1: string;
+    condition_create_conditionName_label: string;
+    condition_create_conditionName_placeHolder: string;
+    condition_create_goNext_button: string;
+    condition_create_goNext_message: string;
+    condition_create_title2: string;    //usage: locale.condition_create_title2 + name
+    condition_create_condition_label: string;
+    condition_create_condition_placeHolder: string;
+    condition_create_embedTitle_label: string;
+    condition_create_embedTitle_placeHolder: string;
+    condition_create_embedDescription_label: string;
+    condition_create_embedDescription_placeHolder: string;
+    condition_create_embedThumbnail_label: string;
+    condition_create_embedThumbnail_placeHolder: string;
+    condition_create_winRole_label: string;
+    condition_create_winRole_placeHolder: string;
+    condition_create_success_message: string;
+
+    condition_view_error_notFound: string;
+    condition_view_error_noAccess: string;
+
+    condition_edit_choose_placeHolder: string;
+    condition_edit_error_notFound: string;
+    condition_edit_error_noAccess: string;
+    condition_edit_title: string;       //usage: locale.condition_edit_title + name
+    condition_edit_condition_label: string;                 // = condition_create_condition_label
+    condition_edit_condition_placeHolder: string;
+    condition_edit_embedTitle_label: string;                // = condition_create_embedTitle_label
+    condition_edit_embedTitle_placeHolder: string;
+    condition_edit_embedDescription_label: string;          // = condition_create_embedDescription_label
+    condition_edit_embedDescription_placeHolder: string;
+    condition_edit_embedThumbnail_label: string;            // = condition_create_embedThumbnail_label
+    condition_edit_embedThumbnail_placeHolder: string;
+    condition_edit_winRole_label: string;                   // = condition_create_winRole_label
+    condition_edit_winRole_placeHolder: string;
+    condition_edit_success_message: string;
+
+    condition_delete_choose_placeHolder: string;
+    condition_delete_error_notFound: string;                // = condition_edit_error_notFound
+    condition_delete_error_noAccess: string;
+    condition_delete_success_message: string;
+
+    error_premium: string;
+    failure_message: string;
 }

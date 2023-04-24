@@ -6,59 +6,56 @@ import WinningCondition from "../../Entities/WinningCondition.entity";
 module.exports.execute = async function (interaction: SelectMenuInteraction, user: User, locale: ILangProps, conditionId: number) {
 
     if (!user.premium) {
-        interaction.reply({
-            content: "You don't have premium to create custom roles and conditions, sorry!",
-            ephemeral: true
-        })
+        interaction.reply({content: locale.error_premium, ephemeral: true})
         return;
     }
 
     const condition = await WinningCondition.findOne({where: {id: conditionId}, relations: ["user"]});
     if (condition == null) {
-        interaction.reply({content: "No condition found!", ephemeral: true})
+        interaction.reply({content: locale.condition_edit_error_notFound, ephemeral: true})
         return;
     }
     if (condition.user.userid != user.userid) {
-        interaction.reply({content: "You don't have permission to delete this condition, sorry!", ephemeral: true})
+        interaction.reply({content: locale.condition_edit_error_noAccess, ephemeral: true})
         return;
     }
 
 
     const modal = new ModalBuilder()
-        .setCustomId('editCondition' + condition.id)
-        .setTitle(condition.name + ' Edition');
+        .setCustomId("editCondition" + condition.id)
+        .setTitle(locale.condition_edit_title + condition.name);
     const conditionInput = new TextInputBuilder()
-        .setCustomId('condition')
-        .setLabel("Condition")
-        .setPlaceholder("Enter new condition. ")
+        .setCustomId("condition")
+        .setLabel(locale.condition_edit_condition_label)
+        .setPlaceholder(locale.condition_edit_condition_placeHolder)
         .setStyle(TextInputStyle.Paragraph)
         .setValue(condition.condition)
         .setRequired(true);
     const embedTitleInput = new TextInputBuilder()
-        .setCustomId('embedTitle')
-        .setLabel("Embed Title")
-        .setPlaceholder("enter new embed title")
+        .setCustomId("embedTitle")
+        .setLabel(locale.condition_edit_embedTitle_label)
+        .setPlaceholder(locale.condition_edit_embedTitle_placeHolder)
         .setStyle(TextInputStyle.Short)
         .setValue(condition.embedTitle)
         .setRequired(true);
     const embedDescriptionInput = new TextInputBuilder()
-        .setCustomId('embedDescription')
-        .setLabel("Embed Description")
-        .setPlaceholder("enter new embed description")
+        .setCustomId("embedDescription")
+        .setLabel(locale.condition_edit_embedDescription_label)
+        .setPlaceholder(locale.condition_edit_embedDescription_placeHolder)
         .setStyle(TextInputStyle.Short)
         .setValue(condition.embedDescription)
         .setRequired(true);
     const embedThumbnailInput = new TextInputBuilder()
-        .setCustomId('embedThumbnail')
-        .setLabel("Embed Thumbnail")
-        .setPlaceholder("new image")
+        .setCustomId("embedThumbnail")
+        .setLabel(locale.condition_edit_embedThumbnail_label)
+        .setPlaceholder(locale.condition_edit_embedThumbnail_placeHolder)
         .setValue(condition.embedThumbnail)
         .setStyle(TextInputStyle.Short)
         .setRequired(true);
     const winRoleInput = new TextInputBuilder()
-        .setCustomId('winRole')
-        .setLabel("Win role")
-        .setPlaceholder("just a new role name")
+        .setCustomId("winRole")
+        .setLabel(locale.condition_edit_winRole_label)
+        .setPlaceholder(locale.condition_edit_winRole_placeHolder)
         .setValue(condition.winRole)
         .setValue("innocent")
         .setStyle(TextInputStyle.Short)

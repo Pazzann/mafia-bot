@@ -3,7 +3,7 @@ import {
     ChatInputCommandInteraction,
     Client,
     EmbedBuilder,
-    GatewayIntentBits,
+    GatewayIntentBits, GuildMember,
     Interaction, ModalSubmitInteraction,
     Partials, SelectMenuInteraction
 } from "discord.js";
@@ -39,6 +39,7 @@ export const localisations: ILocalProps = {
 export const discordBot = new Client({
     intents: [
         GatewayIntentBits.Guilds,
+        GatewayIntentBits.GuildMembers,
         GatewayIntentBits.DirectMessages,
         GatewayIntentBits.DirectMessageTyping,
         GatewayIntentBits.DirectMessageReactions,
@@ -71,6 +72,29 @@ AppDataSource.initialize()
 
 export const curHostGames: Map<number, IHostGameProps> = new Map();
 export const curHandlingGames: Map<number, MafiaGame> = new Map();
+
+
+discordBot.on("guildMemberUpdate", async (oldMember: GuildMember, newMember: GuildMember) => {
+    if(newMember.guild.id != process.env.GUILD_ID){
+        return;
+    }
+    let dataUser = await User.findOne({
+        where: {userid: newMember.user.id},
+        relations: ["customRoles", "conditions"]
+    });
+    if(!dataUser){
+        dataUser = await User.create({
+            userid: newMember.user.id,
+            lang: Langs.EN,
+            totalGames: 0,
+            totalWins: 0,
+            since: dateParser(new Date())
+        }).save();
+    }
+    dataUser.premium = newMember.roles.cache.has(process.env.ROLE_ID);
+    await dataUser.save();
+});
+
 
 discordBot.on('interactionCreate', async (interaction: ChatInputCommandInteraction | ButtonInteraction | SelectMenuInteraction | ModalSubmitInteraction) => {
     try {

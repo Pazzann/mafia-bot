@@ -9,22 +9,22 @@ module.exports.execute = async function (interaction: SelectMenuInteraction, use
 
     if (!user.premium) {
         interaction.reply({
-            content: "You don't have premium to create custom roles and conditions, sorry!",
+            content: locale.error_premium,
             ephemeral: true
         })
         return;
     }
     const condition = await WinningCondition.findOne({where: {id: conditionId}, relations: ["user"]});
     if (condition == null) {
-        interaction.reply({content: "No role found!", ephemeral: true})
+        interaction.reply({content: locale.condition_view_error_notFound, ephemeral: true})
         return;
     }
     if (condition.user.userid != user.userid) {
-        interaction.reply({content: "You don't have permission to edit this role, sorry!", ephemeral: true})
+        interaction.reply({content: locale.condition_view_error_noAccess, ephemeral: true})
         return;
     }
     const embed = MafiaEmbedBuilder.conditionEmbed(condition, locale);
 
 
-    interaction.reply({ ephemeral: true, embeds: [embed]})
+    interaction.reply({ephemeral: true, embeds: [embed]})
 }

@@ -6,7 +6,7 @@ export default class KillerWIn extends BaseCondition{
         this._name = "Killer Win!";
         this._nameLocals = "condition_killerWin_name";
         this.WinRole = "killer";
-        this.Description = "Mafia wins when the mafia count";
+        this.Description = "Mafia wins when the mafia count";           //deprecated
         this.Condition = "{ar:killer:count} > 0 && {aPlayerCount} < 3";
         this._winEmbedTitle = "condition_killerWin_WinEmbedTitle";
         this._winEmbedDescription = "condition_killerWin_WinEmbedDescription";

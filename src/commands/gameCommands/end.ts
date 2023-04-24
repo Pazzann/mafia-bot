@@ -9,14 +9,14 @@ module.exports.execute = function (interaction: ButtonInteraction, gameid = 0, u
         if (game.author == interaction.user.id) {
             game.Players.map(async item => {
                     const dm = item.dsUser?.dmChannel ?? await item.dsUser.createDM();
-                    dm.send(item.local.game_was_ended);
+                    dm.send(item.local.game_end_success_privateMessage);
             });
             curHandlingGames.delete(gameid);
-            interaction.reply(locale.game_deleted).catch(()=>{});
+            interaction.reply(locale.game_end_success_message).catch(()=>{});
         } else {
-            interaction.reply({content: locale.error_you_are_not_the_owner, ephemeral: true}).catch(()=>{});
+            interaction.reply({content: locale.game_end_error_noAccess, ephemeral: true}).catch(()=>{});
         }
     } else {
-        interaction.reply({content:locale.error_incorrect_game_id, ephemeral: true}).catch(()=>{});
+        interaction.reply({content:locale.game_error_incorrectGameID, ephemeral: true}).catch(()=>{});
     }
 }

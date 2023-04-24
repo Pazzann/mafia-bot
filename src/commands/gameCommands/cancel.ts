@@ -10,13 +10,13 @@ module.exports.execute = function (interaction: ButtonInteraction, gameid = 0, u
         const host = curHostGames.get(gameid);
         if (host.author == interaction.user.id){
             clearTimeout(host.timeout);
-            interaction.message.edit({content: `**${locale.cancel_content_message}**`, components: getDisabledButtons(gameid, locale)})
+            interaction.message.edit({content: `**${locale.game_cancel_success_message_aboveEmbed}**`, components: getDisabledButtons(gameid, locale)})
             curHostGames.delete(gameid);
-            interaction.reply(locale.cancel_confirm_message).catch(()=>{});
+            interaction.reply(locale.game_cancel_success_message).catch(()=>{});
         }else{
-            interaction.reply({content: locale.error_you_are_not_the_owner, ephemeral: true}).catch(()=>{});
+            interaction.reply({content: locale.game_cancel_error_noAccess, ephemeral: true}).catch(()=>{});
         }
     }else{
-        interaction.reply({content: locale.error_incorrect_game_id, ephemeral: true}).catch(()=>{});
+        interaction.reply({content: locale.game_error_incorrectGameID, ephemeral: true}).catch(()=>{});
     }
 }

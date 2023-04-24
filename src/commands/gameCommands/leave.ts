@@ -21,6 +21,6 @@ module.exports.execute = function (interaction: ButtonInteraction, gameid = 0, u
             interaction.reply({content: locale.error_you_are_not_already, ephemeral: true}).catch(()=>{});
         }
     }else{
-        interaction.reply({content: locale.error_incorrect_game_id, ephemeral: true}).catch(()=>{});
+        interaction.reply({content: locale.game_error_incorrectGameID, ephemeral: true}).catch(()=>{});
     }
 }

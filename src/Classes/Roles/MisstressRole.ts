@@ -5,7 +5,7 @@ export default class MistressRole extends BaseRole {
     constructor() {
         super()
         this._nameLocals = "role_mistress_name";
-        this._roleName = localisations.EN.role_mistress_name;
+        this._roleName = "mistress";
         this.DelayForActivity = 1;
         this.ActionOnSelect = "alibi";
         this.GroupDecision = false;

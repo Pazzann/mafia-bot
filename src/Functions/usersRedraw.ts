@@ -8,7 +8,7 @@ export default function usersRedraw(users: string[], embed: EmbedBuilder, locale
     users.map(item=>{
         a += `<@${item}> \n`
     })
-    embed.setDescription(`**${host.hostLocale.game_created_autocancel}:** <t:${Math.floor(Date.now()/1000) + 600}:R>\n**${host.hostLocale.game_created_gameOwner}:** <@${host.author}>\n\n__**${host.hostLocale.game_created_playerList}:**__ \n ${a}`)
+    embed.setDescription(`**${host.hostLocale.game_created_autocancel}:** <t:${Math.floor(Date.now()/1000) + 600}:R>\n**${host.hostLocale.game_created_gameHost}:** <@${host.author}>\n\n__**${host.hostLocale.game_created_playerList}:**__ \n ${a}`)
 
     return embed;
 }

@@ -1,6 +1,6 @@
 import BaseCondition from "./BaseCondition";
 
-export default class CustomWin extends BaseCondition{
+export default class CustomWin extends BaseCondition {
     constructor(name:string, condition: string, winEmbedTitle: string, winEmbedDescription: string, winEmbedThumbnail: string, winRole: string) {
         super();
         this._name = name;

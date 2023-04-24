@@ -12,11 +12,11 @@ module.exports.execute = async function (interaction: ButtonInteraction, gameid 
         if (!host.users.includes(interaction.user.id)){
             for(let v of curHostGames.values()){
                 if(v.users.includes(interaction.user.id))
-                    return interaction.reply({content: locale.create_error, ephemeral: true}).catch(()=>{});
+                    return interaction.reply({content: locale.game_create_error, ephemeral: true}).catch(()=>{});
             }
             for(let v of curHandlingGames.values()){
                     if(v.HasPlayer(interaction.user.id)){
-                        return interaction.reply({content: locale.create_error, ephemeral: true}).catch(()=>{});
+                        return interaction.reply({content: locale.game_create_error, ephemeral: true}).catch(()=>{});
                     }
             }
             host.timeout.refresh();
@@ -30,6 +30,6 @@ module.exports.execute = async function (interaction: ButtonInteraction, gameid 
             interaction.reply({content: locale.error_you_are_already, ephemeral: true}).catch(()=>{});
         }
     }else{
-        interaction.reply({content: locale.error_incorrect_game_id, ephemeral: true}).catch(()=>{});
+        interaction.reply({content: locale.game_error_incorrectGameID, ephemeral: true}).catch(()=>{});
     }
 }
