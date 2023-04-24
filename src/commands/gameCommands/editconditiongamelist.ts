@@ -10,9 +10,8 @@ import MafiaWin from "../../Classes/WinningConditions/MafiaWin";
 import WinningCondition from "../../Entities/WinningCondition.entity";
 import CustomWin from "../../Classes/WinningConditions/CustomWin";
 
-export default async function editconditiongamelist (interaction: SelectMenuInteraction, user: User, locale: ILangProps) {
+export default async function editconditiongamelist(interaction: SelectMenuInteraction, user: User, locale: ILangProps) {
     try {
-
         let gameid = +interaction.values[0].split('%')[0];
         if (curHostGames.has(gameid)) {
             const host = curHostGames.get(gameid);
@@ -22,7 +21,7 @@ export default async function editconditiongamelist (interaction: SelectMenuInte
                 //     return;
                 // }
                 host.conditions = [];
-                for(let condition of interaction.values){
+                for (let condition of interaction.values) {
                     let conditionId = condition.split('%')[1];
                     switch (conditionId){
                         case new PeacecfulWin().Name:{
@@ -48,7 +47,7 @@ export default async function editconditiongamelist (interaction: SelectMenuInte
                             if (custCond.user.userid != user.userid) {
                                 break;
                             }
-                            host.conditions.push( new CustomWin(
+                            host.conditions.push(new CustomWin(
                                 custCond.name,
                                 custCond.condition,
                                 custCond.embedTitle,
@@ -70,16 +69,16 @@ export default async function editconditiongamelist (interaction: SelectMenuInte
                 }
                 host.embed.setFields([
                     {
-                        value:roleStr,
-                        name: "Roles"
+                        value: roleStr,
+                        name: `__**${locale.game_created_roles}**__`
                     },
                     {
                         value: winStr,
-                        name: "Winning Conditions"
+                        name: `__**${locale.game_created_gameEndConditions}**__`
                     }]);
                 curHostGames.set(gameid, host);
                 await host.interaction.editReply({embeds: [host.embed]});
-                await interaction.reply({content: "done", ephemeral: true});
+                await interaction.reply({content: locale.game_edit_success_message, ephemeral: true});
             } else {
                 interaction.reply({content: locale.game_start_error_noAccess, ephemeral: true}).catch(() => {
                 });

@@ -21,7 +21,7 @@ export default async function editcondition(interaction: ButtonInteraction, user
             .addComponents(
                 new SelectMenuBuilder()
                     .setCustomId("editcondition")
-                    .setPlaceholder(locale.condition_edit_choose_placeHolder)
+                    .setPlaceholder(locale.condition_edit_select_placeHolder)
                     .setMinValues(1)
                     .setMaxValues(1)
                     .addOptions(chooseArr)

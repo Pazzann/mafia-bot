@@ -1,4 +1,6 @@
 {
+  "lang_has_been_set": "Язык изменён на русский!",
+
   "game_error_incorrectGameID": "Игра не найдена! Возможно, она была отменена или закончена.",
   "game_error_alreadyCreated": "Вы уже создали одну игру, сначала отмените её или дождитесь автоотмены!",
   "game_error_alreadyJoined": "Вы уже присоединились к одной игре, сначала покиньте её!",
@@ -28,22 +30,16 @@
   "game_end_success_privateMessage": "Игра закончена организатором. Но вы можете создать другую!",
   "game_join_error_alreadyJoined": "Не переживайте, вы уже в игре :wink:",
   "game_join_success_message": ":white_check_mark: Вы успешно присоединились к игре!",
-  "game_leave_error_alreadyLeft": "Не переживайте, вы и так вне игры :wink:",
+  "game_leave_error_alreadyLeft": "Не переживайте, вы и так не в игре :wink:",
   "game_leave_success_message": ":ballot_box_with_check: Вы успешно покинули игру.",
+  "game_edit_error_noAccess": "Извините, вы не можете изменять эту игру, потому что не являетесь её организатором!",
+  "game_edit_roles_placeHolder6": "Выберите роли...",
+  "game_edit_conditions_placeHolder": "Выберите условия окончания игры...",
+  "game_edit_success_message": ":white_check_mark: Игра успешно изменена!",
   "start_your_role": "Ваша роль",
   "start_game_info": "Игровая информация:",
   "start_theme": "Тема",
   "start_player_count": "Кол-во игроков",
-  "start_mafia_count": "Кол-во мафий",
-  "start_doctor_count": "Доктор",
-  "start_police_count": "Полицейский",
-  "start_killer_count": "Маньяк",
-  "start_role_innocent": "Ваша задача выжить!",
-  "start_role_mafia": "Ваша убить всех и самому остаться в живых! \n Ваши мафиозные друзья:",
-  "start_role_doctor": "Ваша задача попытаться не дать никому умереть!",
-  "start_role_police": "Ваша задача вычислить мафию и убедить всех проголосовать за мафию!",
-  "start_role_killer": "Ваша задача убить всех и остаться в живих одному!",
-  "start_role_mistress": "string",
 
 
   "wake_up_title": "Город просыпается!",
@@ -57,6 +53,9 @@
   "no_kills_description": "За минувшую ночь никого не убили! Возможно, стоит отблагодарить доктора?\uD83D\uDE2F",
 
   "vote_select": "Выберите, против кого хотите проголосовать...",
+  "vote_results_title": "Результаты голосования",
+  "vote_results_tie": ":man_shrugging: Стол попилили",
+  "vote_results_ban": " изгнан из города.",
   "role_mafia_name": "Мафия",
   "role_mafia_placeHolder": "Выберите жертву...",
   "role_mafia_description": "%УБИВАЙТЕ И ВЫЖИВИТЕ!\n:skull_crossbones:  Каждую ночь мафия убивает одного игрока, за которого её члены отдают наибольшее число голосов (в случае равенства игрок выбирается случайным образом). Но помните: жертву может вылечить доктор.\n:trophy:  Мафия побеждает, если составляет не менее половины всех активных игроков.% + ({r:maniac:count} > 0 ? % Исключение: если осталось двое игроков — представитель мафии и маньяк — побеждает маньяк..% : %%) + ({r:mafia:count} > 1 ? %\n:busts_in_silhouette:  С вами в команде: % + %{oPlayersTRole}% : %%)",
@@ -131,7 +130,7 @@
   "condition_view_error_notFound": "Условие не найдено!",
   "condition_view_error_noAccess": "Извините, вы не можете просматривать это условие!",
 
-  "condition_edit_choose_placeHolder": "Выберите условие для изменения...",
+  "condition_edit_select_placeHolder": "Выберите условие для изменения...",
   "condition_edit_error_notFound": "Условие не найдено!",
   "condition_edit_error_noAccess": "Извините, вы не можете изменять это условие!",
   "condition_edit_title": "Изменение условия: ",
@@ -147,7 +146,7 @@
   "condition_edit_winRole_placeHolder": "название вашей новой роли, которая побеждает",
   "condition_edit_success_message": "Условие успешно изменено:",
 
-  "condition_delete_choose_placeHolder": "Выберите условие для удаления...",
+  "condition_delete_select_placeHolder": "Выберите условие для удаления...",
   "condition_delete_error_notFound": "Условие не найдено!",
   "condition_delete_error_noAccess": "Извините, вы не можете удалить это условие!",
   "condition_delete_success_message": "Условие успешно удалено.",
@@ -161,5 +160,15 @@
   "doctor": "доктор",
   "police": "полицейский",
   "killer": "маньяк",
-  "mistress": "проститутка"
+  "mistress": "проститутка",
+  "start_mafia_count": "Кол-во мафий",
+  "start_doctor_count": "Доктор",
+  "start_police_count": "Полицейский",
+  "start_killer_count": "Маньяк",
+  "start_role_innocent": "Ваша задача выжить!",
+  "start_role_mafia": "Ваша убить всех и самому остаться в живых! \n Ваши мафиозные друзья:",
+  "start_role_doctor": "Ваша задача попытаться не дать никому умереть!",
+  "start_role_police": "Ваша задача вычислить мафию и убедить всех проголосовать за мафию!",
+  "start_role_killer": "Ваша задача убить всех и остаться в живих одному!",
+  "start_role_mistress": "string"
 }

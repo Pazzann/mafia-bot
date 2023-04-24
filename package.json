@@ -7,7 +7,8 @@
     "test": "nyc ./node_modules/.bin/_mocha 'test/script.unit.test.ts'",
     "start": "ts-node src/index.ts",
     "register": "ts-node src/deploy-commands.ts",
-    "notifications": "ts-node src/notifications.ts"
+    "notifications": "ts-node src/notifications.ts",
+    "build": "tsc src/index.ts"
   },
   "author": "",
   "license": "ISC",

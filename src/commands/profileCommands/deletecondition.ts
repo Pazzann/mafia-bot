@@ -20,7 +20,7 @@ export default async function deletecondition(interaction: ButtonInteraction, us
             .addComponents(
                 new SelectMenuBuilder()
                     .setCustomId("deletecondition")
-                    .setPlaceholder(locale.condition_delete_choose_placeHolder)
+                    .setPlaceholder(locale.condition_delete_select_placeHolder)
                     .setMinValues(1)
                     .setMaxValues(1)
                     .addOptions(chooseArr)

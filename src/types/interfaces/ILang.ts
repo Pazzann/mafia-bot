@@ -1,4 +1,6 @@
 export interface ILangProps {
+    lang_has_been_set: string;
+
     game_error_incorrectGameID: string;
     game_error_alreadyCreated: string;
     game_error_alreadyJoined: string;
@@ -28,22 +30,16 @@ export interface ILangProps {
     game_end_success_privateMessage: string;
     game_join_error_alreadyJoined: string;
     game_join_success_message: string;
-    game_leave_error_alreadyLeft: string;   //TODO: перевірити "поза грою"
+    game_leave_error_alreadyLeft: string;
     game_leave_success_message: string;
+    game_edit_error_noAccess: string;
+    game_edit_roles_placeHolder: string;
+    game_edit_conditions_placeHolder: string;
+    game_edit_success_message: string;
     start_your_role: string;                //TODO: review
     start_game_info: string;                //TODO: review
     start_theme: string;                    //TODO: review
     start_player_count: string;             //TODO: review
-    start_mafia_count: string;              //TODO: review
-    start_doctor_count: string;             //TODO: review
-    start_police_count: string;             //TODO: review
-    start_killer_count: string;             //TODO: review
-    start_role_innocent: string;            //TODO: review
-    start_role_mafia: string;               //TODO: review
-    start_role_doctor: string;              //TODO: review
-    start_role_police: string;              //TODO: review
-    start_role_killer: string;              //TODO: review
-    start_role_mistress: string;            //TODO: review
 
     //EN: Phrases like "The city wakes up / falls asleep" seem to be not very common among English speakers. However, it was decided to use them to popularize and convey the game's atmosphere.
     wake_up_title: string;
@@ -57,6 +53,9 @@ export interface ILangProps {
     no_kills_description: string;
 
     vote_select: string;
+    vote_results_title: string;
+    vote_results_tie: string;
+    vote_results_ban: string;           //usage: ":x: " + votedForUsers[0].userid).dsUser.tag + item.local.vote_results_ban
     role_mafia_name: string;
     role_mafia_placeHolder: string;
     role_mafia_description: string;
@@ -131,7 +130,7 @@ export interface ILangProps {
     condition_view_error_notFound: string;
     condition_view_error_noAccess: string;
 
-    condition_edit_choose_placeHolder: string;
+    condition_edit_select_placeHolder: string;
     condition_edit_error_notFound: string;                  // = condition_view_error_notFound
     condition_edit_error_noAccess: string;
     condition_edit_title: string;       //usage: locale.condition_edit_title + name
@@ -147,7 +146,7 @@ export interface ILangProps {
     condition_edit_winRole_placeHolder: string;
     condition_edit_success_message: string;
 
-    condition_delete_choose_placeHolder: string;
+    condition_delete_select_placeHolder: string;
     condition_delete_error_notFound: string;                // = condition_view_error_notFound
     condition_delete_error_noAccess: string;
     condition_delete_success_message: string;
@@ -162,4 +161,14 @@ export interface ILangProps {
     police: string;                         //deprecated
     killer: string;                         //deprecated
     mistress: string;                       //deprecated
+    start_mafia_count: string;              //deprecated
+    start_doctor_count: string;             //deprecated
+    start_police_count: string;             //deprecated
+    start_killer_count: string;             //deprecated
+    start_role_innocent: string;            //deprecated
+    start_role_mafia: string;               //deprecated
+    start_role_doctor: string;              //deprecated
+    start_role_police: string;              //deprecated
+    start_role_killer: string;              //deprecated
+    start_role_mistress: string;            //deprecated
 }

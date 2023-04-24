@@ -95,17 +95,17 @@ export default async function editrolegamelist(interaction: SelectMenuInteractio
                 host.embed.setFields([
                     {
                         value: roleStr,
-                        name: "Roles"
+                        name: `__**${locale.game_created_roles}**__`
                     },
                     {
                         value: winStr,
-                        name: "Winning Conditions"
+                        name: `__**${locale.game_created_gameEndConditions}**__`
                     }]);
                 curHostGames.set(gameid, host);
                 await host.interaction.editReply({embeds: [host.embed]});
-                await interaction.reply({content: "done", ephemeral: true});
+                await interaction.reply({content: locale.game_edit_success_message, ephemeral: true});
             } else {
-                interaction.reply({content: locale.game_start_error_noAccess, ephemeral: true}).catch(() => {
+                interaction.reply({content: locale.game_edit_error_noAccess, ephemeral: true}).catch(() => {
                 });
             }
         } else {
@@ -113,6 +113,6 @@ export default async function editrolegamelist(interaction: SelectMenuInteractio
             });
         }
     } catch (err) {
-        interaction.reply({content: err, ephemeral: true})
+        interaction.reply({content: locale.error_unknown, ephemeral: true})
     }
 }

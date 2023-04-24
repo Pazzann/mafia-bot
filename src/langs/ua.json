@@ -1,4 +1,6 @@
 {
+  "lang_has_been_set": "Успішно встановлено українську!.",
+
   "game_error_incorrectGameID": "Гру не знайдено! Можливо, її було скасовано чи закінчено.",
   "game_error_alreadyCreated": "Ви вже створили одну гру, спочатку скасуйте її або дочекайтесь автоскасування!",
   "game_error_alreadyJoined": "Ви вже приєдналися до однієї гри, спочатку залиште її!",
@@ -28,22 +30,16 @@
   "game_end_success_privateMessage": "Гру закінчено організатором. Але ви можете створити іншу!",
   "game_join_error_alreadyJoined": "Не хвилюйтеся, ви вже в грі :wink:",
   "game_join_success_message": ":white_check_mark: Ви успішно приєдналися до гри!",
-  "game_leave_error_alreadyLeft": "Не хвилюйтеся, ви й так поза грою :wink:",
+  "game_leave_error_alreadyLeft": "Не хвилюйтеся, ви й так не в грі :wink:",
   "game_leave_success_message": ":ballot_box_with_check: Ви успішно залишили гру.",
+  "game_edit_error_noAccess": "Вибачте, ви не можете змінювати цю гру, бо не є її організатором!",
+  "game_edit_roles_placeHolder": "Оберіть ролі...",
+  "game_edit_conditions_placeHolder": "Оберіть умови завершення гри...",
+  "game_edit_success_message": ":white_check_mark: Гру успішно змінено!",
   "start_your_role": "Ваша роль",
   "start_game_info": "Інформація:",
   "start_theme": "Тема",
   "start_player_count": "Кількість гравців",
-  "start_mafia_count": "Кількість мафій",
-  "start_doctor_count": "Лікар",
-  "start_police_count": "Поліцейський",
-  "start_killer_count": "Маніяк",
-  "start_role_innocent": "Ваша мета — не померти!",
-  "start_role_mafia": "Убийте кожну кацапську сволоту! \n Ваші козаки:",
-  "start_role_doctor": "Урятуйте населення Січі від смерті!",
-  "start_role_police": "Знайдіть бандитів та звинуватьте їх!",
-  "start_role_killer": "Ви Олексій Мільчаков, установіть усський мир.",
-  "start_role_mistress": "string",
 
 
   "wake_up_title": "Місто прокидається!",
@@ -57,6 +53,9 @@
   "no_kills_description": "Минулої ночі нікого не вбили! Може, варто подякувати лікарю?\uD83D\uDE2F",
 
   "vote_select": "Оберіть, проти кого хочете проголосувати...",
+  "vote_results_title": "Результати голосування",
+  "vote_results_tie": ":man_shrugging: Стіл поділено",
+  "vote_results_ban": " вигнано з міста.",
   "role_mafia_name": "Мафія",
   "role_mafia_placeHolder": "Оберіть жертву...",
   "role_mafia_description": "%УБИВАЙТЕ ТА ВИЖИВІТЬ!\n:skull_crossbones:  Щоночі мафія вбиває одного гравця, за якого її члени віддають найбільше голосів (у разі рівної кількості гравець обирається випадко). Але пам'ятайте: жертву може вилікувати доктор.\n:trophy:  Мафія перемагає, якщо складає не менше половини всіх активних гравців.% + ({r:maniac:count} > 0 ? % Виняток: якщо залишилося двоє гравців — представник мафії та маніяк — перемагає маніяк.% : %%) + ({r:mafia:count} > 1 ? %\n:busts_in_silhouette:  З вами в команді: % + %{oPlayersTRole}% : %%)",
@@ -131,7 +130,7 @@
   "condition_view_error_notFound": "Умову не знайдено!",
   "condition_view_error_noAccess": "Вибачте, ви не можете переглядати цю умову!",
 
-  "condition_edit_choose_placeHolder": "Оберіть умову для змінення...",
+  "condition_edit_select_placeHolder": "Оберіть умову для змінення...",
   "condition_edit_error_notFound": "Умову не знайдено!",
   "condition_edit_error_noAccess": "Вибачте, ви не можете змінювати цю умову!",
   "condition_edit_title": "Змінення умови: ",
@@ -147,7 +146,7 @@
   "condition_edit_winRole_placeHolder": "назва вашої нової ролі, що перемагає",
   "condition_edit_success_message": "Умову успішно змінено:",
 
-  "condition_delete_choose_placeHolder": "Оберіть умову для видалення...",
+  "condition_delete_select_placeHolder": "Оберіть умову для видалення...",
   "condition_delete_error_notFound": "Умову не знайдено!",
   "condition_delete_error_noAccess": "Вибачте, ви не можете видалити цю умову!",
   "condition_delete_success_message": "Умову успішно видалено.",
@@ -161,5 +160,15 @@
   "doctor": "лікар",
   "police": "поліцейський",
   "killer": "маніяк",
-  "mistress": "повія"
+  "mistress": "повія",
+  "start_mafia_count": "Кількість мафій",
+  "start_doctor_count": "Лікар",
+  "start_police_count": "Поліцейський",
+  "start_killer_count": "Маніяк",
+  "start_role_innocent": "Ваша мета — не померти!",
+  "start_role_mafia": "Убийте кожну кацапську сволоту! \n Ваші козаки:",
+  "start_role_doctor": "Урятуйте населення Січі від смерті!",
+  "start_role_police": "Знайдіть бандитів та звинуватьте їх!",
+  "start_role_killer": "Ви Олексій Мільчаков, установіть усський мир.",
+  "start_role_mistress": "string"
 }

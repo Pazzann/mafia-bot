@@ -144,25 +144,26 @@ export default class MafiaGame {
                 votedForUsers.push({userid: item.id, numbersOfVotes: item.actionsOnUser.voted});
             })
             votedForUsers.sort((a, b) => b.numbersOfVotes - a.numbersOfVotes);
-            const voteEmded = new EmbedBuilder();
-            voteEmded.setColor(0xa4fd8a);
-            voteEmded.setTitle("Результаты голосования")
-            let votes: string = "";
-            for (let value of votedForUsers) {
-                votes += this.GetUser(value.userid).dsUser.tag + ": " + value.numbersOfVotes + "\n"
-            }
 
-            voteEmded.setDescription(votes);
             this.Players.map(item => {
+                const voteEmded = new EmbedBuilder();
+                voteEmded.setColor(0xa4fd8a);
+                voteEmded.setTitle(item.local.vote_results_title)
+                let votes: string = "";
+                for (let value of votedForUsers) {
+                    votes += this.GetUser(value.userid).dsUser.tag + ": " + value.numbersOfVotes + "\n"
+                }
+
+                voteEmded.setDescription(votes);
                 item.dsUser.dmChannel.send({embeds: [voteEmded]});
             });
             if (votedForUsers[0].numbersOfVotes == votedForUsers[1].numbersOfVotes) {
                 this.Players.map(item => {
-                    item.dsUser.dmChannel.send("Стол попилили");
+                    item.dsUser.dmChannel.send(item.local.vote_results_tie);
                 });
             } else {
                 this.Players.map(item => {
-                    item.dsUser.dmChannel.send(this.GetUser(votedForUsers[0].userid).dsUser.tag + " выгнан голосованием");
+                    item.dsUser.dmChannel.send(":x: " + this.GetUser(votedForUsers[0].userid).dsUser.tag + item.local.vote_results_ban);
                 });
                 this.GetUser(votedForUsers[0].userid).isKilled = true;
             }

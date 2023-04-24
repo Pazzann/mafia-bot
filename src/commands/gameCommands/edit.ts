@@ -84,7 +84,7 @@ export default async function edit(interaction: ButtonInteraction, gameid = 0, u
                 .addComponents(
                     new SelectMenuBuilder()
                         .setCustomId("editrolegamelist")
-                        .setPlaceholder('choose role to view')
+                        .setPlaceholder(locale.game_edit_roles_placeHolder)
                         .setMinValues(1)
                         .setMaxValues(chooseArr.length)
                         .addOptions(chooseArr)
@@ -127,7 +127,7 @@ export default async function edit(interaction: ButtonInteraction, gameid = 0, u
                 .addComponents(
                     new SelectMenuBuilder()
                         .setCustomId("editcondtiongamelist")
-                        .setPlaceholder('choose conditions')
+                        .setPlaceholder(locale.game_edit_conditions_placeHolder)
                         .setMinValues(1)
                         .setMaxValues(chooseArr2.length)
                         .addOptions(chooseArr2)
@@ -135,7 +135,7 @@ export default async function edit(interaction: ButtonInteraction, gameid = 0, u
 
             interaction.reply({ephemeral: true, components: [row, row2]})
         } else {
-            interaction.reply({content: locale.game_start_error_noAccess, ephemeral: true}).catch(() => {
+            interaction.reply({content: locale.game_edit_error_noAccess, ephemeral: true}).catch(() => {
             });
         }
     } else {

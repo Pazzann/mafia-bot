@@ -69,12 +69,30 @@ export interface ILocalProps {
     EN: ILangProps;
     RU: ILangProps;
     UA: ILangProps;
+    DE: ILangProps;
+    EE: ILangProps;
+    FU: ILangProps;
+    PL: ILangProps;
+    SP: ILangProps;
+    SE: ILangProps;
 }
-
+function get(target: any, field: string){
+        if (field in target)
+            return target[field];
+        else
+            return enLocal[field];
+}
+const enLocal = require('./langs/en.json');
 export const localisations: ILocalProps = {
-    EN: require('./langs/en.json'),
-    UA: require('./langs/ua.json'),
-    RU: require('./langs/ru.json')
+    EN: enLocal,
+    UA: new Proxy(require('./langs/ua.json'), {get}),
+    RU: new Proxy(require('./langs/ru.json'), {get}),
+    EE: new Proxy(require('./langs/ee.json'), {get}),
+    DE: new Proxy(require('./langs/de.json'), {get}),
+    FU: new Proxy(require('./langs/fu.json'), {get}),
+    PL: new Proxy(require('./langs/pl.json'), {get}),
+    SP: new Proxy(require('./langs/sp.json'), {get}),
+    SE: new Proxy(require('./langs/se.json'), {get}),
 }
 
 
@@ -254,8 +272,8 @@ discordBot.on('interactionCreate', async (interaction: ChatInputCommandInteracti
             mafGame.Choose(mafGame.GetUser(interaction.user.id), voteForId, interaction);
         } else if (interaction.isButton()) {
             try {
-                if (["en", "ua", "ru"].includes(interaction.customId))
-                    commands.common.langSet(interaction, dataUser);
+                if (["en", "de", "ru", "ua", "pl", "fu", "sp", "ee", "se"].includes(interaction.customId))
+                    return await commands.common.langSet(interaction, dataUser).catch();
 
                 if (interaction.customId === "createnew")
                     return commands.common.create(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps]).catch();
@@ -276,15 +294,15 @@ discordBot.on('interactionCreate', async (interaction: ChatInputCommandInteracti
             }
         } else if (interaction.isModalSubmit()) {
             try {
-                if(interaction.customId.includes("newConditionPartTwo"))
+                if (interaction.customId.includes("newConditionPartTwo"))
                     return commands.modals.newConditionPartTwo(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps]).catch();
-                if(interaction.customId.includes("newRolePartTwo"))
+                if (interaction.customId.includes("newRolePartTwo"))
                     return commands.modals.newRolePartTwo(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps]).catch();
-                if(interaction.customId.includes("editRole"))
-                    return commands.modals.editRole(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof  ILocalProps]).catch();
-                if(interaction.customId.includes("editCondition"))
-                    return commands.modals.editCondition(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof  ILocalProps]).catch();
-                if (includeFromArray(interaction.customId, ["newRolePartOne", "newConditionPartOne", "textToModeration", "editCondition"])){
+                if (interaction.customId.includes("editRole"))
+                    return commands.modals.editRole(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps]).catch();
+                if (interaction.customId.includes("editCondition"))
+                    return commands.modals.editCondition(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps]).catch();
+                if (includeFromArray(interaction.customId, ["newRolePartOne", "newConditionPartOne", "textToModeration", "editCondition"])) {
                     // @ts-ignore
                     commands.modals[interaction.customId.match(/\w+/)[0]](interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps]).catch();
 
