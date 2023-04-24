@@ -3,7 +3,7 @@ import User from "../../Entities/User.entity";
 import {ILangProps} from "../../types/interfaces/ILang";
 import Role from "../../Entities/Role.entity";
 
-module.exports.execute = async function (interaction: ModalSubmitInteraction, user: User, locale: ILangProps) {
+export default async function newConditionPartOne (interaction: ModalSubmitInteraction, user: User, locale: ILangProps) {
 
     if (!user.premium) {
         interaction.reply({content: locale.error_premium, ephemeral: true})

@@ -10,14 +10,13 @@ import User from "../../Entities/User.entity";
 import {ILangProps} from "../../types/interfaces/ILang";
 import Role from "../../Entities/Role.entity";
 import MafiaEmbedBuilder from "../../Classes/MafiaEmbedBuilder";
-import {getTreeRepository} from "typeorm";
 
-module.exports.execute = async function (interaction: ModalSubmitInteraction, user: User, locale: ILangProps, customid: string) {
+export default async function editRole (interaction: ModalSubmitInteraction, user: User, locale: ILangProps) {
     if(!user.premium){
         interaction.reply({content: "You don't have premium to create custom roles and conditions, sorry!", ephemeral: true})
         return;
     }
-    let id = +customid.match(/[0-9]+/)[0];
+    let id = +interaction.customId.split("editRole").join('');
     try{
         const role = await Role.findOne({where: {id: id}, relations: ["user"]});
         if(role == null){

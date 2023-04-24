@@ -4,7 +4,7 @@ import getDisabledButtons from "../../Functions/getDisabledButtons";
 import User from "../../Entities/User.entity";
 import {ILangProps} from "../../types/interfaces/ILang";
 
-module.exports.execute = function (interaction: ButtonInteraction, gameid = 0, user: User, locale: ILangProps) {
+export default function cancel (interaction: ButtonInteraction, gameid = 0, user: User, locale: ILangProps) {
     if(curHostGames.has(gameid))
     {
         const host = curHostGames.get(gameid);

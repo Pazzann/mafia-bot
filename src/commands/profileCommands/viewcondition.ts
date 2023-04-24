@@ -5,7 +5,7 @@ import Role from "../../Entities/Role.entity";
 import MafiaEmbedBuilder from "../../Classes/MafiaEmbedBuilder";
 import WinningCondition from "../../Entities/WinningCondition.entity";
 
-module.exports.execute = async function (interaction: SelectMenuInteraction, user: User, locale: ILangProps, conditionId: number) {
+export default async function viewcondition(interaction: SelectMenuInteraction, user: User, locale: ILangProps, conditionId: number) {
 
     if (!user.premium) {
         interaction.reply({

@@ -10,7 +10,7 @@ import User from "../../Entities/User.entity";
 import {ILangProps} from "../../types/interfaces/ILang";
 import Role from "../../Entities/Role.entity";
 
-module.exports.execute = async function (interaction: SelectMenuInteraction, user: User, locale: ILangProps) {
+export default  async function editrolecomplete(interaction: SelectMenuInteraction, user: User, locale: ILangProps) {
     try {
         if(!user.premium){
             interaction.reply({content: "You don't have premium to create custom roles and conditions, sorry!", ephemeral: true})

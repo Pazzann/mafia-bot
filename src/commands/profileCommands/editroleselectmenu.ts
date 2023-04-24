@@ -10,7 +10,7 @@ import {ILangProps} from "../../types/interfaces/ILang";
 import Role from "../../Entities/Role.entity";
 import MafiaEmbedBuilder from "../../Classes/MafiaEmbedBuilder";
 
-module.exports.execute = async function (interaction: SelectMenuInteraction, user: User, locale: ILangProps, roleId: number) {
+export default  async function editroleselectmenu(interaction: SelectMenuInteraction, user: User, locale: ILangProps, roleId: number) {
 
     if (!user.premium) {
         interaction.reply({

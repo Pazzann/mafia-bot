@@ -9,7 +9,7 @@ import Role from "../../Entities/Role.entity";
 
 let validUrl = require('valid-url');
 
-module.exports.execute = async function (interaction: ModalSubmitInteraction, user: User, locale: ILangProps) {
+export default async function newRolePartOne (interaction: ModalSubmitInteraction, user: User, locale: ILangProps) {
 
     if (!user.premium) {
         interaction.reply({

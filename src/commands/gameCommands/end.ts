@@ -3,7 +3,7 @@ import {curHandlingGames, curHostGames, discordBot} from "../../index";
 import User from "../../Entities/User.entity";
 import {ILangProps} from "../../types/interfaces/ILang";
 
-module.exports.execute = function (interaction: ButtonInteraction, gameid = 0, user: User, locale: ILangProps) {
+export default function end (interaction: ButtonInteraction, gameid = 0, user: User, locale: ILangProps) {
     if (curHandlingGames.has(gameid)) {
         const game = curHandlingGames.get(gameid);
         if (game.author == interaction.user.id) {

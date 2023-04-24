@@ -2,7 +2,7 @@ import {ButtonInteraction, EmbedBuilder} from "discord.js";
 import User from "../../Entities/User.entity";
 import {ILangProps} from "../../types/interfaces/ILang";
 
-module.exports.execute = async function (interaction: ButtonInteraction, user: User, locale: ILangProps) {
+export default async function premium(interaction: ButtonInteraction, user: User, locale: ILangProps) {
 
     const embed = new EmbedBuilder()
         .setTitle("💸Premium")

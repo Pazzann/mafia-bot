@@ -1,6 +1,7 @@
 {
   "game_error_incorrectGameID": "Игра не найдена! Возможно, она была отменена или закончена.",
-  "game_create_error": "Вы уже создали одну игру, сначала отмените её или дождитесь автоотмены!",
+  "game_error_alreadyCreated": "Вы уже создали одну игру, сначала отмените её или дождитесь автоотмены!",
+  "game_error_alreadyJoined": "Вы уже присоединились к одной игре, сначала покиньте её!",
   "game_created_title": "Игра создана",
   "game_created_autocancel": "Автоотмена",
   "game_created_gameHost": "Организатор игры",
@@ -15,7 +16,7 @@
   "game_created_button_new": "Создать новую игру",
   "game_cancel_error_noAccess": "Извините, вы не можете отменить эту игру, потому что не являетесь её организатором!",
   "game_cancel_success_message_aboveEmbed": "Игра отменена организатором. Но вы можете создать другую!",
-  "game_cancel_success_message": "Игра отменена.",
+  "game_cancel_success_message": "Игра отменена. Но всегда можно создать новую!",
   "game_autocancel_message": "Игра автоматически отменена. Но вы можете создать другую!",
   "game_start_error_noAccess": "Извините, вы не можете начать эту игру, потому что не являетесь её организатором!",
   "game_start_error_notEnoughPlayers": "Недостаточно игроков для начала игры!",
@@ -23,18 +24,12 @@
   "game_started_button_endGame": "Закончить игру",
   "game_started_title": "Игра начата",
   "game_end_error_noAccess": "Извините, вы не можете закончить эту игру, потому что не являетесь её организатором!",
-  "game_end_success_message": "Игра закончена.",
+  "game_end_success_message": "Игра закончена. Но всегда можно создать новую!",
   "game_end_success_privateMessage": "Игра закончена организатором. Но вы можете создать другую!",
-  "error_you_are_already": "Вы уже в игре!",
-  "join_game": "Вы успешно подключились!",
-  "error_you_are_not_already": "Вас итак там нет!",
-  "leave_game": "Вы покинули игру!",
-  "innocent": "мирный",
-  "mafia": "мафия",
-  "doctor": "доктор",
-  "police": "полицейский",
-  "killer": "маньяк",
-  "mistress": "проститутка",
+  "game_join_error_alreadyJoined": "Не переживайте, вы уже в игре :wink:",
+  "game_join_success_message": ":white_check_mark: Вы успешно присоединились к игре!",
+  "game_leave_error_alreadyLeft": "Не переживайте, вы и так вне игры :wink:",
+  "game_leave_success_message": ":ballot_box_with_check: Вы успешно покинули игру.",
   "start_your_role": "Ваша роль",
   "start_game_info": "Игровая информация:",
   "start_theme": "Тема",
@@ -158,5 +153,13 @@
   "condition_delete_success_message": "Условие успешно удалено.",
 
   "error_premium": "Извините, у вас нет Premium, чтобы создавать собственные роли и условия!",
-  "failure_message": "Произошла ошибка, пожалуйста, обратитесь в службу поддержки!"
+  "error_unknown": "Произошла ошибка, пожалуйста, обратитесь в службу поддержки!",
+
+
+  "innocent": "мирный",
+  "mafia": "мафия",
+  "doctor": "доктор",
+  "police": "полицейский",
+  "killer": "маньяк",
+  "mistress": "проститутка"
 }

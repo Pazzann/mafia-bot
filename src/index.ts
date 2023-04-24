@@ -18,6 +18,48 @@ import dateParser from "./Functions/dateParser";
 import MafiaGame from "./Classes/MafiaGame";
 import WinningCondition from "./Entities/WinningCondition.entity";
 import Role from "./Entities/Role.entity";
+import profile from "./commands/profile";
+import lang from "./commands/lang";
+import create from "./commands/create";
+import help from "./commands/help";
+import join from "./commands/gameCommands/join";
+import cancel from "./commands/gameCommands/cancel";
+import leave from "./commands/gameCommands/leave";
+import start from "./commands/gameCommands/start";
+import end from "./commands/gameCommands/end";
+import edit from "./commands/gameCommands/edit";
+import editconditiongamelist from "./commands/gameCommands/editconditiongamelist";
+import editrolegamelist from "./commands/gameCommands/editrolegamelist";
+import createcondition from "./commands/profileCommands/createcondition";
+import createrole from "./commands/profileCommands/createrole";
+import custom from "./commands/profileCommands/custom";
+import deletecondition from "./commands/profileCommands/deletecondition";
+import deleteconditionselect from "./commands/profileCommands/deleteconditionselect";
+import deleterole from "./commands/profileCommands/deleterole";
+import deleteroleselect from "./commands/profileCommands/deleteroleselect";
+import editcondition from "./commands/profileCommands/editcondition";
+import editconditionselect from "./commands/profileCommands/editconditionselect";
+import editrole from "./commands/profileCommands/editrole";
+import editrolecomplete from "./commands/profileCommands/editrolecomplete";
+import editroleselectmenu from "./commands/profileCommands/editroleselectmenu";
+import helpmessage from "./commands/profileCommands/helpmessage";
+import newconditionhalfbut from "./commands/profileCommands/newconditionhalfbut";
+import newrolehalfbut from "./commands/profileCommands/newrolehalfbut";
+import news from "./commands/profileCommands/news";
+import premium from "./commands/profileCommands/premium";
+import rules from "./commands/profileCommands/rules";
+import scripting from "./commands/profileCommands/scripting";
+import viewcondition from "./commands/profileCommands/viewcondition";
+import viewrole from "./commands/profileCommands/viewrole";
+import editCondition from "./commands/modals/editCondition";
+import editRole from "./commands/modals/editRole";
+import newConditionPartOne from "./commands/modals/newConditionPartOne";
+import newConditionPartTwo from "./commands/modals/newConditionPartTwo";
+import newRolePartOne from "./commands/modals/newRolePartOne";
+import newRolePartTwo from "./commands/modals/newRolePartTwo";
+import textToModeration from "./commands/modals/textToModeration";
+import langSet from "./commands/langSet";
+import includeFromArray from "./Functions/includeFromArray";
 
 dotenv.config();
 
@@ -49,6 +91,60 @@ export const discordBot = new Client({
         Partials.Channel
     ]
 });
+
+const commands = {
+    common: {
+        profile,
+        lang,
+        help,
+        create,
+        langSet
+    },
+    gameCommands: {
+        j: join,
+        c: cancel,
+        l: leave,
+        s: start,
+        e: end,
+        r: edit,
+        editconditiongamelist,
+        editrolegamelist
+    },
+    profileCommands: {
+        createcondition,
+        createrole,
+        custom,
+        deletecondition,
+        deleteconditionselect,
+        deleterole,
+        deleteroleselect,
+        editcondition,
+        editconditionselect,
+        editrole,
+        editrolecomplete,
+        editroleselectmenu,
+        helpmessage,
+        newconditionhalfbut,
+        newrolehalfbut,
+        news,
+        premium,
+        rules,
+        scripting,
+        viewcondition,
+        viewrole,
+    },
+    modals: {
+        editCondition,
+        editRole,
+        newConditionPartOne,
+        newConditionPartTwo,
+        newRolePartOne,
+        newRolePartTwo,
+        textToModeration
+
+    }
+}
+
 export const AppDataSource = new DataSource({
     type: "mysql",
     host: process.env.SQLHOST,
@@ -73,16 +169,15 @@ AppDataSource.initialize()
 export const curHostGames: Map<number, IHostGameProps> = new Map();
 export const curHandlingGames: Map<number, MafiaGame> = new Map();
 
-
 discordBot.on("guildMemberUpdate", async (oldMember: GuildMember, newMember: GuildMember) => {
-    if(newMember.guild.id != process.env.GUILD_ID){
+    if (newMember.guild.id != process.env.GUILD_ID) {
         return;
     }
     let dataUser = await User.findOne({
         where: {userid: newMember.user.id},
         relations: ["customRoles", "conditions"]
     });
-    if(!dataUser){
+    if (!dataUser) {
         dataUser = await User.create({
             userid: newMember.user.id,
             lang: Langs.EN,
@@ -103,83 +198,46 @@ discordBot.on('interactionCreate', async (interaction: ChatInputCommandInteracti
             where: {userid: interaction.user.id},
             relations: ["customRoles", "conditions"]
         })
-
+        if (!dataUser) {
+            interaction.reply({
+                content: "To use the bot, select the language, first:",
+                ephemeral: true,
+                components: getLangButtons()
+            }).catch();
+            return;
+        }
         if (interaction.isChatInputCommand()) {
-            if (!dataUser) {
-
-                interaction.reply({
-                    content: "To use the bot, select the language, first",
-                    ephemeral: true,
-                    components: getLangButtons()
-                }).catch(() => {
-                });
-                return;
-            }
             const {commandName} = interaction;
             if (interaction.channel.isDMBased() && commandName === "create") {
 
                 interaction.reply({
-                    content: 'Создать игру в мафию вы можете только на сервере!',
+                    content: 'Create a game you can only on the server!',
                     ephemeral: true
                 }).catch(() => {
                 });
                 return;
             }
-
-            let commandObj = require(`./commands/${commandName}`);
-            commandObj.execute(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps]);
+            // @ts-ignore
+            commands.common[commandName](interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps]);
         } else if (interaction.isSelectMenu()) {
-            if (interaction.customId == "editrole") {
-
-                let roleId = interaction.values[0].split("editrole").join("");
-                require('./commands/profileCommands/editroleselectmenu').execute(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps], roleId)
-                return;
-            }
-            if (interaction.customId == "viewrole") {
-
-                let roleId = interaction.values[0].split("viewrole").join("");
-                require('./commands/profileCommands/viewrole').execute(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps], roleId)
-                return;
-            }
-            if (interaction.customId == "deleterole") {
-
-                let roleId = interaction.values[0].split("deleterole").join("");
-                require('./commands/profileCommands/deleteroleselect').execute(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps], roleId)
-                return;
-            }
-            if (interaction.customId == "viewcondition") {
-
-                let conditionId = interaction.values[0].split("viewcondition").join("");
-                require('./commands/profileCommands/viewcondition').execute(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps], conditionId)
-                return;
-            }
-            if (interaction.customId == "deletecondition") {
-
-                let roleId = interaction.values[0].split("deletecondition").join("");
-                require('./commands/profileCommands/deleteconditionselect').execute(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps], roleId)
-                return;
-            }
-            if (interaction.customId == "editcondition") {
-
-                let roleId = interaction.values[0];
-                require('./commands/profileCommands/editconditionselect').execute(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps], roleId)
-                return;
-            }
-            if (interaction.customId == "editroleselection") {
-
-                require('./commands/profileCommands/editrolecomplete').execute(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps])
-                return;
-            }
-            if (interaction.customId == "editrolegamelist") {
-
-                require('./commands/gameCommands/editrolegamelist').execute(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps])
-                return;
-            }
-            if (interaction.customId == "editcondtiongamelist") {
-
-                require('./commands/gameCommands/editconditiongamelist').execute(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps])
-                return;
-            }
+            if (interaction.customId == "editrole")
+                return commands.profileCommands.editroleselectmenu(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps], +interaction.values[0].split("editrole").join("")).catch();
+            if (interaction.customId == "viewrole")
+                return commands.profileCommands.viewrole(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps], +interaction.values[0].split("viewrole").join("")).catch();
+            if (interaction.customId == "deleterole")
+                return commands.profileCommands.deleteroleselect(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps], +interaction.values[0].split("deleterole").join("")).catch();
+            if (interaction.customId == "viewcondition")
+                return commands.profileCommands.viewcondition(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps], +interaction.values[0].split("viewcondition").join("")).catch();
+            if (interaction.customId == "deletecondition")
+                return commands.profileCommands.deleteconditionselect(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps], +interaction.values[0].split("deletecondition").join("")).catch();
+            if (interaction.customId == "editcondition")
+                return commands.profileCommands.editconditionselect(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps], +interaction.values[0]).catch();
+            if (interaction.customId == "editroleselection")
+                return commands.profileCommands.editrolecomplete(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps]).catch();
+            if (interaction.customId == "editrolegamelist")
+                return commands.gameCommands.editrolegamelist(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps]).catch();
+            if (interaction.customId == "editcondtiongamelist")
+                return commands.gameCommands.editconditiongamelist(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps]).catch();
             let mafGame: MafiaGame = null;
             for (let game of curHandlingGames.values()) {
                 if (game.HasPlayer(interaction.user.id)) {
@@ -194,153 +252,45 @@ discordBot.on('interactionCreate', async (interaction: ChatInputCommandInteracti
             }
             const voteForId = interaction.values[0];
             mafGame.Choose(mafGame.GetUser(interaction.user.id), voteForId, interaction);
-
-
         } else if (interaction.isButton()) {
             try {
-                switch (interaction.customId) {
-                    case "en": {
-                        if (!dataUser) {
-                            await User.create({
-                                userid: interaction.user.id,
-                                lang: Langs.EN,
-                                totalGames: 0,
-                                totalWins: 0,
-                                since: dateParser(new Date())
-                            }).save();
-                        } else {
-                            dataUser.lang = Langs.EN;
-                            await dataUser.save();
-                        }
+                if (["en", "ua", "ru"].includes(interaction.customId))
+                    commands.common.langSet(interaction, dataUser);
 
-                        interaction.reply({content: "Successfully set english!", ephemeral: true}).catch(() => {
-                        });
-                        return;
-                    }
-                    case "ru": {
-                        if (!dataUser) {
-                            await User.create({
-                                userid: interaction.user.id,
-                                lang: Langs.RU,
-                                totalGames: 0,
-                                totalWins: 0,
-                                since: dateParser(new Date())
-                            }).save();
-                        } else {
-                            dataUser.lang = Langs.RU;
-                            await dataUser.save();
-                        }
-
-                        interaction.reply({content: "Язык изменён на русский!", ephemeral: true}).catch(() => {
-                        });
-                        return;
-                    }
-                    case "ua": {
-                        if (!dataUser) {
-                            await User.create({
-                                userid: interaction.user.id,
-                                lang: Langs.UA,
-                                totalGames: 0,
-                                totalWins: 0,
-                                since: dateParser(new Date())
-                            }).save();
-                        } else {
-                            dataUser.lang = Langs.UA;
-                            await dataUser.save();
-                        }
-
-                        interaction.reply({
-                            content: "Успішно встановлено українську!",
-                            ephemeral: true
-                        }).catch(() => {
-                        });
-                        return;
-                    }
-
-                }
-                if (!dataUser) {
-
-                    interaction.reply({
-                        content: "To use the bot, select the language, first",
-                        ephemeral: true,
-                        components: getLangButtons()
-                    }).catch(() => {
-                    });
-                    return;
-                }
-                if (interaction.customId === "createnew") {
-                    require('./commands/create').execute(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps])
-                    return;
-                }
-                if (["premium", "editrole", "editcondition", "custom", "createrole", "deleterole", "createcondition", "deletecondition", "news", "helpmessage", "rules", "scripting"].includes(interaction.customId)) {
-                    require(`./commands/profileCommands/${interaction.customId}`).execute(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps]);
-                    return;
-                }
-                if (interaction.customId.includes("newrolehalfbut")) {
-                    let id = Number(interaction.customId.split("newrolehalfbut").join(''));
-                    require(`./commands/profileCommands/newrolehalfbut`).execute(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps], id);
-                    return;
-                }
-                if (interaction.customId.includes("newconditionhalfbut")) {
-                    require(`./commands/profileCommands/newconditionhalfbut`).execute(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps]);
-                    return;
-                }
-
-                const gameId = Number(interaction.customId.split('').splice(1, 5).join(''))
-                switch (interaction.customId[0]) {
-                    case 'j': {
-                        require('./commands/gameCommands/join').execute(interaction, gameId, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps]);
-                        break;
-                    }
-                    case 'c': {
-                        require('./commands/gameCommands/cancel').execute(interaction, gameId, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps]);
-                        break;
-                    }
-                    case 's': {
-
-                        require('./commands/gameCommands/start').execute(interaction, gameId, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps]);
-                        break;
-                    }
-                    case 'l': {
-                        require('./commands/gameCommands/leave').execute(interaction, gameId, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps]);
-                        break;
-                    }
-                    case 'e': {
-                        require('./commands/gameCommands/end').execute(interaction, gameId, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps]);
-                        break;
-                    }
-                    case 'r': {
-                        require('./commands/gameCommands/edit').execute(interaction, gameId, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps]);
-                        break;
-                    }
+                if (interaction.customId === "createnew")
+                    return commands.common.create(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps]).catch();
+                if (["premium", "editrole", "editcondition", "custom", "createrole", "deleterole", "createcondition", "deletecondition", "news", "helpmessage", "rules", "scripting"].includes(interaction.customId))
+                    // @ts-ignore
+                    return commands.profileCommands[interaction.customId](interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps]).catch()
+                if (interaction.customId.includes("newrolehalfbut"))
+                    return commands.profileCommands.newrolehalfbut(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps]).catch();
+                if (interaction.customId.includes("newconditionhalfbut"))
+                    return commands.profileCommands.newconditionhalfbut(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps]).catch();
+                if (['j', 'c', 's', 'l', 'e', 'r'].includes(interaction.customId[0])) {
+                    const gameId = Number(interaction.customId.split('').splice(1, 5).join(''));
+                    // @ts-ignore
+                    commands.gameCommands[interaction.customId[0]](interaction, gameId, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps]);
                 }
             } catch (err) {
 
             }
         } else if (interaction.isModalSubmit()) {
             try {
-                if (interaction.customId.includes("newRolePartTwo")) {
-                    let id = Number(interaction.customId.split("newRolePartTwo").join(''));
-                    require(`./commands/modals/newRolePartTwo`).execute(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps], id);
-                    return;
+                if(interaction.customId.includes("newConditionPartTwo"))
+                    return commands.modals.newConditionPartTwo(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps]).catch();
+                if(interaction.customId.includes("newRolePartTwo"))
+                    return commands.modals.newRolePartTwo(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps]).catch();
+                if(interaction.customId.includes("editRole"))
+                    return commands.modals.editRole(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof  ILocalProps]).catch();
+                if(interaction.customId.includes("editCondition"))
+                    return commands.modals.editCondition(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof  ILocalProps]).catch();
+                if (includeFromArray(interaction.customId, ["newRolePartOne", "newConditionPartOne", "textToModeration", "editCondition"])){
+                    // @ts-ignore
+                    commands.modals[interaction.customId.match(/\w+/)[0]](interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps]).catch();
+
                 }
-                if (interaction.customId.includes("editRole")) {
-                    require(`./commands/modals/editRole`).execute(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps], interaction.customId);
-                    return;
-                }
-                if (interaction.customId.includes("editCondition")) {
-                    let id = interaction.customId.split("editCondition").join('');
-                    require(`./commands/modals/editCondition`).execute(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps], id);
-                    return;
-                }
-                if (interaction.customId.includes("newConditionPartTwo")) {
-                    require(`./commands/modals/newConditionPartTwo`).execute(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps], interaction.customId);
-                    return;
-                }
-                if (["newRolePartOne", "newConditionPartOne", "textToModeration"].includes(interaction.customId)) {
-                    require(`./commands/modals/${interaction.customId}`).execute(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps], discordBot);
-                    return;
-                }
+
+
             } catch (err) {
 
             }

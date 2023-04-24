@@ -4,7 +4,7 @@ import {ILangProps} from "../types/interfaces/ILang";
 import {dbDateToDate} from "../Functions/dateParser";
 
 
-module.exports.execute = async function (interaction: ChatInputCommandInteraction, user: User, locale: ILangProps) {
+export default async function profile (interaction: ChatInputCommandInteraction, user: User, locale: ILangProps) {
 
 
     const embed = new EmbedBuilder()

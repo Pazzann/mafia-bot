@@ -19,45 +19,48 @@ import MafiaRole from "../../Classes/Roles/MafiaRole";
 import CustomRole from "../../Classes/Roles/CustomRole";
 import {Action} from "../../types/Action";
 
-module.exports.execute = async function (interaction: SelectMenuInteraction, user: User, locale: ILangProps) {
+export default async function editrolegamelist(interaction: SelectMenuInteraction, user: User, locale: ILangProps) {
     try {
         let gameid = +interaction.values[0].split('%')[0];
         if (curHostGames.has(gameid)) {
             const host = curHostGames.get(gameid);
             if (host.author == interaction.user.id) {
-                if (!user.premium) {
-                    interaction.reply("You don't have premium to change game preset");
-                    return;
-                }
+                // if (!user.premium) {
+                //     interaction.reply("You don't have premium to change game preset");
+                //     return;
+                // }
                 host.roles = [];
-                for(let role of interaction.values){
+                for (let role of interaction.values) {
                     let roleId = role.split('%')[1];
-                    switch (roleId){
-                        case new MistressRole().RoleName:{
+                    switch (roleId) {
+                        case new MistressRole().RoleName: {
                             host.roles.push(new MistressRole());
                             break;
                         }
-                        case new MafiaRole().RoleName:{
+                        case new MafiaRole().RoleName: {
                             host.roles.push(new MafiaRole());
                             break;
                         }
-                        case new DoctorRole().RoleName:{
+                        case new DoctorRole().RoleName: {
                             host.roles.push(new DoctorRole());
                             break;
                         }
-                        case new PoliceRole().RoleName:{
+                        case new PoliceRole().RoleName: {
                             host.roles.push(new PoliceRole());
                             break;
                         }
-                        case new KillerRole().RoleName:{
+                        case new KillerRole().RoleName: {
                             host.roles.push(new KillerRole());
                             break;
                         }
-                        case new PeacefulRole().RoleName:{
-                            host.roles.push( new PeacefulRole());
+                        case new PeacefulRole().RoleName: {
+                            host.roles.push(new PeacefulRole());
                             break;
                         }
                         default: {
+                            if (!user.premium) {
+                                break;
+                            }
                             const custRole = await Role.findOne({where: {id: +roleId}, relations: ["user"]});
                             if (custRole == null) {
                                 break;
@@ -65,7 +68,7 @@ module.exports.execute = async function (interaction: SelectMenuInteraction, use
                             if (custRole.user.userid != user.userid) {
                                 break;
                             }
-                            host.roles.push( new CustomRole(
+                            host.roles.push(new CustomRole(
                                 custRole.name,
                                 custRole.action as Action,
                                 custRole.delay,
@@ -83,15 +86,15 @@ module.exports.execute = async function (interaction: SelectMenuInteraction, use
                 }
                 let winStr = "";
                 let roleStr = "";
-                for (let role of host.roles){
+                for (let role of host.roles) {
                     roleStr += "\`\`" + role.GetRoleName(user.lang) + "\`\`\n";
                 }
-                for(let win of host.conditions){
+                for (let win of host.conditions) {
                     winStr += "\`\`" + win.GetName(user.lang) + "\`\`\n";
                 }
                 host.embed.setFields([
                     {
-                        value:roleStr,
+                        value: roleStr,
                         name: "Roles"
                     },
                     {

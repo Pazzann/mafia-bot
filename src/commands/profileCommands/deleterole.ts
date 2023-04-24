@@ -4,7 +4,7 @@ import {ILangProps} from "../../types/interfaces/ILang";
 import Role from "../../Entities/Role.entity";
 import MafiaEmbedBuilder from "../../Classes/MafiaEmbedBuilder";
 
-module.exports.execute = async function (interaction: ButtonInteraction, user: User, locale: ILangProps) {
+export default async function deleterole(interaction: ButtonInteraction, user: User, locale: ILangProps) {
 
     if (!user.premium) {
         interaction.reply({

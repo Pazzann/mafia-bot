@@ -10,7 +10,7 @@ import User from "../../Entities/User.entity";
 import {ILangProps} from "../../types/interfaces/ILang";
 
 
-module.exports.execute = async function (interaction: ButtonInteraction, user: User, locale: ILangProps) {
+export default async function news(interaction: ButtonInteraction, user: User, locale: ILangProps) {
     if (interaction.message.interaction.user.id !== interaction.user.id){
         interaction.reply({ephemeral: true, content: "You are not the owner"})
         return;

@@ -4,7 +4,7 @@ import {ILangProps} from "../../types/interfaces/ILang";
 import Role from "../../Entities/Role.entity";
 import WinningCondition from "../../Entities/WinningCondition.entity";
 
-module.exports.execute = async function (interaction: SelectMenuInteraction, user: User, locale: ILangProps, conditionId: number) {
+export default async function deleteconditionselect(interaction: SelectMenuInteraction, user: User, locale: ILangProps, conditionId: number) {
 
     if (!user.premium) {
         interaction.reply({content: locale.error_premium, ephemeral: true})
@@ -23,7 +23,7 @@ module.exports.execute = async function (interaction: SelectMenuInteraction, use
         await WinningCondition.delete({id: conditionId});
         interaction.reply({content: locale.condition_delete_success_message, ephemeral: true});
     } catch (err) {
-        interaction.reply({content: locale.failure_message, ephemeral: true});
+        interaction.reply({content: locale.error_unknown, ephemeral: true});
     }
 
 }

@@ -10,17 +10,17 @@ import MafiaWin from "../../Classes/WinningConditions/MafiaWin";
 import WinningCondition from "../../Entities/WinningCondition.entity";
 import CustomWin from "../../Classes/WinningConditions/CustomWin";
 
-module.exports.execute = async function (interaction: SelectMenuInteraction, user: User, locale: ILangProps) {
+export default async function editconditiongamelist (interaction: SelectMenuInteraction, user: User, locale: ILangProps) {
     try {
 
         let gameid = +interaction.values[0].split('%')[0];
         if (curHostGames.has(gameid)) {
             const host = curHostGames.get(gameid);
             if (host.author == interaction.user.id) {
-                if (!user.premium) {
-                    interaction.reply("You don't have premium to change game preset");
-                    return;
-                }
+                // if (!user.premium) {
+                //     interaction.reply("You don't have premium to change game preset");
+                //     return;
+                // }
                 host.conditions = [];
                 for(let condition of interaction.values){
                     let conditionId = condition.split('%')[1];
@@ -38,6 +38,9 @@ module.exports.execute = async function (interaction: SelectMenuInteraction, use
                             break;
                         }
                         default: {
+                            if (!user.premium) {
+                                break;
+                            }
                             const custCond = await WinningCondition.findOne({where: {id: +conditionId}, relations: ["user"]});
                             if (custCond == null) {
                                 break;

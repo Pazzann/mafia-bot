@@ -1,10 +1,11 @@
 export interface ILangProps {
     game_error_incorrectGameID: string;
-    game_create_error: string;
+    game_error_alreadyCreated: string;
+    game_error_alreadyJoined: string;
     game_created_title: string;
-    game_created_autocancel: string;          //usage: **${locale.game_created_autocancel}:** <t:${Math.floor(Date.now()/1000) + 600}:R>
+    game_created_autocancel: string;        //usage: **${locale.game_created_autocancel}:** <t:${Math.floor(Date.now()/1000) + 600}:R>
     game_created_gameHost: string;          //usage: **${locale.game_created_gameHost}:** <@${interaction.user.id}>
-    game_created_playerList: string;         //usage: __**${locale.game_created_playerList}:**__ \n<@${interaction.user.id}>
+    game_created_playerList: string;        //usage: __**${locale.game_created_playerList}:**__ \n<@${interaction.user.id}>
     game_created_roles: string;
     game_created_gameEndConditions: string;
     game_created_button_join: string;
@@ -25,16 +26,10 @@ export interface ILangProps {
     game_end_error_noAccess: string;
     game_end_success_message: string;
     game_end_success_privateMessage: string;
-    error_you_are_already: string;          //TODO: review
-    join_game: string;                      //TODO: review
-    error_you_are_not_already: string;      //TODO: review
-    leave_game: string;                     //TODO: review
-    innocent: string;                       //TODO: review
-    mafia: string;                          //TODO: review
-    doctor: string;                         //TODO: review
-    police: string;                         //TODO: review
-    killer: string;                         //TODO: review
-    mistress: string;                       //TODO: review
+    game_join_error_alreadyJoined: string;
+    game_join_success_message: string;
+    game_leave_error_alreadyLeft: string;   //TODO: перевірити "поза грою"
+    game_leave_success_message: string;
     start_your_role: string;                //TODO: review
     start_game_info: string;                //TODO: review
     start_theme: string;                    //TODO: review
@@ -50,14 +45,14 @@ export interface ILangProps {
     start_role_killer: string;              //TODO: review
     start_role_mistress: string;            //TODO: review
 
-    /*EN: Phrases like "The city wakes up / falls asleep" seem to be not very common among English speakers. However, it was decided to use them to popularize and convey the game's atmosphere.*/
+    //EN: Phrases like "The city wakes up / falls asleep" seem to be not very common among English speakers. However, it was decided to use them to popularize and convey the game's atmosphere.
     wake_up_title: string;
     wake_up_description: string;
     sleep_time_title: string;
     sleep_time_description: string;
     kills_title: string;
-    kills_description_one: string;  //usage: "${kills.join(", ")} kills_description_one"
-    kills_description_many: string;  //usage: "${kills.join(", ")} kills_description_many"; EN: = kills_description_one
+    kills_description_one: string;      //usage: "${kills.join(", ")} kills_description_one"
+    kills_description_many: string;     //usage: "${kills.join(", ")} kills_description_many"; EN: = kills_description_one
     no_kills_title: string;
     no_kills_description: string;
 
@@ -137,7 +132,7 @@ export interface ILangProps {
     condition_view_error_noAccess: string;
 
     condition_edit_choose_placeHolder: string;
-    condition_edit_error_notFound: string;
+    condition_edit_error_notFound: string;                  // = condition_view_error_notFound
     condition_edit_error_noAccess: string;
     condition_edit_title: string;       //usage: locale.condition_edit_title + name
     condition_edit_condition_label: string;                 // = condition_create_condition_label
@@ -153,10 +148,18 @@ export interface ILangProps {
     condition_edit_success_message: string;
 
     condition_delete_choose_placeHolder: string;
-    condition_delete_error_notFound: string;                // = condition_edit_error_notFound
+    condition_delete_error_notFound: string;                // = condition_view_error_notFound
     condition_delete_error_noAccess: string;
     condition_delete_success_message: string;
 
     error_premium: string;
-    failure_message: string;
+    error_unknown: string;
+
+    //Deprecated strings:
+    innocent: string;                       //deprecated
+    mafia: string;                          //deprecated
+    doctor: string;                         //deprecated
+    police: string;                         //deprecated
+    killer: string;                         //deprecated
+    mistress: string;                       //deprecated
 }

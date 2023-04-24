@@ -19,7 +19,7 @@ import KillerWIn from "../../Classes/WinningConditions/KillerWín";
 import PeacecfulWin from "../../Classes/WinningConditions/PeacecfulWin";
 
 
-module.exports.execute = async function (interaction: ButtonInteraction, gameid = 0, user: User, locale: ILangProps) {
+export default async function start (interaction: ButtonInteraction, gameid = 0, user: User, locale: ILangProps) {
     if (curHostGames.has(gameid))
         if (curHostGames.get(gameid).author == interaction.user.id) {
             const gameData = curHostGames.get(gameid);

@@ -4,12 +4,13 @@ import {ILangProps} from "../../types/interfaces/ILang";
 import Role from "../../Entities/Role.entity";
 import MafiaEmbedBuilder from "../../Classes/MafiaEmbedBuilder";
 
-module.exports.execute = async function (interaction: ModalSubmitInteraction, user: User, locale: ILangProps, id: number) {
+export default async function newRolePartTwo (interaction: ModalSubmitInteraction, user: User, locale: ILangProps) {
     if(!user.premium){
         interaction.reply({content: "You don't have premium to create custom roles and conditions, sorry!", ephemeral: true})
         return;
     }
     try{
+        let id = Number(interaction.customId.split("newRolePartTwo").join(''));
         const role = await Role.findOne({where: {id: id}, relations: ["user"]});
         if(role == null){
             interaction.reply({content: "No role found!", ephemeral: true})

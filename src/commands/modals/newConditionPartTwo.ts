@@ -7,7 +7,7 @@ import MafiaEmbedBuilder from "../../Classes/MafiaEmbedBuilder";
 let validUrl = require('valid-url');
 
 
-module.exports.execute = async function (interaction: ModalSubmitInteraction, user: User, locale: ILangProps) {
+export default async function newConditionPartTwo (interaction: ModalSubmitInteraction, user: User, locale: ILangProps) {
 
     if (!user.premium) {
         interaction.reply({content: locale.error_premium, ephemeral: true})

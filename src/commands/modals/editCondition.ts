@@ -5,13 +5,14 @@ import Role from "../../Entities/Role.entity";
 import MafiaEmbedBuilder from "../../Classes/MafiaEmbedBuilder";
 import WinningCondition from "../../Entities/WinningCondition.entity";
 
-module.exports.execute = async function (interaction: ModalSubmitInteraction, user: User, locale: ILangProps, conditionId: string) {
+export default async function editCondition (interaction: ModalSubmitInteraction, user: User, locale: ILangProps) {
     if(!user.premium){
         interaction.reply({content: locale.error_premium, ephemeral: true})
         return;
     }
 
     try{
+        let conditionId = interaction.customId.split("editCondition").join('');
         const condition = await WinningCondition.findOne({where: {id: +conditionId}, relations: ["user"]});
         if (condition == null) {
             interaction.reply({content: locale.condition_edit_error_notFound, ephemeral: true})

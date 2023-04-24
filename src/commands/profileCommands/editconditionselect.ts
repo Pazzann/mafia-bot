@@ -3,7 +3,7 @@ import User from "../../Entities/User.entity";
 import {ILangProps} from "../../types/interfaces/ILang";
 import WinningCondition from "../../Entities/WinningCondition.entity";
 
-module.exports.execute = async function (interaction: SelectMenuInteraction, user: User, locale: ILangProps, conditionId: number) {
+export default  async function editconditionselect(interaction: SelectMenuInteraction, user: User, locale: ILangProps, conditionId: number) {
 
     if (!user.premium) {
         interaction.reply({content: locale.error_premium, ephemeral: true})

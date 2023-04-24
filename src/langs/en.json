@@ -1,6 +1,7 @@
 {
   "game_error_incorrectGameID": "Game not found! It may have been cancelled or ended.",
-  "game_create_error": "You have already created a game, please cancel it or wait for autocancel!",
+  "game_error_alreadyCreated": "You have already created a game, please cancel it first or wait for autocancel!",
+  "game_error_alreadyJoined": "You have already joined a game, please leave it first!",
   "game_created_title": "Game Created",
   "game_created_autocancel": "Autocancel",
   "game_created_gameHost": "Game Host",
@@ -15,7 +16,7 @@
   "game_created_button_new": "ㅤCreate New Gameㅤ",
   "game_cancel_error_noAccess": "Sorry, you can't cancel this game because you aren't its host!",
   "game_cancel_success_message_aboveEmbed": "The game was cancelled by its host. But you can create another one!",
-  "game_cancel_success_message": "The game was cancelled.",
+  "game_cancel_success_message": "The game was cancelled. But you can always create a new one!",
   "game_autocancel_message": "The game was automatically cancelled. But you can create another one!",
   "game_start_error_noAccess": "Sorry, you can't start this game because you aren't its host!",
   "game_start_error_notEnoughPlayers": "Not enough players to start the game!",
@@ -23,18 +24,12 @@
   "game_started_button_endGame": "End Game",
   "game_started_title": "Game Started",
   "game_end_error_noAccess": "Sorry, you can't end this game because you aren't its host!",
-  "game_end_success_message": "The game was ended.",
+  "game_end_success_message": "The game was ended. But you can always create a new one!",
   "game_end_success_privateMessage": "The game was ended by its host. But you can create another one!",
-  "error_you_are_already": "You are already in the game!",
-  "join_game": "You have successfully joined!",
-  "error_you_are_not_already": "You aren't in the game!",
-  "leave_game": "You have left the game!",
-  "innocent": "innocent",
-  "mafia": "mafia",
-  "doctor": "doctor",
-  "police": "police",
-  "killer": "killer",
-  "mistress": "mistress",
+  "game_join_error_alreadyJoined": "Don't worry, you are already in the game :wink:",
+  "game_join_success_message": ":white_check_mark: You have successfully joined the game!",
+  "game_leave_error_alreadyLeft": "Don't worry, you are already out of the game :wink:",
+  "game_leave_success_message": ":ballot_box_with_check: You have successfully left the game.",
   "start_your_role": "Your role",
   "start_game_info": "Game info:",
   "start_theme": "Theme",
@@ -158,5 +153,13 @@
   "condition_delete_success_message": "The condition was successfully deleted.",
 
   "error_premium": "Sorry, you don't have Premium to create custom roles and conditions!",
-  "failure_message": "An error has occurred, please contact the support!"
+  "error_unknown": "An error has occurred, please contact the support!",
+
+
+  "innocent": "innocent",
+  "mafia": "mafia",
+  "doctor": "doctor",
+  "police": "police",
+  "killer": "killer",
+  "mistress": "mistress"
 }

@@ -5,7 +5,7 @@ import User from "../../Entities/User.entity";
 import {ILangProps} from "../../types/interfaces/ILang";
 import {Langs} from "../../types/Langs";
 
-module.exports.execute = function (interaction: ButtonInteraction, gameid = 0, user: User, locale: ILangProps, lang: Langs) {
+export default function leave (interaction: ButtonInteraction, gameid = 0, user: User, locale: ILangProps) {
     if(curHostGames.has(gameid))
     {
         const host = curHostGames.get(gameid);
@@ -16,9 +16,9 @@ module.exports.execute = function (interaction: ButtonInteraction, gameid = 0, u
             host.embed = newEmbed;
             curHostGames.set(gameid, host);
             interaction.message.edit({embeds: [newEmbed]});
-            interaction.reply({content: locale.leave_game, ephemeral: true}).catch(()=>{});
+            interaction.reply({content: locale.game_leave_success_message, ephemeral: true}).catch(()=>{});
         }else{
-            interaction.reply({content: locale.error_you_are_not_already, ephemeral: true}).catch(()=>{});
+            interaction.reply({content: locale.game_leave_error_alreadyLeft, ephemeral: true}).catch(()=>{});
         }
     }else{
         interaction.reply({content: locale.game_error_incorrectGameID, ephemeral: true}).catch(()=>{});

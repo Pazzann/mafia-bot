@@ -2,7 +2,7 @@ import {ActionRowBuilder, ButtonBuilder, ButtonStyle, ChatInputCommandInteractio
 import User from "../../Entities/User.entity";
 import {ILangProps} from "../../types/interfaces/ILang";
 
-module.exports.execute = async function (interaction: ChatInputCommandInteraction, user: User, locale: ILangProps) {
+export default async function rules(interaction: ChatInputCommandInteraction, user: User, locale: ILangProps) {
 
 
     const embed = new EmbedBuilder()

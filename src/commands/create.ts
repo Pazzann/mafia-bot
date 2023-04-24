@@ -1,6 +1,6 @@
 import {
     ActionRowBuilder,
-    ButtonBuilder,
+    ButtonBuilder, ButtonInteraction,
     ButtonStyle,
     ChatInputCommandInteraction,
     EmbedBuilder,
@@ -22,14 +22,14 @@ import PeacecfulWin from "../Classes/WinningConditions/PeacecfulWin";
 import KillerWIn from "../Classes/WinningConditions/KillerWín";
 import getDisabledButtons from "../Functions/getDisabledButtons";
 
-module.exports.execute = function (interaction: ChatInputCommandInteraction, user: User, locale: ILangProps) {
+export default function create (interaction: ChatInputCommandInteraction | ButtonInteraction, user: User, locale: ILangProps) {
     for(let v of curHostGames.values()){
         if(v.users.includes(interaction.user.id))
-            return interaction.reply({content: locale.game_create_error, ephemeral: true}).catch(()=>{});
+            return interaction.reply({content: (v.author == interaction.user.id ? locale.game_error_alreadyCreated : locale.game_error_alreadyJoined), ephemeral: true}).catch(()=>{});
     }
     for(let v of curHandlingGames.values()){
         if(v.HasPlayer(interaction.user.id))
-            return interaction.reply({content: locale.game_create_error, ephemeral: true}).catch(()=>{});
+            return interaction.reply({content: (v.author == interaction.user.id ? locale.game_error_alreadyCreated : locale.game_error_alreadyJoined), ephemeral: true}).catch(()=>{});
     }
     const id = MafiaGame.GenerateId();
 

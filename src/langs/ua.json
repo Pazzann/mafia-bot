@@ -1,6 +1,7 @@
 {
   "game_error_incorrectGameID": "Гру не знайдено! Можливо, її було скасовано чи закінчено.",
-  "game_create_error": "Ви вже створили одну гру, спочатку скасуйте її або дочекайтесь автоскасування!",
+  "game_error_alreadyCreated": "Ви вже створили одну гру, спочатку скасуйте її або дочекайтесь автоскасування!",
+  "game_error_alreadyJoined": "Ви вже приєдналися до однієї гри, спочатку залиште її!",
   "game_created_title": "Гру створено",
   "game_created_autocancel": "Автоскасування",
   "game_created_gameHost": "Організатор гри",
@@ -15,7 +16,7 @@
   "game_created_button_new": "Створити нову гру",
   "game_cancel_error_noAccess": "Вибачте, ви не можете скасувати цю гру, бо не є її організатором!",
   "game_cancel_success_message_aboveEmbed": "Гру скасовано організатором. Але ви можете створити іншу!",
-  "game_cancel_success_message": "Гру скасовано.",
+  "game_cancel_success_message": "Гру скасовано. Але завжди можна створити іншу!",
   "game_autocancel_message": "Гру автоматично скасовано. Але ви можете створити іншу!",
   "game_start_error_noAccess": "Вибачте, ви не можете розпочати цю гру, бо не є її організатором!",
   "game_start_error_notEnoughPlayers": "Недостатньо гравців для початку гри!",
@@ -23,18 +24,12 @@
   "game_started_button_endGame": "Закінчити гру",
   "game_started_title": "Гру почато",
   "game_end_error_noAccess": "Вибачте, ви не можете закінчити цю гру, бо не є її організатором!",
-  "game_end_success_message": "Гру закінчено.",
+  "game_end_success_message": "Гру закінчено. Але завжди можна створити іншу!",
   "game_end_success_privateMessage": "Гру закінчено організатором. Але ви можете створити іншу!",
-  "error_you_are_already": "Ви вже в грі!",
-  "join_game": "Ви успішно приєдналися!",
-  "error_you_are_not_already": "Ви вже не в грі!",
-  "leave_game": "Ви залишили гру!",
-  "innocent": "мирний",
-  "mafia": "мафія",
-  "doctor": "лікар",
-  "police": "поліцейський",
-  "killer": "маніяк",
-  "mistress": "повія",
+  "game_join_error_alreadyJoined": "Не хвилюйтеся, ви вже в грі :wink:",
+  "game_join_success_message": ":white_check_mark: Ви успішно приєдналися до гри!",
+  "game_leave_error_alreadyLeft": "Не хвилюйтеся, ви й так поза грою :wink:",
+  "game_leave_success_message": ":ballot_box_with_check: Ви успішно залишили гру.",
   "start_your_role": "Ваша роль",
   "start_game_info": "Інформація:",
   "start_theme": "Тема",
@@ -158,5 +153,13 @@
   "condition_delete_success_message": "Умову успішно видалено.",
 
   "error_premium": "Вибачте, у вас немає Premium, щоб створювати власні ролі та умови!",
-  "failure_message": "Сталася помилка, будь ласка, зверніться до служби підтримки!"
+  "error_unknown": "Сталася помилка, будь ласка, зверніться до служби підтримки!",
+
+
+  "innocent": "мирний",
+  "mafia": "мафія",
+  "doctor": "лікар",
+  "police": "поліцейський",
+  "killer": "маніяк",
+  "mistress": "повія"
 }

@@ -2,8 +2,8 @@ import {ActionRowBuilder, ButtonInteraction, ModalBuilder, TextInputBuilder, Tex
 import User from "../../Entities/User.entity";
 import {ILangProps} from "../../types/interfaces/ILang";
 
-module.exports.execute = async function (interaction: ButtonInteraction, user: User, locale: ILangProps, id: number) {
-
+export default async function newrolehalfbut(interaction: ButtonInteraction, user: User, locale: ILangProps) {
+    let id = Number(interaction.customId.split("newrolehalfbut").join(''));
     if(!user.premium){
         interaction.reply({content: "You don't have premium to create custom roles and conditions, sorry!", ephemeral: true})
         return;

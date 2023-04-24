@@ -2,7 +2,7 @@ import {ActionRowBuilder, ButtonInteraction, ModalBuilder, TextInputBuilder, Tex
 import User from "../../Entities/User.entity";
 import {ILangProps} from "../../types/interfaces/ILang";
 
-module.exports.execute = async function (interaction: ButtonInteraction, user: User, locale: ILangProps) {
+export default  async function helpmessage(interaction: ButtonInteraction, user: User, locale: ILangProps) {
 
     const modal = new ModalBuilder()
         .setCustomId('textToModeration')
