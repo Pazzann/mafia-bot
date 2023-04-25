@@ -200,12 +200,12 @@ export default class MafiaGame {
 
     public async Choose(who: MafiaUser, whom: string, interaction: SelectMenuInteraction) {
         if (!this.HasPlayer(whom))
-            return interaction.reply("invalid player");
+            return interaction.reply("Player not found!");
         let whomU = this.GetUser(whom);
         if (whomU.isKilled)
-            return interaction.reply("invalid player");
+            return interaction.reply("Player is killed.");
         if (!this._validateSelection(who, whomU))
-            return interaction.reply("invalid player");
+            return interaction.reply("not validate selection");
         const row = new SelectMenuBuilder((interaction.component as SelectMenuComponent).data).setDisabled(true);
         interaction.message.edit({components: [new ActionRowBuilder<SelectMenuBuilder>().addComponents(row)]});
         switch (this._stage) {

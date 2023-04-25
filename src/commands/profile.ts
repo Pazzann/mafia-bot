@@ -2,6 +2,7 @@ import {ActionRowBuilder, ButtonBuilder, ButtonStyle, ChatInputCommandInteractio
 import User from "../Entities/User.entity";
 import {ILangProps} from "../types/interfaces/ILang";
 import {dbDateToDate} from "../Functions/dateParser";
+import getProfileButtons from "../Functions/getProfileButtons";
 
 
 export default async function profile (interaction: ChatInputCommandInteraction, user: User, locale: ILangProps) {
@@ -30,26 +31,6 @@ export default async function profile (interaction: ChatInputCommandInteraction,
         ])
         .setThumbnail(interaction.user.avatarURL())
 
-    const buttons = new ActionRowBuilder<ButtonBuilder>()
-        .addComponents(
-            new ButtonBuilder()
-                .setEmoji("💵")
-                .setLabel(locale.profile_button_premium)
-                .setStyle(ButtonStyle.Primary)
-                .setCustomId("premium")
-                .setDisabled(user.premium),
-            new ButtonBuilder()
-                .setEmoji("🧐")
-                .setLabel(locale.profile_button_custom)
-                .setStyle(ButtonStyle.Primary)
-                .setCustomId("custom")
-                .setDisabled(false),
-            new ButtonBuilder()
-                .setEmoji("📬")
-                .setLabel(locale.profile_button_news)
-                .setStyle(user.notifications ? ButtonStyle.Success : ButtonStyle.Danger)
-                .setCustomId("news")
-                .setDisabled(false)
-        );
-    interaction.reply({embeds: [embed], components: [buttons]});
+
+    interaction.reply({embeds: [embed], components: [getProfileButtons(user, locale)]});
 }

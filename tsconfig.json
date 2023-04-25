@@ -21,9 +21,9 @@
     "downlevelIteration": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "outDir": "dist"
+    "outDir": "./dist"
   },
-    "include": [
-      "./src/*"
-    ]
+  "include": [
+    "./src/*"
+  ]
 }

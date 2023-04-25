@@ -1,12 +1,12 @@
 import {ButtonInteraction} from "discord.js";
-import {Langs} from "../types/Langs";
+import {LangArray, Langs} from "../types/Langs";
 import User from "../Entities/User.entity";
 import dateParser from "../Functions/dateParser";
 import {localisations} from "../index";
 import {ILangProps} from "../types/interfaces/ILang";
 
 export default async function langSet(interaction: ButtonInteraction, dataUser: User) {
-    if (["en", "de", "ru", "ua", "pl", "fu", "sp", "ee", "se"].includes(interaction.customId)) {
+    if (LangArray.includes(interaction.customId)) {
         if (!dataUser) {
             await User.create({
                 userid: interaction.user.id,
@@ -22,7 +22,7 @@ export default async function langSet(interaction: ButtonInteraction, dataUser: 
 
         interaction.reply({
             // @ts-ignore
-            content: localisations[interaction.customId.toUpperCase() as keyof ILangProps].lang_has_been_set,
+            content: localisations[interaction.customId.toUpperCase() as keyof ILangProps].lang_set_success_message,
             ephemeral: true
         }).catch(() => {
         });

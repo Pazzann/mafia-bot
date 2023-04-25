@@ -10,7 +10,7 @@ export default async function help (interaction: ChatInputCommandInteraction, us
 
         .addFields([{
             name: "📋Commands:",
-            value: "\`create\` - Create a new mafia game.\n\`lang\` - Change language *(__\`EN\`__, __\`RU\`__, __\`UA\`__)*.\n\`profile\` - Shows your profile.\n\`help\` - You are here ^_^."
+            value: "</create:1015716817945247794> - Create a new mafia game.\n</lang:1044351625621405797> - Change language *(__\`EN\`__, __\`RU\`__, __\`UA\`__)*.\n</profile:1100344392067338261> - Shows your profile.\n</help:1100344392067338262> - You are here ^_^."
         }, {
             name: '\u200B',
             value: '\u200B'

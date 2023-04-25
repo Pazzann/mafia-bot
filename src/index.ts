@@ -12,7 +12,7 @@ import * as dotenv from 'dotenv'
 import {DataSource} from "typeorm";
 import User from "./Entities/User.entity";
 import getLangButtons from "./Functions/getLangButtons";
-import {Langs} from "./types/Langs";
+import {LangArray, Langs} from "./types/Langs";
 import {ILangProps} from "./types/interfaces/ILang";
 import dateParser from "./Functions/dateParser";
 import MafiaGame from "./Classes/MafiaGame";
@@ -75,6 +75,7 @@ export interface ILocalProps {
     PL: ILangProps;
     SP: ILangProps;
     SE: ILangProps;
+    LT: ILangProps;
 }
 function get(target: any, field: string){
         if (field in target)
@@ -93,6 +94,7 @@ export const localisations: ILocalProps = {
     PL: new Proxy(require('./langs/pl.json'), {get}),
     SP: new Proxy(require('./langs/sp.json'), {get}),
     SE: new Proxy(require('./langs/se.json'), {get}),
+    LT: new Proxy(require('./langs/lt.json'), {get})
 }
 
 
@@ -272,7 +274,7 @@ discordBot.on('interactionCreate', async (interaction: ChatInputCommandInteracti
             mafGame.Choose(mafGame.GetUser(interaction.user.id), voteForId, interaction);
         } else if (interaction.isButton()) {
             try {
-                if (["en", "de", "ru", "ua", "pl", "fu", "sp", "ee", "se"].includes(interaction.customId))
+                if (LangArray.includes(interaction.customId))
                     return await commands.common.langSet(interaction, dataUser).catch();
 
                 if (interaction.customId === "createnew")

@@ -17,6 +17,15 @@ export default function getLangButtons() {
                     .setCustomId("ua")
                     .setDisabled(false),
                 new ButtonBuilder()
+                    .setEmoji("🇺🇦")
+                    .setLabel("Файна українська")
+                    .setStyle(ButtonStyle.Primary)
+                    .setCustomId("fu")
+                    .setDisabled(false),
+            ),
+        new ActionRowBuilder<ButtonBuilder>()
+            .addComponents(
+                new ButtonBuilder()
                     .setEmoji("🇺🇳")
                     .setLabel("Русский")
                     .setStyle(ButtonStyle.Primary)
@@ -24,15 +33,10 @@ export default function getLangButtons() {
                     .setDisabled(false),
                 new ButtonBuilder()
                     .setEmoji("🇵🇱")
-                    .setLabel("Polska")
+                    .setLabel("Polski")
                     .setStyle(ButtonStyle.Primary)
                     .setCustomId("pl")
                     .setDisabled(false),
-
-
-            ),
-        new ActionRowBuilder<ButtonBuilder>()
-            .addComponents(
                 new ButtonBuilder()
                     .setEmoji("🇩🇪")
                     .setLabel("Deutsch")
@@ -45,6 +49,9 @@ export default function getLangButtons() {
                     .setStyle(ButtonStyle.Primary)
                     .setCustomId("ee")
                     .setDisabled(false),
+            ),
+        new ActionRowBuilder<ButtonBuilder>()
+            .addComponents(
                 new ButtonBuilder()
                     .setEmoji("🇪🇸")
                     .setLabel("Español")
@@ -52,19 +59,16 @@ export default function getLangButtons() {
                     .setCustomId("sp")
                     .setDisabled(false),
                 new ButtonBuilder()
-                    .setEmoji("🇺🇦")
-                    .setLabel("Файна Українська")
-                    .setStyle(ButtonStyle.Primary)
-                    .setCustomId("fu")
-                    .setDisabled(false)
-            ),
-        new ActionRowBuilder<ButtonBuilder>()
-            .addComponents(
-                new ButtonBuilder()
                     .setEmoji("🇸🇪")
-                    .setLabel("Sweden")
+                    .setLabel("Svenska")
                     .setStyle(ButtonStyle.Primary)
                     .setCustomId("se")
+                    .setDisabled(false),
+                new ButtonBuilder()
+                    .setEmoji("🇱🇹")
+                    .setLabel("Lithuanian")
+                    .setStyle(ButtonStyle.Primary)
+                    .setCustomId("lt")
                     .setDisabled(false),
             )
     ]

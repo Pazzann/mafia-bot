@@ -4,7 +4,7 @@ export default class CustomWin extends BaseCondition {
     constructor(name:string, condition: string, winEmbedTitle: string, winEmbedDescription: string, winEmbedThumbnail: string, winRole: string) {
         super();
         this._name = name;
-        this.Description = "This is just a placeholder";
+        this.Description = "This is just a placeholder";                //deprecated
         this.Condition = condition;
         this._winEmbedTitle = winEmbedTitle;
         this._winEmbedDescription = winEmbedDescription;

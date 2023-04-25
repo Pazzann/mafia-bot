@@ -1,5 +1,5 @@
 export interface ILangProps {
-    lang_has_been_set: string;
+    lang_set_success_message: string;
 
     game_error_incorrectGameID: string;
     game_error_alreadyCreated: string;
