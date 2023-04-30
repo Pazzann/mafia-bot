@@ -38,19 +38,19 @@ export default async function help (interaction: ChatInputCommandInteraction, us
         .addComponents(
             new ButtonBuilder()
                 .setEmoji("📙")
-                .setLabel("Game Rules")
+                .setLabel(locale.help_button_rules)
                 .setStyle(ButtonStyle.Primary)
                 .setCustomId("rules")
                 .setDisabled(false),
             new ButtonBuilder()
                 .setEmoji("🛠")
-                .setLabel("Scripting")
+                .setLabel(locale.help_button_scripting)
                 .setStyle(ButtonStyle.Primary)
                 .setCustomId("scripting")
                 .setDisabled(false),
             new ButtonBuilder()
                 .setEmoji("📨")
-                .setLabel("Message to support")
+                .setLabel(locale.help_button_helpmessage)
                 .setStyle(ButtonStyle.Primary)
                 .setCustomId("helpmessage")
                 .setDisabled(false)

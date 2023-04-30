@@ -12,10 +12,7 @@ let validUrl = require('valid-url');
 export default async function newRolePartOne (interaction: ModalSubmitInteraction, user: User, locale: ILangProps) {
 
     if (!user.premium) {
-        interaction.reply({
-            content: "You don't have premium to create custom roles and conditions, sorry!",
-            ephemeral: true
-        })
+        interaction.reply({content: locale.error_premium, ephemeral: true})
         return;
     }
     let imageURL = interaction.fields.getTextInputValue("roleImage");
@@ -41,12 +38,11 @@ export default async function newRolePartOne (interaction: ModalSubmitInteractio
     const buttons = new ActionRowBuilder<ButtonBuilder>()
         .addComponents(
             new ButtonBuilder()
-                .setEmoji("💵")
-                .setLabel("Open Next")
+                .setLabel(locale.role_create_goNext_button)
                 .setStyle(ButtonStyle.Success)
                 .setCustomId("newrolehalfbut" + role.id)
                 .setDisabled(false),
         );
-    await interaction.reply({content: "Click the button", ephemeral: true, components: [buttons]})
+    await interaction.reply({content: locale.role_create_goNext_message, ephemeral: true, components: [buttons]})
 
 }

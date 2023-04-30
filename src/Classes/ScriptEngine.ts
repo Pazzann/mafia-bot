@@ -1,4 +1,11 @@
 import MafiaUser from "./MafiaUser";
+const {
+    Worker, isMainThread, parentPort, workerData,
+} = require('node:worker_threads');
+
+const {VM} = require('vm2');
+
+
 
 export default class ScriptEngine {
 
@@ -18,8 +25,15 @@ export default class ScriptEngine {
             return false;
         if (eqv.includes("process"))
             return false;
+        if (eqv.includes("eval"))
+            return false;
+        if (eqv.includes("Function"))
+            return false;
+        if (eqv.includes("async"))
+            return false;
+        if (eqv.includes("await"))
+            return false;
         return true;
-
     }
 
 
@@ -28,9 +42,12 @@ export default class ScriptEngine {
         if (!this.validate(this._eqv))
             return NaN;
         try {
-            let func = new Function("return (()=>" + this._eqv + ")()");
-            let res = func();
-            return res;
+            const vm = new VM({
+                timeout: 100,
+                allowAsync: false,
+                sandbox: {}
+            });
+            return vm.run(" (()=>" + this._eqv + ")()");
         } catch (err) {
             return NaN;
         }
@@ -303,7 +320,6 @@ export default class ScriptEngine {
             .setAliveActionCountByName(players)
             .setAliveRoleCountByName(players)
             .runEquation() as string | number;
-
     }
 
     //{pCount}

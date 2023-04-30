@@ -57,7 +57,7 @@ export default class MafiaGame {
                 this.Players.map(item => {
                     item.dbUser.totalGames++;
                     item.dbUser.save();
-                })
+                });
                 return true;
 
             }
@@ -65,7 +65,7 @@ export default class MafiaGame {
         return false;
     }
 
-    public async EndChooseMoveHandler() {
+    public EndChooseMoveHandler() {
         if (this.GetAliveUsers().filter((item) =>
             item.actionsOnUser.hasDoneAction == false
         ).length == 0) {
@@ -136,7 +136,7 @@ export default class MafiaGame {
         }
     }
 
-    public async EndVoteMoveHandler() {
+    public EndVoteMoveHandler() {
         if (this.GetAliveUsers().length == this.GetVotedLength()) {
 
             let votedForUsers: Array<{ userid: string; numbersOfVotes: number; }> = [];
@@ -189,14 +189,10 @@ export default class MafiaGame {
                 }
             });
 
-
             this._stage = "choosing";
             this._day++;
-
-
         }
     }
-
 
     public async Choose(who: MafiaUser, whom: string, interaction: SelectMenuInteraction) {
         if (!this.HasPlayer(whom))
@@ -304,7 +300,7 @@ export default class MafiaGame {
         return Math.round(Math.random() * 10000);
     }
 
-    public RegisterWins(wins: BaseCondition[]): BaseCondition[] {
+    public async RegisterWins(wins: BaseCondition[]): Promise<BaseCondition[]> {
         let validetadWins: BaseCondition[] = []
         for (let winCon of wins) {
             if (typeof ScriptEngine.WinningEngine(winCon.Condition, this.Players) === "boolean") {
@@ -321,6 +317,13 @@ export default class MafiaGame {
         users = shuffle(users);
         users = shuffle(users);
         users = shuffle(users);
+
+        if(roles.filter(item=>typeof item.Count === "string" && item.Count.includes("{oRolesPCount}")).length > 0){
+            let arr = roles.filter(item=>typeof item.Count === "string" && item.Count.includes("{oRolesPCount}"));
+            roles = roles.filter(item=> typeof item.Count === "number" || (typeof item.Count === "string" && !item.Count.includes("{oRolesPCount}")));
+            roles.push(arr[0]);
+        }
+
         const totalUsers = users.length;
         let totalRoleCount = 0;
         for (let i = 0; i < roles.length; i++) {

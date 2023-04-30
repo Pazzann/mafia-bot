@@ -3,48 +3,48 @@ import User from "../../Entities/User.entity";
 import {ILangProps} from "../../types/interfaces/ILang";
 
 export default async function newrolehalfbut(interaction: ButtonInteraction, user: User, locale: ILangProps) {
-    let id = Number(interaction.customId.split("newrolehalfbut").join(''));
-    if(!user.premium){
-        interaction.reply({content: "You don't have premium to create custom roles and conditions, sorry!", ephemeral: true})
+    if (!user.premium) {
+        interaction.reply({content: locale.error_premium, ephemeral: true})
         return;
     }
+    const name = interaction.customId.split("newrolehalfbut").join("");
     const modal = new ModalBuilder()
-        .setCustomId('newRolePartTwo' + String(id))
-        .setTitle('Role Creation');
+        .setCustomId("newRolePartTwo" + name)
+        .setTitle(locale.role_create_title2 + name);
     const actionInput = new TextInputBuilder()
-        .setCustomId('roleAction')
-        .setLabel("Action")
-        .setPlaceholder("Enter action. For more information see /help Scripting")
+        .setCustomId("roleAction")
+        .setLabel(locale.role_create_roleAction_label)
+        .setPlaceholder(locale.role_create_roleAction_placeHolder)
         .setStyle(TextInputStyle.Short)
         .setValue("no_activity")
         .setMaxLength(15)
         .setMinLength(3)
         .setRequired(true);
     const selfSelectableInput = new TextInputBuilder()
-        .setCustomId('roleSelectable')
-        .setLabel("SelfSelectable")
-        .setPlaceholder("true or false")
+        .setCustomId("roleSelectable")
+        .setLabel(locale.role_create_roleSelectable_label)
+        .setPlaceholder(locale.role_create_roleSelectable_placeHolder)
         .setValue("true")
         .setStyle(TextInputStyle.Short)
         .setRequired(true);
     const delayInput = new TextInputBuilder()
-        .setCustomId('roleDelay')
-        .setLabel("Delay")
+        .setCustomId("roleDelay")
+        .setLabel(locale.role_create_roleDelay_label)
         .setValue("1")
-        .setPlaceholder("Delay between actions in days\"")
+        .setPlaceholder(locale.role_create_roleDelay_placeHolder)
         .setStyle(TextInputStyle.Short)
         .setRequired(true);
     const spawnFromInput = new TextInputBuilder()
-        .setCustomId('roleSpawnFrom')
-        .setLabel("Spawn From")
-        .setPlaceholder("Spawn from player count")
+        .setCustomId("roleSpawnFrom")
+        .setLabel(locale.role_create_roleSpawnFrom_label)
+        .setPlaceholder(locale.role_create_roleSpawnFrom_placeHolder)
         .setValue("1")
         .setStyle(TextInputStyle.Short)
         .setRequired(true);
     const groupSelectionInput = new TextInputBuilder()
-        .setCustomId('roleGroupSelection')
-        .setLabel("Group selection")
-        .setPlaceholder("true or false")
+        .setCustomId("roleGroupSelection")
+        .setLabel(locale.role_create_roleGroupSelection_label)
+        .setPlaceholder(locale.role_create_roleGroupSelection_placeHolder)
         .setValue("false")
         .setStyle(TextInputStyle.Short)
         .setRequired(true);

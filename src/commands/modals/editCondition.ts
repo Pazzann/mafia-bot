@@ -6,12 +6,12 @@ import MafiaEmbedBuilder from "../../Classes/MafiaEmbedBuilder";
 import WinningCondition from "../../Entities/WinningCondition.entity";
 
 export default async function editCondition (interaction: ModalSubmitInteraction, user: User, locale: ILangProps) {
-    if(!user.premium){
+    if (!user.premium) {
         interaction.reply({content: locale.error_premium, ephemeral: true})
         return;
     }
 
-    try{
+    try {
         let conditionId = interaction.customId.split("editCondition").join('');
         const condition = await WinningCondition.findOne({where: {id: +conditionId}, relations: ["user"]});
         if (condition == null) {
@@ -36,7 +36,6 @@ export default async function editCondition (interaction: ModalSubmitInteraction
         interaction.reply({ephemeral: false, content: locale.condition_edit_success_message, embeds:[MafiaEmbedBuilder.conditionEmbed(condition, locale)]})
 
 
-    }catch (err) {
+    } catch (err) {
     }
-
 }

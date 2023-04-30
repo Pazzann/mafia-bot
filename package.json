@@ -5,10 +5,11 @@
   "main": "index.ts",
   "scripts": {
     "test": "nyc ./node_modules/.bin/_mocha 'test/script.unit.test.ts'",
-    "start": "ts-node src/index.ts",
+    "dev": "ts-node src/index.ts",
     "register": "ts-node src/deploy-commands.ts",
     "notifications": "ts-node src/notifications.ts",
-    "build": "tsc --project tsconfig.json"
+    "build": "tsc --project tsconfig.json",
+    "start": "node dist/index.js"
   },
   "author": "",
   "license": "ISC",
@@ -21,7 +22,8 @@
     "mysql2": "^2.3.3",
     "patreon": "^0.4.1",
     "typeorm": "^0.3.10",
-    "valid-url": "^1.0.9"
+    "valid-url": "^1.0.9",
+    "vm2": "^3.9.17"
   },
   "devDependencies": {
     "@testdeck/mocha": "^0.3.2",

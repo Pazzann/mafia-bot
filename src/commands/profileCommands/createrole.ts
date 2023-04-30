@@ -12,51 +12,51 @@ import {ILangProps} from "../../types/interfaces/ILang";
 
 export default async function createrole(interaction: ButtonInteraction, user: User, locale: ILangProps) {
 
-    if(!user.premium){
-        interaction.reply({content: "You don't have premium to create custom roles and conditions, sorry!", ephemeral: true})
+    if (!user.premium) {
+        interaction.reply({content: locale.error_premium, ephemeral: true})
         return;
     }
-    if(user.customRoles.length>=19){
-        interaction.reply({content: "You can't create more then 19 roles, sorry!", ephemeral: true})
+    if (user.customRoles.length >= 19) {
+        interaction.reply({content: locale.role_create_error_number, ephemeral: true})
         return;
     }
 
 
     const modal = new ModalBuilder()
-        .setCustomId('newRolePartOne')
-        .setTitle('Role Creation');
+        .setCustomId("newRolePartOne")
+        .setTitle(locale.role_create_title1);
 
 
     const nameInput = new TextInputBuilder()
-        .setCustomId('roleName')
-        .setLabel("Name")
-        .setPlaceholder("What is the name of your role?")
+        .setCustomId("roleName")
+        .setLabel(locale.role_create_roleName_label)
+        .setPlaceholder(locale.role_create_roleName_placeHolder)
         .setStyle(TextInputStyle.Short)
         .setMaxLength(20)
         .setMinLength(3)
         .setRequired(true);
     const descriptionInput = new TextInputBuilder()
-        .setCustomId('roleDescription')
-        .setLabel("Description")
-        .setPlaceholder("Description. For more information see /help Scripting")
+        .setCustomId("roleDescription")
+        .setLabel(locale.role_create_roleDescription_label)
+        .setPlaceholder(locale.role_create_roleDescription_placeHolder)
         .setStyle(TextInputStyle.Paragraph)
         .setRequired(true);
     const imageInput = new TextInputBuilder()
-        .setCustomId('roleImage')
-        .setLabel("Image link")
-        .setPlaceholder("Enter image link for thumbnail")
+        .setCustomId("roleImage")
+        .setLabel(locale.role_create_roleImage_label)
+        .setPlaceholder(locale.role_create_roleImage_placeHolder)
         .setStyle(TextInputStyle.Short)
         .setRequired(true);
     const countInput = new TextInputBuilder()
-        .setCustomId('roleCount')
-        .setLabel("Count")
-        .setPlaceholder("Enter count. For more information see /help Scripting")
+        .setCustomId("roleCount")
+        .setLabel(locale.role_create_roleCount_label)
+        .setPlaceholder(locale.role_create_roleCount_placeHolder)
         .setStyle(TextInputStyle.Paragraph)
         .setRequired(true);
     const placeHolderInput = new TextInputBuilder()
-        .setCustomId('rolePlaceHolder')
-        .setLabel("Place holder")
-        .setPlaceholder("Place holder for selecting player to action")
+        .setCustomId("rolePlaceHolder")
+        .setLabel(locale.role_create_rolePlaceHolder_label)
+        .setPlaceholder(locale.role_create_rolePlaceHolder_placeHolder)
         .setStyle(TextInputStyle.Short)
         .setMaxLength(100)
         .setRequired(true);

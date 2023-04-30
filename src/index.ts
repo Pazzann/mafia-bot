@@ -77,12 +77,14 @@ export interface ILocalProps {
     SE: ILangProps;
     LT: ILangProps;
 }
-function get(target: any, field: string){
-        if (field in target)
-            return target[field];
-        else
-            return enLocal[field];
+
+function get(target: any, field: string) {
+    if (field in target)
+        return target[field];
+    else
+        return enLocal[field];
 }
+
 const enLocal = require('./langs/en.json');
 export const localisations: ILocalProps = {
     EN: enLocal,
@@ -218,9 +220,12 @@ discordBot.on('interactionCreate', async (interaction: ChatInputCommandInteracti
             where: {userid: interaction.user.id},
             relations: ["customRoles", "conditions"]
         })
+        if (interaction.isButton() && LangArray.includes(interaction.customId))
+            return await commands.common.langSet(interaction, dataUser).catch();
+
         if (!dataUser) {
             interaction.reply({
-                content: "To use the bot, select the language, first:",
+                content: "To use the bot, please select the language first:",
                 ephemeral: true,
                 components: getLangButtons()
             }).catch();
@@ -229,11 +234,7 @@ discordBot.on('interactionCreate', async (interaction: ChatInputCommandInteracti
         if (interaction.isChatInputCommand()) {
             const {commandName} = interaction;
             if (interaction.channel.isDMBased() && commandName === "create") {
-
-                interaction.reply({
-                    content: 'Create a game you can only on the server!',
-                    ephemeral: true
-                }).catch(() => {
+                interaction.reply(localisations[dataUser.lang.toUpperCase() as keyof ILocalProps].game_create_error_notOnServer).catch(() => {
                 });
                 return;
             }
@@ -265,8 +266,7 @@ discordBot.on('interactionCreate', async (interaction: ChatInputCommandInteracti
                 }
             }
             if (!mafGame) {
-
-                interaction.reply("You are not playing a game").catch(() => {
+                interaction.reply(localisations[dataUser.lang.toUpperCase() as keyof ILocalProps].error_notInGame).catch(() => {
                 });
                 return;
             }
@@ -274,9 +274,6 @@ discordBot.on('interactionCreate', async (interaction: ChatInputCommandInteracti
             mafGame.Choose(mafGame.GetUser(interaction.user.id), voteForId, interaction);
         } else if (interaction.isButton()) {
             try {
-                if (LangArray.includes(interaction.customId))
-                    return await commands.common.langSet(interaction, dataUser).catch();
-
                 if (interaction.customId === "createnew")
                     return commands.common.create(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps]).catch();
                 if (["premium", "editrole", "editcondition", "custom", "createrole", "deleterole", "createcondition", "deletecondition", "news", "helpmessage", "rules", "scripting"].includes(interaction.customId))
@@ -321,7 +318,7 @@ discordBot.on('interactionCreate', async (interaction: ChatInputCommandInteracti
 
 });
 
-discordBot.on('ready', () => {
+discordBot.on("ready", () => {
     console.log("started");
 });
 

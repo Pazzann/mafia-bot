@@ -4,37 +4,38 @@ import {ILangProps} from "../../types/interfaces/ILang";
 import Role from "../../Entities/Role.entity";
 import MafiaEmbedBuilder from "../../Classes/MafiaEmbedBuilder";
 
-export default async function newRolePartTwo (interaction: ModalSubmitInteraction, user: User, locale: ILangProps) {
-    if(!user.premium){
-        interaction.reply({content: "You don't have premium to create custom roles and conditions, sorry!", ephemeral: true})
+export default async function newRolePartTwo(interaction: ModalSubmitInteraction, user: User, locale: ILangProps) {
+    if (!user.premium) {
+        interaction.reply({content: locale.error_premium, ephemeral: true})
         return;
     }
-    try{
+    try {
         let id = Number(interaction.customId.split("newRolePartTwo").join(''));
         const role = await Role.findOne({where: {id: id}, relations: ["user"]});
-        if(role == null){
-            interaction.reply({content: "No role found!", ephemeral: true})
+        if (role == null) {
+            interaction.reply({content: locale.role_create_error_notFound, ephemeral: true})
             return;
         }
-        if(role.user.userid != user.userid){
-            interaction.reply({content: "You don't have permission to edit this role, sorry!", ephemeral: true})
+        if (role.user.userid != user.userid) {
+            interaction.reply({content: locale.role_create_error_noAccess, ephemeral: true})
             return;
         }
 
-        if(role.action == "kill" || role.action == "heal" || role.action == "alibi" || role.action == "check" || role.action == "full_check" || role.action == "no_activity")
-            role.action = interaction.fields.getTextInputValue("roleAction");
+        let action = interaction.fields.getTextInputValue("roleAction");
+        if (action == "kill" || action == "heal" || action == "alibi" || action == "check" || action == "full_check" || action == "no_activity")
+            role.action = action;
         else
-            role.action = "no_activity";
-        role.selfSelectable = Boolean(interaction.fields.getTextInputValue("roleSelectable"));
-        role.delay = +interaction.fields.getTextInputValue("roleDelay");
-        role.spawnFrom = +interaction.fields.getTextInputValue("roleSpawnFrom");
-        role.groupDec = Boolean(interaction.fields.getTextInputValue("roleGroupSelection"));
+            role.action = "no_activity"
+        role.selfSelectable = interaction.fields.getTextInputValue("roleSelectable") === "true";
+        role.delay = isNaN(+interaction.fields.getTextInputValue("roleDelay")) ? +interaction.fields.getTextInputValue("roleDelay") > 0 ? +interaction.fields.getTextInputValue("roleDelay") : 1 : 1;
+        role.spawnFrom = !isNaN(+interaction.fields.getTextInputValue("roleSpawnFrom")) ? +interaction.fields.getTextInputValue("roleSpawnFrom") : 0;
+        role.groupDec = interaction.fields.getTextInputValue("roleGroupSelection") === "true";
         await role.save();
 
         const embed = MafiaEmbedBuilder.roleEmbed(role, locale);
-        await interaction.reply({content: "Successfully", embeds: [embed]});
-    }catch (err) {
-        await interaction.reply("Error: " + err.message);
+        await interaction.reply({content: locale.role_create_success_message, embeds: [embed]});
+    } catch (err) {
+        await interaction.reply(locale.error_unknown);
     }
 
 }

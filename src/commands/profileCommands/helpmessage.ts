@@ -5,14 +5,14 @@ import {ILangProps} from "../../types/interfaces/ILang";
 export default  async function helpmessage(interaction: ButtonInteraction, user: User, locale: ILangProps) {
 
     const modal = new ModalBuilder()
-        .setCustomId('textToModeration')
-        .setTitle('Msg to Support');
+        .setCustomId("textToModeration")
+        .setTitle(locale.helpMessage_title);
 
 
     const textInput = new TextInputBuilder()
-        .setCustomId('text')
-        .setLabel("Message")
-        .setPlaceholder("Text of the message.")
+        .setCustomId("text")
+        .setLabel(locale.helpMessage_text_label)
+        .setPlaceholder(locale.helpMessage_text_placeHolder)
         .setStyle(TextInputStyle.Paragraph)
         .setRequired(true);
 

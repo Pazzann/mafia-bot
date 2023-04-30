@@ -4,11 +4,11 @@ import {ILangProps} from "../../types/interfaces/ILang";
 
 export default async function createcondition(interaction: ButtonInteraction, user: User, locale: ILangProps) {
 
-    if(!user.premium){
+    if (!user.premium) {
         interaction.reply({content: locale.error_premium, ephemeral: true})
         return;
     }
-    if(user.customRoles.length>=19){
+    if (user.conditions.length >= 21) {
         interaction.reply({content: locale.condition_create_error_number, ephemeral: true})
         return;
     }

@@ -46,7 +46,7 @@ export default class MafiaEmbedBuilder {
         return embed;
     }
 
-    public static roleGiver(owner: MafiaUser, players: MafiaUser[], theme: Theme, locale: ILangProps, lang: Langs, roles: BaseRole[]) {
+    public static async roleGiver(owner: MafiaUser, players: MafiaUser[], theme: Theme, locale: ILangProps, lang: Langs, roles: BaseRole[]) {
         let rolesValue = "";
         for (let role of roles) {
             rolesValue += `${role.GetRoleName(owner.lang)}: \`\`${players.filter(item => item.role.RoleName == role.RoleName).length}\`\` \n `

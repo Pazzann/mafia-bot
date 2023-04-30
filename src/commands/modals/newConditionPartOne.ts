@@ -14,7 +14,6 @@ export default async function newConditionPartOne (interaction: ModalSubmitInter
     const buttons  = new ActionRowBuilder<ButtonBuilder>()
         .addComponents(
             new ButtonBuilder()
-                .setEmoji("💵")
                 .setLabel(locale.condition_create_goNext_button)
                 .setStyle(ButtonStyle.Success)
                 .setCustomId("newconditionhalfbut" + name)

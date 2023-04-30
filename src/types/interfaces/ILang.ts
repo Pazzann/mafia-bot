@@ -4,6 +4,7 @@ export interface ILangProps {
     game_error_incorrectGameID: string;
     game_error_alreadyCreated: string;
     game_error_alreadyJoined: string;
+    game_create_error_notOnServer: string;
     game_created_title: string;
     game_created_autocancel: string;        //usage: **${locale.game_created_autocancel}:** <t:${Math.floor(Date.now()/1000) + 600}:R>
     game_created_gameHost: string;          //usage: **${locale.game_created_gameHost}:** <@${interaction.user.id}>
@@ -84,13 +85,13 @@ export interface ILangProps {
     condition_peacefulWin_WinEmbedTitle: string;
     condition_peacefulWin_WinEmbedDescription: string;
 
-    role_embed_action_name: string;
-    role_embed_groupDec_name: string;
-    role_embed_spawnFrom_name: string;
-    role_embed_selfSelectable_name: string;
-    role_embed_count_name: string;
-    role_embed_placeHolder_name: string;
-    role_embed_delay_name: string;
+    role_embed_action_name: string;                 // = role_create_roleAction_label
+    role_embed_groupDec_name: string;               // = role_create_roleGroupSelection_label
+    role_embed_spawnFrom_name: string;              // = role_create_roleSpawnFrom_label
+    role_embed_selfSelectable_name: string;         // = role_create_roleSelectable_label
+    role_embed_count_name: string;                  // = role_create_roleCount_label
+    role_embed_placeHolder_name: string;            // = role_create_rolePlaceHolder_label
+    role_embed_delay_name: string;                  // = role_create_roleDelay_label
     condition_embed_condition_name: string;         // = condition_create_condition_label
     condition_embed_embedTitle_name: string;        // = condition_create_embedTitle_label
     condition_embed_embedDescription_name: string;  // = condition_create_embedDescription_label
@@ -108,12 +109,44 @@ export interface ILangProps {
     profile_button_custom: string;
     profile_button_news: string;
 
+    role_create_error_number: string;
+    role_create_error_notFound: string;
+    role_create_error_noAccess: string;
+    role_create_title1: string;
+    role_create_roleName_label: string;
+    role_create_roleName_placeHolder: string;
+    role_create_roleDescription_label: string;
+    role_create_roleDescription_placeHolder: string;
+    role_create_roleImage_label: string;
+    role_create_roleImage_placeHolder: string;
+    role_create_roleCount_label: string;
+    role_create_roleCount_placeHolder: string;
+    role_create_rolePlaceHolder_label: string;
+    role_create_rolePlaceHolder_placeHolder: string;
+    role_create_goNext_button: string;
+    role_create_goNext_message: string;
+    role_create_title2: string;         //usage: locale.role_create_title2 + name
+    role_create_roleAction_label: string;
+    role_create_roleAction_placeHolder: string;
+    role_create_roleSelectable_label: string;
+    role_create_roleSelectable_placeHolder: string;
+    role_create_roleDelay_label: string;
+    role_create_roleDelay_placeHolder: string;
+    role_create_roleSpawnFrom_label: string;
+    role_create_roleSpawnFrom_placeHolder: string;
+    role_create_roleGroupSelection_label: string;
+    role_create_roleGroupSelection_placeHolder: string;
+    role_create_success_message: string;
+
+    role_view_error_notFound: string;
+    role_view_error_noAccess: string;
+
     condition_create_error_number: string;
     condition_create_title1: string;
     condition_create_conditionName_label: string;
     condition_create_conditionName_placeHolder: string;
-    condition_create_goNext_button: string;
-    condition_create_goNext_message: string;
+    condition_create_goNext_button: string;                 // = role_create_goNext_button
+    condition_create_goNext_message: string;                // = role_create_goNext_message
     condition_create_title2: string;    //usage: locale.condition_create_title2 + name
     condition_create_condition_label: string;
     condition_create_condition_placeHolder: string;
@@ -151,6 +184,20 @@ export interface ILangProps {
     condition_delete_error_noAccess: string;
     condition_delete_success_message: string;
 
+    news_error_noAccess_enabled: string;
+    news_error_noAccess_disabled: string;
+    news_enable_success_message: string;
+    news_disable_success_message: string;
+
+    help_button_rules: string;
+    help_button_scripting: string;
+    help_button_helpmessage: string;
+
+    helpMessage_title: string;
+    helpMessage_text_label: string;
+    helpMessage_text_placeHolder: string;
+
+    error_notInGame: string;
     error_premium: string;
     error_unknown: string;
 

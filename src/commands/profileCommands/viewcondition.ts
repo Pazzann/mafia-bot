@@ -8,10 +8,7 @@ import WinningCondition from "../../Entities/WinningCondition.entity";
 export default async function viewcondition(interaction: SelectMenuInteraction, user: User, locale: ILangProps, conditionId: number) {
 
     if (!user.premium) {
-        interaction.reply({
-            content: locale.error_premium,
-            ephemeral: true
-        })
+        interaction.reply({content: locale.error_premium, ephemeral: true})
         return;
     }
     const condition = await WinningCondition.findOne({where: {id: conditionId}, relations: ["user"]});
