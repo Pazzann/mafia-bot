@@ -25,8 +25,8 @@ export default async function deletecondition(interaction: ButtonInteraction, us
                     .setMaxValues(1)
                     .addOptions(chooseArr)
             );
-        interaction.reply({ ephemeral: true, components: [row]});
-    }/*else{
-        interaction.reply({ephemeral: true, content: "You don't have conditions"})
-    }*/
+        interaction.reply({content: locale.condition_delete_select_message, ephemeral: true, components: [row]});
+    } else {
+        interaction.reply({content: locale.condition_delete_error_noConditions, ephemeral: true})
+    }
 }

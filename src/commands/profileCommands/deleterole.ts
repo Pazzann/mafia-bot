@@ -1,19 +1,14 @@
 import {ActionRowBuilder, ButtonInteraction, RestOrArray, SelectMenuBuilder, SelectMenuOptionBuilder} from "discord.js";
 import User from "../../Entities/User.entity";
 import {ILangProps} from "../../types/interfaces/ILang";
-import Role from "../../Entities/Role.entity";
-import MafiaEmbedBuilder from "../../Classes/MafiaEmbedBuilder";
 
 export default async function deleterole(interaction: ButtonInteraction, user: User, locale: ILangProps) {
 
     if (!user.premium) {
-        interaction.reply({
-            content: "You don't have premium to create custom roles and conditions, sorry!",
-            ephemeral: true
-        })
+        interaction.reply({content: locale.error_premium, ephemeral: true})
         return;
     }
-    if(user.customRoles.length > 0){
+    if (user.customRoles.length > 0) {
         const chooseArr: RestOrArray<SelectMenuOptionBuilder> = [];
         for (let role of user.customRoles){
             const roleOption = new SelectMenuOptionBuilder()
@@ -25,14 +20,13 @@ export default async function deleterole(interaction: ButtonInteraction, user: U
             .addComponents(
                 new SelectMenuBuilder()
                     .setCustomId("deleterole")
-                    .setPlaceholder('choose role to delete')
+                    .setPlaceholder(locale.role_delete_select_placeHolder)
                     .setMinValues(1)
                     .setMaxValues(1)
                     .addOptions(chooseArr)
             );
-        interaction.reply({ ephemeral: true, components: [row]});
-    }else{
-        interaction.reply({ephemeral: true, content: "You don't have roles"})
+        interaction.reply({content: locale.role_delete_select_message, ephemeral: true, components: [row]});
+    } else {
+        interaction.reply({content: locale.role_delete_error_noRoles, ephemeral: true})
     }
-
 }

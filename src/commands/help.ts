@@ -30,7 +30,7 @@ export default async function help (interaction: ChatInputCommandInteraction, us
             name: "🗒Credentials and Tech Info:",
             value: "\`Version:\` 2.0.5.\n\`Source code:\` https://github.com/Pazzann/mafia-bot.\n\`Support server:\` https://discord.gg/ZWnx8rqGTD.\n\`Developer:\` Boy From God#2772\n\`Localization:\` denyshon#9143\n\`Art:\` Midjourney, popa_sani#4041"
         }])
-        .setDescription(`Mafia bot is bot to create and customize your mafia games, enjoy!`)
+        .setDescription(`Mafia bot is bot to create and customize your mafia games, enjoy!\n⚠️Some translations can contain errors or can be not finished properly, so for scripting help it is recommended to use english.`)
         .setColor('#b0ff9c')
         .setThumbnail('https://media.discordapp.net/attachments/1008571116241047642/1017336428365099008/Boy_From_God_mafia_vote_424735d6-e773-4ac5-9731-5fa2fcfba119.png?width=566&height=566')
 

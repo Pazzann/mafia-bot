@@ -2,9 +2,8 @@ import {
     ButtonInteraction,
     ChatInputCommandInteraction,
     Client,
-    EmbedBuilder,
     GatewayIntentBits, GuildMember,
-    Interaction, ModalSubmitInteraction,
+    ModalSubmitInteraction,
     Partials, SelectMenuInteraction
 } from "discord.js";
 import IHostGameProps from "./types/interfaces/IHost";
@@ -211,9 +210,29 @@ discordBot.on("guildMemberUpdate", async (oldMember: GuildMember, newMember: Gui
     dataUser.premium = newMember.roles.cache.has(process.env.ROLE_ID);
     await dataUser.save();
 });
+discordBot.on("guildMemberAdd", async (member: GuildMember) => {
+    if (member.guild.id != process.env.GUILD_ID) {
+        return;
+    }
+    let dataUser = await User.findOne({
+        where: {userid: member.user.id},
+        relations: ["customRoles", "conditions"]
+    });
+    if (!dataUser) {
+        dataUser = await User.create({
+            userid: member.user.id,
+            lang: Langs.EN,
+            totalGames: 0,
+            totalWins: 0,
+            since: dateParser(new Date())
+        }).save();
+    }
+    dataUser.premium = member.roles.cache.has(process.env.ROLE_ID);
+    await dataUser.save();
+});
 
 
-discordBot.on('interactionCreate', async (interaction: ChatInputCommandInteraction | ButtonInteraction | SelectMenuInteraction | ModalSubmitInteraction) => {
+discordBot.on("interactionCreate", async (interaction: ChatInputCommandInteraction | ButtonInteraction | SelectMenuInteraction | ModalSubmitInteraction) => {
     try {
         // await interaction.deferReply();
         const dataUser = await User.findOne({
@@ -303,7 +322,7 @@ discordBot.on('interactionCreate', async (interaction: ChatInputCommandInteracti
                     return commands.modals.editCondition(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps]).catch();
                 if (includeFromArray(interaction.customId, ["newRolePartOne", "newConditionPartOne", "textToModeration", "editCondition"])) {
                     // @ts-ignore
-                    commands.modals[interaction.customId.match(/\w+/)[0]](interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps]).catch();
+                    commands.modals[interaction.customId.match(/\w+/)[0]](interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps], discordBot).catch();
 
                 }
 

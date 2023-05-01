@@ -6,7 +6,6 @@ import shuffle from "../Functions/shuffle";
 import ScriptEngine from "./ScriptEngine";
 import {Langs} from "../types/Langs";
 import BaseCondition from "./WinningConditions/BaseCondition";
-import MafiaRole from "./Roles/MafiaRole";
 import {
     ActionRowBuilder,
     EmbedBuilder,
@@ -38,35 +37,32 @@ export default class MafiaGame {
     public CheckEndGame(): boolean {
         for (let condition of this._winCond) {
             if (ScriptEngine.WinningEngine(condition.Condition, this.Players)) {
-                this.Players.map(item => {
-                    item.dsUser.dmChannel.send({
-                        embeds: [condition.GetEmbed(item.lang, this.Players)]
-                    });
-                });
+
                 if (condition.WinRole == "innocent") {
                     this.GetPeacefulUsers().map(item => {
                         item.dbUser.totalWins++;
-                        item.dbUser.save();
                     });
                 } else {
                     this.Players.filter(item => item.role.RoleName == condition.WinRole).map(item => {
                         item.dbUser.totalWins++;
-                        item.dbUser.save();
                     });
                 }
                 this.Players.map(item => {
                     item.dbUser.totalGames++;
                     item.dbUser.save();
+                    item.dsUser.dmChannel.send({
+                        embeds: [condition.GetEmbed(item.lang, this.Players)]
+                    });
                 });
                 return true;
-
             }
         }
         return false;
     }
 
+
     public EndChooseMoveHandler() {
-        if (this.GetAliveUsers().filter((item) =>
+        if (this.GetActionAliveUser().filter((item) =>
             item.actionsOnUser.hasDoneAction == false
         ).length == 0) {
             this._roles.map(item => {
@@ -89,23 +85,44 @@ export default class MafiaGame {
                     item.clearSelection();
                     return;
                 }
-                let SelectedUser: MafiaUser = arrChoose.sort((a, b) => b.times - a.times)[0]?.user;
-                switch (item.ActionOnSelect) {
-                    case "kill": {
-                        SelectedUser.actionsOnUser.kill = true;
-                        break;
+                if(item.GroupDecision){
+                    let SelectedUser: MafiaUser = arrChoose.sort((a, b) => b.times - a.times)[0]?.user;
+                    switch (item.ActionOnSelect) {
+                        case "kill": {
+                            SelectedUser.actionsOnUser.kill = true;
+                            break;
+                        }
+                        case "heal": {
+                            SelectedUser.actionsOnUser.heal = true;
+                            break;
+                        }
+                        case "alibi": {
+                            SelectedUser.actionsOnUser.alibi = true;
+                            break;
+                        }
                     }
-                    case "heal": {
-                        SelectedUser.actionsOnUser.heal = true;
-                        break;
-                    }
-                    case "alibi": {
-                        SelectedUser.actionsOnUser.alibi = true;
-                        break;
-                    }
+                }else{
+                    arrChoose.map(selection=>{
+                        switch (item.ActionOnSelect) {
+                            case "kill": {
+                                selection.user.actionsOnUser.kill = true;
+                                break;
+                            }
+                            case "heal": {
+                                selection.user.actionsOnUser.heal = true;
+                                break;
+                            }
+                            case "alibi": {
+                                selection.user.actionsOnUser.alibi = true;
+                                break;
+                            }
+                        }
+                    });
                 }
+
                 item.clearSelection();
             });
+
             let tags: string[] = [];
             this.GetAliveUsers().map(item => {
                 if (item.actionsOnUser.kill && !item.actionsOnUser.heal) {
@@ -173,6 +190,9 @@ export default class MafiaGame {
                 return;
             }
 
+            this._stage = "choosing";
+            this._day++;
+
 
             this.Players.map(item => {
                 item.dsUser.dmChannel.send({
@@ -180,7 +200,7 @@ export default class MafiaGame {
                 });
                 item.clearActions();
             })
-            this.GetAliveUsers().map(item => {
+            this.GetActionAliveUser().map(item => {
                 let row = item.role.GetNightVoteRow(this.GetAliveUsers(), false, item);
                 if (row) {
                     item.dsUser.dmChannel.send({
@@ -188,9 +208,7 @@ export default class MafiaGame {
                     });
                 }
             });
-
-            this._stage = "choosing";
-            this._day++;
+            this.EndChooseMoveHandler();
         }
     }
 
@@ -198,8 +216,6 @@ export default class MafiaGame {
         if (!this.HasPlayer(whom))
             return interaction.reply("Player not found!");
         let whomU = this.GetUser(whom);
-        if (whomU.isKilled)
-            return interaction.reply("Player is killed.");
         if (!this._validateSelection(who, whomU))
             return interaction.reply("not validate selection");
         const row = new SelectMenuBuilder((interaction.component as SelectMenuComponent).data).setDisabled(true);
@@ -263,6 +279,10 @@ export default class MafiaGame {
             return false;
         if (who.actionsOnUser.hasDoneAction == true && this._stage === "choosing")
             return false;
+        if (this._day % who.role.DelayForActivity !== 0 && this._stage === "choosing")
+            return false;
+        if (!who.role.SelfSelectable && whom.id === who.id && this._stage === "choosing")
+            return false;
         if (who.actionsOnUser.hasVoted == true && this._stage === "discussion")
             return false;
         return true;
@@ -286,6 +306,10 @@ export default class MafiaGame {
 
     get id() {
         return this._id;
+    }
+
+    public GetActionAliveUser():MafiaUser[]{
+        return this.GetAliveUsers().filter(item=> this._day % item.role.DelayForActivity == 0);
     }
 
     public GetAliveUsers(): MafiaUser[] {
@@ -318,9 +342,9 @@ export default class MafiaGame {
         users = shuffle(users);
         users = shuffle(users);
 
-        if(roles.filter(item=>typeof item.Count === "string" && item.Count.includes("{oRolesPCount}")).length > 0){
-            let arr = roles.filter(item=>typeof item.Count === "string" && item.Count.includes("{oRolesPCount}"));
-            roles = roles.filter(item=> typeof item.Count === "number" || (typeof item.Count === "string" && !item.Count.includes("{oRolesPCount}")));
+        if (roles.filter(item => typeof item.Count === "string" && item.Count.includes("{oRolesPCount}")).length > 0) {
+            let arr = roles.filter(item => typeof item.Count === "string" && item.Count.includes("{oRolesPCount}"));
+            roles = roles.filter(item => typeof item.Count === "number" || (typeof item.Count === "string" && !item.Count.includes("{oRolesPCount}")));
             roles.push(arr[0]);
         }
 

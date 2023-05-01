@@ -1,7 +1,6 @@
 import {ModalSubmitInteraction, TextInputComponent} from "discord.js";
 import User from "../../Entities/User.entity";
 import {ILangProps} from "../../types/interfaces/ILang";
-import Role from "../../Entities/Role.entity";
 import MafiaEmbedBuilder from "../../Classes/MafiaEmbedBuilder";
 import WinningCondition from "../../Entities/WinningCondition.entity";
 
@@ -10,7 +9,6 @@ export default async function editCondition (interaction: ModalSubmitInteraction
         interaction.reply({content: locale.error_premium, ephemeral: true})
         return;
     }
-
     try {
         let conditionId = interaction.customId.split("editCondition").join('');
         const condition = await WinningCondition.findOne({where: {id: +conditionId}, relations: ["user"]});
@@ -23,7 +21,6 @@ export default async function editCondition (interaction: ModalSubmitInteraction
             return;
         }
 
-
         condition.condition = interaction.fields.getTextInputValue("condition");
         condition.embedTitle = interaction.fields.getTextInputValue("embedTitle");
         condition.embedDescription = interaction.fields.getTextInputValue("embedDescription");
@@ -31,11 +28,7 @@ export default async function editCondition (interaction: ModalSubmitInteraction
         condition.winRole = interaction.fields.getTextInputValue("winRole");
         condition.save();
 
-
-
-        interaction.reply({ephemeral: false, content: locale.condition_edit_success_message, embeds:[MafiaEmbedBuilder.conditionEmbed(condition, locale)]})
-
-
+        interaction.reply({content: locale.condition_edit_success_message, ephemeral: false, embeds:[MafiaEmbedBuilder.conditionEmbed(condition, locale)]})
     } catch (err) {
     }
 }

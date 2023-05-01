@@ -3,7 +3,7 @@ import User from "../../Entities/User.entity";
 import {ILangProps} from "../../types/interfaces/ILang";
 import WinningCondition from "../../Entities/WinningCondition.entity";
 
-export default  async function editconditionselect(interaction: SelectMenuInteraction, user: User, locale: ILangProps, conditionId: number) {
+export default async function editconditionselect(interaction: SelectMenuInteraction, user: User, locale: ILangProps, conditionId: number) {
 
     if (!user.premium) {
         interaction.reply({content: locale.error_premium, ephemeral: true})
@@ -19,7 +19,6 @@ export default  async function editconditionselect(interaction: SelectMenuIntera
         interaction.reply({content: locale.condition_edit_error_noAccess, ephemeral: true})
         return;
     }
-
 
     const modal = new ModalBuilder()
         .setCustomId("editCondition" + condition.id)
@@ -69,5 +68,4 @@ export default  async function editconditionselect(interaction: SelectMenuIntera
         new ActionRowBuilder<TextInputBuilder>().addComponents(winRoleInput),
     );
     await interaction.showModal(modal);
-
 }

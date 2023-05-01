@@ -1,8 +1,4 @@
 import MafiaUser from "./MafiaUser";
-const {
-    Worker, isMainThread, parentPort, workerData,
-} = require('node:worker_threads');
-
 const {VM} = require('vm2');
 
 
@@ -32,6 +28,10 @@ export default class ScriptEngine {
         if (eqv.includes("async"))
             return false;
         if (eqv.includes("await"))
+            return false;
+        if (eqv.includes("vm"))
+            return false;
+        if (eqv.includes("new"))
             return false;
         return true;
     }

@@ -1,7 +1,6 @@
 import {
     ActionRowBuilder,
-    ButtonInteraction,
-    RestOrArray, SelectMenuBuilder,
+    SelectMenuBuilder,
     SelectMenuInteraction,
     SelectMenuOptionBuilder
 } from "discord.js";
@@ -10,22 +9,20 @@ import {ILangProps} from "../../types/interfaces/ILang";
 import Role from "../../Entities/Role.entity";
 import MafiaEmbedBuilder from "../../Classes/MafiaEmbedBuilder";
 
-export default  async function editroleselectmenu(interaction: SelectMenuInteraction, user: User, locale: ILangProps, roleId: number) {
+export default async function editroleselectmenu(interaction: SelectMenuInteraction, user: User, locale: ILangProps, roleId: number) {
 
     if (!user.premium) {
-        interaction.reply({
-            content: "You don't have premium to create custom roles and conditions, sorry!",
-            ephemeral: true
-        })
+        interaction.reply({content: locale.error_premium, ephemeral: true})
         return;
     }
+
     const role = await Role.findOne({where: {id: roleId}, relations: ["user"]});
     if (role == null) {
-        interaction.reply({content: "No role found!", ephemeral: true})
+        interaction.reply({content: locale.role_edit_error_notFound, ephemeral: true})
         return;
     }
     if (role.user.userid != user.userid) {
-        interaction.reply({content: "You don't have permission to edit this role, sorry!", ephemeral: true})
+        interaction.reply({content: locale.role_edit_error_noAccess, ephemeral: true})
         return;
     }
     const embed = MafiaEmbedBuilder.roleEmbed(role, locale);
@@ -34,42 +31,42 @@ export default  async function editroleselectmenu(interaction: SelectMenuInterac
         .addComponents(
             new SelectMenuBuilder()
                 .setCustomId("editroleselection")
-                .setPlaceholder('choose role to edit')
+                .setPlaceholder(locale.role_edit_selectField_placeHolder)
                 .setMinValues(1)
                 .setMaxValues(1)
                 .addOptions([
                     new SelectMenuOptionBuilder()
-                        .setLabel("Name")
+                        .setLabel(locale.role_edit_selectField_roleName_label)
                         .setValue("editrolename" + String(role.id)),
                     new SelectMenuOptionBuilder()
-                        .setLabel("Description")
+                        .setLabel(locale.role_edit_selectField_roleDescription_label)
                         .setValue("editroledescription" + String(role.id)),
                     new SelectMenuOptionBuilder()
-                        .setLabel("ImageLink")
+                        .setLabel(locale.role_edit_selectField_roleImage_label)
                         .setValue("editroleimage" + String(role.id)),
                     new SelectMenuOptionBuilder()
-                        .setLabel("Action")
-                        .setValue('editroleaction' + String(role.id)),
+                        .setLabel(locale.role_edit_selectField_roleCount_label)
+                        .setValue("editrolecount" + String(role.id)),
                     new SelectMenuOptionBuilder()
-                        .setLabel("Delay")
-                        .setValue("editroledelay" + String(role.id)),
-                    new SelectMenuOptionBuilder()
-                        .setLabel("Group Decision")
-                        .setValue("editrolegroupdec" + String(role.id)),
-                    new SelectMenuOptionBuilder()
-                        .setLabel("Place Holder")
+                        .setLabel(locale.role_edit_selectField_rolePlaceHolder_label)
                         .setValue("editroleplaceholder" + String(role.id)),
                     new SelectMenuOptionBuilder()
-                        .setLabel("Self Selectable")
-                        .setValue("editroleselfselectable"  + String(role.id)),
+                        .setLabel(locale.role_edit_selectField_roleAction_label)
+                        .setValue("editroleaction" + String(role.id)),
                     new SelectMenuOptionBuilder()
-                        .setLabel("Spawn From")
+                        .setLabel(locale.role_edit_selectField_roleSelectable_label)
+                        .setValue("editroleselfselectable" + String(role.id)),
+                    new SelectMenuOptionBuilder()
+                        .setLabel(locale.role_edit_selectField_roleDelay_label)
+                        .setValue("editroledelay" + String(role.id)),
+                    new SelectMenuOptionBuilder()
+                        .setLabel(locale.role_edit_selectField_roleSpawnFrom_label)
                         .setValue("editrolespawnfrom" + String(role.id)),
                     new SelectMenuOptionBuilder()
-                        .setLabel("Count")
-                        .setValue("editrolecount" + String(role.id))
+                        .setLabel(locale.role_edit_selectField_roleGroupSelection_label)
+                        .setValue("editrolegroupdec" + String(role.id))
                 ])
         );
 
-    interaction.reply({content: "Choose option to edit", ephemeral: true, embeds: [embed], components: [row]})
+    interaction.reply({content: locale.role_edit_selectField_message, ephemeral: true, embeds: [embed], components: [row]})
 }

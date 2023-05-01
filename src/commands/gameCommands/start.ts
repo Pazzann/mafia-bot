@@ -50,12 +50,12 @@ export default async function start (interaction: ButtonInteraction, gameid = 0,
             for (let player of game.Players) {
                 const dm = player.dsUser?.dmChannel ?? await player.dsUser.createDM();
                 const row = player.role.GetNightVoteRow(game.GetAliveUsers(), false, player);
-                if (row)
+                if (row && player.role.DelayForActivity === 1)
                     dm.send({ embeds: [MafiaEmbedBuilder.sleepTime(player.local), await MafiaEmbedBuilder.roleGiver(player, game.GetAliveUsers(), theme, player.local, player.lang, roles)], components: [row]}).catch(err=>{console.log(err)});
                 else
                     dm.send({ embeds: [MafiaEmbedBuilder.sleepTime(player.local), await MafiaEmbedBuilder.roleGiver(player, game.GetAliveUsers(), theme, player.local, player.lang, roles)]}).catch(err=>{console.log(err)});
             }
-
+            game.EndChooseMoveHandler();
             await interaction.message.edit({components: getDisabledButtons(gameid, locale)})
             const buttonRow = new ActionRowBuilder<ButtonBuilder>()
                 .addComponents(

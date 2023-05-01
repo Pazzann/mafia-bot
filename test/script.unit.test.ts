@@ -74,6 +74,9 @@ _chai.expect;
     @test 'Match Numbers 3' () {
         expect("sdfsdf2".match(/[0-9]+/)[0]).to.be.equal("2");
     }
+    @test 'Match Division 1' () {
+        expect(2 % 2).to.be.equal(0);
+    }
 }
 
 

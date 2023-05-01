@@ -1,6 +1,5 @@
 import {
     ActionRowBuilder,
-    ButtonInteraction,
     ModalBuilder,
     SelectMenuInteraction,
     TextInputBuilder,
@@ -10,10 +9,10 @@ import User from "../../Entities/User.entity";
 import {ILangProps} from "../../types/interfaces/ILang";
 import Role from "../../Entities/Role.entity";
 
-export default  async function editrolecomplete(interaction: SelectMenuInteraction, user: User, locale: ILangProps) {
+export default async function editrolecomplete(interaction: SelectMenuInteraction, user: User, locale: ILangProps) {
     try {
-        if(!user.premium){
-            interaction.reply({content: "You don't have premium to create custom roles and conditions, sorry!", ephemeral: true})
+        if (!user.premium) {
+            interaction.reply({content: locale.error_premium, ephemeral: true})
             return;
         }
 
@@ -21,19 +20,19 @@ export default  async function editrolecomplete(interaction: SelectMenuInteracti
         let action = interaction.values[0].split("editrole").join('').split(String(roleId)).join('');
         const role = await Role.findOne({where: {id: roleId}, relations: ["user"]});
         if (role == null) {
-            interaction.reply({content: "No role found!", ephemeral: true})
+            interaction.reply({content: locale.role_edit_error_notFound, ephemeral: true})
             return;
         }
         if (role.user.userid != user.userid) {
-            interaction.reply({content: "You don't have permission to edit this role, sorry!", ephemeral: true})
+            interaction.reply({content: locale.role_edit_error_noAccess, ephemeral: true})
             return;
         }
+
         const modal = new ModalBuilder()
             .setCustomId('editRole' + String(roleId))
             .setTitle('Edit Role');
 
-
-        switch (action){
+        switch (action) {
             case "name":{
                 modal.addComponents(
                     new ActionRowBuilder<TextInputBuilder>()
@@ -177,10 +176,8 @@ export default  async function editrolecomplete(interaction: SelectMenuInteracti
 
         }
 
-
         await interaction.showModal(modal);
-
-    }catch (err){
+    } catch (err) {
         console.log(err)
     }
 }

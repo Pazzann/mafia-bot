@@ -1,7 +1,6 @@
 import {SelectMenuInteraction} from "discord.js";
 import User from "../../Entities/User.entity";
 import {ILangProps} from "../../types/interfaces/ILang";
-import Role from "../../Entities/Role.entity";
 import WinningCondition from "../../Entities/WinningCondition.entity";
 
 export default async function deleteconditionselect(interaction: SelectMenuInteraction, user: User, locale: ILangProps, conditionId: number) {

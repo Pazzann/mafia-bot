@@ -141,6 +141,31 @@ export interface ILangProps {
     role_view_error_notFound: string;
     role_view_error_noAccess: string;
 
+    role_edit_error_notFound: string;                       // = role_view_error_notFound
+    role_edit_error_noAccess: string;
+    role_edit_select_message: string;
+    role_edit_select_placeHolder: string;
+    role_edit_selectField_message: string;
+    role_edit_selectField_placeHolder: string;
+    role_edit_selectField_roleName_label: string;           // = role_create_roleName_label
+    role_edit_selectField_roleDescription_label: string;    // = role_create_roleDescription_label
+    role_edit_selectField_roleImage_label: string;          // = role_create_roleImage_label
+    role_edit_selectField_roleCount_label: string;          // = role_create_roleCount_label
+    role_edit_selectField_rolePlaceHolder_label: string;    // = role_create_rolePlaceHolder_label
+    role_edit_selectField_roleAction_label: string;         // = role_create_roleAction_label
+    role_edit_selectField_roleSelectable_label: string;     // = role_create_roleSelectable_label
+    role_edit_selectField_roleDelay_label: string;          // = role_create_roleDelay_label
+    role_edit_selectField_roleSpawnFrom_label: string;      // = role_create_roleSpawnFrom_label
+    role_edit_selectField_roleGroupSelection_label: string; // = role_create_roleGroupSelection_label
+    role_edit_success_message: string;
+
+    role_delete_error_noRoles: string;
+    role_delete_error_notFound: string;                     // = role_view_error_notFound
+    role_delete_error_noAccess: string;
+    role_delete_select_message: string;
+    role_delete_select_placeHolder: string;
+    role_delete_success_message: string;
+
     condition_create_error_number: string;
     condition_create_title1: string;
     condition_create_conditionName_label: string;
@@ -163,9 +188,10 @@ export interface ILangProps {
     condition_view_error_notFound: string;
     condition_view_error_noAccess: string;
 
-    condition_edit_select_placeHolder: string;
     condition_edit_error_notFound: string;                  // = condition_view_error_notFound
     condition_edit_error_noAccess: string;
+    condition_edit_select_message: string;
+    condition_edit_select_placeHolder: string;
     condition_edit_title: string;       //usage: locale.condition_edit_title + name
     condition_edit_condition_label: string;                 // = condition_create_condition_label
     condition_edit_condition_placeHolder: string;
@@ -179,9 +205,11 @@ export interface ILangProps {
     condition_edit_winRole_placeHolder: string;
     condition_edit_success_message: string;
 
-    condition_delete_select_placeHolder: string;
+    condition_delete_error_noConditions: string;
     condition_delete_error_notFound: string;                // = condition_view_error_notFound
     condition_delete_error_noAccess: string;
+    condition_delete_select_message: string;
+    condition_delete_select_placeHolder: string;
     condition_delete_success_message: string;
 
     news_error_noAccess_enabled: string;

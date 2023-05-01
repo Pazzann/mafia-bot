@@ -1,82 +1,72 @@
-import {
-    ActionRowBuilder, ActionRowComponent,
-    EmbedBuilder,
-    ModalSubmitInteraction,
-    TextInputBuilder,
-    TextInputComponent,
-    TextInputStyle
-} from "discord.js";
+import {ModalSubmitInteraction, TextInputComponent} from "discord.js";
 import User from "../../Entities/User.entity";
 import {ILangProps} from "../../types/interfaces/ILang";
 import Role from "../../Entities/Role.entity";
 import MafiaEmbedBuilder from "../../Classes/MafiaEmbedBuilder";
 
 export default async function editRole (interaction: ModalSubmitInteraction, user: User, locale: ILangProps) {
-    if(!user.premium){
-        interaction.reply({content: "You don't have premium to create custom roles and conditions, sorry!", ephemeral: true})
+    if (!user.premium) {
+        interaction.reply({content: locale.error_premium, ephemeral: true})
         return;
     }
-    let id = +interaction.customId.split("editRole").join('');
-    try{
-        const role = await Role.findOne({where: {id: id}, relations: ["user"]});
-        if(role == null){
-            interaction.reply({content: "No role found!", ephemeral: true})
+    try {
+        let roleId = +interaction.customId.split("editRole").join('');
+        const role = await Role.findOne({where: {id: roleId}, relations: ["user"]});
+        if (role == null) {
+            interaction.reply({content: locale.role_edit_error_notFound, ephemeral: true})
             return;
         }
-        if(role.user.userid != user.userid){
-            interaction.reply({content: "You don't have permission to edit this role, sorry!", ephemeral: true})
+        if (role.user.userid != user.userid) {
+            interaction.reply({content: locale.role_edit_error_noAccess, ephemeral: true})
             return;
         }
-        let IdOfInput = (interaction.components[0].components[0] as TextInputComponent).customId;
 
-        switch (IdOfInput){
-            case "editRolename":{
+        let IdOfInput = (interaction.components[0].components[0] as TextInputComponent).customId;
+        switch (IdOfInput) {
+            case "editRolename": {
                 role.name = (interaction.components[0].components[0] as TextInputComponent).value;
                 break;
             }
-            case "editRoledescription":{
+            case "editRoledescription": {
                 role.description = (interaction.components[0].components[0] as TextInputComponent).value;
                 break;
             }
-            case "editRoleimage":{
+            case "editRoleimage": {
                 role.imageLink = (interaction.components[0].components[0] as TextInputComponent).value;
                 break;
             }
-            case "editRoleaction":{
+            case "editRoleaction": {
                 role.action = (interaction.components[0].components[0] as TextInputComponent).value;
                 break;
             }
-            case "editRoledelay":{
+            case "editRoledelay": {
                 role.delay = +(interaction.components[0].components[0] as TextInputComponent).value;
                 break;
             }
-            case "editRolegroupdec":{
+            case "editRolegroupdec": {
                 role.groupDec = Boolean((interaction.components[0].components[0] as TextInputComponent).value);
                 break;
             }
-            case "editRoleplaceholder":{
+            case "editRoleplaceholder": {
                 role.placeHolder = (interaction.components[0].components[0] as TextInputComponent).value;
                 break;
             }
-            case "editRoleselfselectable":{
+            case "editRoleselfselectable": {
                 role.selfSelectable = Boolean((interaction.components[0].components[0] as TextInputComponent).value);
                 break;
             }
-            case "editRolespawnfrom":{
+            case "editRolespawnfrom": {
                 role.spawnFrom = +(interaction.components[0].components[0] as TextInputComponent).value;
                 break;
             }
-            case "editRolecount":{
+            case "editRolecount": {
                 role.count = (interaction.components[0].components[0] as TextInputComponent).value;
                 break;
             }
-
         }
+
         role.save();
-        interaction.reply({ephemeral: false, content: "succesfully", embeds:[MafiaEmbedBuilder.roleEmbed(role, locale)]})
-
-
-    }catch (err) {
+        interaction.reply({content: locale.role_edit_success_message, ephemeral: false, embeds:[MafiaEmbedBuilder.roleEmbed(role, locale)]})
+    } catch (err) {
     }
-
 }
