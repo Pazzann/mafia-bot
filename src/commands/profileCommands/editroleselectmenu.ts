@@ -1,8 +1,8 @@
 import {
     ActionRowBuilder,
-    SelectMenuBuilder,
+    StringSelectMenuBuilder,
     SelectMenuInteraction,
-    SelectMenuOptionBuilder
+    StringSelectMenuOptionBuilder
 } from "discord.js";
 import User from "../../Entities/User.entity";
 import {ILangProps} from "../../types/interfaces/ILang";
@@ -27,42 +27,42 @@ export default async function editroleselectmenu(interaction: SelectMenuInteract
     }
     const embed = MafiaEmbedBuilder.roleEmbed(role, locale);
 
-    const row = new ActionRowBuilder<SelectMenuBuilder>()
+    const row = new ActionRowBuilder<StringSelectMenuBuilder>()
         .addComponents(
-            new SelectMenuBuilder()
+            new StringSelectMenuBuilder()
                 .setCustomId("editroleselection")
                 .setPlaceholder(locale.role_edit_selectField_placeHolder)
                 .setMinValues(1)
                 .setMaxValues(1)
                 .addOptions([
-                    new SelectMenuOptionBuilder()
+                    new StringSelectMenuOptionBuilder()
                         .setLabel(locale.role_edit_selectField_roleName_label)
                         .setValue("editrolename" + String(role.id)),
-                    new SelectMenuOptionBuilder()
+                    new StringSelectMenuOptionBuilder()
                         .setLabel(locale.role_edit_selectField_roleDescription_label)
                         .setValue("editroledescription" + String(role.id)),
-                    new SelectMenuOptionBuilder()
+                    new StringSelectMenuOptionBuilder()
                         .setLabel(locale.role_edit_selectField_roleImage_label)
                         .setValue("editroleimage" + String(role.id)),
-                    new SelectMenuOptionBuilder()
+                    new StringSelectMenuOptionBuilder()
                         .setLabel(locale.role_edit_selectField_roleCount_label)
                         .setValue("editrolecount" + String(role.id)),
-                    new SelectMenuOptionBuilder()
+                    new StringSelectMenuOptionBuilder()
                         .setLabel(locale.role_edit_selectField_rolePlaceHolder_label)
                         .setValue("editroleplaceholder" + String(role.id)),
-                    new SelectMenuOptionBuilder()
+                    new StringSelectMenuOptionBuilder()
                         .setLabel(locale.role_edit_selectField_roleAction_label)
                         .setValue("editroleaction" + String(role.id)),
-                    new SelectMenuOptionBuilder()
+                    new StringSelectMenuOptionBuilder()
                         .setLabel(locale.role_edit_selectField_roleSelectable_label)
                         .setValue("editroleselfselectable" + String(role.id)),
-                    new SelectMenuOptionBuilder()
+                    new StringSelectMenuOptionBuilder()
                         .setLabel(locale.role_edit_selectField_roleDelay_label)
                         .setValue("editroledelay" + String(role.id)),
-                    new SelectMenuOptionBuilder()
+                    new StringSelectMenuOptionBuilder()
                         .setLabel(locale.role_edit_selectField_roleSpawnFrom_label)
                         .setValue("editrolespawnfrom" + String(role.id)),
-                    new SelectMenuOptionBuilder()
+                    new StringSelectMenuOptionBuilder()
                         .setLabel(locale.role_edit_selectField_roleGroupSelection_label)
                         .setValue("editrolegroupdec" + String(role.id))
                 ])

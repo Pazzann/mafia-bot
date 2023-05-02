@@ -16,10 +16,10 @@ export default async function viewcondition(interaction: SelectMenuInteraction, 
         interaction.reply({content: locale.condition_view_error_notFound, ephemeral: true})
         return;
     }
-    if (condition.user.userid != user.userid) {
-        interaction.reply({content: locale.condition_view_error_noAccess, ephemeral: true})
-        return;
-    }
+    // if (condition.user.userid != user.userid) {
+    //     interaction.reply({content: locale.condition_view_error_noAccess, ephemeral: true})
+    //     return;
+    // }
     const embed = MafiaEmbedBuilder.conditionEmbed(condition, locale);
 
 

@@ -1,9 +1,9 @@
 import {
     ActionRowBuilder,
     ButtonInteraction,
-    RestOrArray, SelectMenuBuilder,
+    RestOrArray, StringSelectMenuBuilder,
     SelectMenuInteraction,
-    SelectMenuOptionBuilder
+    StringSelectMenuOptionBuilder
 } from "discord.js";
 import User from "../../Entities/User.entity";
 import {ILangProps} from "../../types/interfaces/ILang";
@@ -21,10 +21,10 @@ export default async function viewrole(interaction: SelectMenuInteraction, user:
         interaction.reply({content: locale.role_view_error_notFound, ephemeral: true})
         return;
     }
-    if (role.user.userid != user.userid) {
-        interaction.reply({content: locale.role_view_error_noAccess, ephemeral: true})
-        return;
-    }
+    // if (role.user.userid != user.userid) {
+    //     interaction.reply({content: locale.role_view_error_noAccess, ephemeral: true})
+    //     return;
+    // }
     const embed = MafiaEmbedBuilder.roleEmbed(role, locale);
 
 

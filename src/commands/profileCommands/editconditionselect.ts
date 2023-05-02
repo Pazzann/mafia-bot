@@ -41,7 +41,7 @@ export default async function editconditionselect(interaction: SelectMenuInterac
         .setCustomId("embedDescription")
         .setLabel(locale.condition_edit_embedDescription_label)
         .setPlaceholder(locale.condition_edit_embedDescription_placeHolder)
-        .setStyle(TextInputStyle.Short)
+        .setStyle(TextInputStyle.Paragraph)
         .setValue(condition.embedDescription)
         .setRequired(true);
     const embedThumbnailInput = new TextInputBuilder()

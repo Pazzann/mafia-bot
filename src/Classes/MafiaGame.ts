@@ -9,7 +9,7 @@ import BaseCondition from "./WinningConditions/BaseCondition";
 import {
     ActionRowBuilder,
     EmbedBuilder,
-    SelectMenuBuilder,
+    StringSelectMenuBuilder,
     SelectMenuComponent,
     SelectMenuInteraction
 } from "discord.js";
@@ -218,8 +218,8 @@ export default class MafiaGame {
         let whomU = this.GetUser(whom);
         if (!this._validateSelection(who, whomU))
             return interaction.reply("not validate selection");
-        const row = new SelectMenuBuilder((interaction.component as SelectMenuComponent).data).setDisabled(true);
-        interaction.message.edit({components: [new ActionRowBuilder<SelectMenuBuilder>().addComponents(row)]});
+        const row = new StringSelectMenuBuilder((interaction.component as SelectMenuComponent).data).setDisabled(true);
+        interaction.message.edit({components: [new ActionRowBuilder<StringSelectMenuBuilder>().addComponents(row)]});
         switch (this._stage) {
             case "choosing": {
                 const role = this.GetRole(who);

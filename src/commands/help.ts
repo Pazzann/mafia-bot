@@ -55,5 +55,5 @@ export default async function help (interaction: ChatInputCommandInteraction, us
                 .setCustomId("helpmessage")
                 .setDisabled(false)
         );
-    interaction.reply({embeds: [embed], components: [buttons]});
+    interaction.reply({embeds: [embed], components: [buttons], ephemeral: true});
 }

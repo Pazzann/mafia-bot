@@ -4,7 +4,7 @@ import {
     ButtonInteraction,
     ButtonStyle,
     ChatInputCommandInteraction,
-    EmbedBuilder, RestOrArray, SelectMenuBuilder, SelectMenuOptionBuilder
+    EmbedBuilder, RestOrArray, StringSelectMenuBuilder, StringSelectMenuOptionBuilder
 } from "discord.js";
 import User from "../../Entities/User.entity";
 import {ILangProps} from "../../types/interfaces/ILang";
@@ -58,19 +58,19 @@ export default async function custom(interaction: ButtonInteraction, user: User,
                 .setCustomId("deletecondition")
                 .setDisabled(!user.conditions.length),
         );
-    const components: ActionRowBuilder<ButtonBuilder | SelectMenuBuilder>[] = [buttons, buttons2];
+    const components: ActionRowBuilder<ButtonBuilder | StringSelectMenuBuilder>[] = [buttons, buttons2];
 
     if(user.customRoles.length > 0){
-        const chooseArr: RestOrArray<SelectMenuOptionBuilder> = [];
+        const chooseArr: RestOrArray<StringSelectMenuOptionBuilder> = [];
         for (let role of user.customRoles){
-            const roleOption = new SelectMenuOptionBuilder()
+            const roleOption = new StringSelectMenuOptionBuilder()
                 .setLabel(role.name)
                 .setValue("viewrole"  + String(role.id));
             chooseArr.push(roleOption)
         }
-        const row = new ActionRowBuilder<SelectMenuBuilder>()
+        const row = new ActionRowBuilder<StringSelectMenuBuilder>()
             .addComponents(
-                new SelectMenuBuilder()
+                new StringSelectMenuBuilder()
                     .setCustomId("viewrole")
                     .setPlaceholder('choose role to view')
                     .setMinValues(1)
@@ -80,16 +80,16 @@ export default async function custom(interaction: ButtonInteraction, user: User,
         components.push(row)
     }
     if(user.conditions.length > 0){
-        const chooseArr: RestOrArray<SelectMenuOptionBuilder> = [];
+        const chooseArr: RestOrArray<StringSelectMenuOptionBuilder> = [];
         for (let condition of user.conditions){
-            const conditionOption = new SelectMenuOptionBuilder()
+            const conditionOption = new StringSelectMenuOptionBuilder()
                 .setLabel(condition.name)
                 .setValue("viewcondition"  + String(condition.id));
             chooseArr.push(conditionOption)
         }
-        const row = new ActionRowBuilder<SelectMenuBuilder>()
+        const row = new ActionRowBuilder<StringSelectMenuBuilder>()
             .addComponents(
-                new SelectMenuBuilder()
+                new StringSelectMenuBuilder()
                     .setCustomId("viewcondition")
                     .setPlaceholder('choose condition to view')
                     .setMinValues(1)
@@ -100,5 +100,5 @@ export default async function custom(interaction: ButtonInteraction, user: User,
     }
 
 
-    interaction.reply({content: "Choose action", components, ephemeral: true});
+    interaction.reply({content: "Choose action", components, ephemeral: true}).catch();
 }

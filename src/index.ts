@@ -259,7 +259,7 @@ discordBot.on("interactionCreate", async (interaction: ChatInputCommandInteracti
             }
             // @ts-ignore
             commands.common[commandName](interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps]);
-        } else if (interaction.isSelectMenu()) {
+        } else if (interaction.isStringSelectMenu()) {
             if (interaction.customId == "editrole")
                 return commands.profileCommands.editroleselectmenu(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps], +interaction.values[0].split("editrole").join("")).catch();
             if (interaction.customId == "viewrole")

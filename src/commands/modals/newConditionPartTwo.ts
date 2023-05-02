@@ -34,5 +34,5 @@ export default async function newConditionPartTwo (interaction: ModalSubmitInter
 
     const embed = MafiaEmbedBuilder.conditionEmbed(condition, locale);
 
-    await interaction.reply({content: locale.condition_create_success_message, embeds: [embed]});
+    await interaction.reply({content: locale.condition_create_success_message, embeds: [embed], ephemeral: true});
 }

@@ -1,4 +1,4 @@
-import {ActionRowBuilder, ButtonInteraction, RestOrArray, SelectMenuBuilder, SelectMenuOptionBuilder} from "discord.js";
+import {ActionRowBuilder, ButtonInteraction, RestOrArray, StringSelectMenuBuilder, StringSelectMenuOptionBuilder} from "discord.js";
 import User from "../../Entities/User.entity";
 import {ILangProps} from "../../types/interfaces/ILang";
 
@@ -9,17 +9,17 @@ export default async function editrole(interaction: ButtonInteraction, user: Use
         return;
     }
 
-    const chooseArr: RestOrArray<SelectMenuOptionBuilder> = [];
+    const chooseArr: RestOrArray<StringSelectMenuOptionBuilder> = [];
     for (let role of user.customRoles) {
-        const roleOption = new SelectMenuOptionBuilder()
+        const roleOption = new StringSelectMenuOptionBuilder()
             .setLabel(role.name)
             .setValue("editrole" + String(role.id));
         chooseArr.push(roleOption)
     }
 
-    const row = new ActionRowBuilder<SelectMenuBuilder>()
+    const row = new ActionRowBuilder<StringSelectMenuBuilder>()
         .addComponents(
-            new SelectMenuBuilder()
+            new StringSelectMenuBuilder()
                 .setCustomId("editrole")
                 .setPlaceholder(locale.role_edit_select_placeHolder)
                 .setMinValues(1)

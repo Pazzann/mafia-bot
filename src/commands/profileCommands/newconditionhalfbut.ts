@@ -29,7 +29,7 @@ export default  async function newconditionhalfbut(interaction: ButtonInteractio
         .setCustomId("embedDescription")
         .setLabel(locale.condition_create_embedDescription_label)
         .setPlaceholder(locale.condition_create_embedDescription_placeHolder)
-        .setStyle(TextInputStyle.Short)
+        .setStyle(TextInputStyle.Paragraph)
         .setRequired(true);
     const embedThumbnailInput = new TextInputBuilder()
         .setCustomId("embedThumbnail")

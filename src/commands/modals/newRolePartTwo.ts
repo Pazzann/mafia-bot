@@ -33,7 +33,7 @@ export default async function newRolePartTwo(interaction: ModalSubmitInteraction
         await role.save();
 
         const embed = MafiaEmbedBuilder.roleEmbed(role, locale);
-        await interaction.reply({content: locale.role_create_success_message, embeds: [embed]});
+        await interaction.reply({content: locale.role_create_success_message, embeds: [embed], ephemeral: true});
     } catch (err) {
         await interaction.reply(locale.error_unknown);
     }

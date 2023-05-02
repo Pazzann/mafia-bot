@@ -157,6 +157,27 @@ export interface ILangProps {
     role_edit_selectField_roleDelay_label: string;          // = role_create_roleDelay_label
     role_edit_selectField_roleSpawnFrom_label: string;      // = role_create_roleSpawnFrom_label
     role_edit_selectField_roleGroupSelection_label: string; // = role_create_roleGroupSelection_label
+    role_edit_title: string;            //usage: locale.role_edit_title + role.name
+    role_edit_roleName_label: string;                       // = role_create_roleName_label
+    role_edit_roleName_placeHolder: string;
+    role_edit_roleDescription_label: string;                // = role_create_roleDescription_label
+    role_edit_roleDescription_placeHolder: string;
+    role_edit_roleImage_label: string;                      // = role_create_roleImage_label
+    role_edit_roleImage_placeHolder: string;
+    role_edit_roleCount_label: string;                      // = role_create_roleCount_label
+    role_edit_roleCount_placeHolder: string;
+    role_edit_rolePlaceHolder_label: string;                // = role_create_rolePlaceHolder_label
+    role_edit_rolePlaceHolder_placeHolder: string;
+    role_edit_roleAction_label: string;                     // = role_create_roleAction_label
+    role_edit_roleAction_placeHolder: string;
+    role_edit_roleSelectable_label: string;                 // = role_create_roleSelectable_label
+    role_edit_roleSelectable_placeHolder: string;
+    role_edit_roleDelay_label: string;                      // = role_create_roleDelay_label
+    role_edit_roleDelay_placeHolder: string;
+    role_edit_roleSpawnFrom_label: string;                  // = role_create_roleSpawnFrom_label
+    role_edit_roleSpawnFrom_placeHolder: string;
+    role_edit_roleGroupSelection_label: string;             // = role_create_roleGroupSelection_label
+    role_edit_roleGroupSelection_placeHolder: string;
     role_edit_success_message: string;
 
     role_delete_error_noRoles: string;
@@ -192,7 +213,7 @@ export interface ILangProps {
     condition_edit_error_noAccess: string;
     condition_edit_select_message: string;
     condition_edit_select_placeHolder: string;
-    condition_edit_title: string;       //usage: locale.condition_edit_title + name
+    condition_edit_title: string;       //usage: locale.condition_edit_title + condition.name
     condition_edit_condition_label: string;                 // = condition_create_condition_label
     condition_edit_condition_placeHolder: string;
     condition_edit_embedTitle_label: string;                // = condition_create_embedTitle_label

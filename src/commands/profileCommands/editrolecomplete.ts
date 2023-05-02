@@ -29,17 +29,17 @@ export default async function editrolecomplete(interaction: SelectMenuInteractio
         }
 
         const modal = new ModalBuilder()
-            .setCustomId('editRole' + String(roleId))
-            .setTitle('Edit Role');
+            .setCustomId("editRole" + String(roleId))
+            .setTitle(locale.role_edit_title + role.name);
 
         switch (action) {
             case "name":{
                 modal.addComponents(
                     new ActionRowBuilder<TextInputBuilder>()
                         .addComponents(new TextInputBuilder()
-                            .setCustomId('editRole' + action)
-                            .setLabel("Name")
-                            .setPlaceholder("What is the name of your role?")
+                            .setCustomId("editRole" + action)
+                            .setLabel(locale.role_edit_roleName_label)
+                            .setPlaceholder(locale.role_edit_roleName_placeHolder)
                             .setStyle(TextInputStyle.Short)
                             .setRequired(true)
                             .setValue(role.name)
@@ -51,9 +51,9 @@ export default async function editrolecomplete(interaction: SelectMenuInteractio
                 modal.addComponents(
                     new ActionRowBuilder<TextInputBuilder>()
                         .addComponents(new TextInputBuilder()
-                            .setCustomId('editRole' + action)
-                            .setLabel("NewDescription")
-                            .setPlaceholder("New Description. For more information see /help Scripting")
+                            .setCustomId("editRole" + action)
+                            .setLabel(locale.role_edit_roleDescription_label)
+                            .setPlaceholder(locale.role_edit_roleDescription_placeHolder)
                             .setStyle(TextInputStyle.Paragraph)
                             .setRequired(true)
                             .setValue(role.description)
@@ -65,9 +65,9 @@ export default async function editrolecomplete(interaction: SelectMenuInteractio
                 modal.addComponents(
                     new ActionRowBuilder<TextInputBuilder>()
                         .addComponents(new TextInputBuilder()
-                            .setCustomId('editRole' + action)
-                            .setLabel("New Image link")
-                            .setPlaceholder("Enter new image link for thumbnail")
+                            .setCustomId("editRole" + action)
+                            .setLabel(locale.role_edit_roleImage_label)
+                            .setPlaceholder(locale.role_edit_roleImage_placeHolder)
                             .setStyle(TextInputStyle.Short)
                             .setRequired(true)
                             .setValue(role.imageLink)
@@ -75,41 +75,13 @@ export default async function editrolecomplete(interaction: SelectMenuInteractio
                 )
                 break;
             }
-            case "action":{
+            case "count":{
                 modal.addComponents(
                     new ActionRowBuilder<TextInputBuilder>()
                         .addComponents(new TextInputBuilder()
-                            .setCustomId('editRole' + action)
-                            .setLabel("Action")
-                            .setPlaceholder("Set the action")
-                            .setStyle(TextInputStyle.Short)
-                            .setRequired(true)
-                        )
-                )
-                break;
-            }
-            case "delay":{
-                modal.addComponents(
-                    new ActionRowBuilder<TextInputBuilder>()
-                        .addComponents(new TextInputBuilder()
-                            .setCustomId('editRole' + action)
-                            .setLabel("Delay")
-                            .setValue(role.delay.toString())
-                            .setPlaceholder("Delay between actions in days\"")
-                            .setStyle(TextInputStyle.Short)
-                            .setRequired(true)
-                        )
-                )
-                break;
-            }
-            case "groupdec":{
-                modal.addComponents(
-                    new ActionRowBuilder<TextInputBuilder>()
-                        .addComponents(new TextInputBuilder()
-                            .setCustomId('editRole' + action)
-                            .setLabel("Group selection")
-                            .setPlaceholder("true or false")
-                            .setValue(String(role.groupDec))
+                            .setCustomId("editRole" + action)
+                            .setLabel(locale.role_edit_roleCount_label)
+                            .setPlaceholder(locale.role_edit_roleCount_placeHolder)
                             .setStyle(TextInputStyle.Short)
                             .setRequired(true)
                         )
@@ -120,12 +92,25 @@ export default async function editrolecomplete(interaction: SelectMenuInteractio
                 modal.addComponents(
                     new ActionRowBuilder<TextInputBuilder>()
                         .addComponents(new TextInputBuilder()
-                            .setCustomId('editRole' + action)
-                            .setLabel("Place holder")
-                            .setPlaceholder("New place holder for selecting player to action")
+                            .setCustomId("editRole" + action)
+                            .setLabel(locale.role_edit_rolePlaceHolder_label)
+                            .setValue(role.delay.toString())
+                            .setPlaceholder(locale.role_edit_rolePlaceHolder_placeHolder)
                             .setStyle(TextInputStyle.Short)
-                            .setMaxLength(100)
-                            .setValue(role.placeHolder)
+                            .setRequired(true)
+                        )
+                )
+                break;
+            }
+            case "action":{
+                modal.addComponents(
+                    new ActionRowBuilder<TextInputBuilder>()
+                        .addComponents(new TextInputBuilder()
+                            .setCustomId("editRole" + action)
+                            .setLabel(locale.role_edit_roleAction_label)
+                            .setPlaceholder(locale.role_edit_roleAction_placeHolder)
+                            .setValue(String(role.groupDec))
+                            .setStyle(TextInputStyle.Short)
                             .setRequired(true)
                         )
                 )
@@ -135,9 +120,24 @@ export default async function editrolecomplete(interaction: SelectMenuInteractio
                 modal.addComponents(
                     new ActionRowBuilder<TextInputBuilder>()
                         .addComponents(new TextInputBuilder()
-                            .setCustomId('editRole' + action)
-                            .setLabel("SelfSelectable")
-                            .setPlaceholder("true or false")
+                            .setCustomId("editRole" + action)
+                            .setLabel(locale.role_edit_roleSelectable_label)
+                            .setPlaceholder(locale.role_edit_roleSelectable_placeHolder)
+                            .setStyle(TextInputStyle.Short)
+                            .setMaxLength(100)
+                            .setValue(role.placeHolder)
+                            .setRequired(true)
+                        )
+                )
+                break;
+            }
+            case "delay":{
+                modal.addComponents(
+                    new ActionRowBuilder<TextInputBuilder>()
+                        .addComponents(new TextInputBuilder()
+                            .setCustomId("editRole" + action)
+                            .setLabel(locale.role_edit_roleDelay_label)
+                            .setPlaceholder(locale.role_edit_roleDelay_placeHolder)
                             .setValue(String(role.selfSelectable))
                             .setStyle(TextInputStyle.Short)
                             .setRequired(true)
@@ -149,9 +149,9 @@ export default async function editrolecomplete(interaction: SelectMenuInteractio
                 modal.addComponents(
                     new ActionRowBuilder<TextInputBuilder>()
                         .addComponents(new TextInputBuilder()
-                            .setCustomId('editRole' + action)
-                            .setLabel("Spawn From")
-                            .setPlaceholder("Spawn from player count")
+                            .setCustomId("editRole" + action)
+                            .setLabel(locale.role_edit_roleSpawnFrom_label)
+                            .setPlaceholder(locale.role_edit_roleSpawnFrom_placeHolder)
                             .setValue(String(role.spawnFrom))
                             .setStyle(TextInputStyle.Short)
                             .setRequired(true)
@@ -159,13 +159,13 @@ export default async function editrolecomplete(interaction: SelectMenuInteractio
                 )
                 break;
             }
-            case "count":{
+            case "groupdec":{
                 modal.addComponents(
                     new ActionRowBuilder<TextInputBuilder>()
                         .addComponents(new TextInputBuilder()
-                            .setCustomId('editRole' + action)
-                            .setLabel("Count")
-                            .setPlaceholder("Enter count. For more information see /help Scripting")
+                            .setCustomId("editRole" + action)
+                            .setLabel(locale.role_edit_roleGroupSelection_label)
+                            .setPlaceholder(locale.role_edit_roleGroupSelection_placeHolder)
                             .setValue(role.count)
                             .setStyle(TextInputStyle.Paragraph)
                             .setRequired(true)
@@ -173,7 +173,6 @@ export default async function editrolecomplete(interaction: SelectMenuInteractio
                 )
                 break;
             }
-
         }
 
         await interaction.showModal(modal);

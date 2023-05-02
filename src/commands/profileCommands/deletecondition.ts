@@ -1,4 +1,4 @@
-import {ActionRowBuilder, ButtonInteraction, RestOrArray, SelectMenuBuilder, SelectMenuOptionBuilder} from "discord.js";
+import {ActionRowBuilder, ButtonInteraction, RestOrArray, StringSelectMenuBuilder, StringSelectMenuOptionBuilder} from "discord.js";
 import User from "../../Entities/User.entity";
 import {ILangProps} from "../../types/interfaces/ILang";
 
@@ -9,16 +9,16 @@ export default async function deletecondition(interaction: ButtonInteraction, us
         return;
     }
     if (user.conditions.length > 0) {
-        const chooseArr: RestOrArray<SelectMenuOptionBuilder> = [];
+        const chooseArr: RestOrArray<StringSelectMenuOptionBuilder> = [];
         for (let condition of user.conditions){
-            const conditionOption = new SelectMenuOptionBuilder()
+            const conditionOption = new StringSelectMenuOptionBuilder()
                 .setLabel(condition.name)
                 .setValue(String(condition.id));
             chooseArr.push(conditionOption)
         }
-        const row = new ActionRowBuilder<SelectMenuBuilder>()
+        const row = new ActionRowBuilder<StringSelectMenuBuilder>()
             .addComponents(
-                new SelectMenuBuilder()
+                new StringSelectMenuBuilder()
                     .setCustomId("deletecondition")
                     .setPlaceholder(locale.condition_delete_select_placeHolder)
                     .setMinValues(1)

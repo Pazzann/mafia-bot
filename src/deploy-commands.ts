@@ -1,4 +1,6 @@
-const { SlashCommandBuilder, Routes } = require('discord.js');
+import {CommandInteractionOption, SlashCommandUserOption} from "discord.js";
+
+const { SlashCommandBuilder, Routes, CommandInteractionOption } = require('discord.js');
 const { REST } = require('@discordjs/rest');
 import * as dotenv from 'dotenv';
 dotenv.config();
@@ -26,7 +28,11 @@ const commands = [
         .setNameLocalization('uk', "профіль")
         .setDescription('See your profile')
         .setDescriptionLocalization('ru', 'Увидеть свой профиль')
-        .setDescriptionLocalization('uk', 'Побачити свій профіль'),
+        .setDescriptionLocalization('uk', 'Побачити свій профіль')
+        .addUserOption((option: SlashCommandUserOption) =>
+            option.setName('user')
+                .setDescription('User profile that you want to see.')
+                .setRequired(false)),
     new SlashCommandBuilder()
         .setName('help')
         .setNameLocalization('ru', 'помощь')

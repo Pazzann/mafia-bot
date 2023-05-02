@@ -4,8 +4,8 @@ import {
     ButtonInteraction,
     ChatInputCommandInteraction,
     EmbedBuilder,
-    RestOrArray, SelectMenuBuilder,
-    SelectMenuOptionBuilder
+    RestOrArray, StringSelectMenuBuilder,
+    StringSelectMenuOptionBuilder
 } from "discord.js";
 import {curHandlingGames, curHostGames} from "../../index";
 import usersRedraw from "../../Functions/usersRedraw";
@@ -29,25 +29,25 @@ export default async function edit(interaction: ButtonInteraction, gameid = 0, u
             //     interaction.reply("You don't have premium to change game preset");
             //     return;
             // }
-            const chooseArr: RestOrArray<SelectMenuOptionBuilder> = [];
+            const chooseArr: RestOrArray<StringSelectMenuOptionBuilder> = [];
 
             chooseArr.push(
-                new SelectMenuOptionBuilder()
+                new StringSelectMenuOptionBuilder()
                     .setLabel(new MistressRole().RoleName)
                     .setValue(String(host.id) + "%" + String(new MistressRole().RoleName)),
-                new SelectMenuOptionBuilder()
+                new StringSelectMenuOptionBuilder()
                     .setLabel(new MafiaRole().RoleName)
                     .setValue(String(host.id) + "%" + String(new MafiaRole().RoleName)),
-                new SelectMenuOptionBuilder()
+                new StringSelectMenuOptionBuilder()
                     .setLabel(new PeacefulRole().RoleName)
                     .setValue(String(host.id) + "%" + String(new PeacefulRole().RoleName)),
-                new SelectMenuOptionBuilder()
+                new StringSelectMenuOptionBuilder()
                     .setLabel(new KillerRole().RoleName)
                     .setValue(String(host.id) + "%" + String(new KillerRole().RoleName)),
-                new SelectMenuOptionBuilder()
+                new StringSelectMenuOptionBuilder()
                     .setLabel(new PoliceRole().RoleName)
                     .setValue(String(host.id) + "%" + String(new PoliceRole().RoleName)),
-                new SelectMenuOptionBuilder()
+                new StringSelectMenuOptionBuilder()
                     .setLabel(new DoctorRole().RoleName)
                     .setValue(String(host.id) + "%" + String(new DoctorRole().RoleName)),
             )
@@ -71,7 +71,7 @@ export default async function edit(interaction: ButtonInteraction, gameid = 0, u
             }
             if (user.premium) {
                 for (let role of user.customRoles) {
-                    const roleOption = new SelectMenuOptionBuilder()
+                    const roleOption = new StringSelectMenuOptionBuilder()
                         .setLabel(role.name)
                         .setValue(String(host.id) + "%" + String(role.id));
                     if (host.roles.filter(item => item.RoleName === role.name).length > 0)
@@ -80,9 +80,9 @@ export default async function edit(interaction: ButtonInteraction, gameid = 0, u
                 }
             }
 
-            const row = new ActionRowBuilder<SelectMenuBuilder>()
+            const row = new ActionRowBuilder<StringSelectMenuBuilder>()
                 .addComponents(
-                    new SelectMenuBuilder()
+                    new StringSelectMenuBuilder()
                         .setCustomId("editrolegamelist")
                         .setPlaceholder(locale.game_edit_roles_placeHolder)
                         .setMinValues(1)
@@ -90,17 +90,17 @@ export default async function edit(interaction: ButtonInteraction, gameid = 0, u
                         .addOptions(chooseArr)
                 );
 
-            const chooseArr2: RestOrArray<SelectMenuOptionBuilder> = [];
+            const chooseArr2: RestOrArray<StringSelectMenuOptionBuilder> = [];
 
 
             chooseArr2.push(
-                new SelectMenuOptionBuilder()
+                new StringSelectMenuOptionBuilder()
                     .setLabel(new KillerWIn().Name)
                     .setValue(String(host.id) + "%" + String(new KillerWIn().Name)),
-                new SelectMenuOptionBuilder()
+                new StringSelectMenuOptionBuilder()
                     .setLabel(new MafiaWin().Name)
                     .setValue(String(host.id) + "%" + String(new MafiaWin().Name)),
-                new SelectMenuOptionBuilder()
+                new StringSelectMenuOptionBuilder()
                     .setLabel(new PeacecfulWin().Name)
                     .setValue(String(host.id) + "%" + String(new PeacecfulWin().Name)),
             )
@@ -115,7 +115,7 @@ export default async function edit(interaction: ButtonInteraction, gameid = 0, u
             }
             if (user.premium) {
                 for (let condition of user.conditions) {
-                    const conditionOption = new SelectMenuOptionBuilder()
+                    const conditionOption = new StringSelectMenuOptionBuilder()
                         .setLabel(condition.name)
                         .setValue(String(host.id) + "%" + String(condition.id));
                     if (host.conditions.filter(item => item.Name === condition.name).length > 0)
@@ -123,9 +123,9 @@ export default async function edit(interaction: ButtonInteraction, gameid = 0, u
                     chooseArr2.push(conditionOption)
                 }
             }
-            const row2 = new ActionRowBuilder<SelectMenuBuilder>()
+            const row2 = new ActionRowBuilder<StringSelectMenuBuilder>()
                 .addComponents(
-                    new SelectMenuBuilder()
+                    new StringSelectMenuBuilder()
                         .setCustomId("editcondtiongamelist")
                         .setPlaceholder(locale.game_edit_conditions_placeHolder)
                         .setMinValues(1)
