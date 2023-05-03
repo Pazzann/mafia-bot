@@ -14,4 +14,5 @@ export default interface IHostGameProps {
     conditions: BaseCondition[];
     embed: EmbedBuilder;
     hostLocale: ILangProps;
+    voteVisible: boolean;
 }

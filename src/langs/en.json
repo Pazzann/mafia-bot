@@ -8,6 +8,7 @@
   "game_created_title": "Game Created",
   "game_created_autocancel": "Autocancel",
   "game_created_gameHost": "Game Host",
+  "game_created_votes": "Hide Votes",
   "game_created_playerList": "Player List",
   "game_created_roles": "Roles:",
   "game_created_gameEndConditions": "Game End Conditions:",
@@ -36,6 +37,8 @@
   "game_edit_error_noAccess": ":man_gesturing_no: Sorry, you can't edit this game because you aren't its host!",
   "game_edit_roles_placeHolder": "Select roles...",
   "game_edit_conditions_placeHolder": "Select game end conditions...",
+  "game_edit_button_votes_hide": "Hide Votes",
+  "game_edit_button_votes_notHide" : "Don't Hide Votes",
   "game_edit_success_message": ":white_check_mark: The game was successfully edited!",
   "start_your_role": "Your role",
   "start_game_info": "Game info:",
@@ -53,10 +56,12 @@
   "no_kills_title": "Nobody died!",
   "no_kills_description": "Nobody was killed last night! Perhaps you should thank the doctor?\uD83D\uDE2F",
 
-  "vote_select": "Select who you want to vote against...",
-  "vote_results_title": "Voting results",
-  "vote_results_tie": ":man_shrugging: Tie vote",
-  "vote_results_ban": " was banned from the city.",
+  "role_select_error_notFound": ":jigsaw: Player not found!",
+  "role_select_error_invalidSelection": ":man_gesturing_no: Invalid selection!",
+  "role_vote_select_placeHolder": "Select who you want to vote against...",
+  "role_vote_results_title": "Voting results",
+  "role_vote_results_tie": ":man_shrugging: Tie vote",
+  "role_vote_results_ban": " was banned from the city.",
   "role_mafia_name": "Mafia",
   "role_mafia_placeHolder": "Select your victim...",
   "role_mafia_description": "%KILL AND SURVIVE!\n:skull_crossbones:  Every night the mafia kills one player for whom its members give the most votes (in case of a tie the player is chosen at random). But remember: the victim may be cured by the doctor.\n:trophy:  The mafia wins if it is at least half of all active players.% + ({r:maniac:count} > 0 ? % Exception: if there are two players left — a mafia member and the maniac — the maniac wins.% : %%) + ({r:mafia:count} > 1 ? %\n:busts_in_silhouette:  Your teammates: % + %{oPlayersTRole}% : %%)",
@@ -97,6 +102,7 @@
   "condition_embed_embedDescription_name": "Description",
   "condition_embed_winRole_name": "Winning role",
 
+  "profile_error_noProfile": ":jigsaw: This user doesn't have a Mafia account.",
   "profile_title": "Your profile :bust_in_silhouette:",
   "profile_mafiaAccountSince": "Mafia account since:",
   "profile_accountSince": "Account since:",
@@ -108,6 +114,22 @@
   "profile_button_premium": "Premium",
   "profile_button_custom": "Custom",
   "profile_button_news": "News Notifications",
+
+  "custom_button_createrole": "Create Role",
+  "custom_button_editrole": "Edit Role",
+  "custom_button_deleterole": "Delete Role",
+  "custom_button_createcondition": "Create Condition",
+  "custom_button_editcondition": "Edit Condition",
+  "custom_button_deletecondition": "Delete Condition",
+
+  "role_view_error_notFound": ":jigsaw: Role not found! It may have been deleted.",
+  "role_view_error_noAccess": ":man_gesturing_no: Sorry, you can't view this role!",
+  "role_view_select_placeHolder": "Select a role to view...",
+  "role_view_button_clone": "Clone",
+
+  "role_clone_error_number": ":man_gesturing_no: Sorry, you can't create more than 19 roles!",
+  "role_clone_error_notFound": ":jigsaw: Role not found! It may have been deleted.",
+  "role_clone_success_message": ":white_check_mark: The role was successfully cloned to your account.",
 
   "role_create_error_number": ":man_gesturing_no: Sorry, you can't create more than 19 roles!",
   "role_create_error_notFound": ":jigsaw: Role not found! It may have been deleted.",
@@ -138,9 +160,6 @@
   "role_create_roleGroupSelection_placeHolder": "true | false",
   "role_create_success_message": ":white_check_mark: The role was successfully created:",
 
-  "role_view_error_notFound": ":jigsaw: Role not found! It may have been deleted.",
-  "role_view_error_noAccess": ":man_gesturing_no: Sorry, you can't view this role!",
-
   "role_edit_error_notFound": ":jigsaw: Role not found! It may have been deleted.",
   "role_edit_error_noAccess": ":man_gesturing_no: Sorry, you can't edit this role!",
   "role_edit_select_message": "Please select a role to edit:",
@@ -165,7 +184,7 @@
   "role_edit_roleImage_label": "Thumbnail Link",
   "role_edit_roleImage_placeHolder": "your new image link",
   "role_edit_roleCount_label": "Count",
-  "role_edit_roleCount_placeHolder": "a new count of players with your role",
+  "role_edit_roleCount_placeHolder": "a new count of players with your role; for scripting info see /help → Scripting",
   "role_edit_rolePlaceHolder_label": "Placeholder for the action menu",
   "role_edit_rolePlaceHolder_placeHolder": "your new placeholder for the role's action menu",
   "role_edit_roleAction_label": "Action",
@@ -187,6 +206,15 @@
   "role_delete_select_placeHolder": "Select a role to delete...",
   "role_delete_success_message": ":ballot_box_with_check: The role was successfully deleted.",
 
+  "condition_view_error_notFound": ":jigsaw: Condition not found! It may have been deleted.",
+  "condition_view_error_noAccess": ":man_gesturing_no: Sorry, you can't view this condition!",
+  "condition_view_select_placeHolder": "Select a condition to view...",
+  "condition_view_button_clone": "Clone",
+
+  "condition_clone_error_number": ":man_gesturing_no: Sorry, you can't create more than 21 conditions!",
+  "condition_clone_error_notFound": ":jigsaw: Condition not found! It may have been deleted.",
+  "condition_clone_success_message": ":white_check_mark: The condition was successfully cloned to your account.",
+
   "condition_create_error_number": ":man_gesturing_no: Sorry, you can't create more than 21 conditions!",
   "condition_create_title1": "Condition Creation",
   "condition_create_conditionName_label": "Name",
@@ -205,9 +233,6 @@
   "condition_create_winRole_label": "Winning role",
   "condition_create_winRole_placeHolder": "just a winning role name",
   "condition_create_success_message": ":white_check_mark: The condition was successfully created:",
-
-  "condition_view_error_notFound": ":jigsaw: Condition not found! It may have been deleted.",
-  "condition_view_error_noAccess": ":man_gesturing_no: Sorry, you can't view this condition!",
 
   "condition_edit_error_notFound": ":jigsaw: Condition not found! It may have been deleted.",
   "condition_edit_error_noAccess": ":man_gesturing_no: Sorry, you can't edit this condition!",

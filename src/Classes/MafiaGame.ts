@@ -1,5 +1,5 @@
 import MafiaUser from "./MafiaUser";
-import {curHandlingGames, discordBot, localisations} from "../index";
+import {curHandlingGames, curHostGames, discordBot, localisations} from "../index";
 import User from "../Entities/User.entity";
 import BaseRole from "./Roles/BaseRole";
 import shuffle from "../Functions/shuffle";
@@ -25,19 +25,20 @@ export default class MafiaGame {
     private _finished: boolean;
     private _roles: BaseRole[];
     private _winCond: BaseCondition[];
+    private _voteSelect: boolean;
 
-    constructor(id: number, author: string) {
+    constructor(id: number, author: string, voteSelect: boolean) {
         this._id = id;
         this._author = author;
         this._day = 1;
         this._stage = "choosing";
         this._finished = false;
+        this._voteSelect = voteSelect;
     }
 
     public CheckEndGame(): boolean {
         for (let condition of this._winCond) {
             if (ScriptEngine.WinningEngine(condition.Condition, this.Players)) {
-
                 if (condition.WinRole == "innocent") {
                     this.GetPeacefulUsers().map(item => {
                         item.dbUser.totalWins++;
@@ -165,7 +166,7 @@ export default class MafiaGame {
             this.Players.map(item => {
                 const voteEmded = new EmbedBuilder();
                 voteEmded.setColor(0xa4fd8a);
-                voteEmded.setTitle(item.local.vote_results_title)
+                voteEmded.setTitle(item.local.role_vote_results_title)
                 let votes: string = "";
                 for (let value of votedForUsers) {
                     votes += this.GetUser(value.userid).dsUser.tag + ": " + value.numbersOfVotes + "\n"
@@ -176,11 +177,11 @@ export default class MafiaGame {
             });
             if (votedForUsers[0].numbersOfVotes == votedForUsers[1].numbersOfVotes) {
                 this.Players.map(item => {
-                    item.dsUser.dmChannel.send(item.local.vote_results_tie);
+                    item.dsUser.dmChannel.send(item.local.role_vote_results_tie);
                 });
             } else {
                 this.Players.map(item => {
-                    item.dsUser.dmChannel.send(":x: " + this.GetUser(votedForUsers[0].userid).dsUser.tag + item.local.vote_results_ban);
+                    item.dsUser.dmChannel.send(":x: " + this.GetUser(votedForUsers[0].userid).dsUser.tag + item.local.role_vote_results_ban);
                 });
                 this.GetUser(votedForUsers[0].userid).isKilled = true;
             }
@@ -214,10 +215,10 @@ export default class MafiaGame {
 
     public async Choose(who: MafiaUser, whom: string, interaction: SelectMenuInteraction) {
         if (!this.HasPlayer(whom))
-            return interaction.reply("Player not found!");
+            return interaction.reply(who.local.role_select_error_notFound);
         let whomU = this.GetUser(whom);
         if (!this._validateSelection(who, whomU))
-            return interaction.reply("not validate selection");
+            return interaction.reply(who.local.role_select_error_invalidSelection);
         const row = new StringSelectMenuBuilder((interaction.component as SelectMenuComponent).data).setDisabled(true);
         interaction.message.edit({components: [new ActionRowBuilder<StringSelectMenuBuilder>().addComponents(row)]});
         switch (this._stage) {
@@ -225,7 +226,7 @@ export default class MafiaGame {
                 const role = this.GetRole(who);
                 switch (who.role.ActionOnSelect) {
                     case "check": {
-                        interaction.reply(whomU.role.RoleName == "mafia" ? "mafia" : "not mafia");
+                        interaction.reply(whomU.role.RoleName == "mafia" ? whomU.dsUser.tag + " is mafia" : whomU.dsUser.tag + " is not mafia");
                         who.actionsOnUser.hasDoneAction = true;
                         break;
                     }
@@ -254,7 +255,7 @@ export default class MafiaGame {
                 whomU.actionsOnUser.voted++;
                 who.actionsOnUser.hasVoted = true;
                 interaction.reply("ok");
-                this.SendToAll(this.GetVotedLength() + "/" + this.GetAliveUsers().length + "\n" + who.dsUser.tag + " - " + whomU.dsUser.tag);
+                this.SendToAll(this.GetVotedLength() + "/" + this.GetAliveUsers().length + (this._voteSelect ? "\n" + who.dsUser.tag + " - " + whomU.dsUser.tag : ""));
                 this.EndVoteMoveHandler();
                 return;
             }
@@ -321,7 +322,12 @@ export default class MafiaGame {
     }
 
     public static GenerateId(): number {
-        return Math.round(Math.random() * 10000);
+        let id = Math.round(Math.random() * 10000);
+        if(curHostGames.has(id) || curHandlingGames.has(id) || id < 1000){
+            return MafiaGame.GenerateId();
+        }else{
+            return id;
+        }
     }
 
     public async RegisterWins(wins: BaseCondition[]): Promise<BaseCondition[]> {

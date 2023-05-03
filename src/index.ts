@@ -32,6 +32,7 @@ import editrolegamelist from "./commands/gameCommands/editrolegamelist";
 import createcondition from "./commands/profileCommands/createcondition";
 import createrole from "./commands/profileCommands/createrole";
 import custom from "./commands/profileCommands/custom";
+import clone from "./commands/profileCommands/clone";
 import deletecondition from "./commands/profileCommands/deletecondition";
 import deleteconditionselect from "./commands/profileCommands/deleteconditionselect";
 import deleterole from "./commands/profileCommands/deleterole";
@@ -59,6 +60,7 @@ import newRolePartTwo from "./commands/modals/newRolePartTwo";
 import textToModeration from "./commands/modals/textToModeration";
 import langSet from "./commands/langSet";
 import includeFromArray from "./Functions/includeFromArray";
+import voteVisible from "./commands/gameCommands/voteVisible";
 
 dotenv.config();
 
@@ -128,6 +130,7 @@ const commands = {
         s: start,
         e: end,
         r: edit,
+        v: voteVisible,
         editconditiongamelist,
         editrolegamelist
     },
@@ -135,6 +138,7 @@ const commands = {
         createcondition,
         createrole,
         custom,
+        clone,
         deletecondition,
         deleteconditionselect,
         deleterole,
@@ -302,10 +306,12 @@ discordBot.on("interactionCreate", async (interaction: ChatInputCommandInteracti
                     return commands.profileCommands.newrolehalfbut(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps]).catch();
                 if (interaction.customId.includes("newconditionhalfbut"))
                     return commands.profileCommands.newconditionhalfbut(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps]).catch();
-                if (['j', 'c', 's', 'l', 'e', 'r'].includes(interaction.customId[0])) {
+                if (interaction.customId.includes("clone"))
+                    return commands.profileCommands.clone(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps]).catch();
+                if (['j', 'c', 's', 'l', 'e', 'r', 'v'].includes(interaction.customId[0])) {
                     const gameId = Number(interaction.customId.split('').splice(1, 5).join(''));
                     // @ts-ignore
-                    commands.gameCommands[interaction.customId[0]](interaction, gameId, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps]);
+                    commands.gameCommands?.[interaction.customId[0]](interaction, gameId, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps]);
                 }
             } catch (err) {
 

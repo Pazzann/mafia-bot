@@ -1,12 +1,9 @@
 import {
-    ActionRowBuilder,
-    ButtonBuilder, ButtonInteraction,
-    ButtonStyle,
+    ButtonInteraction,
     ChatInputCommandInteraction,
-    EmbedBuilder,
-    UserMention
+    EmbedBuilder
 } from "discord.js";
-import {curHandlingGames, curHostGames, ILocalProps} from "../index";
+import {curHandlingGames, curHostGames} from "../index";
 import cancelGame from "../Functions/cancelGame";
 import User from "../Entities/User.entity";
 import {ILangProps} from "../types/interfaces/ILang";
@@ -23,16 +20,15 @@ import KillerWIn from "../Classes/WinningConditions/KillerWín";
 import getDisabledButtons from "../Functions/getDisabledButtons";
 
 export default function create (interaction: ChatInputCommandInteraction | ButtonInteraction, user: User, locale: ILangProps) {
-    for(let v of curHostGames.values()){
+    for (let v of curHostGames.values()) {
         if(v.users.includes(interaction.user.id))
             return interaction.reply({content: (v.author == interaction.user.id ? locale.game_error_alreadyCreated : locale.game_error_alreadyJoined), ephemeral: true}).catch(()=>{});
     }
-    for(let v of curHandlingGames.values()){
+    for (let v of curHandlingGames.values()) {
         if(v.HasPlayer(interaction.user.id))
             return interaction.reply({content: (v.author == interaction.user.id ? locale.game_error_alreadyCreated : locale.game_error_alreadyJoined), ephemeral: true}).catch(()=>{});
     }
     const id = MafiaGame.GenerateId();
-
 
     curHostGames.set(id, {
         author: interaction.user.id,
@@ -44,8 +40,10 @@ export default function create (interaction: ChatInputCommandInteraction | Butto
         roles: [new MafiaRole(), new PoliceRole(), new DoctorRole(), new KillerRole(), new MistressRole(), new PeacefulRole()],
         conditions: [new MafiaWin(), new PeacecfulWin(), new KillerWIn()],
         embed: new EmbedBuilder(),
-        hostLocale: locale
+        hostLocale: locale,
+        voteVisible: true
     });
+
     let winStr = "";
     let roleStr = "";
     for (let role of curHostGames.get(id).roles){
@@ -56,7 +54,7 @@ export default function create (interaction: ChatInputCommandInteraction | Butto
     }
     const embed = new EmbedBuilder()
         .setTitle(locale.game_created_title)
-        .setDescription(`**${locale.game_created_autocancel}:** <t:${Math.floor(Date.now()/1000) + 600}:R>\n**${locale.game_created_gameHost}:** <@${interaction.user.id}>\n\n__**${locale.game_created_playerList}:**__ \n<@${interaction.user.id}>`)
+        .setDescription(`**${locale.game_created_autocancel}:** <t:${Math.floor(Date.now()/1000) + 600}:R>\n**${locale.game_created_gameHost}:** <@${interaction.user.id}>\n\n__**${locale.game_created_votes}:**__ ${curHostGames.get(id).voteVisible}\n\n__**${locale.game_created_playerList}:**__ \n<@${interaction.user.id}>`)
         .addFields([{
             value: roleStr,
             name: `__**${locale.game_created_roles}**__`

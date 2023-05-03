@@ -107,7 +107,7 @@ export default abstract class BaseRole {
             .addComponents(
                 new StringSelectMenuBuilder()
                     .setCustomId("vote_select")
-                    .setPlaceholder(locale.vote_select)
+                    .setPlaceholder(locale.role_vote_select_placeHolder)
                     .setMinValues(1)
                     .setMaxValues(1)
                     .addOptions(chooseArr)

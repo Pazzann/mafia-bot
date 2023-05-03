@@ -52,20 +52,49 @@ export default class MafiaEmbedBuilder {
             rolesValue += `${role.GetRoleName(owner.lang)}: \`\`${players.filter(item => item.role.RoleName == role.RoleName).length}\`\` \n `
         }
         const embed = new EmbedBuilder()
-            .setTitle(`${locale.start_your_role}: ${owner.role.GetRoleName(owner.lang)}`)
-            .setColor("#c468ff")
+            .setTitle(`${locale.start_your_role}: __${owner.role.GetRoleName(owner.lang)}__`)
             .addFields([{
                 name: locale.start_game_info,
                 value: `${locale.start_theme}: \`\`${theme.GetTheme(lang)}\`\` \n ${locale.start_player_count}: \`\`${players.length}\`\` \n  ${rolesValue}`
             }]);
 
-            embed.setDescription(String(ScriptEngine.DescriptionEngine(owner.role.GetDescription(owner.lang), players, owner)));
-
+        embed.setDescription(String(ScriptEngine.DescriptionEngine(owner.role.GetDescription(owner.lang), players, owner)));
+        switch (owner.role.ActionOnSelect) {
+            case "alibi":{
+                embed.setColor("#de89f5");
+                break;
+            }
+            case "no_activity":{
+                embed.setColor("#9aff96");
+                break;
+            }
+            case "full_check":{
+                embed.setColor("#032254");
+                break;
+            }
+            case "check":{
+                embed.setColor("#2a5f81");
+                break;
+            }
+            case "heal":{
+                embed.setColor("#c0c0c0");
+                break;
+            }
+            case "kill":{
+                embed.setColor("#c40b0b");
+                break;
+            }
+            default:{
+                embed.setColor("#ffe760");
+                break;
+            }
+        }
 
         embed.setThumbnail(owner.role.ImageLink);
         return embed;
     }
-    public static roleEmbed(role: Role, locale: ILangProps){
+
+    public static roleEmbed(role: Role, locale: ILangProps) {
         const embed = new EmbedBuilder()
             .setTitle(role.name)
             .setDescription(role.description)
@@ -102,7 +131,8 @@ export default class MafiaEmbedBuilder {
             .setThumbnail(role.imageLink);
         return embed;
     }
-    public static conditionEmbed(condition: WinningCondition, locale: ILangProps){
+
+    public static conditionEmbed(condition: WinningCondition, locale: ILangProps) {
         const embed = new EmbedBuilder()
             .setTitle(condition.name)
             .addFields([{
@@ -117,7 +147,7 @@ export default class MafiaEmbedBuilder {
             }, {
                 name: locale.condition_embed_winRole_name,
                 value: condition.winRole
-            } ])
+            }])
             .setThumbnail(condition.embedThumbnail)
             .setColor('#d96565')
 

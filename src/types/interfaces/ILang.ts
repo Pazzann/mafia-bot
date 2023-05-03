@@ -8,6 +8,7 @@ export interface ILangProps {
     game_created_title: string;
     game_created_autocancel: string;        //usage: **${locale.game_created_autocancel}:** <t:${Math.floor(Date.now()/1000) + 600}:R>
     game_created_gameHost: string;          //usage: **${locale.game_created_gameHost}:** <@${interaction.user.id}>
+    game_created_votes: string;             //usage: __**${locale.game_created_votes}:**__ ${gameData.voteVisible}
     game_created_playerList: string;        //usage: __**${locale.game_created_playerList}:**__ \n<@${interaction.user.id}>
     game_created_roles: string;
     game_created_gameEndConditions: string;
@@ -34,8 +35,10 @@ export interface ILangProps {
     game_leave_error_alreadyLeft: string;
     game_leave_success_message: string;
     game_edit_error_noAccess: string;
-    game_edit_roles_placeHolder: string;
-    game_edit_conditions_placeHolder: string;
+    game_edit_roles_placeHolder: string;        // <= 100 symbols
+    game_edit_conditions_placeHolder: string;   // <= 100 symbols
+    game_edit_button_votes_hide: string;
+    game_edit_button_votes_notHide: string;
     game_edit_success_message: string;
     start_your_role: string;                //TODO: review
     start_game_info: string;                //TODO: review
@@ -53,26 +56,28 @@ export interface ILangProps {
     no_kills_title: string;
     no_kills_description: string;
 
-    vote_select: string;
-    vote_results_title: string;
-    vote_results_tie: string;
-    vote_results_ban: string;           //usage: ":x: " + votedForUsers[0].userid).dsUser.tag + item.local.vote_results_ban
+    role_select_error_notFound: string;
+    role_select_error_invalidSelection: string;
+    role_vote_select_placeHolder: string;// <= 100 symbols
+    role_vote_results_title: string;
+    role_vote_results_tie: string;
+    role_vote_results_ban: string;      //usage: ":x: " + votedForUsers[0].userid).dsUser.tag + item.local.vote_results_ban
     role_mafia_name: string;
-    role_mafia_placeHolder: string;
+    role_mafia_placeHolder: string;     // <= 100 symbols
     role_mafia_description: string;
     role_killer_name: string;           //killer = maniac
-    role_killer_placeHolder: string;
+    role_killer_placeHolder: string;    // <= 100 symbols
     role_killer_description: string;
     role_peaceful_name: string;         //peaceful = innocent
     role_peaceful_description: string;
     role_doctor_name: string;
-    role_doctor_placeHolder: string;
+    role_doctor_placeHolder: string;    // <= 100 symbols
     role_doctor_description: string;
     role_police_name: string;           //police = detective
-    role_police_placeHolder: string;
+    role_police_placeHolder: string;    // <= 100 symbols
     role_police_description: string;
     role_mistress_name: string;
-    role_mistress_placeHolder: string;
+    role_mistress_placeHolder: string;  // <= 100 symbols
     role_mistress_description: string;
 
     condition_mafiaWin_name: string;
@@ -97,6 +102,7 @@ export interface ILangProps {
     condition_embed_embedDescription_name: string;  // = condition_create_embedDescription_label
     condition_embed_winRole_name: string;           // = condition_create_winRole_label
 
+    profile_error_noProfile: string;
     profile_title: string;
     profile_mafiaAccountSince: string;  //usage: ⌛**${locale.profile_mafiaAccountSince}** <t:${Math.round(dbDateToDate(user.since) / 1000)}:d>
     profile_accountSince: string;       //usage: ⌚**${locale.profile_accountSince}** <t:${Math.round(interaction.user.createdAt.getTime() / 1000)}:d>
@@ -109,37 +115,50 @@ export interface ILangProps {
     profile_button_custom: string;
     profile_button_news: string;
 
+    custom_button_createrole: string;
+    custom_button_editrole: string;
+    custom_button_deleterole: string;
+    custom_button_createcondition: string;
+    custom_button_editcondition: string;
+    custom_button_deletecondition: string;
+
+    role_view_error_notFound: string;
+    role_view_error_noAccess: string;
+    role_view_select_placeHolder: string;
+    role_view_button_clone: string;
+
+    role_clone_error_number: string;
+    role_clone_error_notFound: string;
+    role_clone_success_message: string;
+
     role_create_error_number: string;
     role_create_error_notFound: string;
     role_create_error_noAccess: string;
     role_create_title1: string;
-    role_create_roleName_label: string;
-    role_create_roleName_placeHolder: string;
-    role_create_roleDescription_label: string;
-    role_create_roleDescription_placeHolder: string;
-    role_create_roleImage_label: string;
-    role_create_roleImage_placeHolder: string;
-    role_create_roleCount_label: string;
-    role_create_roleCount_placeHolder: string;
-    role_create_rolePlaceHolder_label: string;
-    role_create_rolePlaceHolder_placeHolder: string;
+    role_create_roleName_label: string;                     //usage: CAPS
+    role_create_roleName_placeHolder: string;               // <= 100 symbols
+    role_create_roleDescription_label: string;              //usage: CAPS
+    role_create_roleDescription_placeHolder: string;        // <= 100 symbols
+    role_create_roleImage_label: string;                    //usage: CAPS
+    role_create_roleImage_placeHolder: string;              // <= 100 symbols
+    role_create_roleCount_label: string;                    //usage: CAPS
+    role_create_roleCount_placeHolder: string;              // <= 100 symbols
+    role_create_rolePlaceHolder_label: string;              //usage: CAPS
+    role_create_rolePlaceHolder_placeHolder: string;        // <= 100 symbols
     role_create_goNext_button: string;
     role_create_goNext_message: string;
     role_create_title2: string;         //usage: locale.role_create_title2 + name
-    role_create_roleAction_label: string;
-    role_create_roleAction_placeHolder: string;
-    role_create_roleSelectable_label: string;
-    role_create_roleSelectable_placeHolder: string;
-    role_create_roleDelay_label: string;
-    role_create_roleDelay_placeHolder: string;
-    role_create_roleSpawnFrom_label: string;
-    role_create_roleSpawnFrom_placeHolder: string;
-    role_create_roleGroupSelection_label: string;
-    role_create_roleGroupSelection_placeHolder: string;
+    role_create_roleAction_label: string;                   //usage: CAPS
+    role_create_roleAction_placeHolder: string;             // <= 100 symbols
+    role_create_roleSelectable_label: string;               //usage: CAPS
+    role_create_roleSelectable_placeHolder: string;         // <= 100 symbols
+    role_create_roleDelay_label: string;                    //usage: CAPS
+    role_create_roleDelay_placeHolder: string;              // <= 100 symbols
+    role_create_roleSpawnFrom_label: string;                //usage: CAPS
+    role_create_roleSpawnFrom_placeHolder: string;          // <= 100 symbols
+    role_create_roleGroupSelection_label: string;           //usage: CAPS
+    role_create_roleGroupSelection_placeHolder: string;     // <= 100 symbols
     role_create_success_message: string;
-
-    role_view_error_notFound: string;
-    role_view_error_noAccess: string;
 
     role_edit_error_notFound: string;                       // = role_view_error_notFound
     role_edit_error_noAccess: string;
@@ -158,79 +177,85 @@ export interface ILangProps {
     role_edit_selectField_roleSpawnFrom_label: string;      // = role_create_roleSpawnFrom_label
     role_edit_selectField_roleGroupSelection_label: string; // = role_create_roleGroupSelection_label
     role_edit_title: string;            //usage: locale.role_edit_title + role.name
-    role_edit_roleName_label: string;                       // = role_create_roleName_label
-    role_edit_roleName_placeHolder: string;
-    role_edit_roleDescription_label: string;                // = role_create_roleDescription_label
-    role_edit_roleDescription_placeHolder: string;
-    role_edit_roleImage_label: string;                      // = role_create_roleImage_label
-    role_edit_roleImage_placeHolder: string;
-    role_edit_roleCount_label: string;                      // = role_create_roleCount_label
-    role_edit_roleCount_placeHolder: string;
-    role_edit_rolePlaceHolder_label: string;                // = role_create_rolePlaceHolder_label
-    role_edit_rolePlaceHolder_placeHolder: string;
-    role_edit_roleAction_label: string;                     // = role_create_roleAction_label
-    role_edit_roleAction_placeHolder: string;
-    role_edit_roleSelectable_label: string;                 // = role_create_roleSelectable_label
-    role_edit_roleSelectable_placeHolder: string;
-    role_edit_roleDelay_label: string;                      // = role_create_roleDelay_label
-    role_edit_roleDelay_placeHolder: string;
-    role_edit_roleSpawnFrom_label: string;                  // = role_create_roleSpawnFrom_label
-    role_edit_roleSpawnFrom_placeHolder: string;
-    role_edit_roleGroupSelection_label: string;             // = role_create_roleGroupSelection_label
-    role_edit_roleGroupSelection_placeHolder: string;
+    role_edit_roleName_label: string;                       // = role_create_roleName_label; usage: CAPS
+    role_edit_roleName_placeHolder: string;                 // <= 100 symbols
+    role_edit_roleDescription_label: string;                // = role_create_roleDescription_label; usage: CAPS
+    role_edit_roleDescription_placeHolder: string;          // <= 100 symbols
+    role_edit_roleImage_label: string;                      // = role_create_roleImage_label; usage: CAPS
+    role_edit_roleImage_placeHolder: string;                // <= 100 symbols
+    role_edit_roleCount_label: string;                      // = role_create_roleCount_label; usage: CAPS
+    role_edit_roleCount_placeHolder: string;                // <= 100 symbols
+    role_edit_rolePlaceHolder_label: string;                // = role_create_rolePlaceHolder_label; usage: CAPS
+    role_edit_rolePlaceHolder_placeHolder: string;          // <= 100 symbols
+    role_edit_roleAction_label: string;                     // = role_create_roleAction_label; usage: CAPS
+    role_edit_roleAction_placeHolder: string;               // <= 100 symbol
+    role_edit_roleSelectable_label: string;                 // = role_create_roleSelectable_label; usage: CAPS
+    role_edit_roleSelectable_placeHolder: string;           // <= 100 symbols
+    role_edit_roleDelay_label: string;                      // = role_create_roleDelay_label; usage: CAPS
+    role_edit_roleDelay_placeHolder: string;                // <= 100 symbols
+    role_edit_roleSpawnFrom_label: string;                  // = role_create_roleSpawnFrom_label; usage: CAPS
+    role_edit_roleSpawnFrom_placeHolder: string;            // <= 100 symbols
+    role_edit_roleGroupSelection_label: string;             // = role_create_roleGroupSelection_label; usage: CAPS
+    role_edit_roleGroupSelection_placeHolder: string;       // <= 100 symbols
     role_edit_success_message: string;
 
     role_delete_error_noRoles: string;
     role_delete_error_notFound: string;                     // = role_view_error_notFound
     role_delete_error_noAccess: string;
     role_delete_select_message: string;
-    role_delete_select_placeHolder: string;
+    role_delete_select_placeHolder: string;                 // <= 100 symbols
     role_delete_success_message: string;
+
+    condition_view_error_notFound: string;
+    condition_view_error_noAccess: string;
+    condition_view_select_placeHolder: string;
+    condition_view_button_clone: string;
+
+    condition_clone_error_number: string;
+    condition_clone_error_notFound: string;
+    condition_clone_success_message: string;
 
     condition_create_error_number: string;
     condition_create_title1: string;
     condition_create_conditionName_label: string;
-    condition_create_conditionName_placeHolder: string;
+    condition_create_conditionName_placeHolder: string;     // <= 100 symbols
     condition_create_goNext_button: string;                 // = role_create_goNext_button
     condition_create_goNext_message: string;                // = role_create_goNext_message
     condition_create_title2: string;    //usage: locale.condition_create_title2 + name
-    condition_create_condition_label: string;
-    condition_create_condition_placeHolder: string;
-    condition_create_embedTitle_label: string;
-    condition_create_embedTitle_placeHolder: string;
-    condition_create_embedDescription_label: string;
-    condition_create_embedDescription_placeHolder: string;
-    condition_create_embedThumbnail_label: string;
-    condition_create_embedThumbnail_placeHolder: string;
-    condition_create_winRole_label: string;
-    condition_create_winRole_placeHolder: string;
+    condition_create_condition_label: string;               //usage: CAPS
+    condition_create_condition_placeHolder: string;         // <= 100 symbols
+    condition_create_embedTitle_label: string;              //usage: CAPS
+    condition_create_embedTitle_placeHolder: string;        // <= 100 symbols
+    condition_create_embedDescription_label: string;        //usage: CAPS
+    condition_create_embedDescription_placeHolder: string;  // <= 100 symbols
+    condition_create_embedThumbnail_label: string;          //usage: CAPS
+    condition_create_embedThumbnail_placeHolder: string;    // <= 100 symbols
+    condition_create_winRole_label: string;                 //usage: CAPS
+    condition_create_winRole_placeHolder: string;           // <= 100 symbols
     condition_create_success_message: string;
-
-    condition_view_error_notFound: string;
-    condition_view_error_noAccess: string;
 
     condition_edit_error_notFound: string;                  // = condition_view_error_notFound
     condition_edit_error_noAccess: string;
     condition_edit_select_message: string;
-    condition_edit_select_placeHolder: string;
+    condition_edit_select_placeHolder: string;              // <= 100 symbols
     condition_edit_title: string;       //usage: locale.condition_edit_title + condition.name
-    condition_edit_condition_label: string;                 // = condition_create_condition_label
-    condition_edit_condition_placeHolder: string;
-    condition_edit_embedTitle_label: string;                // = condition_create_embedTitle_label
-    condition_edit_embedTitle_placeHolder: string;
-    condition_edit_embedDescription_label: string;          // = condition_create_embedDescription_label
-    condition_edit_embedDescription_placeHolder: string;
-    condition_edit_embedThumbnail_label: string;            // = condition_create_embedThumbnail_label
-    condition_edit_embedThumbnail_placeHolder: string;
-    condition_edit_winRole_label: string;                   // = condition_create_winRole_label
-    condition_edit_winRole_placeHolder: string;
+    condition_edit_condition_label: string;                 // = condition_create_condition_label; usage: CAPS
+    condition_edit_condition_placeHolder: string;           // <= 100 symbols
+    condition_edit_embedTitle_label: string;                // = condition_create_embedTitle_label; usage: CAPS
+    condition_edit_embedTitle_placeHolder: string;          // <= 100 symbols
+    condition_edit_embedDescription_label: string;          // = condition_create_embedDescription_label; usage: CAPS
+    condition_edit_embedDescription_placeHolder: string;    // <= 100 symbols
+    condition_edit_embedThumbnail_label: string;            // = condition_create_embedThumbnail_label; usage: CAPS
+    condition_edit_embedThumbnail_placeHolder: string;      // <= 100 symbols
+    condition_edit_winRole_label: string;                   // = condition_create_winRole_label; usage: CAPS
+    condition_edit_winRole_placeHolder: string;             // <= 100 symbols
     condition_edit_success_message: string;
 
     condition_delete_error_noConditions: string;
     condition_delete_error_notFound: string;                // = condition_view_error_notFound
     condition_delete_error_noAccess: string;
     condition_delete_select_message: string;
-    condition_delete_select_placeHolder: string;
+    condition_delete_select_placeHolder: string;            // <= 100 symbols
     condition_delete_success_message: string;
 
     news_error_noAccess_enabled: string;
@@ -244,7 +269,7 @@ export interface ILangProps {
 
     helpMessage_title: string;
     helpMessage_text_label: string;
-    helpMessage_text_placeHolder: string;
+    helpMessage_text_placeHolder: string;                   // <= 100 symbols
 
     error_notInGame: string;
     error_premium: string;

@@ -32,7 +32,7 @@ export default async function start (interaction: ButtonInteraction, gameid = 0,
             curHostGames.delete(gameid);
             const win:BaseCondition[] =  [new MafiaWin(), new KillerWIn(), new PeacecfulWin()];
             const roles: BaseRole[] = gameData.roles;
-            const game = new MafiaGame( gameid, gameData.author);
+            const game = new MafiaGame( gameid, gameData.author, gameData.voteVisible);
             const vRoles = await game.GenerateUsers(gameData.users, roles);
             const vWins = await game.RegisterWins(win);
 
@@ -67,7 +67,7 @@ export default async function start (interaction: ButtonInteraction, gameid = 0,
                 );
             const embed = new EmbedBuilder()
                 .setTitle(locale.game_started_title)
-                .setDescription(`**${locale.game_created_gameHost}:** <@${interaction.user.id}>`)
+                .setDescription(`**${locale.game_created_gameHost}:** <@${interaction.user.id}>\n\n__**${locale.game_created_votes}:**__ ${gameData.voteVisible}`)
                 .addFields([{
                     value: roleStr,
                     name: `__**${locale.game_created_roles}**__`

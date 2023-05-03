@@ -47,13 +47,14 @@ async function Test(){
                     .setColor("#e76565")
 
                 //
-
+                const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
 
                 for(let user of users) {
                     discordBot.users.fetch(user.userid).then(async user=>{
                         const dm = user.dmChannel ?? await user.createDM();
                         dm.send({embeds: [embed]})
                     })
+                    await delay(1000)
                 }
                 console.log("done");
             })

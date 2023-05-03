@@ -8,6 +8,7 @@
   "game_created_title": "Игра создана",
   "game_created_autocancel": "Автоотмена",
   "game_created_gameHost": "Организатор игры",
+  "game_created_votes": "Скрывать голоса",
   "game_created_playerList": "Список игроков",
   "game_created_roles": "Роли:",
   "game_created_gameEndConditions": "Условия окончания игры:",
@@ -36,6 +37,8 @@
   "game_edit_error_noAccess": ":man_gesturing_no: Извините, вы не можете изменять эту игру, потому что не являетесь её организатором!",
   "game_edit_roles_placeHolder6": "Выберите роли...",
   "game_edit_conditions_placeHolder": "Выберите условия окончания игры...",
+  "game_edit_button_votes_hide": "Скрывать голоса",
+  "game_edit_button_votes_notHide" : "Не скрывать голоса",
   "game_edit_success_message": ":white_check_mark: Игра успешно изменена!",
   "start_your_role": "Ваша роль",
   "start_game_info": "Игровая информация:",
@@ -53,10 +56,12 @@
   "no_kills_title": "Никто не погиб!",
   "no_kills_description": "За минувшую ночь никого не убили! Возможно, стоит отблагодарить доктора?\uD83D\uDE2F",
 
-  "vote_select": "Выберите, против кого хотите проголосовать...",
-  "vote_results_title": "Результаты голосования",
-  "vote_results_tie": ":man_shrugging: Стол попилили",
-  "vote_results_ban": " изгнан из города.",
+  "role_select_error_notFound": ":jigsaw: Игрок не найден!",
+  "role_select_error_invalidSelection": ":man_gesturing_no: Недопустимый выбор!",
+  "role_vote_select_placeHolder": "Выберите, против кого хотите проголосовать...",
+  "role_vote_results_title": "Результаты голосования",
+  "role_vote_results_tie": ":man_shrugging: Стол попилили",
+  "role_vote_results_ban": " изгнан из города.",
   "role_mafia_name": "Мафия",
   "role_mafia_placeHolder": "Выберите жертву...",
   "role_mafia_description": "%УБИВАЙТЕ И ВЫЖИВИТЕ!\n:skull_crossbones:  Каждую ночь мафия убивает одного игрока, за которого её члены отдают наибольшее число голосов (в случае равенства игрок выбирается случайным образом). Но помните: жертву может вылечить доктор.\n:trophy:  Мафия побеждает, если составляет не менее половины всех активных игроков.% + ({r:maniac:count} > 0 ? % Исключение: если осталось двое игроков — представитель мафии и маньяк — побеждает маньяк..% : %%) + ({r:mafia:count} > 1 ? %\n:busts_in_silhouette:  С вами в команде: % + %{oPlayersTRole}% : %%)",
@@ -97,6 +102,7 @@
   "condition_embed_embedDescription_name": "Описание",
   "condition_embed_winRole_name": "Роль, которая побеждает",
 
+  "profile_error_noProfile": ":jigsaw: У этого пользователя нет аккаунта в «Мафии».",
   "profile_title": "Ваш профиль :bust_in_silhouette:",
   "profile_mafiaAccountSince": "Аккаунт в «Мафии» с:",
   "profile_accountSince": "Аккаунт с:",
@@ -108,6 +114,22 @@
   "profile_button_premium": "Premium",
   "profile_button_custom": "Кастомизация",
   "profile_button_news": "Уведомления о новостях",
+
+  "custom_button_createrole": "Создать роль",
+  "custom_button_editrole": "Изменить роль",
+  "custom_button_deleterole": "Удалить роль",
+  "custom_button_createcondition": "Создать условие",
+  "custom_button_editcondition": "Изменить условие",
+  "custom_button_deletecondition": "Удалить условие",
+
+  "role_view_error_notFound": ":jigsaw: Роль не найдена! Возможно, она была удалена.",
+  "role_view_error_noAccess": ":man_gesturing_no: Извините, вы не можете просматривать эту роль!",
+  "role_view_select_placeHolder": "Выберите роль для просмотра...",
+  "role_view_button_clone": "Клонировать",
+
+  "role_clone_error_number": ":man_gesturing_no: Извините, вы не можете создать больше 19 ролей!",
+  "role_clone_error_notFound": ":jigsaw: Роль не найдена! Возможно, она была удалена.",
+  "role_clone_success_message": ":white_check_mark: Роль успешно клонирована в ваш аккаунт.",
 
   "role_create_error_number": ":man_gesturing_no: Извините, вы не можете создать больше 19 ролей!",
   "role_create_error_notFound": ":jigsaw: Роль не найдена! Возможно, она была удалена.",
@@ -138,9 +160,6 @@
   "role_create_roleGroupSelection_placeHolder": "true | false",
   "role_create_success_message": ":white_check_mark: Роль успешно создана:",
 
-  "role_view_error_notFound": ":jigsaw: Роль не найдена! Возможно, она была удалена.",
-  "role_view_error_noAccess": ":man_gesturing_no: Извините, вы не можете просматривать эту роль!",
-
   "role_edit_error_notFound": ":jigsaw: Роль не найдена! Возможно, она была удалена.",
   "role_edit_error_noAccess": ":man_gesturing_no: Извините, вы не можете изменять эту роль!",
   "role_edit_select_message": "Выберите роль для изменения:",
@@ -165,7 +184,7 @@
   "role_edit_roleImage_label": "Ссылка на миниатюру",
   "role_edit_roleImage_placeHolder": "ссылка на ваше новое изображение",
   "role_edit_roleCount_label": "Количество",
-  "role_edit_roleCount_placeHolder": "новое количество игроков с вашей ролью",
+  "role_edit_roleCount_placeHolder": "новое количество игроков с вашей ролью; информация о создании скриптов в /help → Создание скриптов",
   "role_edit_rolePlaceHolder_label": "Плейсхолдер для меню действия",
   "role_edit_rolePlaceHolder_placeHolder": "новый плейсхолдер для меню действия вашей роли",
   "role_edit_roleAction_label": "Действие",
@@ -187,6 +206,15 @@
   "role_delete_select_placeHolder": "Выберите роль для удаления...",
   "role_delete_success_message": ":ballot_box_with_check: Роль успешно удалена.",
 
+  "condition_view_error_notFound": ":jigsaw: Условие не найдено! Возможно, оно было удалено.",
+  "condition_view_error_noAccess": ":man_gesturing_no: Извините, вы не можете просматривать это условие!",
+  "condition_view_select_placeHolder": "Выберите условие для просмотра...",
+  "condition_view_button_clone": "Клонировать",
+
+  "condition_clone_error_number": ":man_gesturing_no: Извините, вы не можете создать больше 21 условия!",
+  "condition_clone_error_notFound": ":jigsaw: Условие не найдено! Возможно, оно было удалено.",
+  "condition_clone_success_message": ":white_check_mark: Условие успешно клонировано в ваш аккаунт.",
+
   "condition_create_error_number": ":man_gesturing_no: Извините, вы не можете создать больше 21 условия!",
   "condition_create_title1": "Создание условия",
   "condition_create_conditionName_label": "Название",
@@ -205,9 +233,6 @@
   "condition_create_winRole_label": "Роль, которая побеждает",
   "condition_create_winRole_placeHolder": "просто название роли, которая побеждает",
   "condition_create_success_message": ":white_check_mark: Условие успешно создано:",
-
-  "condition_view_error_notFound": ":jigsaw: Условие не найдено! Возможно, оно было удалено.",
-  "condition_view_error_noAccess": ":man_gesturing_no: Извините, вы не можете просматривать это условие!",
 
   "condition_edit_error_notFound": ":jigsaw: Условие не найдено! Возможно, оно было удалено.",
   "condition_edit_error_noAccess": ":man_gesturing_no: Извините, вы не можете изменять это условие!",

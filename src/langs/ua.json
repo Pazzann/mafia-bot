@@ -8,6 +8,7 @@
   "game_created_title": "Гру створено",
   "game_created_autocancel": "Автоскасування",
   "game_created_gameHost": "Організатор гри",
+  "game_created_votes": "Приховувати голоси",
   "game_created_playerList": "Список гравців",
   "game_created_roles": "Ролі:",
   "game_created_gameEndConditions": "Умови завершення гри:",
@@ -36,6 +37,8 @@
   "game_edit_error_noAccess": ":man_gesturing_no: Вибачте, ви не можете змінювати цю гру, бо не є її організатором!",
   "game_edit_roles_placeHolder": "Оберіть ролі...",
   "game_edit_conditions_placeHolder": "Оберіть умови завершення гри...",
+  "game_edit_button_votes_hide": "Приховувати голоси",
+  "game_edit_button_votes_notHide" : "Не приховувати голоси",
   "game_edit_success_message": ":white_check_mark: Гру успішно змінено!",
   "start_your_role": "Ваша роль",
   "start_game_info": "Інформація:",
@@ -53,10 +56,12 @@
   "no_kills_title": "Ніхто не загинув!",
   "no_kills_description": "Минулої ночі нікого не вбили! Може, варто подякувати лікарю?\uD83D\uDE2F",
 
-  "vote_select": "Оберіть, проти кого хочете проголосувати...",
-  "vote_results_title": "Результати голосування",
-  "vote_results_tie": ":man_shrugging: Стіл поділено",
-  "vote_results_ban": " вигнано з міста.",
+  "role_select_error_notFound": ":jigsaw: Гравця не знайдено!",
+  "role_select_error_invalidSelection": ":man_gesturing_no: Неприпустимий вибір!",
+  "role_vote_select_placeHolder": "Оберіть, проти кого хочете проголосувати...",
+  "role_vote_results_title": "Результати голосування",
+  "role_vote_results_tie": ":man_shrugging: Стіл поділено",
+  "role_vote_results_ban": " вигнано з міста.",
   "role_mafia_name": "Мафія",
   "role_mafia_placeHolder": "Оберіть жертву...",
   "role_mafia_description": "%УБИВАЙТЕ ТА ВИЖИВІТЬ!\n:skull_crossbones:  Щоночі мафія вбиває одного гравця, за якого її члени віддають найбільше голосів (у разі рівної кількості гравець обирається випадко). Але пам'ятайте: жертву може вилікувати доктор.\n:trophy:  Мафія перемагає, якщо складає не менше половини всіх активних гравців.% + ({r:maniac:count} > 0 ? % Виняток: якщо залишилося двоє гравців — представник мафії та маніяк — перемагає маніяк.% : %%) + ({r:mafia:count} > 1 ? %\n:busts_in_silhouette:  З вами в команді: % + %{oPlayersTRole}% : %%)",
@@ -97,6 +102,7 @@
   "condition_embed_embedDescription_name": "Опис",
   "condition_embed_winRole_name": "Роль, що перемагає",
 
+  "profile_error_noProfile": ":jigsaw: Цей користувач не має акаунта в «Мафії».",
   "profile_title": "Ваш профіль :bust_in_silhouette:",
   "profile_mafiaAccountSince": "Акаунт у «Мафії» з:",
   "profile_accountSince": "Акаунт з:",
@@ -108,6 +114,22 @@
   "profile_button_premium": "Premium",
   "profile_button_custom": "Кастомізація",
   "profile_button_news": "Сповіщення про новини",
+
+  "custom_button_createrole": "Створити роль",
+  "custom_button_editrole": "Змінити роль",
+  "custom_button_deleterole": "Видалити роль",
+  "custom_button_createcondition": "Створити умову",
+  "custom_button_editcondition": "Змінити умову",
+  "custom_button_deletecondition": "Видалити умову",
+
+  "role_view_error_notFound": ":jigsaw: Роль не знайдено! Можливо, її було видалено.",
+  "role_view_error_noAccess": ":man_gesturing_no: Вибачте, ви не можете переглядати цю роль!",
+  "role_view_select_placeHolder": "Оберіть роль для перегляду...",
+  "role_view_button_clone": "Клонувати",
+
+  "role_clone_error_number": ":man_gesturing_no: Вибачте, ви не можете створити більше, ніж 19 ролей!",
+  "role_clone_error_notFound": ":jigsaw: Роль не знайдено! Можливо, її було видалено.",
+  "role_clone_success_message": ":white_check_mark: Роль успішно клоновано до вашого акаунта.",
 
   "role_create_error_number": ":man_gesturing_no: Вибачте, ви не можете створити більше, ніж 19 ролей!",
   "role_create_error_notFound": ":jigsaw: Роль не знайдено! Можливо, її було видалено.",
@@ -138,9 +160,6 @@
   "role_create_roleGroupSelection_placeHolder": "true | false",
   "role_create_success_message": ":white_check_mark: Роль успішно створено:",
 
-  "role_view_error_notFound": ":jigsaw: Роль не знайдено! Можливо, її було видалено.",
-  "role_view_error_noAccess": ":man_gesturing_no: Вибачте, ви не можете переглядати цю роль!",
-
   "role_edit_error_notFound": ":jigsaw: Роль не знайдено! Можливо, її було видалено.",
   "role_edit_error_noAccess": ":man_gesturing_no: Вибачте, ви не можете змінювати цю роль!",
   "role_edit_select_message": "Оберіть роль для змінення:",
@@ -165,7 +184,7 @@
   "role_edit_roleImage_label": "Посилання на мініатюру",
   "role_edit_roleImage_placeHolder": "посилання на ваше нове зображення",
   "role_edit_roleCount_label": "Кількість",
-  "role_edit_roleCount_placeHolder": "нова кількість гравців із вашою роллю",
+  "role_edit_roleCount_placeHolder": "нова кількість гравців з вашою роллю; інформація про створення скриптів у /help → Створення скриптів",
   "role_edit_rolePlaceHolder_label": "Плейсхолдер для меню дії",
   "role_edit_rolePlaceHolder_placeHolder": "новий плейсхолдер для меню дії вашої ролі",
   "role_edit_roleAction_label": "Дія",
@@ -187,6 +206,15 @@
   "role_delete_select_placeHolder": "Оберіть роль для видалення...",
   "role_delete_success_message": ":ballot_box_with_check: Роль успішно видалено.",
 
+  "condition_view_error_notFound": ":jigsaw: Умову не знайдено! Можливо, її було видалено.",
+  "condition_view_error_noAccess": ":man_gesturing_no: Вибачте, ви не можете переглядати цю умову!",
+  "condition_view_select_placeHolder": "Оберіть умову для перегляду...",
+  "condition_view_button_clone": "Клонувати",
+
+  "condition_clone_error_number": ":man_gesturing_no: Вибачте, ви не можете створити більше, ніж 21 умову!",
+  "condition_clone_error_notFound": ":jigsaw: Умову не знайдено! Можливо, її було видалено.",
+  "condition_clone_success_message": ":white_check_mark: Умову успішно клоновано до вашого акаунта.",
+
   "condition_create_error_number": ":man_gesturing_no: Вибачте, ви не можете створити більше, ніж 21 умову!",
   "condition_create_title1": "Створення умови",
   "condition_create_conditionName_label": "Назва",
@@ -205,9 +233,6 @@
   "condition_create_winRole_label": "Роль, що перемагає",
   "condition_create_winRole_placeHolder": "просто назва ролі, що перемагає",
   "condition_create_success_message": ":white_check_mark: Умову успішно створено:",
-
-  "condition_view_error_notFound": ":jigsaw: Умову не знайдено! Можливо, її було видалено.",
-  "condition_view_error_noAccess": ":man_gesturing_no: Вибачте, ви не можете переглядати цю умову!",
 
   "condition_edit_error_notFound": ":jigsaw: Умову не знайдено! Можливо, її було видалено.",
   "condition_edit_error_noAccess": ":man_gesturing_no: Вибачте, ви не можете змінювати цю умову!",
