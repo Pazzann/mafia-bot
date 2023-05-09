@@ -80,7 +80,7 @@ export default async function profile (interaction: ChatInputCommandInteraction 
                     componentsTarget.push(row)
                 }
             } else {
-                interaction.reply({content: locale.profile_error_noProfile, ephemeral: true}).catch();
+                interaction.reply({content: locale.profile_error_noProfile1 + `<@${interaction.options.getUser("user").id}>` + locale.profile_error_noProfile2, ephemeral: true}).catch();
                 return;
             }
         }

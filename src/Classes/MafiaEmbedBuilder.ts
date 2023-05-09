@@ -49,13 +49,13 @@ export default class MafiaEmbedBuilder {
     public static async roleGiver(owner: MafiaUser, players: MafiaUser[], theme: Theme, locale: ILangProps, lang: Langs, roles: BaseRole[]) {
         let rolesValue = "";
         for (let role of roles) {
-            rolesValue += `${role.GetRoleName(owner.lang)}: \`\`${players.filter(item => item.role.RoleName == role.RoleName).length}\`\` \n `
+            rolesValue += `${role.GetRoleName(owner.lang)}: \`${players.filter(item => item.role.RoleName == role.RoleName).length}\` \n `
         }
         const embed = new EmbedBuilder()
-            .setTitle(`${locale.start_your_role}: __${owner.role.GetRoleName(owner.lang)}__`)
+            .setTitle(`${locale.game_started_private_yourRole}: __${owner.role.GetRoleName(owner.lang)}__`)
             .addFields([{
-                name: locale.start_game_info,
-                value: `${locale.start_theme}: \`\`${theme.GetTheme(lang)}\`\` \n ${locale.start_player_count}: \`\`${players.length}\`\` \n  ${rolesValue}`
+                name: locale.game_started_private_gameInfo,
+                value: `${locale.game_started_private_theme}: \`${theme.GetTheme(lang)}\`\n${locale.game_started_private_playerCount}: \`${players.length}\`\n${rolesValue}`
             }]);
 
         embed.setDescription(String(ScriptEngine.DescriptionEngine(owner.role.GetDescription(owner.lang), players, owner)));

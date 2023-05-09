@@ -94,7 +94,7 @@ export default abstract class BaseRole {
         //     .setEmoji("▶️")
         //     .setValue("skip_vote");
         // chooseArr.push(skip);
-        const Emojis: string[] = ['🗳️', '📄', '✒', '🖋', '⏱'];
+        const Emojis: string[] = ['🗳️', '📄', '📝', '🖋', '🖊', '✏️'];
 
         for (let user of NonAlibiAndAliveUsers) {
             const chooser = new StringSelectMenuOptionBuilder()

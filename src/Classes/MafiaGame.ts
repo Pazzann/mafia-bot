@@ -181,7 +181,7 @@ export default class MafiaGame {
                 });
             } else {
                 this.Players.map(item => {
-                    item.dsUser.dmChannel.send(":x: " + this.GetUser(votedForUsers[0].userid).dsUser.tag + item.local.role_vote_results_ban);
+                    item.dsUser.dmChannel.send(item.local.role_vote_results_ban1 + this.GetUser(votedForUsers[0].userid).dsUser.tag + item.local.role_vote_results_ban2);
                 });
                 this.GetUser(votedForUsers[0].userid).isKilled = true;
             }
@@ -215,34 +215,33 @@ export default class MafiaGame {
 
     public async Choose(who: MafiaUser, whom: string, interaction: SelectMenuInteraction) {
         if (!this.HasPlayer(whom))
-            return interaction.reply(who.local.role_select_error_notFound);
+            return interaction.reply(who.local.role_select_error_notFound).catch();
         let whomU = this.GetUser(whom);
         if (!this._validateSelection(who, whomU))
-            return interaction.reply(who.local.role_select_error_invalidSelection);
+            return interaction.reply(who.local.role_select_error_invalidSelection).catch();
         const row = new StringSelectMenuBuilder((interaction.component as SelectMenuComponent).data).setDisabled(true);
-        interaction.message.edit({components: [new ActionRowBuilder<StringSelectMenuBuilder>().addComponents(row)]});
+        interaction.message.edit({components: [new ActionRowBuilder<StringSelectMenuBuilder>().addComponents(row)]}).catch();
         switch (this._stage) {
             case "choosing": {
                 const role = this.GetRole(who);
                 switch (who.role.ActionOnSelect) {
                     case "check": {
-                        interaction.reply(whomU.role.RoleName == "mafia" ? whomU.dsUser.tag + " is mafia" : whomU.dsUser.tag + " is not mafia");
+                        interaction.reply(whomU.role.RoleName == "mafia" ? who.local.role_check_reply_mafia1 + whomU.dsUser.tag + who.local.role_check_reply_mafia2 : who.local.role_check_reply_notMafia1 + whomU.dsUser.tag + who.local.role_check_reply_notMafia2).catch();
                         who.actionsOnUser.hasDoneAction = true;
                         break;
                     }
-
                     case "full_check": {
-                        interaction.reply(whomU.role.RoleName);
+                        interaction.reply(who.local.role_fullCheck_reply1 + whomU.dsUser.tag + who.local.role_fullCheck_reply2 + whomU.role.RoleName + who.local.role_fullCheck_reply3).catch();
                         who.actionsOnUser.hasDoneAction = true;
                         break;
                     }
                     case "no_activity": {
-                        interaction.reply("Who are you?");
+                        interaction.reply(who.local.role_select_error_noActivity).catch();
                         break;
                     }
                     default: {
                         role.Selection.push(whomU);
-                        interaction.reply("ok");
+                        interaction.reply(who.local.role_select_success_message1 + whomU.dsUser.tag + who.local.role_select_success_message2).catch();
                         who.actionsOnUser.hasDoneAction = true;
                         break;
                     }
@@ -254,7 +253,7 @@ export default class MafiaGame {
             case "discussion": {
                 whomU.actionsOnUser.voted++;
                 who.actionsOnUser.hasVoted = true;
-                interaction.reply("ok");
+                interaction.reply(who.local.role_vote_select_success_message1 + whomU.dsUser.tag + who.local.role_vote_select_success_message2).catch();
                 this.SendToAll(this.GetVotedLength() + "/" + this.GetAliveUsers().length + (this._voteSelect ? "\n" + who.dsUser.tag + " - " + whomU.dsUser.tag : ""));
                 this.EndVoteMoveHandler();
                 return;

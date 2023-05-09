@@ -10,7 +10,7 @@ export default class MafiaRole extends BaseRole {
         this.ActionOnSelect = "kill";
         this.GroupDecision = true;
         this.Count = "Math.floor({pCount}/3)";
-        this.Emojis = ['🔪', '🪓', '☠', '🩸'];
+        this.Emojis = ['🔪', '🪓', '☠️', '🩸'];
         this.SpawnFrom = 0;
         this._placeHolder = localisations.EN.role_mafia_placeHolder;
         this._placeHolderLocals = "role_mafia_placeHolder";

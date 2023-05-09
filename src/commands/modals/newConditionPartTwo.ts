@@ -10,7 +10,7 @@ let validUrl = require('valid-url');
 export default async function newConditionPartTwo (interaction: ModalSubmitInteraction, user: User, locale: ILangProps) {
 
     if (!user.premium) {
-        interaction.reply({content: locale.error_premium, ephemeral: true})
+        interaction.reply({content: locale.error_premium, ephemeral: true}).catch();
         return;
     }
     const name = interaction.customId.split("newConditionPartTwo").join("");
@@ -34,5 +34,5 @@ export default async function newConditionPartTwo (interaction: ModalSubmitInter
 
     const embed = MafiaEmbedBuilder.conditionEmbed(condition, locale);
 
-    await interaction.reply({content: locale.condition_create_success_message, embeds: [embed], ephemeral: true});
+    await interaction.reply({content: locale.condition_create_success_message, embeds: [embed], ephemeral: true}).catch();
 }

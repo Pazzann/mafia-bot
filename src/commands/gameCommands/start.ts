@@ -16,7 +16,7 @@ import BaseRole from "../../Classes/Roles/BaseRole";
 import BaseCondition from "../../Classes/WinningConditions/BaseCondition";
 import MafiaWin from "../../Classes/WinningConditions/MafiaWin";
 import KillerWIn from "../../Classes/WinningConditions/KillerWín";
-import PeacecfulWin from "../../Classes/WinningConditions/PeacecfulWin";
+import PeacefulWin from "../../Classes/WinningConditions/PeacefulWin";
 
 
 export default async function start (interaction: ButtonInteraction, gameid = 0, user: User, locale: ILangProps) {
@@ -30,7 +30,7 @@ export default async function start (interaction: ButtonInteraction, gameid = 0,
                 return interaction.reply({content: locale.game_start_error_notEnoughRoles, ephemeral: true}).catch(()=>{});
             await interaction.deferReply();
             curHostGames.delete(gameid);
-            const win:BaseCondition[] =  [new MafiaWin(), new KillerWIn(), new PeacecfulWin()];
+            const win:BaseCondition[] =  [new MafiaWin(), new KillerWIn(), new PeacefulWin()];
             const roles: BaseRole[] = gameData.roles;
             const game = new MafiaGame( gameid, gameData.author, gameData.voteVisible);
             const vRoles = await game.GenerateUsers(gameData.users, roles);
@@ -67,7 +67,7 @@ export default async function start (interaction: ButtonInteraction, gameid = 0,
                 );
             const embed = new EmbedBuilder()
                 .setTitle(locale.game_started_title)
-                .setDescription(`**${locale.game_created_gameHost}:** <@${interaction.user.id}>\n\n__**${locale.game_created_votes}:**__ ${gameData.voteVisible}`)
+                .setDescription(`**${locale.game_created_gameHost}:** <@${interaction.user.id}>\n\n__**${locale.game_created_votes}:**__ \`${!gameData.voteVisible}\``)
                 .addFields([{
                     value: roleStr,
                     name: `__**${locale.game_created_roles}**__`

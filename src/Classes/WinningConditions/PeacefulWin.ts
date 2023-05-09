@@ -1,6 +1,6 @@
 import BaseCondition from "./BaseCondition";
 
-export default class PeacecfulWin extends BaseCondition{
+export default class PeacefulWin extends BaseCondition{
     constructor() {
         super();
         this._name = "Win of the peaceful!";

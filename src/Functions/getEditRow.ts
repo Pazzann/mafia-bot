@@ -13,7 +13,7 @@ import PoliceRole from "../Classes/Roles/PoliceRole";
 import DoctorRole from "../Classes/Roles/DoctorRole";
 import KillerWIn from "../Classes/WinningConditions/KillerWín";
 import MafiaWin from "../Classes/WinningConditions/MafiaWin";
-import PeacecfulWin from "../Classes/WinningConditions/PeacecfulWin";
+import PeacefulWin from "../Classes/WinningConditions/PeacefulWin";
 import IHostGameProps from "../types/interfaces/IHost";
 import User from "../Entities/User.entity";
 import {ILangProps} from "../types/interfaces/ILang";
@@ -90,8 +90,8 @@ export default function getEditRow(host: IHostGameProps, user: User, locale: ILa
             .setLabel(new MafiaWin().Name)
             .setValue(String(host.id) + "%" + String(new MafiaWin().Name)),
         new StringSelectMenuOptionBuilder()
-            .setLabel(new PeacecfulWin().Name)
-            .setValue(String(host.id) + "%" + String(new PeacecfulWin().Name)),
+            .setLabel(new PeacefulWin().Name)
+            .setValue(String(host.id) + "%" + String(new PeacefulWin().Name)),
     )
     if (host.conditions.filter(item => item.Name === new KillerWIn().Name).length > 0) {
         chooseArr2[0].setDefault(true);
@@ -99,7 +99,7 @@ export default function getEditRow(host: IHostGameProps, user: User, locale: ILa
     if (host.conditions.filter(item => item.Name === new MafiaWin().Name).length > 0) {
         chooseArr2[1].setDefault(true);
     }
-    if (host.conditions.filter(item => item.Name === new PeacecfulWin().Name).length > 0) {
+    if (host.conditions.filter(item => item.Name === new PeacefulWin().Name).length > 0) {
         chooseArr2[2].setDefault(true);
     }
     if (user.premium) {

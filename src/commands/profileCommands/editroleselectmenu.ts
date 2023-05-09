@@ -12,17 +12,17 @@ import MafiaEmbedBuilder from "../../Classes/MafiaEmbedBuilder";
 export default async function editroleselectmenu(interaction: SelectMenuInteraction, user: User, locale: ILangProps, roleId: number) {
 
     if (!user.premium) {
-        interaction.reply({content: locale.error_premium, ephemeral: true})
+        interaction.reply({content: locale.error_premium, ephemeral: true}).catch();
         return;
     }
 
     const role = await Role.findOne({where: {id: roleId}, relations: ["user"]});
     if (role == null) {
-        interaction.reply({content: locale.role_edit_error_notFound, ephemeral: true})
+        interaction.reply({content: locale.role_edit_error_notFound, ephemeral: true}).catch();
         return;
     }
     if (role.user.userid != user.userid) {
-        interaction.reply({content: locale.role_edit_error_noAccess, ephemeral: true})
+        interaction.reply({content: locale.role_edit_error_noAccess, ephemeral: true}).catch();
         return;
     }
     const embed = MafiaEmbedBuilder.roleEmbed(role, locale);
@@ -68,5 +68,5 @@ export default async function editroleselectmenu(interaction: SelectMenuInteract
                 ])
         );
 
-    interaction.reply({content: locale.role_edit_selectField_message, ephemeral: true, embeds: [embed], components: [row]})
+    interaction.reply({content: locale.role_edit_selectField_message, ephemeral: true, embeds: [embed], components: [row]}).catch();
 }

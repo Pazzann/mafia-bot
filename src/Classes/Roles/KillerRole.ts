@@ -14,7 +14,7 @@ export default class KillerRole extends BaseRole {
         this.SpawnFrom = 8;
         this._placeHolder = localisations.EN.role_killer_placeHolder;
         this._placeHolderLocals = "role_killer_placeHolder";
-        this.ImageLink = "https://media.discordapp.net/attachments/1015944207220879370/1015959932228616242/unknown.png?width=469&height=469";
+        this.ImageLink = "https://media.discordapp.net/attachments/541691734833496084/1103408211962376192/1.png?width=935&height=935";
         this.SelfSelectable = true;
         this._description = localisations.EN.role_killer_description;
         this._descriptionLocals = "role_killer_description";

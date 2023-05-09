@@ -5,7 +5,7 @@ import {ILangProps} from "../../types/interfaces/ILang";
 export default  async function newconditionhalfbut(interaction: ButtonInteraction, user: User, locale: ILangProps) {
 
     if(!user.premium){
-        interaction.reply({content: locale.error_premium, ephemeral: true})
+        interaction.reply({content: locale.error_premium, ephemeral: true}).catch();
         return;
     }
     const name = interaction.customId.split("newconditionhalfbut").join("");

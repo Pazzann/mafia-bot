@@ -8,7 +8,7 @@ export interface ILangProps {
     game_created_title: string;
     game_created_autocancel: string;        //usage: **${locale.game_created_autocancel}:** <t:${Math.floor(Date.now()/1000) + 600}:R>
     game_created_gameHost: string;          //usage: **${locale.game_created_gameHost}:** <@${interaction.user.id}>
-    game_created_votes: string;             //usage: __**${locale.game_created_votes}:**__ ${gameData.voteVisible}
+    game_created_votes: string;             //usage: __**${locale.game_created_votes}:**__ ${!gameData.voteVisible}
     game_created_playerList: string;        //usage: __**${locale.game_created_playerList}:**__ \n<@${interaction.user.id}>
     game_created_roles: string;
     game_created_gameEndConditions: string;
@@ -27,6 +27,10 @@ export interface ILangProps {
     game_start_error_notEnoughRoles: string;
     game_started_button_endGame: string;
     game_started_title: string;
+    game_started_private_yourRole: string;      //usage: ${locale.game_started_private_yourRole}: __${owner.role.GetRoleName(owner.lang)}__
+    game_started_private_gameInfo: string;
+    game_started_private_theme: string;         //usage: ${locale.game_started_private_theme}: \`${theme.GetTheme(lang)}\`
+    game_started_private_playerCount: string;   //usage: ${locale.game_started_private_playerCount}: \`${players.length}\`
     game_end_error_noAccess: string;
     game_end_success_message: string;
     game_end_success_privateMessage: string;
@@ -40,10 +44,6 @@ export interface ILangProps {
     game_edit_button_votes_hide: string;
     game_edit_button_votes_notHide: string;
     game_edit_success_message: string;
-    start_your_role: string;                //TODO: review
-    start_game_info: string;                //TODO: review
-    start_theme: string;                    //TODO: review
-    start_player_count: string;             //TODO: review
 
     //EN: Phrases like "The city wakes up / falls asleep" seem to be not very common among English speakers. However, it was decided to use them to popularize and convey the game's atmosphere.
     wake_up_title: string;
@@ -51,25 +51,31 @@ export interface ILangProps {
     sleep_time_title: string;
     sleep_time_description: string;
     kills_title: string;
-    kills_description_one: string;      //usage: "${kills.join(", ")} kills_description_one"
-    kills_description_many: string;     //usage: "${kills.join(", ")} kills_description_many"; EN: = kills_description_one
+    kills_description_one: string;      //usage: "${kills.join(", ")} ${locale.kills_description_one}"
+    kills_description_many: string;     //usage: "${kills.join(", ")} $locale.kills_description_many}"; EN: = kills_description_one
     no_kills_title: string;
     no_kills_description: string;
 
     role_select_error_notFound: string;
     role_select_error_invalidSelection: string;
-    role_vote_select_placeHolder: string;// <= 100 symbols
+    role_select_error_noActivity: string;
+    role_select_success_message1: string;       //usage: who.local.role_select_success_message1 + whomU.dsUser.tag + who.local.role_select_success_message2
+    role_select_success_message2: string;
+    role_vote_select_success_message1: string;  //usage: who.local.role_vote_select_success_message1 + whomU.dsUser.tag + who.local.role_vote_select_success_message2
+    role_vote_select_success_message2: string;
+    role_vote_select_placeHolder: string;       // <= 100 symbols
     role_vote_results_title: string;
     role_vote_results_tie: string;
-    role_vote_results_ban: string;      //usage: ":x: " + votedForUsers[0].userid).dsUser.tag + item.local.vote_results_ban
+    role_vote_results_ban1: string;              //usage: item.local.role_vote_results_ban1 + this.GetUser(votedForUsers[0].userid).dsUser.tag + item.local.role_vote_results_ban2
+    role_vote_results_ban2: string;
+    role_peaceful_name: string;         //peaceful = innocent
+    role_peaceful_description: string;
     role_mafia_name: string;
     role_mafia_placeHolder: string;     // <= 100 symbols
     role_mafia_description: string;
     role_killer_name: string;           //killer = maniac
     role_killer_placeHolder: string;    // <= 100 symbols
     role_killer_description: string;
-    role_peaceful_name: string;         //peaceful = innocent
-    role_peaceful_description: string;
     role_doctor_name: string;
     role_doctor_placeHolder: string;    // <= 100 symbols
     role_doctor_description: string;
@@ -79,6 +85,13 @@ export interface ILangProps {
     role_mistress_name: string;
     role_mistress_placeHolder: string;  // <= 100 symbols
     role_mistress_description: string;
+    role_check_reply_mafia1: string;    //usage: who.local.role_check_reply_mafia1 + whomU.dsUser.tag + who.local.role_check_reply_mafia2
+    role_check_reply_mafia2: string;
+    role_check_reply_notMafia1: string; //usage: who.local.role_check_reply_notMafia1 + whomU.dsUser.tag + who.local.role_check_reply_notMafia2
+    role_check_reply_notMafia2: string;
+    role_fullCheck_reply1: string;      //usage: who.local.role_fullCheck_reply_message1 + whomU.dsUser.tag + who.local.role_fullCheck_reply_message2 + whomU.role.RoleName + who.local.role_fullCheck_reply_message3
+    role_fullCheck_reply2: string;
+    role_fullCheck_reply3: string;
 
     condition_mafiaWin_name: string;
     condition_mafiaWin_WinEmbedTitle: string;
@@ -102,7 +115,8 @@ export interface ILangProps {
     condition_embed_embedDescription_name: string;  // = condition_create_embedDescription_label
     condition_embed_winRole_name: string;           // = condition_create_winRole_label
 
-    profile_error_noProfile: string;
+    profile_error_noProfile1: string;   //usage: locale.profile_error_noProfile1 + `<@${interaction.options.getUser("user").id}>` + locale.profile_error_noProfile2
+    profile_error_noProfile2: string;
     profile_title: string;
     profile_mafiaAccountSince: string;  //usage: ⌛**${locale.profile_mafiaAccountSince}** <t:${Math.round(dbDateToDate(user.since) / 1000)}:d>
     profile_accountSince: string;       //usage: ⌚**${locale.profile_accountSince}** <t:${Math.round(interaction.user.createdAt.getTime() / 1000)}:d>
@@ -114,6 +128,14 @@ export interface ILangProps {
     profile_button_premium: string;
     profile_button_custom: string;
     profile_button_news: string;
+
+    //do not localize "Premium"
+    premium_title: string;          //TODO
+    premium_description: string;    //TODO
+    premium_howDoIGet_name: string; //TODO
+    premium_howDoIGet_value: string;//TODO
+    premium_faq_name: string;       //TODO
+    premium_faq_value: string;      //<= 1000 symbols TODO
 
     custom_button_createrole: string;
     custom_button_editrole: string;

@@ -6,18 +6,18 @@ import MafiaEmbedBuilder from "../../Classes/MafiaEmbedBuilder";
 
 export default async function newRolePartTwo(interaction: ModalSubmitInteraction, user: User, locale: ILangProps) {
     if (!user.premium) {
-        interaction.reply({content: locale.error_premium, ephemeral: true})
+        interaction.reply({content: locale.error_premium, ephemeral: true}).catch();
         return;
     }
     try {
         let id = Number(interaction.customId.split("newRolePartTwo").join(''));
         const role = await Role.findOne({where: {id: id}, relations: ["user"]});
         if (role == null) {
-            interaction.reply({content: locale.role_create_error_notFound, ephemeral: true})
+            interaction.reply({content: locale.role_create_error_notFound, ephemeral: true}).catch();
             return;
         }
         if (role.user.userid != user.userid) {
-            interaction.reply({content: locale.role_create_error_noAccess, ephemeral: true})
+            interaction.reply({content: locale.role_create_error_noAccess, ephemeral: true}).catch();
             return;
         }
 
@@ -33,9 +33,9 @@ export default async function newRolePartTwo(interaction: ModalSubmitInteraction
         await role.save();
 
         const embed = MafiaEmbedBuilder.roleEmbed(role, locale);
-        await interaction.reply({content: locale.role_create_success_message, embeds: [embed], ephemeral: true});
+        await interaction.reply({content: locale.role_create_success_message, embeds: [embed], ephemeral: true}).catch();
     } catch (err) {
-        await interaction.reply(locale.error_unknown);
+        await interaction.reply(locale.error_unknown).catch();
     }
 
 }

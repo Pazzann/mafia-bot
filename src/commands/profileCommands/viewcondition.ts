@@ -9,7 +9,7 @@ export default async function viewcondition(interaction: SelectMenuInteraction, 
 
     const condition = await WinningCondition.findOne({where: {id: conditionId}, relations: ["user"]});
     if (condition == null) {
-        interaction.reply({content: locale.condition_view_error_notFound, ephemeral: true})
+        interaction.reply({content: locale.condition_view_error_notFound, ephemeral: true}).catch();
         return;
     }
     const buttonRow: ActionRowBuilder<ButtonBuilder> =
@@ -23,5 +23,5 @@ export default async function viewcondition(interaction: SelectMenuInteraction, 
             );
     const embed = MafiaEmbedBuilder.conditionEmbed(condition, locale);
 
-    interaction.reply({ephemeral: true, embeds: [embed], components: [buttonRow]})
+    interaction.reply({ephemeral: true, embeds: [embed], components: [buttonRow]}).catch();
 }

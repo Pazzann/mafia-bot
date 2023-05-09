@@ -15,7 +15,7 @@ import KillerRole from "../Classes/Roles/KillerRole";
 import MistressRole from "../Classes/Roles/MisstressRole";
 import PeacefulRole from "../Classes/Roles/PeacefulRole";
 import MafiaWin from "../Classes/WinningConditions/MafiaWin";
-import PeacecfulWin from "../Classes/WinningConditions/PeacecfulWin";
+import PeacefulWin from "../Classes/WinningConditions/PeacefulWin";
 import KillerWIn from "../Classes/WinningConditions/KillerWín";
 import getDisabledButtons from "../Functions/getDisabledButtons";
 
@@ -38,7 +38,7 @@ export default function create (interaction: ChatInputCommandInteraction | Butto
         timeout: setTimeout(()=>{cancelGame(interaction, id, locale)}, 600000),
         interaction: interaction,
         roles: [new MafiaRole(), new PoliceRole(), new DoctorRole(), new KillerRole(), new MistressRole(), new PeacefulRole()],
-        conditions: [new MafiaWin(), new PeacecfulWin(), new KillerWIn()],
+        conditions: [new MafiaWin(), new PeacefulWin(), new KillerWIn()],
         embed: new EmbedBuilder(),
         hostLocale: locale,
         voteVisible: true
@@ -54,7 +54,7 @@ export default function create (interaction: ChatInputCommandInteraction | Butto
     }
     const embed = new EmbedBuilder()
         .setTitle(locale.game_created_title)
-        .setDescription(`**${locale.game_created_autocancel}:** <t:${Math.floor(Date.now()/1000) + 600}:R>\n**${locale.game_created_gameHost}:** <@${interaction.user.id}>\n\n__**${locale.game_created_votes}:**__ ${curHostGames.get(id).voteVisible}\n\n__**${locale.game_created_playerList}:**__ \n<@${interaction.user.id}>`)
+        .setDescription(`**${locale.game_created_autocancel}:** <t:${Math.floor(Date.now()/1000) + 600}:R>\n**${locale.game_created_gameHost}:** <@${interaction.user.id}>\n\n__**${locale.game_created_votes}:**__ \`${!curHostGames.get(id).voteVisible}\`\n\n__**${locale.game_created_playerList}:**__ \n<@${interaction.user.id}>`)
         .addFields([{
             value: roleStr,
             name: `__**${locale.game_created_roles}**__`

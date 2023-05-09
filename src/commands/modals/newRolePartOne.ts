@@ -12,7 +12,7 @@ let validUrl = require('valid-url');
 export default async function newRolePartOne (interaction: ModalSubmitInteraction, user: User, locale: ILangProps) {
 
     if (!user.premium) {
-        interaction.reply({content: locale.error_premium, ephemeral: true})
+        interaction.reply({content: locale.error_premium, ephemeral: true}).catch();
         return;
     }
     let imageURL = interaction.fields.getTextInputValue("roleImage");
@@ -43,6 +43,6 @@ export default async function newRolePartOne (interaction: ModalSubmitInteractio
                 .setCustomId("newrolehalfbut" + role.id)
                 .setDisabled(false),
         );
-    await interaction.reply({content: locale.role_create_goNext_message, ephemeral: true, components: [buttons]})
+    await interaction.reply({content: locale.role_create_goNext_message, ephemeral: true, components: [buttons]}).catch();
 
 }

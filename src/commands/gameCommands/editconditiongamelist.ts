@@ -4,7 +4,7 @@ import {
 import User from "../../Entities/User.entity";
 import {ILangProps} from "../../types/interfaces/ILang";
 import {curHostGames} from "../../index";
-import PeacecfulWin from "../../Classes/WinningConditions/PeacecfulWin";
+import PeacefulWin from "../../Classes/WinningConditions/PeacefulWin";
 import KillerWIn from "../../Classes/WinningConditions/KillerWín";
 import MafiaWin from "../../Classes/WinningConditions/MafiaWin";
 import WinningCondition from "../../Entities/WinningCondition.entity";
@@ -24,8 +24,8 @@ export default async function editconditiongamelist(interaction: SelectMenuInter
                 for (let condition of interaction.values) {
                     let conditionId = condition.split('%')[1];
                     switch (conditionId){
-                        case new PeacecfulWin().Name:{
-                            host.conditions.push(new PeacecfulWin());
+                        case new PeacefulWin().Name:{
+                            host.conditions.push(new PeacefulWin());
                             break;
                         }
                         case new MafiaWin().Name:{
@@ -78,7 +78,7 @@ export default async function editconditiongamelist(interaction: SelectMenuInter
                     }]);
                 curHostGames.set(gameid, host);
                 await host.interaction.editReply({embeds: [host.embed]});
-                await interaction.reply({content: locale.game_edit_success_message, ephemeral: true});
+                await interaction.reply({content: locale.game_edit_success_message, ephemeral: true}).catch();
             } else {
                 interaction.reply({content: locale.game_start_error_noAccess, ephemeral: true}).catch(() => {
                 });
@@ -88,6 +88,6 @@ export default async function editconditiongamelist(interaction: SelectMenuInter
             });
         }
     } catch (err) {
-        interaction.reply({content: err, ephemeral: true})
+        interaction.reply({content: err, ephemeral: true}).catch();
     }
 }

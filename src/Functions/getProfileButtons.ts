@@ -10,7 +10,7 @@ export default function getProfileButtons(user: User, locale: ILangProps){
                 .setLabel(locale.profile_button_premium)
                 .setStyle(ButtonStyle.Primary)
                 .setCustomId("premium")
-                .setDisabled(user.premium),
+                .setDisabled(false),
             new ButtonBuilder()
                 .setEmoji("🧐")
                 .setLabel(locale.profile_button_custom)

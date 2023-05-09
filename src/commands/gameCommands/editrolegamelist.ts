@@ -102,8 +102,8 @@ export default async function editrolegamelist(interaction: SelectMenuInteractio
                         name: `__**${locale.game_created_gameEndConditions}**__`
                     }]);
                 curHostGames.set(gameid, host);
-                await host.interaction.editReply({embeds: [host.embed]});
-                await interaction.reply({content: locale.game_edit_success_message, ephemeral: true});
+                await host.interaction.editReply({embeds: [host.embed]}).catch();
+                await interaction.reply({content: locale.game_edit_success_message, ephemeral: true}).catch();
             } else {
                 interaction.reply({content: locale.game_edit_error_noAccess, ephemeral: true}).catch(() => {
                 });
@@ -113,6 +113,6 @@ export default async function editrolegamelist(interaction: SelectMenuInteractio
             });
         }
     } catch (err) {
-        interaction.reply({content: locale.error_unknown, ephemeral: true})
+        interaction.reply({content: locale.error_unknown, ephemeral: true}).catch();
     }
 }

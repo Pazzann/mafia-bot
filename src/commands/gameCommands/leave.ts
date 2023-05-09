@@ -11,7 +11,7 @@ export default function leave (interaction: ButtonInteraction, gameid = 0, user:
         if (host.users.includes(interaction.user.id)) {
             host.timeout.refresh();
             host.users.splice(host.users.indexOf(interaction.user.id), 1);
-            const newEmbed = usersRedraw(host.users, host.embed, locale, host);
+            const newEmbed = usersRedraw(host.users, host.embed, host);
             host.embed = newEmbed;
             curHostGames.set(gameid, host);
             interaction.message.edit({embeds: [newEmbed]});

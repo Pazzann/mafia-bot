@@ -9,7 +9,32 @@ export default class CustomRole extends BaseRole{
         this.DelayForActivity = delayForActivity;
         this.GroupDecision = groupDes;
         this.Count = count;
-        this.Emojis = ['😛', '😝', '😜'];
+        switch (action){
+            case "kill":{
+                this.Emojis = ['🪓', '🪚', '🔪', '🔨', '🪛', '🦴', '☠', '🩸'];
+                break;
+            }
+            case "heal":{
+                this.Emojis = ['💉', '💊', '🩹', '🩺', '🚑', '🧫', '🧪', '♥'];
+                break;
+            }
+            case "alibi":{
+                this.Emojis = ['♥', '💖', '🍓', '💋', '👠'];
+                break;
+            }
+            case "check":{
+                this.Emojis = ['🔍', '🔎', '🚓', '👮', '🕵', '🚔', '🚨', '📔'];
+                break;
+            }
+            case "full_check":{
+                this.Emojis = ['🔍', '🔎', '🚓', '👮', '🕵', '🚔', '🚨', '📔'];
+                break;
+            }
+            default:{
+                this.Emojis = ['😛', '😝', '😜'];
+                break;
+            }
+        }
         this.SpawnFrom = spawnFrom;
         this._placeHolder = placeHolder;
         this.ImageLink = imageLink;

@@ -14,8 +14,8 @@ export default async function textToModeration (interaction: ModalSubmitInteract
             .setColor("#ffffff")
             .setAuthor({iconURL: interaction.user.avatarURL(), name: interaction.user.tag})
         await dm.send({embeds: [embed]});
-        await interaction.reply({content: "sended", ephemeral: true});
+        await interaction.reply({content: "sended", ephemeral: true}).catch();
     }).catch(async () => {
-        await interaction.reply({content: "unsuccessful", ephemeral: true});
+        await interaction.reply({content: "unsuccessful", ephemeral: true}).catch();
     });
 }

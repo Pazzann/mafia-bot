@@ -20,7 +20,7 @@ export default async function join (interaction: ButtonInteraction, gameid = 0, 
             }
             host.timeout.refresh();
             host.users.push(interaction.user.id);
-            const newEmbed = usersRedraw(host.users, host.embed, locale, host);
+            const newEmbed = usersRedraw(host.users, host.embed, host);
             host.embed = newEmbed;
             curHostGames.set(gameid, host);
             await interaction.message.edit({embeds: [newEmbed]});

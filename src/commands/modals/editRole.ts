@@ -6,18 +6,18 @@ import MafiaEmbedBuilder from "../../Classes/MafiaEmbedBuilder";
 
 export default async function editRole (interaction: ModalSubmitInteraction, user: User, locale: ILangProps) {
     if (!user.premium) {
-        interaction.reply({content: locale.error_premium, ephemeral: true})
+        interaction.reply({content: locale.error_premium, ephemeral: true}).catch();
         return;
     }
     try {
         let roleId = +interaction.customId.split("editRole").join('');
         const role = await Role.findOne({where: {id: roleId}, relations: ["user"]});
         if (role == null) {
-            interaction.reply({content: locale.role_edit_error_notFound, ephemeral: true})
+            interaction.reply({content: locale.role_edit_error_notFound, ephemeral: true}).catch();
             return;
         }
         if (role.user.userid != user.userid) {
-            interaction.reply({content: locale.role_edit_error_noAccess, ephemeral: true})
+            interaction.reply({content: locale.role_edit_error_noAccess, ephemeral: true}).catch();
             return;
         }
 
@@ -66,7 +66,7 @@ export default async function editRole (interaction: ModalSubmitInteraction, use
         }
 
         role.save();
-        interaction.reply({content: locale.role_edit_success_message, ephemeral: false, embeds:[MafiaEmbedBuilder.roleEmbed(role, locale)]})
+        interaction.reply({content: locale.role_edit_success_message, ephemeral: false, embeds:[MafiaEmbedBuilder.roleEmbed(role, locale)]}).catch();
     } catch (err) {
     }
 }
