@@ -54,7 +54,7 @@
   "kills_description_one": "став жертвою беззаконня.",
   "kills_description_many": "стали жертвами беззаконня.",
   "no_kills_title": "Ніхто не загинув!",
-  "no_kills_description": "Минулої ночі нікого не вбили! Може, варто подякувати лікарю?\uD83D\uDE2F",
+  "no_kills_description": "Минулої ночі нікого не вбили! Може, варто подякувати лікарю? \uD83D\uDE2F",
 
   "role_select_error_notFound": ":jigsaw: Гравця не знайдено!",
   "role_select_error_invalidSelection": ":man_gesturing_no: Неприпустимий вибір!",
@@ -284,6 +284,17 @@
   "news_error_noAccess_disabled": ":man_gesturing_no: Ви не можете вмикати та вимикати сповіщення про новини для іншої людини, але можете для себе!\n:mailbox_closed: У вас вимкнено сповіщення про новини. Щоб увімкнути їх, відкрийте профіль командою </profile:1100344392067338261> та натисніть кнопку «**Сповіщення про новини**».",
   "news_enable_success_message": ":white_check_mark: Сповіщення про новини успішно ввімкнено!",
   "news_disable_success_message": ":ballot_box_with_check: Сповіщення про новини успішно вимкнено.",
+
+  "help_title": "Довідка :ring_buoy:",
+  "help_description": "Хочете пограти в «Мафію» без зайвих труднощів? Ми раді вам допомогти!\n**Mafia Bot** дає змогу організовувати ігри, що ідеально підходять саме вам, а також створювати, змінювати та використовувати власні ролі та умови завершення гри з Premium. Бажаємо добре провести час!",
+  "help_commands_name": ":keyboard: Команди",
+  "help_commands_value": "</create:1015716817945247794> — створити нову гру\n</lang:1044351625621405797> — змінити мову\n</profile:1100344392067338261> — переглянути свій профіль\n</help:1100344392067338262> — ви тут ^_^",
+  "help_faq_name": ":question: ЧаП",
+  "help_faq_value": ":small_orange_diamond: Can I play for free?\n:small_blue_diamond: Yes, you can join any games and create ones with default roles and end conditions for free. Premium allows you to create, edit and use custom roles and conditions.\n:small_orange_diamond: Who can I play with?\n:small_blue_diamond: Only users on the server with access to the channel where the game is created can join it.\n:small_orange_diamond: What should I do if something goes wrong?\n:small_blue_diamond: Please end the game and create a new one. Also please _message to support_ about what happened with the button below.\n:small_orange_diamond: Are all the players required to have Premium to play with custom stuff?\n:small_blue_diamond: No, only the host needs Premium.",
+  "help_plans_name": ":crystal_ball: Плани щодо майбутніх оновлень",
+  "help_plans_value": "We plan to empower game hosts, extend the user profile, add more actions for roles, custom game stages, new localizations and a lot more!",
+  "help_about_name": ":notepad_spiral: Про Mafia Bot",
+  "help_about_value": "`Версія:` 2.0.5.\n`Вихідний код:` https://github.com/Pazzann/mafia-bot\n`Офіційний сервер:` https://discord.gg/ZWnx8rqGTD\n`Розробка:` Boy From God#2772\n`Тексти:` denyshon#9143, Boy From God#2772\n`Локалізація:` denyshon#9143 (`uk`, `ru`), Boy From God#2772 (`fu`)\n`Арти:` Midjourney, popa_sani#4041",
 
   "help_button_rules": "Правила гри",
   "help_button_scripting": "Створення скриптів",

@@ -122,20 +122,20 @@ export interface ILangProps {
     profile_accountSince: string;       //usage: ⌚**${locale.profile_accountSince}** <t:${Math.round(interaction.user.createdAt.getTime() / 1000)}:d>
     profile_totalGames: string;
     profile_totalWins: string;
-    profile_premium: string;
+    profile_premium: string;            //do not localize Premium
     profile_premium_purchased: string;
     profile_premium_notPurchased: string;
-    profile_button_premium: string;
+    profile_button_premium: string;     //do not localize Premium
     profile_button_custom: string;
     profile_button_news: string;
 
     //do not localize "Premium"
-    premium_title: string;          //TODO
-    premium_description: string;    //TODO
-    premium_howDoIGet_name: string; //TODO
-    premium_howDoIGet_value: string;//TODO
-    premium_faq_name: string;       //TODO
-    premium_faq_value: string;      //<= 1000 symbols TODO
+    premium_title: string;          //do not localize Premium
+    premium_description: string;
+    premium_howDoIGet_name: string; //do not localize Premium
+    premium_howDoIGet_value: string;//do not localize Premium
+    premium_faq_name: string;
+    premium_faq_value: string;      //<= 1000 symbols; do not localize Premium
 
     custom_button_createrole: string;
     custom_button_editrole: string;
@@ -285,6 +285,17 @@ export interface ILangProps {
     news_enable_success_message: string;
     news_disable_success_message: string;
 
+    help_title: string;
+    help_description: string;               //do not localize Premium
+    help_commands_name: string;
+    help_commands_value: string;
+    help_faq_name: string;
+    help_faq_value: string;                 //do not localize Premium
+    help_plans_name: string;
+    help_plans_value: string;
+    help_about_name: string;
+    help_about_value: string;
+
     help_button_rules: string;
     help_button_scripting: string;
     help_button_helpmessage: string;
@@ -294,7 +305,7 @@ export interface ILangProps {
     helpMessage_text_placeHolder: string;                   // <= 100 symbols
 
     error_notInGame: string;
-    error_premium: string;
+    error_premium: string;                  //do not localize Premium
     error_unknown: string;
 
     //Deprecated strings:

@@ -4,6 +4,10 @@ import {ILangProps} from "../../types/interfaces/ILang";
 
 export default async function scripting(interaction: ChatInputCommandInteraction, user: User, locale: ILangProps) {
 
+    const embed_warning = new EmbedBuilder()
+        .setTitle(":warning: Attention")
+        .setDescription("Some translations can contain errors or can be not finished properly, so for scripting help it is recommended to use English.")
+        .setColor("#1751bd")
 
     const embed = new EmbedBuilder()
         .setTitle("🛠Scripting")
@@ -85,5 +89,5 @@ export default async function scripting(interaction: ChatInputCommandInteraction
         .setColor("#f813ff");
 
 
-    interaction.reply({ephemeral: true, embeds: [embed, embed2, embed3]}).catch();
+    interaction.reply({ephemeral: true, embeds: [embed_warning, embed, embed2, embed3]}).catch();
 }

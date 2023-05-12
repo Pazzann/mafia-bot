@@ -14,7 +14,7 @@ export default async function voteVisible (interaction: ButtonInteraction, gamei
             host.voteVisible = !host.voteVisible;
             host.interaction.editReply({embeds: [usersRedraw(host.users, host.embed, host)]});
             curHostGames.set(gameid, host);
-            await interaction.reply({content: "Switched to: " + host.voteVisible, components: getEditRow(host, user, locale, gameid), ephemeral: true})
+            await interaction.reply({content: "Switched to: " + !host.voteVisible, components: getEditRow(host, user, locale, gameid), ephemeral: true})
         }else{
             interaction.reply({content: locale.game_cancel_error_noAccess, ephemeral: true}).catch(()=>{});
         }
