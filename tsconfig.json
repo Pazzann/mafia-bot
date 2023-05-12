@@ -25,6 +25,7 @@
   },
   "include": [
     "./*.test.ts",
-    "./src/*"
+    "./src/*",
+    "./src/langs/*.json"
   ]
 }
