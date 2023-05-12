@@ -294,7 +294,7 @@
   "help_plans_name": ":crystal_ball: Планы на будущие обовления",
   "help_plans_value": "Мы планируем предоставить больше возможностей организаторам игр, расширить профиль пользователя, добавить больше действий для ролей, кастомизацию этапов игры, новые локализации и многое другое!",
   "help_about_name": ":notepad_spiral: О Mafia Bot",
-  "help_about_value": "`Версия:` 2.0.0 (альфа).\n`Исходный код:` https://github.com/Pazzann/mafia-bot\n`Официальный сервер:` https://discord.gg/ZWnx8rqGTD\n`Разработка:` Boy From God#2772\n`Тексты:` denyshon#9143, Boy From God#2772\n`Локализация:` denyshon#9143 (`uk`, `ru`), Boy From God#2772 (`fu`)\n`Арты:` Midjourney, popa_sani#4041",
+  "help_about_value": "`Версия:` 2.0.0 (альфа)\n`Исходный код:` https://github.com/Pazzann/mafia-bot\n`Официальный сервер:` https://discord.gg/ZWnx8rqGTD\n`Разработка:` Boy From God#2772\n`Тексты:` denyshon#9143, Boy From God#2772\n`Локализация:` denyshon#9143 (`uk`, `ru`), Boy From God#2772 (`fu`)\n`Арты:` Midjourney, popa_sani#4041",
 
   "help_button_rules": "Правила игры",
   "help_button_scripting": "Создание скриптов",
