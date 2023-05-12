@@ -6,8 +6,10 @@ COPY package.json .
 
 RUN npm i
 RUN npm i ts-node
-RUN npm run build
+
 
 COPY . .
+
+RUN npm run build
 
 CMD ["npm", "start"]
