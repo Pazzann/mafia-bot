@@ -8,7 +8,7 @@ export default async function help (interaction: ChatInputCommandInteraction, us
         .setTitle(locale.help_title)
         .setDescription(locale.help_description)
         .setColor("#b0ff9c")
-        .setThumbnail("https://media.discordapp.net/attachments/1008571116241047642/1017336428365099008/Boy_From_God_mafia_vote_424735d6-e773-4ac5-9731-5fa2fcfba119.png?width=566&height=566")
+        .setThumbnail("https://cdn.discordapp.com/attachments/1055494696291532851/1106706041271484547/Untitled.png")
         .addFields([{
             name: '\u200B',
             value: '\u200B'
