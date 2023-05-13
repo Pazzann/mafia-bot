@@ -47,13 +47,13 @@ export default async function rules(interaction: ChatInputCommandInteraction, us
         .setDescription("This includes description only for standard conditions, for the custom conditions see in scripting help and profiles of owners.")
         .addFields({
             name: locale.condition_mafiaWin_name,
-            value: "fsdfds",
+            value: "Mafia wins when there are more then half of the players are mafia.",
         },{
             name: locale.condition_peacefulWin_name,
-            value: "fsdfs"
+            value: "Peaceful wins when there are 0 murderers left."
         },{
             name: locale.condition_killerWin_name,
-            value: "sdfs"
+            value: "Maniac wins when there are fewer then 3 players alive."
         })
         .setColor("#8697ff")
 
