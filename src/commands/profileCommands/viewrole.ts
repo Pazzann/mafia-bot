@@ -2,7 +2,7 @@ import {ActionRowBuilder, ButtonBuilder, ButtonStyle, SelectMenuInteraction} fro
 import User from "../../Entities/User.entity";
 import {ILangProps} from "../../types/interfaces/ILang";
 import Role from "../../Entities/Role.entity";
-import MafiaEmbedBuilder from "../../Classes/MafiaEmbedBuilder";
+import MafiaEmbedFactory from "../../Classes/MafiaEmbedFactory";
 
 export default async function viewrole(interaction: SelectMenuInteraction, user: User, locale: ILangProps, roleId: number) {
 
@@ -20,7 +20,7 @@ export default async function viewrole(interaction: SelectMenuInteraction, user:
                     .setEmoji("🌀")
                     .setStyle(ButtonStyle.Success)
             );
-    const embed = MafiaEmbedBuilder.roleEmbed(role, locale);
+    const embed = MafiaEmbedFactory.roleEmbed(role, locale);
 
     interaction.reply({ephemeral: true, embeds: [embed], components: [buttonRow]}).catch();
 }

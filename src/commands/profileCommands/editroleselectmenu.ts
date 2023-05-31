@@ -7,7 +7,7 @@ import {
 import User from "../../Entities/User.entity";
 import {ILangProps} from "../../types/interfaces/ILang";
 import Role from "../../Entities/Role.entity";
-import MafiaEmbedBuilder from "../../Classes/MafiaEmbedBuilder";
+import MafiaEmbedFactory from "../../Classes/MafiaEmbedFactory";
 
 export default async function editroleselectmenu(interaction: SelectMenuInteraction, user: User, locale: ILangProps, roleId: number) {
 
@@ -25,7 +25,7 @@ export default async function editroleselectmenu(interaction: SelectMenuInteract
         interaction.reply({content: locale.role_edit_error_noAccess, ephemeral: true}).catch();
         return;
     }
-    const embed = MafiaEmbedBuilder.roleEmbed(role, locale);
+    const embed = MafiaEmbedFactory.roleEmbed(role, locale);
 
     const row = new ActionRowBuilder<StringSelectMenuBuilder>()
         .addComponents(

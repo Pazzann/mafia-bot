@@ -2,13 +2,13 @@ import {EmbedBuilder} from "discord.js";
 import {ILangProps} from "../types/interfaces/ILang";
 import {Langs} from "../types/Langs";
 import BaseRole from "./Roles/BaseRole";
-import ScriptEngine from "./ScriptEngine";
+import ScriptFactory from "./ScriptFactory";
 import MafiaUser from "./MafiaUser";
 import Role from "../Entities/Role.entity";
 import WinningCondition from "../Entities/WinningCondition.entity";
 import {Theme} from "../Functions/themes";
 
-export default class MafiaEmbedBuilder {
+export default class MafiaEmbedFactory {
 
     public static wakeUp(locale: ILangProps) {
         const embed = new EmbedBuilder()
@@ -58,7 +58,7 @@ export default class MafiaEmbedBuilder {
                 value: `${locale.game_started_private_theme}: \`${theme.GetTheme(lang)}\`\n${locale.game_started_private_playerCount}: \`${players.length}\`\n${rolesValue}`
             }]);
 
-        embed.setDescription(String(ScriptEngine.DescriptionEngine(owner.role.GetDescription(owner.lang), players, owner)));
+        embed.setDescription(String(ScriptFactory.DescriptionEngine(owner.role.GetDescription(owner.lang), players, owner)));
         switch (owner.role.ActionOnSelect) {
             case "alibi":{
                 embed.setColor("#de89f5");

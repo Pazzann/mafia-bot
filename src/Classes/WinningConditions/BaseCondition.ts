@@ -3,7 +3,7 @@ import {Langs} from "../../types/Langs";
 import {ILocalProps, localisations} from "../../index";
 import {ILangProps} from "../../types/interfaces/ILang";
 import MafiaUser from "../MafiaUser";
-import ScriptEngine from "../ScriptEngine";
+import ScriptFactory from "../ScriptFactory";
 
 export default abstract class BaseCondition {
     protected _name: string;
@@ -51,7 +51,7 @@ export default abstract class BaseCondition {
     public GetEmbed(lang: Langs, players: MafiaUser[]): EmbedBuilder{
         const embed = new EmbedBuilder();
         embed.setTitle(this.GetEmbedTitle(lang));
-        const description = ScriptEngine.ConditionEmbedDescription(this.GetEmbedDescription(lang), players);
+        const description = ScriptFactory.ConditionEmbedDescription(this.GetEmbedDescription(lang), players);
         embed.setDescription(String(description));
         embed.setColor("#047bff")
         embed.setThumbnail(this.WinEmbedThumbnail);

@@ -3,7 +3,7 @@ const {VM} = require('vm2');
 
 
 
-export default class ScriptEngine {
+export default class ScriptBuilder {
 
 
     private _eqv: string;
@@ -15,7 +15,7 @@ export default class ScriptEngine {
 
     //validates a non harmful environment
     public validate(eqv: string): boolean {
-        if (eqv.includes('require'))
+        if (eqv.includes("require"))
             return false;
         if (eqv.includes("import"))
             return false;
@@ -81,13 +81,10 @@ export default class ScriptEngine {
     //{oPlayersTRole} - other people of his role in format {player}, {player}...
     public setOtherPlayersThatRole(owner: MafiaUser, players: MafiaUser[]) {
         if (this._eqv.includes("{aPlayersTRole}")) {
-            let aPlayers = "";
-            players.filter(item => item.role.RoleName == owner.role.RoleName).map(item => {
-                aPlayers += item.dsUser?.tag + ", ";
-            })
-            if (players.filter(item => item.role.RoleName == owner.role.RoleName).length > 0) {
+            let fPlayers = players.filter(item => item.role.RoleName == owner.role.RoleName);
+            let aPlayers: string = fPlayers.reduce((p, i)=> p + i.dsUser?.tag + ", ", "");
+            if (fPlayers.length > 0)
                 aPlayers = aPlayers.slice(0, aPlayers.length - 3);
-            }
             this._eqv = this._eqv.replace("{aPlayersTRole}", aPlayers);
         }
         return this;
@@ -96,13 +93,10 @@ export default class ScriptEngine {
     //{aPlayersTRole} - all people of his role in format {player}, {player}...
     public setAllPlayersThatRole(owner: MafiaUser, players: MafiaUser[]) {
         if (this._eqv.includes("{oPlayersTRole}")) {
-            let aPlayers = "";
-            players.filter(item => item.role.RoleName == owner.role.RoleName && item.id != owner.id).map(item => {
-                aPlayers += item.dsUser?.tag + ", ";
-            })
-            if (players.filter(item => item.role.RoleName == owner.role.RoleName && item.id != owner.id).length > 0) {
+            let fPlayers = players.filter(item => item.role.RoleName == owner.role.RoleName && item.id != owner.id);
+            let aPlayers: string = fPlayers.reduce((p, i)=> p + i.dsUser?.tag + ", ", "");
+            if (fPlayers.length > 0)
                 aPlayers = aPlayers.slice(0, aPlayers.length - 3);
-            }
             this._eqv = this._eqv.replace("{oPlayersTRole}", aPlayers);
         }
         return this;
@@ -111,10 +105,7 @@ export default class ScriptEngine {
     //{oPlayersAllRoles} - all people roles in format {player} — {role}, \n
     public setAllPlayersAllRoles(players: MafiaUser[]) {
         if (this._eqv.includes("{oPlayersAllRoles}")) {
-            let aPlayers = "";
-            players.map(item => {
-                aPlayers += item.dsUser?.tag + " — " + item.role.RoleName + " \n";
-            })
+            let aPlayers: string = players.reduce((p, i)=>p + i.dsUser?.tag + " — " + i.role.RoleName + " \n", "");
             this._eqv = this._eqv.replace("{oPlayersAllRoles}", aPlayers);
         }
         return this;
@@ -134,7 +125,6 @@ export default class ScriptEngine {
                 const name = arr[i].split(':count}')[0].replace("<", "").replace(">", "");
                 const count = players.filter(item => item.role.RoleName == name).length;
                 arr[i] = count + arr[i].split(':count}')[1];
-
             }
         }
         this._eqv = arr.join('');
@@ -148,10 +138,7 @@ export default class ScriptEngine {
             if (i !== 0) {
                 const name = arr[i].split(':string}')[0].replace("<", "").replace(">", "");
                 const playersNames = players.filter(item => item.role.RoleName == name);
-                let a = "";
-                playersNames.map(item => {
-                    a += item.dsUser.tag + ", ";
-                })
+                let a: string = playersNames.reduce((p, i) => a + i.dsUser.tag, "");
                 a = a.slice(0, a.length - 2);
                 arr[i] = a + arr[i].split(':string}')[1];
             }
@@ -169,7 +156,6 @@ export default class ScriptEngine {
                 const name = arr[i].split(':count}')[0].replace("<", "").replace(">", "");
                 const count = players.filter(item => item.role.ActionOnSelect == name).length;
                 arr[i] = count + arr[i].split(':count}')[1]
-
             }
         }
         this._eqv = arr.join('');
@@ -182,10 +168,7 @@ export default class ScriptEngine {
             if (i !== 0) {
                 const name = arr[i].split(':string}')[0].replace("<", "").replace(">", "");
                 const playersNames = players.filter(item => item.role.ActionOnSelect == name);
-                let a = "";
-                playersNames.map(item => {
-                    a += item.dsUser.tag + ", ";
-                })
+                let a: string = playersNames.reduce((p, i) => a + i.dsUser.tag, "");
                 a = a.slice(0, a.length - 2);
                 arr[i] = a + arr[i].split(':string}')[1];
             }
@@ -202,8 +185,6 @@ export default class ScriptEngine {
                 const name = arr[i].split(':count}')[0].replace("<", "").replace(">", "");
                 const count = players.filter(item => item.role.ActionOnSelect == name && item.isKilled == false).length;
                 arr[i] = count + arr[i].split(':count}')[1];
-
-
             }
         }
         this._eqv = arr.join('');
@@ -217,10 +198,7 @@ export default class ScriptEngine {
             if (i !== 0) {
                 const name = arr[i].split(':string}')[0].replace("<", "").replace(">", "");
                 const playersNames = players.filter(item => item.role.ActionOnSelect == name  && item.isKilled == false);
-                let a = "";
-                playersNames.map(item => {
-                    a += item.dsUser.tag + ", ";
-                });
+                let a: string = playersNames.reduce((p, i) => a + i.dsUser.tag, "");
                 a = a.slice(0, a.length - 2);
                 arr[i] = a + arr[i].split(':string}')[1];
             }
@@ -238,7 +216,6 @@ export default class ScriptEngine {
                 const name = arr[i].split(':count}')[0].replace("<", "").replace(">", "");
                 const count = players.filter(item => item.role.RoleName == name && item.isKilled == false).length;
                 arr[i] = count + arr[i].split(':count}')[1];
-
             }
         }
         this._eqv = arr.join('');
@@ -251,91 +228,12 @@ export default class ScriptEngine {
             if (i !== 0) {
                 const name = arr[i].split(':string}')[0].replace("<", "").replace(">", "");
                 const playersNames = players.filter(item => item.role.RoleName == name && item.isKilled == false);
-                let a = "";
-                playersNames.map(item => {
-                    a += item.dsUser.tag + ", ";
-                });
+                let a: string = playersNames.reduce((p, i) => a + i.dsUser.tag, "");
                 a = a.slice(0, a.length - 2);
                 arr[i] = a + arr[i].split(':string}')[1];
             }
         }
         this._eqv = arr.join('');
         return this;
-    }
-
-    //{pCount}
-    //{oRolesPCount}
-    public static RoleCountCalc(eqv: string, pCount: number, oRolesPCount: number): number {
-        return new ScriptEngine(eqv)
-            .setPlayerCount(pCount)
-            .setOtherPlayerCount(oRolesPCount)
-            .runEquation() as number;
-    }
-
-    // %
-    //{pCount}
-    //{yRoleCount}
-    //{oPlayersTRole}
-    //{aPlayersTRole}
-    //{oPlayersAllRoles}
-    //{r:<rolename>:count}
-    //{a:<actionname>:count}
-    public static DescriptionEngine(eqv: string, players: MafiaUser[], owner: MafiaUser): string | number {
-        return new ScriptEngine(eqv)
-            .setStringIdentifier()
-            .setPlayerCount(players.length)
-            .setYourRolePlayersCount(owner, players)
-            .setOtherPlayersThatRole(owner, players)
-            .setAllPlayersThatRole(owner, players)
-            .setAllPlayersAllRoles(players)
-            .setRoleCountByName(players)
-            .setActionCountByName(players)
-            .runEquation() as string | number;
-    }
-
-    // %
-    //{pCount}
-    //{aPlayerCount}
-    //{oPlayersAllRoles}
-    //{sr:<rolename>:string}
-    //{sa:<actionname>:string}
-    //{saa:<actionname>:string}
-    //{sar:<rolename>:string}
-    //{r:<rolename>:count}
-    //{a:<actionname>:count}
-    //{aa:<actionname>:count}
-    //{ar:<rolename>:count}
-    public static ConditionEmbedDescription(eqv: string, players: MafiaUser[]): string | number {
-        return new ScriptEngine(eqv)
-            .setStringIdentifier()
-            .setPlayerCount(players.length)
-            .setAlivePlayers(players)
-            .setAllPlayersAllRoles(players)
-            .setRoleStringByName(players)
-            .setActionStringByName(players)
-            .setAliveActionStringByName(players)
-            .setAliveRoleStringByName(players)
-            .setRoleCountByName(players)
-            .setActionCountByName(players)
-            .setAliveActionCountByName(players)
-            .setAliveRoleCountByName(players)
-            .runEquation() as string | number;
-    }
-
-    //{pCount}
-    //{aPlayerCount}
-    //{r:<rolename>:count}
-    //{a:<actionname>:count}
-    //{aa:<actionname>:count}
-    //{ar:<rolename>:count}
-    public static WinningEngine(eqv: string, players: MafiaUser[]): boolean | number {
-        return new ScriptEngine(eqv)
-            .setPlayerCount(players.length)
-            .setAlivePlayers(players)
-            .setRoleCountByName(players)
-            .setActionCountByName(players)
-            .setAliveActionCountByName(players)
-            .setAliveRoleCountByName(players)
-            .runEquation() as boolean | number;
     }
 }

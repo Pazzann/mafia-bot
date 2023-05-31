@@ -2,7 +2,7 @@ import {ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder, ModalSubmitI
 import User from "../../Entities/User.entity";
 import {ILangProps} from "../../types/interfaces/ILang";
 import WinningCondition from "../../Entities/WinningCondition.entity";
-import MafiaEmbedBuilder from "../../Classes/MafiaEmbedBuilder";
+import MafiaEmbedFactory from "../../Classes/MafiaEmbedFactory";
 
 let validUrl = require('valid-url');
 
@@ -32,7 +32,7 @@ export default async function newConditionPartTwo (interaction: ModalSubmitInter
     });
     await condition.save();
 
-    const embed = MafiaEmbedBuilder.conditionEmbed(condition, locale);
+    const embed = MafiaEmbedFactory.conditionEmbed(condition, locale);
 
     await interaction.reply({content: locale.condition_create_success_message, embeds: [embed], ephemeral: true}).catch();
 }

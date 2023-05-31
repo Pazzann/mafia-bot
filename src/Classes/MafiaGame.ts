@@ -3,7 +3,7 @@ import {curHandlingGames, curHostGames, discordBot, localisations} from "../inde
 import User from "../Entities/User.entity";
 import BaseRole from "./Roles/BaseRole";
 import shuffle from "../Functions/shuffle";
-import ScriptEngine from "./ScriptEngine";
+import ScriptFactory from "./ScriptFactory";
 import {Langs} from "../types/Langs";
 import BaseCondition from "./WinningConditions/BaseCondition";
 import {
@@ -13,7 +13,7 @@ import {
     SelectMenuComponent,
     SelectMenuInteraction
 } from "discord.js";
-import MafiaEmbedBuilder from "./MafiaEmbedBuilder";
+import MafiaEmbedFactory from "./MafiaEmbedFactory";
 
 
 export default class MafiaGame {
@@ -38,7 +38,7 @@ export default class MafiaGame {
 
     public CheckEndGame(): boolean {
         for (let condition of this._winCond) {
-            if (ScriptEngine.WinningEngine(condition.Condition, this.Players)) {
+            if (ScriptFactory.WinningEngine(condition.Condition, this.Players)) {
                 if (condition.WinRole == "innocent") {
                     this.GetPeacefulUsers().map(item => {
                         item.dbUser.totalWins++;
@@ -134,9 +134,9 @@ export default class MafiaGame {
 
 
             this.Players.map(item => {
-                let killEmbed = (tags.length == 0) ? MafiaEmbedBuilder.nokills(item.local) : MafiaEmbedBuilder.kills(tags, item.local);
+                let killEmbed = (tags.length == 0) ? MafiaEmbedFactory.nokills(item.local) : MafiaEmbedFactory.kills(tags, item.local);
                 item.dsUser.dmChannel.send({
-                    embeds: [MafiaEmbedBuilder.wakeUp(item.local), killEmbed],
+                    embeds: [MafiaEmbedFactory.wakeUp(item.local), killEmbed],
                 });
             });
             if (this.CheckEndGame()) {
@@ -197,7 +197,7 @@ export default class MafiaGame {
 
             this.Players.map(item => {
                 item.dsUser.dmChannel.send({
-                    embeds: [MafiaEmbedBuilder.sleepTime(item.local)],
+                    embeds: [MafiaEmbedFactory.sleepTime(item.local)],
                 });
                 item.clearActions();
             })
@@ -332,7 +332,7 @@ export default class MafiaGame {
     public async RegisterWins(wins: BaseCondition[]): Promise<BaseCondition[]> {
         let validetadWins: BaseCondition[] = []
         for (let winCon of wins) {
-            if (typeof ScriptEngine.WinningEngine(winCon.Condition, this.Players) === "boolean") {
+            if (typeof ScriptFactory.WinningEngine(winCon.Condition, this.Players) === "boolean") {
                 validetadWins.push(winCon);
             }
 
@@ -358,7 +358,7 @@ export default class MafiaGame {
         for (let i = 0; i < roles.length; i++) {
             if (users.length >= roles[i].SpawnFrom) {
                 if (typeof roles[i].Count == "string") {
-                    roles[i].Count = ScriptEngine.RoleCountCalc(roles[i].Count as string, users.length, totalRoleCount)
+                    roles[i].Count = ScriptFactory.RoleCountCalc(roles[i].Count as string, users.length, totalRoleCount)
                     if (isNaN(roles[i].Count as number)) {
                         roles.splice(i, 1);
                         i--;

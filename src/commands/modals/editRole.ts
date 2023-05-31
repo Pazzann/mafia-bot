@@ -2,7 +2,7 @@ import {ModalSubmitInteraction, TextInputComponent} from "discord.js";
 import User from "../../Entities/User.entity";
 import {ILangProps} from "../../types/interfaces/ILang";
 import Role from "../../Entities/Role.entity";
-import MafiaEmbedBuilder from "../../Classes/MafiaEmbedBuilder";
+import MafiaEmbedFactory from "../../Classes/MafiaEmbedFactory";
 
 export default async function editRole (interaction: ModalSubmitInteraction, user: User, locale: ILangProps) {
     if (!user.premium) {
@@ -66,7 +66,7 @@ export default async function editRole (interaction: ModalSubmitInteraction, use
         }
 
         role.save();
-        interaction.reply({content: locale.role_edit_success_message, ephemeral: false, embeds:[MafiaEmbedBuilder.roleEmbed(role, locale)]}).catch();
+        interaction.reply({content: locale.role_edit_success_message, ephemeral: false, embeds:[MafiaEmbedFactory.roleEmbed(role, locale)]}).catch();
     } catch (err) {
     }
 }

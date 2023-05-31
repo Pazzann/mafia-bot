@@ -6,7 +6,7 @@ import {
     EmbedBuilder
 } from "discord.js";
 import {curHandlingGames, curHostGames} from "../../index";
-import MafiaEmbedBuilder from "../../Classes/MafiaEmbedBuilder";
+import MafiaEmbedFactory from "../../Classes/MafiaEmbedFactory";
 import GetRandomTheme from "../../Functions/themes";
 import getDisabledButtons from "../../Functions/getDisabledButtons";
 import User from "../../Entities/User.entity";
@@ -51,9 +51,9 @@ export default async function start (interaction: ButtonInteraction, gameid = 0,
                 const dm = player.dsUser?.dmChannel ?? await player.dsUser.createDM();
                 const row = player.role.GetNightVoteRow(game.GetAliveUsers(), false, player);
                 if (row && player.role.DelayForActivity === 1)
-                    dm.send({ embeds: [MafiaEmbedBuilder.sleepTime(player.local), await MafiaEmbedBuilder.roleGiver(player, game.GetAliveUsers(), theme, player.local, player.lang, roles)], components: [row]}).catch(err=>{console.log(err)});
+                    dm.send({ embeds: [MafiaEmbedFactory.sleepTime(player.local), await MafiaEmbedFactory.roleGiver(player, game.GetAliveUsers(), theme, player.local, player.lang, roles)], components: [row]}).catch(err=>{console.log(err)});
                 else
-                    dm.send({ embeds: [MafiaEmbedBuilder.sleepTime(player.local), await MafiaEmbedBuilder.roleGiver(player, game.GetAliveUsers(), theme, player.local, player.lang, roles)]}).catch(err=>{console.log(err)});
+                    dm.send({ embeds: [MafiaEmbedFactory.sleepTime(player.local), await MafiaEmbedFactory.roleGiver(player, game.GetAliveUsers(), theme, player.local, player.lang, roles)]}).catch(err=>{console.log(err)});
             }
             game.EndChooseMoveHandler();
             await interaction.message.edit({components: getDisabledButtons(gameid, locale)})

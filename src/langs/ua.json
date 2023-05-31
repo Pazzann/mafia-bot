@@ -26,7 +26,7 @@
   "game_start_error_notEnoughPlayers": ":busts_in_silhouette: Недостатньо гравців для початку гри!",
   "game_start_error_notEnoughRoles": ":busts_in_silhouette: Недостатньо ролей для початку гри!",
   "game_started_button_endGame": "Закінчити гру",
-  "game_started_title": "Гру почато",
+  "game_started_title": "Гру розпочато",
   "game_started_private_yourRole": "Ваша роль",
   "game_started_private_gameInfo": "Інформація про гру:",
   "game_started_private_theme": "Тема",

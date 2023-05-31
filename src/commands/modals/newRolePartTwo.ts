@@ -2,7 +2,7 @@ import {EmbedBuilder, ModalSubmitInteraction} from "discord.js";
 import User from "../../Entities/User.entity";
 import {ILangProps} from "../../types/interfaces/ILang";
 import Role from "../../Entities/Role.entity";
-import MafiaEmbedBuilder from "../../Classes/MafiaEmbedBuilder";
+import MafiaEmbedFactory from "../../Classes/MafiaEmbedFactory";
 
 export default async function newRolePartTwo(interaction: ModalSubmitInteraction, user: User, locale: ILangProps) {
     if (!user.premium) {
@@ -32,7 +32,7 @@ export default async function newRolePartTwo(interaction: ModalSubmitInteraction
         role.groupDec = interaction.fields.getTextInputValue("roleGroupSelection") === "true";
         await role.save();
 
-        const embed = MafiaEmbedBuilder.roleEmbed(role, locale);
+        const embed = MafiaEmbedFactory.roleEmbed(role, locale);
         await interaction.reply({content: locale.role_create_success_message, embeds: [embed], ephemeral: true}).catch();
     } catch (err) {
         await interaction.reply(locale.error_unknown).catch();

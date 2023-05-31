@@ -2,7 +2,7 @@ import {ActionRowBuilder, ButtonBuilder, ButtonStyle, SelectMenuInteraction} fro
 import User from "../../Entities/User.entity";
 import {ILangProps} from "../../types/interfaces/ILang";
 import Role from "../../Entities/Role.entity";
-import MafiaEmbedBuilder from "../../Classes/MafiaEmbedBuilder";
+import MafiaEmbedFactory from "../../Classes/MafiaEmbedFactory";
 import WinningCondition from "../../Entities/WinningCondition.entity";
 
 export default async function viewcondition(interaction: SelectMenuInteraction, user: User, locale: ILangProps, conditionId: number) {
@@ -21,7 +21,7 @@ export default async function viewcondition(interaction: SelectMenuInteraction, 
                     .setEmoji("🌀")
                     .setStyle(ButtonStyle.Success)
             );
-    const embed = MafiaEmbedBuilder.conditionEmbed(condition, locale);
+    const embed = MafiaEmbedFactory.conditionEmbed(condition, locale);
 
     interaction.reply({ephemeral: true, embeds: [embed], components: [buttonRow]}).catch();
 }
