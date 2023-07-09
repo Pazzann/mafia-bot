@@ -28,7 +28,7 @@ export default async function editCondition (interaction: ModalSubmitInteraction
         condition.winRole = interaction.fields.getTextInputValue("winRole");
         condition.save();
 
-        interaction.reply({content: locale.condition_edit_success_message, ephemeral: false, embeds:[MafiaEmbedFactory.conditionEmbed(condition, locale)]}).catch()
+        interaction.reply({content: locale.condition_edit_success_message, ephemeral: true, embeds:[MafiaEmbedFactory.conditionEmbed(condition, locale)]}).catch()
     } catch (err) {
     }
 }

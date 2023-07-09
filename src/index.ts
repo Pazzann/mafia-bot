@@ -27,8 +27,8 @@ import leave from "./commands/gameCommands/leave";
 import start from "./commands/gameCommands/start";
 import end from "./commands/gameCommands/end";
 import edit from "./commands/gameCommands/edit";
-import editconditiongamelist from "./commands/gameCommands/editconditiongamelist";
-import editrolegamelist from "./commands/gameCommands/editrolegamelist";
+import editGameConditionList from "./commands/gameCommands/editGameConditionList";
+import editGameRoleList from "./commands/gameCommands/editGameRoleList";
 import createcondition from "./commands/profileCommands/createcondition";
 import createrole from "./commands/profileCommands/createrole";
 import custom from "./commands/profileCommands/custom";
@@ -131,8 +131,8 @@ const commands = {
         e: end,
         r: edit,
         v: voteVisible,
-        editconditiongamelist,
-        editrolegamelist
+        editgameconditionlist: editGameConditionList,
+        editgamerolelist: editGameRoleList
     },
     profileCommands: {
         createcondition,
@@ -278,10 +278,10 @@ discordBot.on("interactionCreate", async (interaction: ChatInputCommandInteracti
                 return commands.profileCommands.editconditionselect(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps], +interaction.values[0]).catch();
             if (interaction.customId == "editroleselection")
                 return commands.profileCommands.editrolecomplete(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps]).catch();
-            if (interaction.customId == "editrolegamelist")
-                return commands.gameCommands.editrolegamelist(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps]).catch();
+            if (interaction.customId == "editgamerolelist")
+                return commands.gameCommands.editgamerolelist(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps]).catch();
             if (interaction.customId == "editcondtiongamelist")
-                return commands.gameCommands.editconditiongamelist(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps]).catch();
+                return commands.gameCommands.editgameconditionlist(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps]).catch();
             let mafGame: MafiaGame = null;
             for (let game of curHandlingGames.values()) {
                 if (game.HasPlayer(interaction.user.id)) {

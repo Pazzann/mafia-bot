@@ -1,4 +1,4 @@
-import {ButtonInteraction, ChatInputCommandInteraction, Embed, EmbedBuilder} from "discord.js";
+import {ButtonInteraction, ChatInputCommandInteraction, EmbedBuilder} from "discord.js";
 import BaseRole from "../../Classes/Roles/BaseRole";
 import BaseCondition from "../../Classes/WinningConditions/BaseCondition";
 import {ILangProps} from "./ILang";

@@ -1,17 +1,17 @@
 import BaseRole from "./BaseRole";
 import {Action} from "../../types/Action";
 
-export default class CustomRole extends BaseRole{
-    constructor(name:string, action: Action, delayForActivity: number, groupDes: boolean, count: string, spawnFrom: number, placeHolder: string, imageLink: string, selfSelectable: boolean, description: string) {
+export default class CustomRole extends BaseRole {
+    constructor(name:string, actionOnSelect: Action, delayForActivity: number, groupDecision: boolean, count: string, spawnFrom: number, placeHolder: string, imageLink: string, selfSelectable: boolean, description: string) {
         super();
-        this._roleName = name;
-        this.ActionOnSelect = action;
+        this._name = name;
+        this.ActionOnSelect = actionOnSelect;
         this.DelayForActivity = delayForActivity;
-        this.GroupDecision = groupDes;
+        this.GroupDecision = groupDecision;
         this.Count = count;
-        switch (action){
+        switch (actionOnSelect) {
             case "kill":{
-                this.Emojis = ['🪓', '🪚', '🔪', '🔨', '🪛', '🦴', '☠', '🩸'];
+                this.Emojis = ['🪓', '🪚', '🔪', '🔨', '🪛', '🦴', '☠️', '🩸'];
                 break;
             }
             case "heal":{

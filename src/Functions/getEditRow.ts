@@ -18,7 +18,7 @@ import IHostGameProps from "../types/interfaces/IHost";
 import User from "../Entities/User.entity";
 import {ILangProps} from "../types/interfaces/ILang";
 
-export default function getEditRow(host: IHostGameProps, user: User, locale: ILangProps, gameid: number): ActionRowBuilder<ButtonBuilder | StringSelectMenuBuilder>[]{
+export default function getEditRow(host: IHostGameProps, user: User, locale: ILangProps, gameid: number): ActionRowBuilder<ButtonBuilder | StringSelectMenuBuilder>[] {
     const chooseArr: RestOrArray<StringSelectMenuOptionBuilder> = [];
 
     chooseArr.push(
@@ -73,7 +73,7 @@ export default function getEditRow(host: IHostGameProps, user: User, locale: ILa
     const row = new ActionRowBuilder<StringSelectMenuBuilder>()
         .addComponents(
             new StringSelectMenuBuilder()
-                .setCustomId("editrolegamelist")
+                .setCustomId("editgamerolelist")
                 .setPlaceholder(locale.game_edit_roles_placeHolder)
                 .setMinValues(1)
                 .setMaxValues(chooseArr.length)

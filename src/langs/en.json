@@ -40,7 +40,9 @@
   "game_leave_success_message": ":ballot_box_with_check: You have successfully left the game.",
   "game_edit_error_noAccess": ":man_gesturing_no: Sorry, you can't edit this game because you aren't its host!",
   "game_edit_roles_placeHolder": "Select roles...",
+  "game_edit_roles_error_notFound": ":jigsaw: Role not found! It may have been deleted.",
   "game_edit_conditions_placeHolder": "Select end game conditions...",
+  "game_edit_conditions_error_notFound": ":jigsaw: Condition not found! It may have been deleted.",
   "game_edit_button_votes_hide": "Hide Votes",
   "game_edit_button_votes_notHide" : "Don't Hide Votes",
   "game_edit_success_message": ":white_check_mark: The game was successfully edited!",
@@ -101,7 +103,7 @@
   "condition_killerWin_WinEmbedDescription": "%The maniac {sr:killer:string} has won — the whole city is cut out.%",
   "condition_peacefulWin_name": "Innocent victory condition",
   "condition_peacefulWin_WinEmbedTitle": "The innocents have won!",
-  "condition_peacefulWin_WinEmbedDescription": "%The innocents have won — there are no criminals left in the city.\nThe murderers were: {sr:killer:string}.%",
+  "condition_peacefulWin_WinEmbedDescription": "%The innocents have won — there are no criminals left in the city.\nThe murderers were: {sa:killer:string}.%",
 
   "role_embed_action_name": "Action",
   "role_embed_groupDec_name": "Does play in a group?",

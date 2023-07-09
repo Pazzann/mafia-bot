@@ -5,7 +5,7 @@ export default class KillerRole extends BaseRole {
     constructor() {
         super()
         this._nameLocals = "role_killer_name"
-        this._roleName = "killer";
+        this._name = "killer";
         this.DelayForActivity = 2;
         this.ActionOnSelect = "kill";
         this.GroupDecision = false;

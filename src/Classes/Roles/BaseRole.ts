@@ -6,7 +6,7 @@ import {ILangProps} from "../../types/interfaces/ILang";
 import {ILocalProps, localisations} from "../../index";
 
 export default abstract class BaseRole {
-    protected _roleName: string;
+    protected _name: string;
     protected _nameLocals: string | null = null;
     protected _placeHolder: string;
     protected _placeHolderLocals: string | null = null;
@@ -23,12 +23,12 @@ export default abstract class BaseRole {
     public Selection: MafiaUser[] = [];
 
     get RoleName(): string {
-        return this._roleName;
+        return this._name;
     }
 
     public GetRoleName(lang: Langs): string {
         if (this._nameLocals === null)
-            return this._roleName;
+            return this._name;
         if (localisations?.[lang.toUpperCase() as keyof ILocalProps]?.[this._nameLocals as keyof ILangProps]) {
             return localisations[lang.toUpperCase() as keyof ILocalProps][this._nameLocals as keyof ILangProps];
         } else {
@@ -62,26 +62,27 @@ export default abstract class BaseRole {
     }
 
     public GetNightVoteRow(aliveUsers: MafiaUser[], inactive = false, owner: MafiaUser) {
-        if (this.ActionOnSelect == "no_activity")
+        if (this.ActionOnSelect == "no_activity") {
             return null;
-        const chooseArr: RestOrArray<StringSelectMenuOptionBuilder> = [];
+        }
+        const voteArr: RestOrArray<StringSelectMenuOptionBuilder> = [];
         for (let user of aliveUsers) {
-            if ((!this.SelfSelectable && user.id != owner.id) || (this.SelfSelectable)) {
+            if (this.SelfSelectable || (!this.SelfSelectable && user.id !== owner.id)) {
                 const chooser = new StringSelectMenuOptionBuilder()
                     .setLabel(user.dsUser.tag)
                     .setEmoji((this.Emojis)[Math.floor(Math.random() * this.Emojis.length)])
                     .setValue(user.id);
-                chooseArr.push(chooser)
+                voteArr.push(chooser)
             }
         }
         return new ActionRowBuilder<StringSelectMenuBuilder>()
             .addComponents(
                 new StringSelectMenuBuilder()
-                    .setCustomId(this._roleName + "_select")
+                    .setCustomId(this._name + "_select")
                     .setPlaceholder(this.GetPlaceHolder(owner.lang))
                     .setMinValues(1)
                     .setMaxValues(1)
-                    .addOptions(chooseArr)
+                    .addOptions(voteArr)
                     .setDisabled(inactive),
             );
     }

@@ -3,6 +3,7 @@ import User from "../../Entities/User.entity";
 import {ILangProps} from "../../types/interfaces/ILang";
 import Role from "../../Entities/Role.entity";
 import MafiaEmbedFactory from "../../Classes/MafiaEmbedFactory";
+import {Action} from "../../types/Action";
 
 export default async function editRole (interaction: ModalSubmitInteraction, user: User, locale: ILangProps) {
     if (!user.premium) {
@@ -36,7 +37,7 @@ export default async function editRole (interaction: ModalSubmitInteraction, use
                 break;
             }
             case "editRoleaction": {
-                role.action = (interaction.components[0].components[0] as TextInputComponent).value;
+                role.action = (interaction.components[0].components[0] as TextInputComponent).value as Action;
                 break;
             }
             case "editRoledelay": {
@@ -66,7 +67,7 @@ export default async function editRole (interaction: ModalSubmitInteraction, use
         }
 
         role.save();
-        interaction.reply({content: locale.role_edit_success_message, ephemeral: false, embeds:[MafiaEmbedFactory.roleEmbed(role, locale)]}).catch();
+        interaction.reply({content: locale.role_edit_success_message, ephemeral: true, embeds:[MafiaEmbedFactory.roleEmbed(role, locale)]}).catch();
     } catch (err) {
     }
 }

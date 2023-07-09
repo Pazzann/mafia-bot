@@ -6,29 +6,13 @@ import {User as DiscordUser} from "discord.js";
 import User from "../Entities/User.entity";
 
 export default class MafiaUser {
-    public vote: string | null;
-    public dsUser: DiscordUser | null;
-    public dbUser: User | null;
-    public id: string;
-    public role: BaseRole;
-    public local: ILangProps;
-    public lang: Langs;
-    public isKilled: boolean;
-    public hasAlibi: boolean;
-    constructor(id: string, lang: Langs, role: BaseRole, dsUser: DiscordUser, dbUser: User) {
-        this.vote = null;
-        this.id = id;
-        this.role = role;
-        this.local = localisations[lang.toUpperCase() as keyof ILocalProps]
-        this.lang = lang;
-        this.isKilled = false;
-        this.hasAlibi = false;
-        this.dsUser = dsUser;
-        this.dbUser = dbUser;
-        if (this.role.ActionOnSelect == "no_activity") {
-            this.actionsOnUser.hasDoneAction = true;
-        }
-    }
+    public readonly id: string;
+    public readonly dsUser: DiscordUser | null;
+    public readonly dbUser: User | null;
+    public readonly local: ILangProps;
+    public readonly lang: Langs;
+    public readonly role: BaseRole;
+    public isKilled: boolean = false;
     public actionsOnUser: {
         kill: boolean,
         heal: boolean,
@@ -36,24 +20,35 @@ export default class MafiaUser {
 
         voted: number,
         hasVoted: boolean,
-        hasDoneAction: boolean,
+        hasDoneAction: boolean
     } = {
         kill: false,
         heal: false,
         alibi: false,
+
         voted: 0,
         hasVoted: false,
         hasDoneAction: false
+    };
+    constructor(id: string, dsUser: DiscordUser, dbUser: User, lang: Langs, role: BaseRole) {
+        this.id = id;
+        this.dsUser = dsUser;
+        this.dbUser = dbUser;
+        this.local = localisations[lang.toUpperCase() as keyof ILocalProps]
+        this.lang = lang;
+        this.role = role;
+        this.actionsOnUser.hasDoneAction = (this.role.ActionOnSelect === "no_activity");
     }
-
 
     public clearActions() {
-        if (this.role.ActionOnSelect == "no_activity") {
-            this.actionsOnUser = { kill: false, heal: false, alibi: false, voted: 0, hasVoted: false, hasDoneAction: true };
-        } else {
-            this.actionsOnUser = { kill: false, heal: false, alibi: false, voted: 0, hasVoted: false, hasDoneAction: false };
-        }
+        this.actionsOnUser = {
+            kill: false,
+            heal: false,
+            alibi: false,
 
+            voted: 0,
+            hasVoted: false,
+            hasDoneAction: this.role.ActionOnSelect === "no_activity"
+        };
     }
-
 }

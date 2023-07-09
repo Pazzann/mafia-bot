@@ -22,8 +22,8 @@ export class Theme implements IThemeProps{
     }
 }
 
-export default function GetRandomTheme(): Theme{
-    return themes[Math.floor(Math.random() * themes.length)]
+export default function getRandomTheme(): Theme {
+    return themes[Math.floor(Math.random() * themes.length)];
 }
 
 const themes: Theme[] = [

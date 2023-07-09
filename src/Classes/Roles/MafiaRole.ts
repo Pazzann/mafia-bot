@@ -5,7 +5,7 @@ export default class MafiaRole extends BaseRole {
     constructor() {
         super()
         this._nameLocals = "role_mafia_name";
-        this._roleName = "mafia";
+        this._name = "mafia";
         this.DelayForActivity = 1;
         this.ActionOnSelect = "kill";
         this.GroupDecision = true;

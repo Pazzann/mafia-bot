@@ -40,7 +40,9 @@
   "game_leave_success_message": ":ballot_box_with_check: Вы успешно покинули игру.",
   "game_edit_error_noAccess": ":man_gesturing_no: Извините, вы не можете изменять эту игру, потому что не являетесь её организатором!",
   "game_edit_roles_placeHolder6": "Выберите роли...",
+  "game_edit_roles_error_notFound": ":jigsaw: Роль не найдена! Возможно, она была удалена.",
   "game_edit_conditions_placeHolder": "Выберите условия окончания игры...",
+  "game_edit_conditions_error_notFound": ":jigsaw: Условие не найдено! Возможно, оно было удалено.",
   "game_edit_button_votes_hide": "Скрывать голоса",
   "game_edit_button_votes_notHide" : "Не скрывать голоса",
   "game_edit_success_message": ":white_check_mark: Игра успешно изменена!",
@@ -101,7 +103,7 @@
   "condition_killerWin_WinEmbedDescription": "%Маньяк {sr:killer:string} победил — весь город вырезан.%",
   "condition_peacefulWin_name": "Условие победы мирных",
   "condition_peacefulWin_WinEmbedTitle": "Мирные победили!",
-  "condition_peacefulWin_WinEmbedDescription": "%Мирные победили — преступников в городе не осталось.\nУбийцами были: {sr:killer:string}.%",
+  "condition_peacefulWin_WinEmbedDescription": "%Мирные победили — преступников в городе не осталось.\nУбийцами были: {sa:killer:string}.%",
 
   "role_embed_action_name": "Действие",
   "role_embed_groupDec_name": "Играет в группе?",

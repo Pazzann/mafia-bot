@@ -1,14 +1,15 @@
 import MafiaUser from "./MafiaUser";
 import ScriptBuilder from "./ScriptBuilder";
 
-export default class ScriptFactory{
+export default class ScriptFactory {
     //{pCount}
     //{oRolesPCount}
     public static RoleCountCalc(eqv: string, pCount: number, oRolesPCount: number): number {
-        return new ScriptBuilder(eqv)
+        const res = new ScriptBuilder(eqv)
             .setPlayerCount(pCount)
             .setOtherPlayerCount(oRolesPCount)
             .runEquation() as number;
+        return (typeof res == "number" ? res : NaN);
     }
 
     // %
@@ -68,13 +69,14 @@ export default class ScriptFactory{
     //{aa:<actionname>:count}
     //{ar:<rolename>:count}
     public static WinningEngine(eqv: string, players: MafiaUser[]): boolean | number {
-        return new ScriptBuilder(eqv)
+        const res = new ScriptBuilder(eqv)
             .setPlayerCount(players.length)
             .setAlivePlayers(players)
             .setRoleCountByName(players)
             .setActionCountByName(players)
             .setAliveActionCountByName(players)
             .setAliveRoleCountByName(players)
-            .runEquation() as boolean | number;
+            .runEquation();
+        return (typeof res == "boolean" ? res : NaN);
     }
 }

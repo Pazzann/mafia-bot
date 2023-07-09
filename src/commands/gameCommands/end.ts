@@ -1,5 +1,5 @@
-import {ButtonInteraction, ChatInputCommandInteraction} from "discord.js";
-import {curHandlingGames, curHostGames, discordBot} from "../../index";
+import {ButtonInteraction} from "discord.js";
+import {curHandlingGames} from "../../index";
 import User from "../../Entities/User.entity";
 import {ILangProps} from "../../types/interfaces/ILang";
 
@@ -7,7 +7,7 @@ export default function end (interaction: ButtonInteraction, gameid = 0, user: U
     if (curHandlingGames.has(gameid)) {
         const game = curHandlingGames.get(gameid);
         if (game.author == interaction.user.id) {
-            game.Players.map(async item => {
+            game.players.map(async item => {
                     const dm = item.dsUser?.dmChannel ?? await item.dsUser.createDM();
                     dm.send(item.local.game_end_success_privateMessage);
             });

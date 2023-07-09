@@ -8,7 +8,7 @@ export interface ILangProps {
     game_created_title: string;
     game_created_autocancel: string;        //usage: **${locale.game_created_autocancel}:** <t:${Math.floor(Date.now()/1000) + 600}:R>
     game_created_gameHost: string;          //usage: **${locale.game_created_gameHost}:** <@${interaction.user.id}>
-    game_created_votes: string;             //usage: __**${locale.game_created_votes}:**__ ${!gameData.voteVisible}
+    game_created_votes: string;             //usage: __**${locale.game_created_votes}:**__ ${!host.voteVisible}
     game_created_playerList: string;        //usage: __**${locale.game_created_playerList}:**__ \n<@${interaction.user.id}>
     game_created_roles: string;
     game_created_gameEndConditions: string;
@@ -40,7 +40,9 @@ export interface ILangProps {
     game_leave_success_message: string;
     game_edit_error_noAccess: string;
     game_edit_roles_placeHolder: string;        // <= 100 symbols
+    game_edit_roles_error_notFound: string;     // = role_view_error_notFound
     game_edit_conditions_placeHolder: string;   // <= 100 symbols
+    game_edit_conditions_error_notFound: string;// = condition_view_error_notFound
     game_edit_button_votes_hide: string;
     game_edit_button_votes_notHide: string;
     game_edit_success_message: string;
@@ -56,7 +58,7 @@ export interface ILangProps {
     no_kills_title: string;
     no_kills_description: string;
 
-    role_select_error_notFound: string;
+    role_select_error_notFound: string;         // = role_view_error_notFound
     role_select_error_invalidSelection: string;
     role_select_error_noActivity: string;
     role_select_success_message1: string;       //usage: who.local.role_select_success_message1 + whomU.dsUser.tag + who.local.role_select_success_message2
@@ -150,11 +152,11 @@ export interface ILangProps {
     role_view_button_clone: string;
 
     role_clone_error_number: string;
-    role_clone_error_notFound: string;
+    role_clone_error_notFound: string;                      // = role_view_error_notFound
     role_clone_success_message: string;
 
     role_create_error_number: string;
-    role_create_error_notFound: string;
+    role_create_error_notFound: string;                     // = role_view_error_notFound
     role_create_error_noAccess: string;
     role_create_title1: string;
     role_create_roleName_label: string;                     //usage: CAPS
@@ -234,7 +236,7 @@ export interface ILangProps {
     condition_view_button_clone: string;
 
     condition_clone_error_number: string;
-    condition_clone_error_notFound: string;
+    condition_clone_error_notFound: string;                 // = condition_view_error_notFound
     condition_clone_success_message: string;
 
     condition_create_error_number: string;

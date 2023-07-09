@@ -1,10 +1,9 @@
-import {BaseEntity, Column, Entity, ManyToOne, PrimaryColumn, PrimaryGeneratedColumn} from "typeorm";
-import {Langs} from "../types/Langs";
+import {BaseEntity, Column, Entity, ManyToOne, PrimaryGeneratedColumn} from "typeorm";
 import User from "./User.entity";
-import {Collection} from "discord.js";
+import {Action} from "../types/Action";
 
 @Entity("roles")
-export default class Role extends BaseEntity{
+export default class Role extends BaseEntity {
     @PrimaryGeneratedColumn()
     id: number;
     @ManyToOne(() => User, (user) => user.customRoles)
@@ -12,7 +11,7 @@ export default class Role extends BaseEntity{
     @Column({type: "varchar"})
     name: string;
     @Column({type:"varchar"})
-    action: string;
+    action: Action;
     @Column()
     delay: number;
     @Column({type: "boolean"})

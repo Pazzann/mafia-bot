@@ -5,7 +5,7 @@ export default class DoctorRole extends BaseRole {
     constructor() {
         super()
         this._nameLocals = "role_doctor_name";
-        this._roleName = "doctor";
+        this._name = "doctor";
         this.DelayForActivity = 1;
         this.ActionOnSelect = "heal";
         this.GroupDecision = false;

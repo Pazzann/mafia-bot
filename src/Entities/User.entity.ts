@@ -4,7 +4,7 @@ import WinningCondition from "./WinningCondition.entity";
 import Role from "./Role.entity";
 
 @Entity("users")
-export default class User extends BaseEntity{
+export default class User extends BaseEntity {
     @PrimaryColumn({type:"varchar"})
     userid: string;
     @Column({type:"varchar"})

@@ -5,7 +5,7 @@ export default class PoliceRole extends BaseRole {
     constructor() {
         super()
         this._nameLocals = "role_police_name"
-        this._roleName = "police";
+        this._name = "police";
         this.DelayForActivity = 1;
         this.ActionOnSelect = "check";
         this.GroupDecision = false;

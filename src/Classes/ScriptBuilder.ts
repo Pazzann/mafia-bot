@@ -1,11 +1,9 @@
 import MafiaUser from "./MafiaUser";
-const {VM} = require('vm2');
 
+const {VM} = require("vm2");
 
 
 export default class ScriptBuilder {
-
-
     private _eqv: string;
 
     constructor(eqv: string) {
@@ -13,54 +11,44 @@ export default class ScriptBuilder {
     }
 
 
-    //validates a non harmful environment
-    public validate(eqv: string): boolean {
-        if (eqv.includes("require"))
-            return false;
-        if (eqv.includes("import"))
-            return false;
-        if (eqv.includes("process"))
-            return false;
-        if (eqv.includes("eval"))
-            return false;
-        if (eqv.includes("Function"))
-            return false;
-        if (eqv.includes("async"))
-            return false;
-        if (eqv.includes("await"))
-            return false;
-        if (eqv.includes("vm"))
-            return false;
-        if (eqv.includes("new"))
-            return false;
-        return true;
-    }
+/*    /!**Validates a non-harmful environment. Returns true if the equation doesn't include forbidden words, and false otherwise.*!/
+    public validate(): boolean {
+        return !this._eqv.includes("require") &&
+            !this._eqv.includes("import") &&
+            !this._eqv.includes("process") &&
+            !this._eqv.includes("eval") &&
+            !this._eqv.includes("Function") &&
+            !this._eqv.includes("async") &&
+            !this._eqv.includes("await") &&
+            !this._eqv.includes("vm") &&
+            !this._eqv.includes("new");
+    }*/
 
-
-    //runs equation
-    public runEquation(): unknown | number {
-        if (!this.validate(this._eqv))
-            return NaN;
+    /**Runs an equation. Returns the result if the equation is valid and no errors have happened, and NaN otherwise.*/
+    public runEquation(): number | string | boolean {
+        /*if (!this.validate())
+            return NaN;*/
         try {
             const vm = new VM({
                 timeout: 100,
                 allowAsync: false,
                 sandbox: {}
             });
-            return vm.run(" (()=>" + this._eqv + ")()");
+            const result = vm.run("(()=>" + this._eqv + ")()");
+            return (typeof result === "number" || typeof result === "string" || typeof result === "boolean" ? result : NaN);
         } catch (err) {
             return NaN;
         }
     }
 
 
-    //{pCount} - total count of players
+    /**Replaces {pCount} — total player count.*/
     public setPlayerCount(pCount: number) {
         this._eqv = this._eqv.replace("{pCount}", String(pCount));
         return this;
     }
 
-    //{oRolesPCount} - other roles that had been generated
+    //{oRolesPCount} - count of players with other roles that had been generated
     public setOtherPlayerCount(oRolesPCount: number) {
         this._eqv = this._eqv.replace("{oRolesPCount}", String(oRolesPCount));
         return this;
@@ -82,7 +70,7 @@ export default class ScriptBuilder {
     public setOtherPlayersThatRole(owner: MafiaUser, players: MafiaUser[]) {
         if (this._eqv.includes("{aPlayersTRole}")) {
             let fPlayers = players.filter(item => item.role.RoleName == owner.role.RoleName);
-            let aPlayers: string = fPlayers.reduce((p, i)=> p + i.dsUser?.tag + ", ", "");
+            let aPlayers: string = fPlayers.reduce((p, i) => p + i.dsUser?.tag + ", ", "");
             if (fPlayers.length > 0)
                 aPlayers = aPlayers.slice(0, aPlayers.length - 3);
             this._eqv = this._eqv.replace("{aPlayersTRole}", aPlayers);
@@ -94,7 +82,7 @@ export default class ScriptBuilder {
     public setAllPlayersThatRole(owner: MafiaUser, players: MafiaUser[]) {
         if (this._eqv.includes("{oPlayersTRole}")) {
             let fPlayers = players.filter(item => item.role.RoleName == owner.role.RoleName && item.id != owner.id);
-            let aPlayers: string = fPlayers.reduce((p, i)=> p + i.dsUser?.tag + ", ", "");
+            let aPlayers: string = fPlayers.reduce((p, i) => p + i.dsUser?.tag + ", ", "");
             if (fPlayers.length > 0)
                 aPlayers = aPlayers.slice(0, aPlayers.length - 3);
             this._eqv = this._eqv.replace("{oPlayersTRole}", aPlayers);
@@ -105,29 +93,28 @@ export default class ScriptBuilder {
     //{oPlayersAllRoles} - all people roles in format {player} — {role}, \n
     public setAllPlayersAllRoles(players: MafiaUser[]) {
         if (this._eqv.includes("{oPlayersAllRoles}")) {
-            let aPlayers: string = players.reduce((p, i)=>p + i.dsUser?.tag + " — " + i.role.RoleName + " \n", "");
+            let aPlayers: string = players.reduce((p, i) => p + i.dsUser?.tag + " — " + i.role.RoleName + " \n", "");
             this._eqv = this._eqv.replace("{oPlayersAllRoles}", aPlayers);
         }
         return this;
     }
 
-    //{aPlayerCount} - total alive players
+    /**Replaces {aPlayerCount} — alive players count.*/
     public setAlivePlayers(players: MafiaUser[]) {
         this._eqv = this._eqv.replace("{aPlayerCount}", String(players.filter((item) => item.isKilled === false).length));
         return this;
     }
 
-    //{r:<rolename>:count} - count of one role people e.g. {r:mafia:count}
+    /**Replaces {r:<rolename>:count} — players with <rolename> role count, e.g. mafia players count for {r:mafia:count}.*/
     public setRoleCountByName(players: MafiaUser[]) {
-        let arr = this._eqv.split('{r:');
-        for (let i = 0; i < arr.length; i++) {
-            if (i !== 0) {
-                const name = arr[i].split(':count}')[0].replace("<", "").replace(">", "");
-                const count = players.filter(item => item.role.RoleName == name).length;
-                arr[i] = count + arr[i].split(':count}')[1];
-            }
+        const arr = this._eqv.split("{r:");
+        for (let i = 1; i < arr.length; i++) {
+            const subArr = arr[i].split(":count}");
+            const roleName = subArr[0].replace("<", "").replace(">", "");
+            const count = players.filter(item => item.role.RoleName === roleName).length;
+            arr[i] = count + subArr[1];
         }
-        this._eqv = arr.join('');
+        this._eqv = arr.join("");
         return this;
     }
 
@@ -148,19 +135,19 @@ export default class ScriptBuilder {
     }
 
 
-    //{a:<actionname>:count} - count of people with action e.g. {a:kill:count}
+    /**Replaces {a:<actionname>:count} — players with <actionname> action count, e.g. players with kill action count for {a:kill:count}.*/
     public setActionCountByName(players: MafiaUser[]) {
-        let arr = this._eqv.split('{a:');
-        for (let i = 0; i < arr.length; i++) {
-            if (i !== 0) {
-                const name = arr[i].split(':count}')[0].replace("<", "").replace(">", "");
-                const count = players.filter(item => item.role.ActionOnSelect == name).length;
-                arr[i] = count + arr[i].split(':count}')[1]
-            }
+        const arr = this._eqv.split("{a:");
+        for (let i = 1; i < arr.length; i++) {
+            const subArr = arr[i].split(":count}");
+            const actionName = subArr[0].replace("<", "").replace(">", "");
+            const count = players.filter(item => item.role.ActionOnSelect === actionName).length;
+            arr[i] = count + subArr[1];
         }
-        this._eqv = arr.join('');
+        this._eqv = arr.join("");
         return this;
     }
+
     //{sa:<actionname>:string} - string of people with action e.g. {sa:kill:string} - {player}, {player}...
     public setActionStringByName(players: MafiaUser[]) {
         let arr = this._eqv.split('{sa:');
@@ -177,17 +164,16 @@ export default class ScriptBuilder {
         return this;
     }
 
-    //{aa:<actionname>:count} - count of alive people with action e.g. {aa:kill:count}
+    /**Replaces {aa:<actionname>:count} — alive players with <actionname> action count, e.g. alive players with kill action count for {aa:kill:count}.*/
     public setAliveActionCountByName(players: MafiaUser[]) {
-        let arr = this._eqv.split('{aa:');
-        for (let i = 0; i < arr.length; i++) {
-            if (i !== 0) {
-                const name = arr[i].split(':count}')[0].replace("<", "").replace(">", "");
-                const count = players.filter(item => item.role.ActionOnSelect == name && item.isKilled == false).length;
-                arr[i] = count + arr[i].split(':count}')[1];
-            }
+        let arr = this._eqv.split("{aa:");
+        for (let i = 1; i < arr.length; i++) {
+            const subArr = arr[i].split(":count}");
+            const actionName = subArr[0].replace("<", "").replace(">", "");
+            const count = players.filter(item => item.role.ActionOnSelect === actionName && item.isKilled === false).length;
+            arr[i] = count + subArr[1];
         }
-        this._eqv = arr.join('');
+        this._eqv = arr.join("");
         return this;
     }
 
@@ -197,7 +183,7 @@ export default class ScriptBuilder {
         for (let i = 0; i < arr.length; i++) {
             if (i !== 0) {
                 const name = arr[i].split(':string}')[0].replace("<", "").replace(">", "");
-                const playersNames = players.filter(item => item.role.ActionOnSelect == name  && item.isKilled == false);
+                const playersNames = players.filter(item => item.role.ActionOnSelect == name && item.isKilled == false);
                 let a: string = playersNames.reduce((p, i) => a + i.dsUser.tag, "");
                 a = a.slice(0, a.length - 2);
                 arr[i] = a + arr[i].split(':string}')[1];
@@ -208,20 +194,20 @@ export default class ScriptBuilder {
     }
 
 
-    //{ar:<rolename>:count} - count of one role alive people e.g. {ar:mafia:count}
+    /**Replaces {ar:<rolename>:count} — alive players with <rolename> role count, e.g. alive mafia players count for {ar:mafia:count}.*/
     public setAliveRoleCountByName(players: MafiaUser[]) {
-        let arr = this._eqv.split('{ar:');
-        for (let i = 0; i < arr.length; i++) {
-            if (i !== 0) {
-                const name = arr[i].split(':count}')[0].replace("<", "").replace(">", "");
-                const count = players.filter(item => item.role.RoleName == name && item.isKilled == false).length;
-                arr[i] = count + arr[i].split(':count}')[1];
-            }
+        let arr = this._eqv.split("{ar:");
+        for (let i = 1; i < arr.length; i++) {
+            const subArr = arr[i].split(":count}");
+            const roleName = subArr[0].replace("<", "").replace(">", "");
+            const count = players.filter(item => item.role.RoleName === roleName && item.isKilled === false).length;
+            arr[i] = count + subArr[1];
         }
-        this._eqv = arr.join('');
+        this._eqv = arr.join("");
         return this;
     }
-    //{sar:<rolename>:string} - string of one role alive people e.g. {sar:mafia:string} - {player}, {player}...
+
+    //{sr:<rolename>:string} - string of one role alive people e.g. {sr:mafia:string} - {player}, {player}...
     public setAliveRoleStringByName(players: MafiaUser[]) {
         let arr = this._eqv.split('{sr:');
         for (let i = 0; i < arr.length; i++) {

@@ -1,4 +1,4 @@
-import ScriptEngine from "../src/Classes/ScriptEngine";
+import ScriptFactory from "../src/Classes/ScriptFactory";
 import MafiaRole from "../src/Classes/Roles/MafiaRole";
 import {suite, test} from '@testdeck/mocha';
 import * as _chai from 'chai';
@@ -32,23 +32,23 @@ _chai.expect;
     // }
     @test
     'Calculate Peaceful Count p:10 o:5' () {
-        expect(ScriptEngine.RoleCountCalc("{pCount}-{oRolesPCount}", 10, 5)).to.be.equal(5);
+        expect(ScriptFactory.RoleCountCalc("{pCount}-{oRolesPCount}", 10, 5)).to.be.equal(5);
     }
     @test
     'Calculate Custom Count 1 p:10 o:5'() {
-        expect( ScriptEngine.RoleCountCalc("require('process').exit()", 10, 5)).to.be.NaN;
+        expect( ScriptFactory.RoleCountCalc("require('process').exit()", 10, 5)).to.be.NaN;
     }
     @test
     'Calculate Custom Count 2.1 p:12 o:6'() {
-        expect(ScriptEngine.RoleCountCalc("{import process from 'process';process.exit();}", 12, 6)).to.be.NaN;
+        expect(ScriptFactory.RoleCountCalc("{import process from 'process';process.exit();}", 12, 6)).to.be.NaN;
     }
     @test
     'Calculate Custom Count 2.2 p:12 o:6'() {
-        expect( ScriptEngine.RoleCountCalc("import process from 'process';process.exit();", 12, 6)).to.be.NaN;
+        expect( ScriptFactory.RoleCountCalc("import process from 'process';process.exit();", 12, 6)).to.be.NaN;
     }
     @test
     'Calculate Custom Count 2.3 p:12 o:6'() {
-        expect( ScriptEngine.RoleCountCalc("{while (true){};return 1;}", 12, 6)).to.be.NaN;
+        expect( ScriptFactory.RoleCountCalc("{while (true){};return 1;}", 12, 6)).to.be.NaN;
     }
     // @test 'Description 1' () {
     //     expect(ScriptEngine.DescriptionEngine(players[0].role.GetDescription(Langs.EN), players, players[0])).to.be.equal("KILL EVERYONE AND SURVIVE! Good luck! \n Your teammates: ");
