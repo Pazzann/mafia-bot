@@ -8,7 +8,7 @@ export default class ScriptFactory {
         const res = new ScriptBuilder(eqv)
             .setPlayerCount(pCount)
             .setOtherPlayerCount(oRolesPCount)
-            .runEquation() as number;
+            .runEquation();
         return (typeof res == "number" ? res : NaN);
     }
 

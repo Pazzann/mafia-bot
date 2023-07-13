@@ -14,6 +14,8 @@ import {
 } from "discord.js";
 import MafiaEmbedFactory from "./MafiaEmbedFactory";
 import PeacefulRole from "./Roles/PeacefulRole";
+import Game from "../Entities/Game.entity";
+import {Langs} from "../types/Langs";
 
 
 export default class MafiaGame {
@@ -21,30 +23,44 @@ export default class MafiaGame {
     private readonly _id: number;
     private readonly _author: string;
     private readonly _voteSelect: boolean;
+    private readonly _guildId: string;
     private _roles: BaseRole[];
     private _winCond: BaseCondition[];
     private _day: number = 1;
     private _stage: "choosing" | "discussion" = "choosing";
     private _finished: boolean = false;
 
-    constructor(id: number, author: string, voteSelect: boolean) {
+    constructor(id: number, author: string, voteSelect: boolean, guildId: string) {
         this._id = id;
         this._author = author;
         this._voteSelect = voteSelect;
+        this._guildId = guildId
     }
 
-    public CheckEndGame(): boolean {
+    public async CheckEndGame(): Promise<boolean> {
         for (let condition of this._winCond) {
             if (ScriptFactory.WinningEngine(condition.Condition, this.players)) {
+                const game = await Game.create({
+                    id: this._id,
+                    guildId: this._guildId,
+                    players: this.players.reduce((users: User[], i) => {
+                        users.push(i.dbUser);
+                        return users;
+                    }, []) as User[],
+                    winners: []
+                });
                 if (condition.WinRole == "innocent") {
                     this.GetPeacefulUsers().map(item => {
                         item.dbUser.totalWins++;
+                        game.winners.push(item.dbUser);
                     });
                 } else {
                     this.players.filter(item => item.role.RoleName == condition.WinRole).map(item => {
                         item.dbUser.totalWins++;
+                        game.winners.push(item.dbUser);
                     });
                 }
+
                 this.players.map(item => {
                     item.dbUser.totalGames++;
                     item.dbUser.save();
@@ -52,6 +68,7 @@ export default class MafiaGame {
                         embeds: [condition.GetEmbed(item.lang, this.players)]
                     });
                 });
+                game.save();
                 return true;
             }
         }
@@ -59,7 +76,7 @@ export default class MafiaGame {
     }
 
 
-    public EndChooseMoveHandler() {
+    public async EndChooseMoveHandler() {
         if (this.GetActionAliveUser().filter((item) =>
             item.actionsOnUser.hasDoneAction == false
         ).length == 0) {
@@ -83,7 +100,7 @@ export default class MafiaGame {
                     item.clearSelection();
                     return;
                 }
-                if(item.GroupDecision){
+                if (item.GroupDecision) {
                     let SelectedUser: MafiaUser = arrChoose.sort((a, b) => b.times - a.times)[0]?.user;
                     switch (item.ActionOnSelect) {
                         case "kill": {
@@ -99,8 +116,8 @@ export default class MafiaGame {
                             break;
                         }
                     }
-                }else{
-                    arrChoose.map(selection=>{
+                } else {
+                    arrChoose.map(selection => {
                         switch (item.ActionOnSelect) {
                             case "kill": {
                                 selection.user.actionsOnUser.kill = true;
@@ -136,7 +153,7 @@ export default class MafiaGame {
                     embeds: [MafiaEmbedFactory.wakeUp(item.local), killEmbed],
                 });
             });
-            if (this.CheckEndGame()) {
+            if (await this.CheckEndGame()) {
                 this._finished = true;
 
                 curHandlingGames.delete(this._id);
@@ -151,7 +168,7 @@ export default class MafiaGame {
         }
     }
 
-    public EndVoteMoveHandler() {
+    public async EndVoteMoveHandler() {
         if (this.GetAliveUsers().length == this.GetVotedLength()) {
 
             let votedForUsers: Array<{ userid: string; numbersOfVotes: number; }> = [];
@@ -182,7 +199,7 @@ export default class MafiaGame {
                 });
                 this.GetUser(votedForUsers[0].userid).isKilled = true;
             }
-            if (this.CheckEndGame()) {
+            if (await this.CheckEndGame()) {
                 this._finished = true;
                 curHandlingGames.delete(this._id);
                 return;
@@ -244,7 +261,7 @@ export default class MafiaGame {
                     }
                 }
 
-                this.EndChooseMoveHandler();
+                await this.EndChooseMoveHandler();
                 return;
             }
             case "discussion": {
@@ -252,7 +269,7 @@ export default class MafiaGame {
                 who.actionsOnUser.hasVoted = true;
                 interaction.reply(who.local.role_vote_select_success_message1 + whomU.dsUser.tag + who.local.role_vote_select_success_message2).catch();
                 this.SendToAll(this.GetVotedLength() + "/" + this.GetAliveUsers().length + (this._voteSelect ? "\n" + who.dsUser.tag + " - " + whomU.dsUser.tag : ""));
-                this.EndVoteMoveHandler();
+                await this.EndVoteMoveHandler();
                 return;
             }
         }
@@ -305,8 +322,8 @@ export default class MafiaGame {
         return this._id;
     }
 
-    public GetActionAliveUser():MafiaUser[]{
-        return this.GetAliveUsers().filter(item=> this._day % item.role.DelayForActivity == 0);
+    public GetActionAliveUser(): MafiaUser[] {
+        return this.GetAliveUsers().filter(item => this._day % item.role.DelayForActivity == 0);
     }
 
     public GetAliveUsers(): MafiaUser[] {
@@ -319,9 +336,9 @@ export default class MafiaGame {
 
     public static GenerateId(): number {
         let id = Math.round(Math.random() * 10000);
-        if(curHostGames.has(id) || curHandlingGames.has(id) || id < 1000){
+        if (curHostGames.has(id) || curHandlingGames.has(id) || id < 1000) {
             return MafiaGame.GenerateId();
-        }else{
+        } else {
             return id;
         }
     }
@@ -332,7 +349,7 @@ export default class MafiaGame {
         return conditions;
     }
 
-    public async registerPlayers(users: string[], roles: BaseRole[]): Promise<BaseRole[]> {
+    public async GeneratePlayers(users: string[], roles: BaseRole[]): Promise<BaseRole[]> {
         users = shuffle(users);
         users = shuffle(users);
         users = shuffle(users);
@@ -341,32 +358,47 @@ export default class MafiaGame {
             let arr = roles.filter(item => typeof item.Count === "string" && item.Count.includes("{oRolesPCount}"));
             roles = roles.filter(item => !(typeof item.Count === "string" && item.Count.includes("{oRolesPCount}")));
             roles.push(arr[0]);
-        }
-        roles.push(new PeacefulRole());
+        }else
+            roles.push(new PeacefulRole());
         roles = roles.filter(i => users.length >= i.SpawnFrom);
+        const totalUsers = users.length;
         let totalRoleCount = 0;
-        for (let role of roles) {
-            if (typeof role.Count == "string") {
-                role.Count = Math.max(ScriptFactory.RoleCountCalc(role.Count as string, users.length, totalRoleCount), users.length - totalRoleCount);
-            }
-            if (!isNaN(role.Count as number)) {
-                totalRoleCount += role.Count as number;
+        for (let i = 0; i < roles.length; i++) {
+            if (users.length >= roles[i].SpawnFrom) {
+                if (typeof roles[i].Count == "string") {
+                    roles[i].Count = ScriptFactory.RoleCountCalc(roles[i].Count as string, users.length, totalRoleCount)
+                    if (isNaN(roles[i].Count as number)) {
+                        roles.splice(i, 1);
+                        i--;
+                    } else {
+                        totalRoleCount += roles[i].Count as number;
+                    }
+                } else {
+                    totalRoleCount += roles[i].Count as number;
+                }
+                if (totalRoleCount > totalUsers) {
+                    totalRoleCount = totalUsers;
+                    roles.splice(i + 1, roles.length);
+                }
+            } else {
+                roles.splice(i, 1);
+                i--;
             }
         }
-        roles = roles.filter(i => (i.Count as number) > 0 && !isNaN(i.Count as number));
-``
         let players: MafiaUser[] = [];
-        let totalRoleHandledCount = 0;
-        for (let role of roles)
-            for (let i = 0; i < (role.Count as number) && totalRoleHandledCount < users.length; i++) {
-                const dsUser = await discordBot.users.fetch(users[totalRoleHandledCount]);
-                const dbUser = await User.findOneBy({userid: users[totalRoleHandledCount]});
-                let lang = dbUser.lang;
-                const player = new MafiaUser(users[totalRoleHandledCount], dsUser, dbUser, lang, role);
+        for (let role of roles) {
+            for (let i = 0; i < (role.Count as number); i++) {
+                const dsUser = await discordBot.users.fetch(users[0])
+                const dbUser = await User.findOne({where: {userid: users[0]}, relations: ["games"]});
+                let lang: Langs;
+                lang = dbUser.lang;
+                const player = new MafiaUser(users[0], dsUser, dbUser, lang, role)
                 players.push(player);
-                totalRoleHandledCount++;
+                users.splice(0, 1);
+                if (users.length == 0)
+                    break;
             }
-
+        }
         this.players = players;
         this._roles = roles;
         return roles;

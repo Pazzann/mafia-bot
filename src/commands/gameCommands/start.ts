@@ -30,8 +30,8 @@ export default async function start(interaction: ButtonInteraction, gameid = 0, 
     setGameEmbedDescription(host);
     await interaction.deferReply();
     curHostGames.delete(gameid);
-    const game = new MafiaGame(gameid, host.author, host.voteVisible);
-    const vRoles = await game.registerPlayers(host.users, host.roles);
+    const game = new MafiaGame(gameid, host.author, host.voteVisible, interaction.guildId);
+    const vRoles = await game.GeneratePlayers(host.users, host.roles);
     const vConditions = await game.registerConditions(host.conditions);
 
     const roleStr = vRoles.reduce((previous, item)=> previous + "\`\`" + item.GetRoleName(user.lang) + "\`\`\n", "");
@@ -54,7 +54,7 @@ export default async function start(interaction: ButtonInteraction, gameid = 0, 
                 console.log(err)
             });
     }
-    game.EndChooseMoveHandler();
+    await game.EndChooseMoveHandler();
     await interaction.message.edit({components: getDisabledButtons(gameid, locale)})
     const buttonRow = new ActionRowBuilder<ButtonBuilder>()
         .addComponents(
