@@ -28,5 +28,4 @@ export default class Role extends BaseEntity {
     selfSelectable: boolean;
     @Column({type: "varchar"})
     description: string;
-
 }
