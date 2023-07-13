@@ -61,6 +61,7 @@ import textToModeration from "./commands/modals/textToModeration";
 import langSet from "./commands/langSet";
 import includeFromArray from "./Functions/includeFromArray";
 import voteVisible from "./commands/gameCommands/voteVisible";
+import Game from "./Entities/Game.entity";
 
 dotenv.config();
 
@@ -179,7 +180,7 @@ export const AppDataSource = new DataSource({
     database: process.env.SQLDATABASE,
     synchronize: true,
     logging: false,
-    entities: [User, Role, WinningCondition],
+    entities: [User, Role, WinningCondition, Game],
     subscribers: [],
     migrations: [],
 });

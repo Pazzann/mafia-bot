@@ -1,7 +1,8 @@
-import {BaseEntity, Column, Entity, OneToMany, PrimaryColumn} from "typeorm";
+import {BaseEntity, Column, Entity, JoinTable, ManyToMany, OneToMany, PrimaryColumn} from "typeorm";
 import {Langs} from "../types/Langs";
 import WinningCondition from "./WinningCondition.entity";
 import Role from "./Role.entity";
+import Game from "./Game.entity";
 
 @Entity("users")
 export default class User extends BaseEntity {
@@ -19,6 +20,8 @@ export default class User extends BaseEntity {
     conditions: WinningCondition[];
     @OneToMany(()=> Role, (role) => role.user)
     customRoles: Role[];
+    @ManyToMany(()=> Game, (game) => game.players)
+    games: Game[];
     @Column({type: "boolean", default: false})
     premium: boolean;
     @Column({type: "boolean", default: false})

@@ -10,10 +10,15 @@ import User from "../Entities/User.entity";
 import {ILangProps} from "../types/interfaces/ILang";
 import {dbDateToDate} from "../Functions/dateParser";
 import getProfileButtons from "../Functions/getProfileButtons";
+import Game from "../Entities/Game.entity";
 
-export default async function profile (interaction: ChatInputCommandInteraction | ButtonInteraction, user: User, locale: ILangProps, text: string | null = null) {
+export default async function profile(interaction: ChatInputCommandInteraction | ButtonInteraction, user: User, locale: ILangProps, text: string | null = null) {
+    user = await User.findOne({
+        where: {userid: interaction.user.id},
+        relations: ["customRoles", "conditions", "games", "games.winners"]
+    })
     let title = locale.profile_title;
-    let totalGames =  String(user.totalGames);
+    let totalGames = String(user.totalGames);
     let totalWins = String(user.totalWins);
     let premium = user.premium ? locale.profile_premium_purchased : locale.profile_premium_notPurchased;
     let thumbnail = interaction.user.avatarURL();
@@ -21,14 +26,20 @@ export default async function profile (interaction: ChatInputCommandInteraction 
     let date = user.since;
     let dsDate = interaction.user.createdAt.getTime();
     let componentsTarget: ActionRowBuilder<StringSelectMenuBuilder>[] = [];
+    let gamesString = "";
+    if (user.games.length > 0){
+        gamesString = user.games.slice(0, 10).reduce((str, v) => str + (v.winners.filter(i => i.userid === user.userid).length > 0 ? "\`W\`" : "\`L\`") + " |", "");
+        gamesString = gamesString.slice(0, gamesString.length-2);
+    }
+    else
+        gamesString = "no games was played";
 
-
-    if(!interaction.isButton()){
+    if (!interaction.isButton()) {
         const target = interaction.options.getUser("user");
         if (target) {
-            let targetDB =  await User.findOne({
+            let targetDB = await User.findOne({
                 where: {userid: target.id},
-                relations: ["customRoles", "conditions"]
+                relations: ["customRoles", "conditions", "games", "games.winners"]
             });
             if (targetDB) {
                 title = target.tag;
@@ -39,6 +50,12 @@ export default async function profile (interaction: ChatInputCommandInteraction 
                 buttons = false;
                 date = targetDB.since;
                 dsDate = target.createdAt.getTime();
+
+                if (targetDB.games.length > 0){
+                    gamesString = targetDB.games.slice(0, 10).reduce((str, v) => str + (v.winners.filter(i => i.userid === targetDB.userid).length > 0 ? "\`W\`" : "\`L\`") + " |", "");
+                    gamesString = gamesString.slice(0, gamesString.length-2);
+                } else
+                    gamesString = "no games was played";
 
                 if (targetDB.customRoles.length > 0) {
                     const chooseArr: RestOrArray<StringSelectMenuOptionBuilder> = [];
@@ -80,7 +97,10 @@ export default async function profile (interaction: ChatInputCommandInteraction 
                     componentsTarget.push(row)
                 }
             } else {
-                interaction.reply({content: locale.profile_error_noProfile1 + `<@${interaction.options.getUser("user").id}>` + locale.profile_error_noProfile2, ephemeral: true}).catch();
+                interaction.reply({
+                    content: locale.profile_error_noProfile1 + `<@${interaction.options.getUser("user").id}>` + locale.profile_error_noProfile2,
+                    ephemeral: true
+                }).catch();
                 return;
             }
         }
@@ -103,6 +123,11 @@ export default async function profile (interaction: ChatInputCommandInteraction 
                 inline: true
             },
             {
+                name: "⚔️ Game Stats:",
+                value: gamesString,
+                inline: true
+            },
+            {
                 name: locale.profile_premium,
                 value: premium,
                 inline: true
@@ -111,8 +136,13 @@ export default async function profile (interaction: ChatInputCommandInteraction 
         .setThumbnail(thumbnail);
 
     if (buttons) {
-        interaction.reply({content: text, embeds: [embed], components: [getProfileButtons(user, locale)], ephemeral: true}).catch();
+        interaction.reply({
+            content: text,
+            embeds: [embed],
+            components: [getProfileButtons(user, locale)],
+            ephemeral: true
+        }).catch();
     } else {
-        interaction.reply({content: text, embeds: [embed], components: componentsTarget, ephemeral: true}).catch();
+        interaction.reply({content: text, embeds: [embed], components: componentsTarget, ephemeral: true});
     }
 }
