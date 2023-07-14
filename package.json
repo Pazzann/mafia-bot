@@ -24,7 +24,7 @@
     "patreon": "^0.4.1",
     "typeorm": "^0.3.10",
     "valid-url": "^1.0.9",
-    "vm2": "^3.9.17"
+    "vm2": "^3.9.18"
   },
   "devDependencies": {
     "@testdeck/mocha": "^0.3.2",

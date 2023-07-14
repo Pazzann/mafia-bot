@@ -103,7 +103,7 @@
   "condition_killerWin_WinEmbedDescription": "%The maniac {sr:killer:string} has won — the whole city is cut out.%",
   "condition_peacefulWin_name": "Innocent victory condition",
   "condition_peacefulWin_WinEmbedTitle": "The innocents have won!",
-  "condition_peacefulWin_WinEmbedDescription": "%The innocents have won — there are no criminals left in the city.\nThe murderers were: {sa:killer:string}.%",
+  "condition_peacefulWin_WinEmbedDescription": "%The innocents have won — there are no criminals left in the city.\nThe murderers were: {sa:kill:string}.%",
 
   "role_embed_action_name": "Action",
   "role_embed_groupDec_name": "Does play in a group?",

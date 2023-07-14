@@ -103,7 +103,7 @@
   "condition_killerWin_WinEmbedDescription": "%Хуйло {sr:killer:string} переміг — ВС РФ повністю знищено о фортецю Січі, але на жаль, фортеця теж пала.%",
   "condition_peacefulWin_name": "Умова перемоги козаків",
   "condition_peacefulWin_WinEmbedTitle": "Козаки перемогли!",
-  "condition_peacefulWin_WinEmbedDescription": "%Козаки перемогли — русні на Січі не лишилося.\nМоскаликами були: {sr:killer:string}.%",
+  "condition_peacefulWin_WinEmbedDescription": "%Козаки перемогли — русні на Січі не лишилося.\nМоскаликами були: {sa:kill:string}.%",
 
   "role_embed_action_name": "Дія",
   "role_embed_groupDec_name": "Чи нищять москву разом?",

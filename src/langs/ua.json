@@ -103,7 +103,7 @@
   "condition_killerWin_WinEmbedDescription": "%Маніяк {sr:killer:string} переміг — усе місто вирізано.%",
   "condition_peacefulWin_name": "Умова перемоги мирних",
   "condition_peacefulWin_WinEmbedTitle": "Мирні перемогли!",
-  "condition_peacefulWin_WinEmbedDescription": "%Мирні перемогли — злочинців у місті не лишилося.\nУбивцями були: {sa:killer:string}.%",
+  "condition_peacefulWin_WinEmbedDescription": "%Мирні перемогли — злочинців у місті не лишилося.\nУбивцями були: {sa:kill:string}.%",
 
   "role_embed_action_name": "Дія",
   "role_embed_groupDec_name": "Чи грає в групі?",
