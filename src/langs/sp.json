@@ -1,7 +1,7 @@
 {
-  "lang_set_success_message": ":flag_gb: ¡El idioma se configuró correctamente en español!",
+  "lang_set_success_message": ":flag_es: ¡El idioma se configuró correctamente en español!",
  
-  "game_error_incorrectGameID": ":rompecabezas: ¡No se encontró el juego! Es posible que haya sido cancelado o finalizado.",
+  "game_error_incorrectGameID": ":jigsaw: ¡No se encontró el juego! Es posible que haya sido cancelado o finalizado.",
   "game_error_alreadyCreated": ":point_up: ¡Ya has creado un juego, por favor cancélalo primero o espera la cancelación automática!",
   "game_error_alreadyJoined": ":point_up: ¡Ya te uniste a un juego, por favor déjalo primero!",
   "game_create_error_notOnServer": ":man_gesturing_no: ¡Lo siento, solo puedes crear juegos en el servidor!",
@@ -278,15 +278,24 @@
   "news_disable_success_message": ":ballot_box_with_check: Las notificaciones de noticias se deshabilitaron correctamente.",
   "help_title": "Ayuda :ring_buoy:",
   "help_description": "¿Quieres jugar a Mafia sin dificultades adicionales? ¡Estamos aquí para ayudarte!\n**Mafia Bot** te permite organizar juegos perfectos para ti, así como crear, editar y usar tu roles propios y condiciones finales del juego con Premium. ¡Diviértete!",
-  "help_commands_name": ":teclado: Comandos",
-  "help_commands_value": "</create:1015716817945247794> — crear un nuevo juego\n</lang:1044351625621405797> — cambiar el idioma del bot\n</profile:1100344392067338261> — ver tu perfil\n</help:110034439206733 8262> — estás aquí ^_^",
-  "help_faq_name": ":pregunta: Preguntas frecuentes",
+  "help_commands_name": ":keyboard: Comandos",
+  "help_commands_value": "</create:1015716817945247794> — crear un nuevo juego\n</lang:1044351625621405797> — cambiar el idioma del bot\n</profile:1100344392067338261> — ver tu perfil\n</help:1100344392067338262> — estás aquí ^_^",
+  "help_faq_name": ":question: Preguntas frecuentes",
   "help_faq_value": ":small_orange_diamond: ¿Puedo jugar gratis?\n:small_blue_diamond: Sí, puedes unirte a cualquier juego y crear juegos con roles predeterminados y condiciones finales de forma gratuita. Premium te permite crear, editar y usar roles personalizados y condiciones.\n:small_orange_diamond: ¿Con quién puedo jugar?\n:small_blue_diamond: Solo los usuarios en el servidor con acceso al canal donde se crea el juego pueden unirse.\n:small_orange_diamond: ¿Qué debo hacer si algo sale mal? ?\n:small_blue_diamond: Termina el juego y crea uno nuevo. También envía un mensaje a support_ sobre lo que sucedió con el botón a continuación.\n:small_orange_diamond: ¿Se requiere que todos los jugadores tengan Premium para jugar con cosas personalizadas?\n:small_blue_diamond: No, solo el anfitrión necesita Premium.",
   "help_plans_name": ":crystal_ball: Planes para futuras actualizaciones",
   "help_plans_value": "¡Planeamos empoderar a los anfitriones del juego, ampliar el perfil de usuario, agregar más acciones para roles, etapas de juego personalizadas, nuevas localizaciones y mucho más!",
   "help_about_name": ":notepad_spiral: Acerca de Mafia Bot",
-  "help_about_value": "Versión: 2.0.0\n`Código fuente: https://github.com/Pazzann/mafia-bot\n`Servidor oficial: https://discord.gg/ZWnx8rqGTD\n Desarrollo: Boy From God#2772\n`Text: denyshon#9143, Boy From God#2772\n`Localización: denyshon#9143 (uk, ru`), Boy From God#2772 (fu )\n`Artes: Midjourney, popa_sani#4041",
- 
+  "help_about_value": "`Versión:` 2.0.0\n`Código fuente:` https://github.com/Pazzann/mafia-bot\n`Servidor oficial:` https://discord.gg/ZWnx8rqGTD\n`Desarrollo:` boyfromgod\n`Text:` denyshon, boyfromgod\n`Localización:` denyshon (uk, ru), boyfromgod (fu)\n`Artes:` Midjourney, popa_sani",
+
+  "help_about_version": "`Versión:`",
+  "help_about_code": "\n`Código fuente:`",
+  "help_about_server": "\n`Servidor oficial:`",
+  "help_about_developer": "\n`Desarrollo:`",
+  "help_about_text": "\n`Text:`",
+  "help_about_localisation": "`Localización:`",
+  "help_about_arts": "\n`Artes:`",
+
+
   "help_button_rules": "Reglas del juego",
   "help_button_scripting": "Secuencias de comandos",
   "help_button_helpmessage": "Mensaje para soporte",
