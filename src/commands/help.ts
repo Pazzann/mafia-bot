@@ -37,7 +37,7 @@ export default async function help (interaction: ChatInputCommandInteraction, us
                 locale.help_about_server + " https://discord.gg/ZWnx8rqGTD" +
                 locale.help_about_developer + " boyfromgod" +
                 locale.help_about_text + " denyshon, boyfromgod" +
-                locale.help_about_localisation + " denyshon (uk, ru), boyfromgod (fu)" +
+                locale.help_about_localisation + " denyshon (uk, ru), boyfromgod (fu), stasnerymuity (sp)" +
                 locale.help_about_arts + " Midjourney, popa_sani"
         }])
 

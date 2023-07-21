@@ -303,7 +303,7 @@
   "help_about_server": "\n`Official server:`",
   "help_about_developer": "\n`Developer:`",
   "help_about_text": "\n`Text:`",
-  "help_about_localisation": "`Localization:`",
+  "help_about_localisation": "\n`Localization:`",
   "help_about_arts": "\n`Arts:`",
 
   "help_button_rules": "Game Rules",
