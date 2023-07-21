@@ -14,7 +14,7 @@ export default class PeacefulRole extends BaseRole {
         this.Emojis = null;
         this._placeHolder = null;
         this._placeHolderLocals = null;
-        this.ImageLink = "https://media.discordapp.net/attachments/1015944207220879370/1015959932228616242/unknown.png?width=469&height=469";
+        this.ImageLink = "https://cdn.discordapp.com/attachments/541691734833496084/1131906586659524648/b6451e192672c624.png";
         this.SelfSelectable = true;
         this._description = localisations.EN.role_peaceful_description;
         this._descriptionLocals = "role_peaceful_description";
