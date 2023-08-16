@@ -63,7 +63,7 @@ export default class MafiaGame {
                 this.players.map(item => {
                     item.dbUser.totalGames++;
                     item.dbUser.save();
-                    item.dsUser.dmChannel.send({
+                    item.dmChannel.send({
                         embeds: [condition.GetEmbed(item.lang, this.players)]
                     });
                 });
@@ -148,7 +148,7 @@ export default class MafiaGame {
 
             this.players.map(item => {
                 let killEmbed = (tags.length == 0) ? MafiaEmbedFactory.nokills(item.local) : MafiaEmbedFactory.kills(tags, item.local);
-                item.dsUser.dmChannel.send({
+                item.dmChannel.send({
                     embeds: [MafiaEmbedFactory.wakeUp(item.local), killEmbed],
                 });
             });
@@ -159,7 +159,7 @@ export default class MafiaGame {
                 return;
             }
             this.getAliveUsers().map(item => {
-                item.dsUser.dmChannel.send({
+                item.dmChannel.send({
                     components: [item.role.GetVoteRow(this.getAliveUsers(), false, item.local)]
                 });
             });
@@ -177,24 +177,24 @@ export default class MafiaGame {
             votedForUsers.sort((a, b) => b.numbersOfVotes - a.numbersOfVotes);
 
             this.players.map(item => {
-                const voteEmded = new EmbedBuilder();
-                voteEmded.setColor(0xa4fd8a);
-                voteEmded.setTitle(item.local.role_vote_results_title)
+                const voteEmbed = new EmbedBuilder();
+                voteEmbed.setColor(0xa4fd8a);
+                voteEmbed.setTitle(item.local.role_vote_results_title)
                 let votes: string = "";
                 for (let value of votedForUsers) {
                     votes += this.GetUser(value.userid).dsUser.tag + ": " + value.numbersOfVotes + "\n"
                 }
 
-                voteEmded.setDescription(votes);
-                item.dsUser.dmChannel.send({embeds: [voteEmded]});
+                voteEmbed.setDescription(votes);
+                item.dmChannel.send({embeds: [voteEmbed]});
             });
             if (votedForUsers[0].numbersOfVotes == votedForUsers[1].numbersOfVotes) {
                 this.players.map(item => {
-                    item.dsUser.dmChannel.send(item.local.role_vote_results_tie);
+                    item.dmChannel.send(item.local.role_vote_results_tie);
                 });
             } else {
                 this.players.map(item => {
-                    item.dsUser.dmChannel.send(item.local.role_vote_results_ban1 + this.GetUser(votedForUsers[0].userid).dsUser.tag + item.local.role_vote_results_ban2);
+                    item.dmChannel.send(item.local.role_vote_results_ban1 + this.GetUser(votedForUsers[0].userid).dsUser.tag + item.local.role_vote_results_ban2);
                 });
                 this.GetUser(votedForUsers[0].userid).isKilled = true;
             }
@@ -209,7 +209,7 @@ export default class MafiaGame {
 
 
             this.players.map(item => {
-                item.dsUser.dmChannel.send({
+                item.dmChannel.send({
                     embeds: [MafiaEmbedFactory.sleepTime(item.local)],
                 });
                 item.clearActions();
@@ -217,7 +217,7 @@ export default class MafiaGame {
             this.GetActionAliveUser().map(item => {
                 let row = item.role.getNightVoteRow(this.getAliveUsers(), item);
                 if (row) {
-                    item.dsUser.dmChannel.send({
+                    item.dmChannel.send({
                         components: [row]
                     });
                 }
@@ -281,7 +281,7 @@ export default class MafiaGame {
 
     public SendToAll(msg: string = " ", embeds: EmbedBuilder[] = []) {
         this.players.map(item => {
-            item.dsUser.dmChannel.send({content: msg, embeds: embeds}).catch()
+            item.dmChannel.send({content: msg, embeds: embeds}).catch()
         })
     }
 
@@ -383,7 +383,8 @@ export default class MafiaGame {
                 const dsUser = await discordBot.users.fetch(users[totalRoleHandledCount]);
                 const dbUser = await User.findOne({where: {userid: users[totalRoleHandledCount]}, relations: ["games"]});
                 const lang = dbUser.lang;
-                const player = new MafiaUser(users[totalRoleHandledCount], dsUser, dbUser, lang, role);
+                const dm = dsUser.dmChannel ?? await dsUser.createDM();
+                const player = new MafiaUser(users[0], dsUser, dbUser, lang, role, dm);
                 players.push(player);
             }
         }

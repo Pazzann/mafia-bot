@@ -44,13 +44,13 @@ export default async function start(interaction: ButtonInteraction, gameid = 0, 
         const row = player.role.getNightVoteRow(game.getAliveUsers(), player);
         if (row && player.role.DelayForActivity === 1)
             player.dmChannel.send({
-                embeds: [MafiaEmbedFactory.sleepTime(player.local), await MafiaEmbedFactory.roleGiver(player, game.GetAliveUsers(), theme, player.local, player.lang, host.roles)],
+                embeds: [MafiaEmbedFactory.sleepTime(player.local), await MafiaEmbedFactory.roleGiver(player, game.getAliveUsers(), theme, player.local, player.lang, host.roles)],
                 components: [row]
             }).catch(err => {
                 console.log(err)
             });
         else
-            player.dmChannel.send({embeds: [MafiaEmbedFactory.sleepTime(player.local), await MafiaEmbedFactory.roleGiver(player, game.GetAliveUsers(), theme, player.local, player.lang, host.roles)]}).catch(err => {
+            player.dmChannel.send({embeds: [MafiaEmbedFactory.sleepTime(player.local), await MafiaEmbedFactory.roleGiver(player, game.getAliveUsers(), theme, player.local, player.lang, host.roles)]}).catch(err => {
                 console.log(err)
             });
     }
