@@ -296,15 +296,13 @@
   "help_plans_name": ":crystal_ball: Plans for Future Updates",
   "help_plans_value": "We plan to empower game hosts, extend the user profile, add more actions for roles, custom game stages, new localizations and a lot more!",
   "help_about_name": ":notepad_spiral: About Mafia Bot",
-  "help_about_value": "`Version:` 2.0.0\n`Source code:` https://github.com/Pazzann/mafia-bot\n`Official server:` https://discord.gg/ZWnx8rqGTD\n`Developer:` Boy From God#2772\n`Text:` denyshon#9143, Boy From God#2772\n`Localization:` denyshon#9143 (`uk`, `ru`), Boy From God#2772 (`fu`)\n`Arts:` Midjourney, popa_sani#4041",
-
-  "help_about_version": "`Version:`",
-  "help_about_code": "\n`Source code:`",
-  "help_about_server": "\n`Official server:`",
-  "help_about_developer": "\n`Developer:`",
-  "help_about_text": "\n`Text:`",
-  "help_about_localisation": "\n`Localization:`",
-  "help_about_arts": "\n`Arts:`",
+  "help_about_value_version": "`Version:` ",
+  "help_about_value_code": "\n`Source code:` ",
+  "help_about_value_server": "\n`Official server:` ",
+  "help_about_value_developers": "\n`Developer:` ",
+  "help_about_value_text": "\n`Text:` ",
+  "help_about_value_localization": "\n`Localization:` ",
+  "help_about_value_arts": "\n`Arts:` ",
 
   "help_button_rules": "Game Rules",
   "help_button_scripting": "Scripting",
@@ -334,5 +332,6 @@
   "start_role_doctor": "Your objective is to save people from death!",
   "start_role_police": "Your objective is to find mafia!",
   "start_role_killer": "Your objective is to kill everyone and survive!",
-  "start_role_mistress": "string"
+  "start_role_mistress": "string",
+  "help_about_value": "`Version:` 2.0.0\n`Source code:` https://github.com/Pazzann/mafia-bot\n`Official server:` https://discord.gg/ZWnx8rqGTD\n`Developer:` Boy From God#2772\n`Text:` denyshon#9143, Boy From God#2772\n`Localization:` denyshon#9143 (`uk`, `ru`), Boy From God#2772 (`fu`)\n`Arts:` Midjourney, popa_sani#4041"
 }

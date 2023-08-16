@@ -296,18 +296,17 @@ export interface ILangProps {
     help_plans_name: string;                // <= 256 symbols
     help_plans_value: string;               // <= 1024 symbols
     help_about_name: string;                // <= 256 symbols
-    help_about_value: string;               // <= 1024 symbols
+    help_about_value_version: string;       // <= 1024 symbols in total; usage: locale.help_about_value_version + <version number> + locale.help_about_value_code + <source code link> + locale.help_about_value_server + <support server link> + locale.help_about_value_developers + <username list> + locale.help_about_value_text + <username list> + locale.help_about_value_localization + <username list (with langs)> + locale.help_about_value_arts + <source & username list>
+    help_about_value_code: string;
+    help_about_value_server: string;
+    help_about_value_developers: string;
+    help_about_value_text: string;
+    help_about_value_localization: string;
+    help_about_value_arts: string;
 
     help_button_rules: string;              // <= 80 symbols
     help_button_scripting: string;          // <= 80 symbols
     help_button_helpmessage: string;        // <= 80 symbols
-    help_about_version: string;
-    help_about_code: string;
-    help_about_server: string;
-    help_about_developer: string;
-    help_about_text: string;
-    help_about_localisation: string;
-    help_about_arts: string;                 //deprecated
 
     helpMessage_title: string;                              // <= 256 symbols
     helpMessage_text_label: string;                         // <= 45 symbols; usage: CAPS
@@ -334,4 +333,5 @@ export interface ILangProps {
     start_role_police: string;              //deprecated
     start_role_killer: string;              //deprecated
     start_role_mistress: string;            //deprecated
+    help_about_value: string;               //deprecated
 }

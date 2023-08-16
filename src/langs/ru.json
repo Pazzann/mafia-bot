@@ -296,7 +296,13 @@
   "help_plans_name": ":crystal_ball: Планы на будущие обовления",
   "help_plans_value": "Мы планируем предоставить больше возможностей организаторам игр, расширить профиль пользователя, добавить больше действий для ролей, кастомизацию этапов игры, новые локализации и многое другое!",
   "help_about_name": ":notepad_spiral: О Mafia Bot",
-  "help_about_value": "`Версия:` 2.0.0\n`Исходный код:` https://github.com/Pazzann/mafia-bot\n`Официальный сервер:` https://discord.gg/ZWnx8rqGTD\n`Разработка:` Boy From God#2772\n`Тексты:` denyshon#9143, Boy From God#2772\n`Локализация:` denyshon#9143 (`uk`, `ru`), Boy From God#2772 (`fu`)\n`Арты:` Midjourney, popa_sani#4041",
+  "help_about_value_version": "`Версия:` ",
+  "help_about_value_code": "\n`Исходный код:` ",
+  "help_about_value_server": "\n`Официальный сервер:` ",
+  "help_about_value_developers": "\n`Разработка:` ",
+  "help_about_value_text": "\n`Тексты:` ",
+  "help_about_value_localization": "\n`Локализация:` ",
+  "help_about_value_arts": "\n`Арты:` ",
 
   "help_button_rules": "Правила игры",
   "help_button_scripting": "Создание скриптов",
@@ -326,5 +332,6 @@
   "start_role_doctor": "Ваша задача попытаться не дать никому умереть!",
   "start_role_police": "Ваша задача вычислить мафию и убедить всех проголосовать за мафию!",
   "start_role_killer": "Ваша задача убить всех и остаться в живих одному!",
-  "start_role_mistress": "string"
+  "start_role_mistress": "string",
+  "help_about_value": "`Версия:` 2.0.0\n`Исходный код:` https://github.com/Pazzann/mafia-bot\n`Официальный сервер:` https://discord.gg/ZWnx8rqGTD\n`Разработка:` Boy From God#2772\n`Тексты:` denyshon#9143, Boy From God#2772\n`Локализация:` denyshon#9143 (`uk`, `ru`), Boy From God#2772 (`fu`)\n`Арты:` Midjourney, popa_sani#4041"
 }

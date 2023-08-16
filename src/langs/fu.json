@@ -296,7 +296,13 @@
   "help_plans_name": ":crystal_ball: Плани щодо майбутніх оновлень",
   "help_plans_value": "Ми плануємо надати більше можливостей організаторам ігор, розширити профіль користувача, додати більше дій для ролей, кастомізацію етапів гри, нові локалізації та багато іншого!",
   "help_about_name": ":notepad_spiral: Про Mafia Bot",
-  "help_about_value": "`Версія:` 2.0.0.\n`Вихідний код:` https://github.com/Pazzann/mafia-bot\n`Офіційний сервер:` https://discord.gg/ZWnx8rqGTD\n`Розробка:` Boy From God#2772\n`Тексти:` denyshon#9143, Boy From God#2772\n`Локалізація:` denyshon#9143 (`uk`, `ru`), Boy From God#2772 (`fu`)\n`Арти:` Midjourney, popa_sani#4041",
+  "help_about_value_version": "`Версія:` ",
+  "help_about_value_code": "\n`Вихідний код:` ",
+  "help_about_value_server": "\n`Офіційний сервер:` ",
+  "help_about_value_developers": "\n`Розробка:` ",
+  "help_about_value_text": "\n`Тексти:` ",
+  "help_about_value_localization": "\n`Локалізація:` ",
+  "help_about_value_arts": "`Арти:` ",
 
   "help_button_rules": "Правила гри",
   "help_button_scripting": "Створення скриптиків",
@@ -308,5 +314,8 @@
 
   "error_notInGame": ":man_gesturing_no: Зараз ви не ріжете русню. Може, станете отаманом?",
   "error_premium": "Вибачте, у вас немає Premium, щоб створювати власні подоби та умови!",
-  "error_unknown": "Сталася помилка, будь ласка, зверніться до СБУ!"
+  "error_unknown": "Сталася помилка, будь ласка, зверніться до СБУ!",
+
+
+  "help_about_value": "`Версія:` 2.0.0.\n`Вихідний код:` https://github.com/Pazzann/mafia-bot\n`Офіційний сервер:` https://discord.gg/ZWnx8rqGTD\n`Розробка:` Boy From God#2772\n`Тексти:` denyshon#9143, Boy From God#2772\n`Локалізація:` denyshon#9143 (`uk`, `ru`), Boy From God#2772 (`fu`)\n`Арти:` Midjourney, popa_sani#4041"
 }

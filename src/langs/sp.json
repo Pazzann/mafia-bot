@@ -46,6 +46,8 @@
   "game_edit_button_votes_hide": "Ocultar votos",
   "game_edit_button_votes_notHide": "No ocultar votos",
   "game_edit_success_message": ":white_check_mark: ¡El juego se editó con éxito!",
+
+
   "wake_up_title": "¡La ciudad despierta!",
   "wake_up_description": "¡Buenos días! ¿Pero la mañana es realmente buena? Es hora de compartir tus sospechas :scales:",
   "sleep_time_title": "La ciudad se duerme...",
@@ -128,6 +130,8 @@
   "profile_button_premium": "Premium",
   "profile_button_custom": "Personalizado",
   "profile_button_news": "Notificaciones de noticias",
+
+
   "premium_title": "Premium :dinero_con_alas:",
   "premium_description": ":zap: ¡Cree roles personalizados con características únicas, como acción, estilo de juego, descripción y miniaturas!\n:dizzy: ¡Cree condiciones personalizadas para el final del juego para describir el juego con sus roles o para cambiar el valor predeterminado!\n :fire: ¡Crea partidas personalizadas con tus roles y condiciones e impresiona a tus amigos!\n:sparkling_heart: ¡Ayúdanos a mejorar el bot Mafia, agregar nuevas funciones y mucho más!\nSuscríbete por solo $1/mes",
   "premium_howDoIGet_name": ":gem: ¿Cómo obtengo Premium?",
@@ -150,6 +154,7 @@
   "role_clone_error_number": ":man_gesturing_no: ¡Lo siento, no puedes crear más de 19 roles!",
   "role_clone_error_notFound": ":rompecabezas: ¡Rol no encontrado! Es posible que haya sido eliminado.",
   "role_clone_success_message": ":white_check_mark: El rol se clonó con éxito en tu cuenta.",
+
   "role_create_error_number": ":man_gesturing_no: ¡Lo siento, no puedes crear más de 19 roles!",
   "role_create_error_notFound": ":rompecabezas: ¡Rol no encontrado! Es posible que haya sido eliminado.",
   "role_create_error_noAccess": ":man_gesturing_no: ¡Lo sentimos, no puedes participar en la creación de este rol!",
@@ -178,6 +183,7 @@
   "role_create_roleGroupSelection_label": "¿Se juega en grupo?",
   "role_create_roleGroupSelection_placeHolder": "verdadero | falso",
   "role_create_success_message": ":white_check_mark: El rol se creó con éxito:",
+
   "role_edit_error_notFound": ":rompecabezas: ¡Rol no encontrado! Es posible que haya sido eliminado.",
   "role_edit_error_noAccess": ":man_gesturing_no: ¡Lo siento, no puedes editar este rol!",
   "role_edit_select_message": "Seleccione un rol para editar:",
@@ -216,6 +222,7 @@
   "role_edit_roleGroupSelection_label": "¿Se juega en grupo?",
   "role_edit_roleGroupSelection_placeHolder": "verdadero | falso",
   "role_edit_success_message": ":white_check_mark: El rol se editó con éxito:",
+
   "role_delete_error_noRoles": "No tienes roles. ¡Pero puedes crearlos fácilmente!",
   "role_delete_error_notFound": ":rompecabezas: ¡Rol no encontrado! Es posible que haya sido eliminado.",
   "role_delete_error_noAccess": ":man_gesturing_no: ¡Lo siento, no puedes eliminar este rol!",
@@ -227,6 +234,7 @@
   "condition_view_error_noAccess": ":man_gesturing_no: ¡Lo siento, no puedes ver esta condición!",
   "condition_view_select_placeHolder": "Seleccione una condición para ver...",
   "condition_view_button_clone": "Clonar",
+
   "condition_clone_error_number": ":man_gesturing_no: ¡Lo siento, no puedes crear más de 21 condiciones!",
   "condition_clone_error_notFound": ":rompecabezas: ¡Condición no encontrada! Es posible que haya sido eliminada.",
   "condition_clone_success_message": ":white_check_mark: La condición fue clonada con éxito en tu cuenta.",
@@ -249,6 +257,7 @@
   "condition_create_winRole_label": "Rol ganador",
   "condition_create_winRole_placeHolder": "solo un nombre de rol ganador",
   "condition_create_success_message": ":white_check_mark: La condición se creó correctamente:",
+
   "condition_edit_error_notFound": ":rompecabezas: ¡Condición no encontrada! Es posible que haya sido eliminada.",
   "condition_edit_error_noAccess": ":man_gesturing_no: ¡Lo siento, no puedes editar esta condición!",
   "condition_edit_select_message": "Seleccione una condición para editar:",
@@ -265,6 +274,7 @@
   "condition_edit_winRole_label": "Rol ganador",
   "condition_edit_winRole_placeHolder": "tu nuevo nombre de rol ganador",
   "condition_edit_success_message": ":white_check_mark: La condición fue editada con éxito:",
+
   "condition_delete_error_noConditions": "No tienes condiciones. ¡Pero puedes crearlas fácilmente!",
   "condition_delete_error_notFound": ":rompecabezas: ¡Condición no encontrada! Es posible que haya sido eliminada.",
   "condition_delete_error_noAccess": ":man_gesturing_no: ¡Lo siento, no puedes eliminar esta condición!",
@@ -276,6 +286,7 @@
   "news_error_noAccess_disabled": ":man_gesturing_no: ¡No puedes activar o desactivar las notificaciones de noticias para otra persona, pero puedes hacerlo para ti mismo!\n:mailbox_closed: Tienes las notificaciones de noticias deshabilitadas. Para habilitarlas, abre tu perfil con </ profile:1100344392067338261> comando y haga clic en el botón \"**Notificaciones de noticias**\".",
   "news_enable_success_message": ":white_check_mark: ¡Las notificaciones de noticias se habilitaron correctamente!",
   "news_disable_success_message": ":ballot_box_with_check: Las notificaciones de noticias se deshabilitaron correctamente.",
+
   "help_title": "Ayuda :ring_buoy:",
   "help_description": "¿Quieres jugar a Mafia sin dificultades adicionales? ¡Estamos aquí para ayudarte!\n**Mafia Bot** te permite organizar juegos perfectos para ti, así como crear, editar y usar tu roles propios y condiciones finales del juego con Premium. ¡Diviértete!",
   "help_commands_name": ":keyboard: Comandos",
@@ -285,16 +296,13 @@
   "help_plans_name": ":crystal_ball: Planes para futuras actualizaciones",
   "help_plans_value": "¡Planeamos empoderar a los anfitriones del juego, ampliar el perfil de usuario, agregar más acciones para roles, etapas de juego personalizadas, nuevas localizaciones y mucho más!",
   "help_about_name": ":notepad_spiral: Acerca de Mafia Bot",
-  "help_about_value": "`Versión:` 2.0.0\n`Código fuente:` https://github.com/Pazzann/mafia-bot\n`Servidor oficial:` https://discord.gg/ZWnx8rqGTD\n`Desarrollo:` boyfromgod\n`Text:` denyshon, boyfromgod\n`Localización:` denyshon (uk, ru), boyfromgod (fu)\n`Artes:` Midjourney, popa_sani",
-
-  "help_about_version": "`Versión:`",
-  "help_about_code": "\n`Código fuente:`",
-  "help_about_server": "\n`Servidor oficial:`",
-  "help_about_developer": "\n`Desarrollo:`",
-  "help_about_text": "\n`Text:`",
-  "help_about_localisation": "\n`Localización:`",
-  "help_about_arts": "\n`Artes:`",
-
+  "help_about_value_version": "`Versión:` ",
+  "help_about_value_code": "\n`Código fuente:` ",
+  "help_about_value_server": "\n`Servidor oficial:` ",
+  "help_about_value_developers": "\n`Desarrollo:` ",
+  "help_about_value_text": "\n`Text:` ",
+  "help_about_value_localization": "\n`Localización:` ",
+  "help_about_value_arts": "\n`Artes:` ",
 
   "help_button_rules": "Reglas del juego",
   "help_button_scripting": "Secuencias de comandos",
@@ -324,5 +332,6 @@
   "start_role_doctor": "¡Tu objetivo es salvar a la gente de la muerte!",
   "start_role_police": "¡Tu objetivo es encontrar mafia!",
   "start_role_killer": "¡Tu objetivo es matar a todos y sobrevivir!",
-  "start_role_mistress": "string"
+  "start_role_mistress": "string",
+  "help_about_value": "`Versión:` 2.0.0\n`Código fuente:` https://github.com/Pazzann/mafia-bot\n`Servidor oficial:` https://discord.gg/ZWnx8rqGTD\n`Desarrollo:` boyfromgod\n`Text:` denyshon, boyfromgod\n`Localización:` denyshon (uk, ru), boyfromgod (fu)\n`Artes:` Midjourney, popa_sani"
 }
