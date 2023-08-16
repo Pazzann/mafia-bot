@@ -22,68 +22,91 @@ export default abstract class BaseRole {
     public SelfSelectable: boolean;
     public Selection: MafiaUser[] = [];
 
-    get RoleName(): string {
+    get name(): string {
         return this._name;
     }
 
-    public GetRoleName(lang: Langs): string {
-        if (this._nameLocals === null)
+    public getName(lang: Langs): string {
+        if (this._nameLocals === null) {
             return this._name;
+        }
+
         if (localisations?.[lang.toUpperCase() as keyof ILocalProps]?.[this._nameLocals as keyof ILangProps]) {
             return localisations[lang.toUpperCase() as keyof ILocalProps][this._nameLocals as keyof ILangProps];
         } else {
-            return localisations.EN?.[this._nameLocals as keyof ILangProps];
+            if (localisations.EN?.[this._nameLocals as keyof ILangProps]) {
+                return localisations.EN?.[this._nameLocals as keyof ILangProps];
+            } else {
+                return this._name;
+            }
         }
     }
 
-    public GetPlaceHolder(lang: Langs): string {
-        if (this._placeHolderLocals === null)
+    public getPlaceHolder(lang: Langs): string {
+        if (this._placeHolderLocals === null) {
             return this._placeHolder;
+        }
+
         if (localisations?.[lang.toUpperCase() as keyof ILocalProps]?.[this._placeHolderLocals as keyof ILangProps]) {
             return localisations[lang.toUpperCase() as keyof ILocalProps][this._placeHolderLocals as keyof ILangProps];
         } else {
-            return localisations.EN?.[this._placeHolderLocals as keyof ILangProps];
+            if (localisations.EN?.[this._placeHolderLocals as keyof ILangProps]) {
+                return localisations.EN?.[this._placeHolderLocals as keyof ILangProps];
+            } else {
+                return this._name;
+            }
         }
     }
 
-    public GetDescription(lang: Langs): string {
-        if (this._descriptionLocals === null)
+    public getDescription(lang: Langs): string {
+        if (this._descriptionLocals === null) {
             return this._description;
+        }
+
         if (localisations?.[lang.toUpperCase() as keyof ILocalProps]?.[this._descriptionLocals as keyof ILangProps]) {
             return localisations[lang.toUpperCase() as keyof ILocalProps][this._descriptionLocals as keyof ILangProps];
         } else {
-            return localisations.EN?.[this._descriptionLocals as keyof ILangProps];
+            if (localisations.EN?.[this._descriptionLocals as keyof ILangProps]) {
+                return localisations.EN?.[this._descriptionLocals as keyof ILangProps];
+            } else {
+                return this._name;
+            }
         }
     }
 
-
-    public clearSelection() {
-        this.Selection = []
+    public getRandomEmoji() {
+        return (this.Emojis ? (this.Emojis)[Math.floor(Math.random() * this.Emojis.length)] : null);
     }
 
-    public GetNightVoteRow(aliveUsers: MafiaUser[], inactive = false, owner: MafiaUser) {
+    public clearSelection() {
+        this.Selection = [];
+    }
+
+    public getNightVoteRow(aliveUsers: MafiaUser[], owner: MafiaUser, inactive = false) {
         if (this.ActionOnSelect == "no_activity") {
             return null;
         }
-        const voteArr: RestOrArray<StringSelectMenuOptionBuilder> = [];
+
+        const options: RestOrArray<StringSelectMenuOptionBuilder> = [];
         for (let user of aliveUsers) {
             if (this.SelfSelectable || (!this.SelfSelectable && user.id !== owner.id)) {
-                const chooser = new StringSelectMenuOptionBuilder()
+                const option = new StringSelectMenuOptionBuilder()
                     .setLabel(user.dsUser.tag)
-                    .setEmoji((this.Emojis)[Math.floor(Math.random() * this.Emojis.length)])
+                    .setEmoji(this.getRandomEmoji())
                     .setValue(user.id);
-                voteArr.push(chooser)
+                options.push(option);
             }
         }
+
         return new ActionRowBuilder<StringSelectMenuBuilder>()
             .addComponents(
                 new StringSelectMenuBuilder()
                     .setCustomId(this._name + "_select")
-                    .setPlaceholder(this.GetPlaceHolder(owner.lang))
+                    .setPlaceholder(this.getPlaceHolder(owner.lang))
                     .setMinValues(1)
                     .setMaxValues(1)
-                    .addOptions(voteArr)
-                    .setDisabled(inactive),
+                    .addOptions(options)
+                    .setDisabled(inactive)
             );
     }
 
@@ -115,5 +138,4 @@ export default abstract class BaseRole {
                     .setDisabled(inactive),
             );
     }
-
 }

@@ -15,17 +15,23 @@ export default abstract class BaseCondition {
     public WinEmbedThumbnail: string | null;
     public WinRole: "innocent" | string;
 
-    get Name(): string {
+    get name(): string {
         return this._name;
     }
 
-    public GetName(lang: Langs): string {
-        if (this._nameLocals === null)
+    public getName(lang: Langs): string {
+        if (this._nameLocals === null) {
             return this._name;
+        }
+
         if (localisations?.[lang.toUpperCase() as keyof ILocalProps]?.[this._nameLocals as keyof ILangProps]) {
             return localisations[lang.toUpperCase() as keyof ILocalProps][this._nameLocals as keyof ILangProps];
         } else {
-            return localisations.EN?.[this._nameLocals as keyof ILangProps];
+            if (localisations.EN?.[this._nameLocals as keyof ILangProps]) {
+                return localisations.EN?.[this._nameLocals as keyof ILangProps];
+            } else {
+                return this._name;
+            }
         }
     }
     public GetEmbedTitle(lang: Langs): string {

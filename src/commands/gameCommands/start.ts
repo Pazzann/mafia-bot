@@ -31,26 +31,26 @@ export default async function start(interaction: ButtonInteraction, gameid = 0, 
     await interaction.deferReply();
     curHostGames.delete(gameid);
     const game = new MafiaGame(gameid, host.author, host.voteVisible, interaction.guildId);
-    const vRoles = await game.GeneratePlayers(host.users, host.roles);
+    const vRoles = await game.generatePlayers(host.users, host.roles);
     const vConditions = await game.registerConditions(host.conditions);
 
-    const roleStr = vRoles.reduce((previous, item)=> previous + "\`\`" + item.GetRoleName(user.lang) + "\`\`\n", "");
-    const condStr = vConditions.reduce((previous, item)=> previous + "\`\`" + item.GetName(user.lang) + "\`\`\n", "");
+    const roleStr = vRoles.reduce((previous, item)=> previous + "\`\`" + item.getName(user.lang) + "\`\`\n", "");
+    const condStr = vConditions.reduce((previous, item)=> previous + "\`\`" + item.getName(user.lang) + "\`\`\n", "");
 
     curHandlingGames.set(gameid, game);
     const theme = getRandomTheme();
     for (let player of game.players) {
         const dm = player.dsUser?.dmChannel ?? await player.dsUser.createDM();
-        const row = player.role.GetNightVoteRow(game.GetAliveUsers(), false, player);
+        const row = player.role.getNightVoteRow(game.getAliveUsers(), player);
         if (row && player.role.DelayForActivity === 1)
             dm.send({
-                embeds: [MafiaEmbedFactory.sleepTime(player.local), await MafiaEmbedFactory.roleGiver(player, game.GetAliveUsers(), theme, player.local, player.lang, host.roles)],
+                embeds: [MafiaEmbedFactory.sleepTime(player.local), await MafiaEmbedFactory.roleGiver(player, game.getAliveUsers(), theme, player.local, player.lang, host.roles)],
                 components: [row]
             }).catch(err => {
                 console.log(err)
             });
         else
-            dm.send({embeds: [MafiaEmbedFactory.sleepTime(player.local), await MafiaEmbedFactory.roleGiver(player, game.GetAliveUsers(), theme, player.local, player.lang, host.roles)]}).catch(err => {
+            dm.send({embeds: [MafiaEmbedFactory.sleepTime(player.local), await MafiaEmbedFactory.roleGiver(player, game.getAliveUsers(), theme, player.local, player.lang, host.roles)]}).catch(err => {
                 console.log(err)
             });
     }

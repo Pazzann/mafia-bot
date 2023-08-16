@@ -63,7 +63,7 @@ export default class ScriptBuilder {
 
     /**Replaces {yRoleCount} — players with the owner's role count.*/
     public setYourRolePlayersCount(owner: MafiaUser, players: MafiaUser[]) {
-        this._eqv = this._eqv.replaceAll("{yRoleCount}", String(players.filter(item => item.role.RoleName == owner.role.RoleName).length));
+        this._eqv = this._eqv.replaceAll("{yRoleCount}", String(players.filter(item => item.role.name == owner.role.name).length));
         return this;
     }
 
@@ -72,7 +72,7 @@ export default class ScriptBuilder {
         if (!this._eqv.includes("{oPlayersTRole}")) {
             return this;
         }
-        const playersFiltered = players.filter(item => item.role.RoleName === owner.role.RoleName && item.id !== owner.id);
+        const playersFiltered = players.filter(item => item.role.name === owner.role.name && item.id !== owner.id);
         const oPlayersTRole = playersFiltered.reduce((p, i) => p + i.dsUser?.tag + ", ", "").slice(0, -2);
         this._eqv = this._eqv.replaceAll("{oPlayersTRole}", oPlayersTRole);
         return this;
@@ -83,7 +83,7 @@ export default class ScriptBuilder {
         if (!this._eqv.includes("{aPlayersTRole}")) {
             return this;
         }
-        const playersFiltered = players.filter(item => item.role.RoleName === owner.role.RoleName);
+        const playersFiltered = players.filter(item => item.role.name === owner.role.name);
         const aPlayersTRole = playersFiltered.reduce((p, i) => p + i.dsUser?.tag + ", ", "").slice(0, -2);
         this._eqv = this._eqv.replaceAll("{aPlayersTRole}", aPlayersTRole);
         return this;
@@ -94,7 +94,7 @@ export default class ScriptBuilder {
         if (!this._eqv.includes("{oPlayersAllRoles}")) {
             return this;
         }
-        const oPlayersAllRoles: string = players.reduce((p, i) => p + i.dsUser?.tag + " — " + i.role.RoleName + "\n", "").slice(0, -1);
+        const oPlayersAllRoles: string = players.reduce((p, i) => p + i.dsUser?.tag + " — " + i.role.name + "\n", "").slice(0, -1);
         this._eqv = this._eqv.replaceAll("{oPlayersAllRoles}", oPlayersAllRoles);
         return this;
     }
@@ -111,7 +111,7 @@ export default class ScriptBuilder {
         for (let i = 1; i < arr.length; i++) {
             const subArr = arr[i].split(":count}");
             const roleName = subArr[0];
-            const count = players.filter(item => item.role.RoleName === roleName).length;
+            const count = players.filter(item => item.role.name === roleName).length;
             arr[i] = count + subArr[1];
         }
         this._eqv = arr.join("");
@@ -124,7 +124,7 @@ export default class ScriptBuilder {
         for (let i = 1; i < arr.length; i++) {
             const subArr = arr[i].split(":string}");
             const roleName = subArr[0];
-            const playersFiltered = players.filter(item => item.role.RoleName === roleName);
+            const playersFiltered = players.filter(item => item.role.name === roleName);
             const str = playersFiltered.reduce((p, i) => p + i.dsUser?.tag + ", ", "").slice(0, -2);
             arr[i] = str + subArr[1];
         }
@@ -194,7 +194,7 @@ export default class ScriptBuilder {
         for (let i = 1; i < arr.length; i++) {
             const subArr = arr[i].split(":count}");
             const roleName = subArr[0];
-            const count = players.filter(item => item.role.RoleName === roleName && item.isKilled === false).length;
+            const count = players.filter(item => item.role.name === roleName && item.isKilled === false).length;
             arr[i] = count + subArr[1];
         }
         this._eqv = arr.join("");
@@ -207,7 +207,7 @@ export default class ScriptBuilder {
         for (let i = 1; i < arr.length; i++) {
             const subArr = arr[i].split(":string}");
             const roleName = subArr[0];
-            const playersFiltered = players.filter(item => item.role.RoleName === roleName && item.isKilled === false);
+            const playersFiltered = players.filter(item => item.role.name === roleName && item.isKilled === false);
             const str = playersFiltered.reduce((p, i) => p + i.dsUser?.tag + ", ", "").slice(0, -2);
             arr[i] = str + subArr[1];
         }

@@ -25,15 +25,15 @@ export default async function editGameConditionList(interaction: SelectMenuInter
         for (let condition of interaction.values) {
             let conditionId = condition.split('%')[1];
             switch (conditionId) {
-                case new PeacefulWin().Name: {
+                case new PeacefulWin().name: {
                     host.conditions.push(new PeacefulWin());
                     break;
                 }
-                case new MafiaWin().Name: {
+                case new MafiaWin().name: {
                     host.conditions.push(new MafiaWin());
                     break;
                 }
-                case new KillerWIn().Name: {
+                case new KillerWIn().name: {
                     host.conditions.push(new KillerWIn());
                     break;
                 }
@@ -58,7 +58,7 @@ export default async function editGameConditionList(interaction: SelectMenuInter
             }
         }
 
-        let condStr = host.conditions.reduce((previous, item)=> previous + "\`\`" + item.GetName(user.lang) + "\`\`\n", "");
+        let condStr = host.conditions.reduce((previous, item)=> previous + "\`\`" + item.getName(user.lang) + "\`\`\n", "");
         host.embed.spliceFields(1, 1,
             {
                 value: condStr,

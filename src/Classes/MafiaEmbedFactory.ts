@@ -49,16 +49,16 @@ export default class MafiaEmbedFactory {
     public static async roleGiver(owner: MafiaUser, players: MafiaUser[], theme: Theme, locale: ILangProps, lang: Langs, roles: BaseRole[]) {
         let rolesValue = "";
         for (let role of roles) {
-            rolesValue += `${role.GetRoleName(owner.lang)}: \`${players.filter(item => item.role.RoleName == role.RoleName).length}\` \n `
+            rolesValue += `${role.getName(owner.lang)}: \`${players.filter(item => item.role.name == role.name).length}\` \n `
         }
         const embed = new EmbedBuilder()
-            .setTitle(`${locale.game_started_private_yourRole}: __${owner.role.GetRoleName(owner.lang)}__`)
+            .setTitle(`${locale.game_started_private_yourRole}: __${owner.role.getName(owner.lang)}__`)
             .addFields([{
                 name: locale.game_started_private_gameInfo,
                 value: `${locale.game_started_private_theme}: \`${theme.GetTheme(lang)}\`\n${locale.game_started_private_playerCount}: \`${players.length}\`\n${rolesValue}`
             }]);
 
-        embed.setDescription(String(ScriptFactory.DescriptionEngine(owner.role.GetDescription(owner.lang), players, owner)));
+        embed.setDescription(String(ScriptFactory.DescriptionEngine(owner.role.getDescription(owner.lang), players, owner)));
         switch (owner.role.ActionOnSelect) {
             case "alibi":{
                 embed.setColor("#de89f5");

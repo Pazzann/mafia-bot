@@ -27,7 +27,7 @@ export interface ILangProps {
     game_start_error_notEnoughRoles: string;
     game_started_button_endGame: string;    // <= 80 symbols
     game_started_title: string;                 // <= 256 symbols
-    game_started_private_yourRole: string;      //usage: ${locale.game_started_private_yourRole}: __${owner.role.GetRoleName(owner.lang)}__
+    game_started_private_yourRole: string;      //usage: ${locale.game_started_private_yourRole}: __${owner.role.getName(owner.lang)}__
     game_started_private_gameInfo: string;
     game_started_private_theme: string;         //usage: ${locale.game_started_private_theme}: \`${theme.GetTheme(lang)}\`
     game_started_private_playerCount: string;   //usage: ${locale.game_started_private_playerCount}: \`${players.length}\`
@@ -91,7 +91,7 @@ export interface ILangProps {
     role_check_reply_mafia2: string;
     role_check_reply_notMafia1: string; //usage: who.local.role_check_reply_notMafia1 + whomU.dsUser.tag + who.local.role_check_reply_notMafia2
     role_check_reply_notMafia2: string;
-    role_fullCheck_reply1: string;      //usage: who.local.role_fullCheck_reply_message1 + whomU.dsUser.tag + who.local.role_fullCheck_reply_message2 + whomU.role.RoleName + who.local.role_fullCheck_reply_message3
+    role_fullCheck_reply1: string;      //usage: who.local.role_fullCheck_reply_message1 + whomU.dsUser.tag + who.local.role_fullCheck_reply_message2 + whomU.role.name + who.local.role_fullCheck_reply_message3
     role_fullCheck_reply2: string;
     role_fullCheck_reply3: string;
 

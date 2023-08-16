@@ -28,27 +28,27 @@ export default async function editGameRoleList(interaction: SelectMenuInteractio
         for (let role of interaction.values) {
             let roleId = role.split('%')[1];
             switch (roleId) {
-                case new MistressRole().RoleName: {
+                case new MistressRole().name: {
                     host.roles.push(new MistressRole());
                     break;
                 }
-                case new MafiaRole().RoleName: {
+                case new MafiaRole().name: {
                     host.roles.push(new MafiaRole());
                     break;
                 }
-                case new DoctorRole().RoleName: {
+                case new DoctorRole().name: {
                     host.roles.push(new DoctorRole());
                     break;
                 }
-                case new PoliceRole().RoleName: {
+                case new PoliceRole().name: {
                     host.roles.push(new PoliceRole());
                     break;
                 }
-                case new KillerRole().RoleName: {
+                case new KillerRole().name: {
                     host.roles.push(new KillerRole());
                     break;
                 }
-                case new PeacefulRole().RoleName: {
+                case new PeacefulRole().name: {
                     host.roles.push(new PeacefulRole());
                     break;
                 }
@@ -77,7 +77,7 @@ export default async function editGameRoleList(interaction: SelectMenuInteractio
             }
         }
 
-        let roleStr = host.roles.reduce((previous, item)=> previous + "\`\`" + item.GetRoleName(user.lang) + "\`\`\n", "");
+        let roleStr = host.roles.reduce((previous, item)=> previous + "\`\`" + item.getName(user.lang) + "\`\`\n", "");
         host.embed.spliceFields(0, 1,
             {
                 value: roleStr,

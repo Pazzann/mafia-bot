@@ -68,7 +68,7 @@ export default async function scripting(interaction: ChatInputCommandInteraction
         .addFields({
                 name: "📑__Fields in custom Roles:__",
                 value: "- **Condition:** *describes winning condition, that is checked after each stage. Must be scripted, see below.*\n"
-                    + "- **Win Role:** *defines who will win in the game. Use Role Name or simply \`innocent\`(means that everyone who can't kill will win).*\n"
+                    + "- **Win Role:** *defines who will win in the game. Use Role name or simply \`innocent\`(means that everyone who can't kill will win).*\n"
                     + "- **Embed Image:** *just a thumbnail in embed when receiving a role. Paste a valid link or it will be replaced.*\n"
                     + "- **Embed Description:** *defines a description for embed, when condition manages to be true. Must be scripted, see below for instruction and example.*\n"
                     + "- **Embed Title:** *defines a title for embed, when condition manages to be true.*\n"

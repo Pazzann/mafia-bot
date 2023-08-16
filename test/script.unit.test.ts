@@ -51,19 +51,19 @@ _chai.expect;
         expect( ScriptFactory.RoleCountCalc("{while (true){};return 1;}", 12, 6)).to.be.NaN;
     }
     // @test 'Description 1' () {
-    //     expect(ScriptEngine.DescriptionEngine(players[0].role.GetDescription(Langs.EN), players, players[0])).to.be.equal("KILL EVERYONE AND SURVIVE! Good luck! \n Your teammates: ");
+    //     expect(ScriptEngine.DescriptionEngine(players[0].role.getDescription(Langs.EN), players, players[0])).to.be.equal("KILL EVERYONE AND SURVIVE! Good luck! \n Your teammates: ");
     // }
     // @test 'Description 2' () {
-    //     expect(ScriptEngine.DescriptionEngine(players[1].role.GetDescription(Langs.EN), players, players[1])).to.be.equal("Your objective is to find mafia! ");
+    //     expect(ScriptEngine.DescriptionEngine(players[1].role.getDescription(Langs.EN), players, players[1])).to.be.equal("Your objective is to find mafia! ");
     // }
     // @test 'Description 3' () {
-    //     expect(ScriptEngine.DescriptionEngine(players[2].role.GetDescription(Langs.EN), players, players[2])).to.be.equal("Your objective is to save people from death!");
+    //     expect(ScriptEngine.DescriptionEngine(players[2].role.getDescription(Langs.EN), players, players[2])).to.be.equal("Your objective is to save people from death!");
     // }
     // @test 'Description 4' () {
     //     expect(ScriptEngine.DescriptionEngine("import process from 'process';process.exit();", players, players[0])).to.be.equal("NaN");
     // }
     // @test 'Description 5' () {
-    //     expect(ScriptEngine.DescriptionEngine(players[3].role.GetDescription(Langs.EN), players, players[3])).to.be.equal("Your objective is to survive!");
+    //     expect(ScriptEngine.DescriptionEngine(players[3].role.getDescription(Langs.EN), players, players[3])).to.be.equal("Your objective is to survive!");
     // }
     @test 'Match Numbers 1' () {
         expect("sdfsdf213".match(/[0-9]+/)[0]).to.be.equal("213");

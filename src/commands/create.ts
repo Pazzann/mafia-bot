@@ -45,8 +45,8 @@ export default function create(interaction: ChatInputCommandInteraction | Button
         voteVisible: true
     });
 
-    let roleStr = curHostGames.get(id).roles.reduce((previous, item)=> previous + "\`\`" + item.GetRoleName(user.lang) + "\`\`\n", "");
-    let condStr = curHostGames.get(id).conditions.reduce((previous, item)=> previous + "\`\`" + item.GetName(user.lang) + "\`\`\n", "");
+    let roleStr = curHostGames.get(id).roles.reduce((previous, item)=> previous + "\`\`" + item.getName(user.lang) + "\`\`\n", "");
+    let condStr = curHostGames.get(id).conditions.reduce((previous, item)=> previous + "\`\`" + item.getName(user.lang) + "\`\`\n", "");
 
     let host = curHostGames.get(id);
     host.embed = new EmbedBuilder()

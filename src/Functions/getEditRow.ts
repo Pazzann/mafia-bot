@@ -23,40 +23,40 @@ export default function getEditRow(host: IHostGameProps, user: User, locale: ILa
 
     chooseArr.push(
         new StringSelectMenuOptionBuilder()
-            .setLabel(new MistressRole().RoleName)
-            .setValue(String(host.id) + "%" + String(new MistressRole().RoleName)),
+            .setLabel(new MistressRole().name)
+            .setValue(String(host.id) + "%" + String(new MistressRole().name)),
         new StringSelectMenuOptionBuilder()
-            .setLabel(new MafiaRole().RoleName)
-            .setValue(String(host.id) + "%" + String(new MafiaRole().RoleName)),
+            .setLabel(new MafiaRole().name)
+            .setValue(String(host.id) + "%" + String(new MafiaRole().name)),
         new StringSelectMenuOptionBuilder()
-            .setLabel(new PeacefulRole().RoleName)
-            .setValue(String(host.id) + "%" + String(new PeacefulRole().RoleName)),
+            .setLabel(new PeacefulRole().name)
+            .setValue(String(host.id) + "%" + String(new PeacefulRole().name)),
         new StringSelectMenuOptionBuilder()
-            .setLabel(new KillerRole().RoleName)
-            .setValue(String(host.id) + "%" + String(new KillerRole().RoleName)),
+            .setLabel(new KillerRole().name)
+            .setValue(String(host.id) + "%" + String(new KillerRole().name)),
         new StringSelectMenuOptionBuilder()
-            .setLabel(new PoliceRole().RoleName)
-            .setValue(String(host.id) + "%" + String(new PoliceRole().RoleName)),
+            .setLabel(new PoliceRole().name)
+            .setValue(String(host.id) + "%" + String(new PoliceRole().name)),
         new StringSelectMenuOptionBuilder()
-            .setLabel(new DoctorRole().RoleName)
-            .setValue(String(host.id) + "%" + String(new DoctorRole().RoleName)),
+            .setLabel(new DoctorRole().name)
+            .setValue(String(host.id) + "%" + String(new DoctorRole().name)),
     )
-    if (host.roles.filter(item => item.RoleName === new MistressRole().RoleName).length > 0) {
+    if (host.roles.filter(item => item.name === new MistressRole().name).length > 0) {
         chooseArr[0].setDefault(true);
     }
-    if (host.roles.filter(item => item.RoleName === new MafiaRole().RoleName).length > 0) {
+    if (host.roles.filter(item => item.name === new MafiaRole().name).length > 0) {
         chooseArr[1].setDefault(true);
     }
-    if (host.roles.filter(item => item.RoleName === new PeacefulRole().RoleName).length > 0) {
+    if (host.roles.filter(item => item.name === new PeacefulRole().name).length > 0) {
         chooseArr[2].setDefault(true);
     }
-    if (host.roles.filter(item => item.RoleName === new KillerRole().RoleName).length > 0) {
+    if (host.roles.filter(item => item.name === new KillerRole().name).length > 0) {
         chooseArr[3].setDefault(true);
     }
-    if (host.roles.filter(item => item.RoleName === new PoliceRole().RoleName).length > 0) {
+    if (host.roles.filter(item => item.name === new PoliceRole().name).length > 0) {
         chooseArr[4].setDefault(true);
     }
-    if (host.roles.filter(item => item.RoleName === new DoctorRole().RoleName).length > 0) {
+    if (host.roles.filter(item => item.name === new DoctorRole().name).length > 0) {
         chooseArr[5].setDefault(true);
     }
     if (user.premium) {
@@ -64,7 +64,7 @@ export default function getEditRow(host: IHostGameProps, user: User, locale: ILa
             const roleOption = new StringSelectMenuOptionBuilder()
                 .setLabel(role.name)
                 .setValue(String(host.id) + "%" + String(role.id));
-            if (host.roles.filter(item => item.RoleName === role.name).length > 0)
+            if (host.roles.filter(item => item.name === role.name).length > 0)
                 roleOption.setDefault(true);
             chooseArr.push(roleOption)
         }
@@ -84,22 +84,22 @@ export default function getEditRow(host: IHostGameProps, user: User, locale: ILa
 
     chooseArr2.push(
         new StringSelectMenuOptionBuilder()
-            .setLabel(new KillerWIn().Name)
-            .setValue(String(host.id) + "%" + String(new KillerWIn().Name)),
+            .setLabel(new KillerWIn().name)
+            .setValue(String(host.id) + "%" + String(new KillerWIn().name)),
         new StringSelectMenuOptionBuilder()
-            .setLabel(new MafiaWin().Name)
-            .setValue(String(host.id) + "%" + String(new MafiaWin().Name)),
+            .setLabel(new MafiaWin().name)
+            .setValue(String(host.id) + "%" + String(new MafiaWin().name)),
         new StringSelectMenuOptionBuilder()
-            .setLabel(new PeacefulWin().Name)
-            .setValue(String(host.id) + "%" + String(new PeacefulWin().Name)),
+            .setLabel(new PeacefulWin().name)
+            .setValue(String(host.id) + "%" + String(new PeacefulWin().name)),
     )
-    if (host.conditions.filter(item => item.Name === new KillerWIn().Name).length > 0) {
+    if (host.conditions.filter(item => item.name === new KillerWIn().name).length > 0) {
         chooseArr2[0].setDefault(true);
     }
-    if (host.conditions.filter(item => item.Name === new MafiaWin().Name).length > 0) {
+    if (host.conditions.filter(item => item.name === new MafiaWin().name).length > 0) {
         chooseArr2[1].setDefault(true);
     }
-    if (host.conditions.filter(item => item.Name === new PeacefulWin().Name).length > 0) {
+    if (host.conditions.filter(item => item.name === new PeacefulWin().name).length > 0) {
         chooseArr2[2].setDefault(true);
     }
     if (user.premium) {
@@ -107,7 +107,7 @@ export default function getEditRow(host: IHostGameProps, user: User, locale: ILa
             const conditionOption = new StringSelectMenuOptionBuilder()
                 .setLabel(condition.name)
                 .setValue(String(host.id) + "%" + String(condition.id));
-            if (host.conditions.filter(item => item.Name === condition.name).length > 0)
+            if (host.conditions.filter(item => item.name === condition.name).length > 0)
                 conditionOption.setDefault(true);
             chooseArr2.push(conditionOption)
         }
