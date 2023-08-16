@@ -301,6 +301,13 @@ export interface ILangProps {
     help_button_rules: string;              // <= 80 symbols
     help_button_scripting: string;          // <= 80 symbols
     help_button_helpmessage: string;        // <= 80 symbols
+    help_about_version: string;
+    help_about_code: string;
+    help_about_server: string;
+    help_about_developer: string;
+    help_about_text: string;
+    help_about_localisation: string;
+    help_about_arts: string;                 //deprecated
 
     helpMessage_title: string;                              // <= 256 symbols
     helpMessage_text_label: string;                         // <= 45 symbols; usage: CAPS
