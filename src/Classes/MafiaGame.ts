@@ -64,7 +64,7 @@ export default class MafiaGame {
                 this.players.map(item => {
                     item.dbUser.totalGames++;
                     item.dbUser.save();
-                    item.dsUser.dmChannel.send({
+                    item.dmChannel.send({
                         embeds: [condition.GetEmbed(item.lang, this.players)]
                     });
                 });
@@ -149,7 +149,7 @@ export default class MafiaGame {
 
             this.players.map(item => {
                 let killEmbed = (tags.length == 0) ? MafiaEmbedFactory.nokills(item.local) : MafiaEmbedFactory.kills(tags, item.local);
-                item.dsUser.dmChannel.send({
+                item.dmChannel.send({
                     embeds: [MafiaEmbedFactory.wakeUp(item.local), killEmbed],
                 });
             });
@@ -160,7 +160,7 @@ export default class MafiaGame {
                 return;
             }
             this.GetAliveUsers().map(item => {
-                item.dsUser.dmChannel.send({
+                item.dmChannel.send({
                     components: [item.role.GetVoteRow(this.GetAliveUsers(), false, item.local)]
                 });
             });
@@ -187,15 +187,15 @@ export default class MafiaGame {
                 }
 
                 voteEmded.setDescription(votes);
-                item.dsUser.dmChannel.send({embeds: [voteEmded]});
+                item.dmChannel.send({embeds: [voteEmded]});
             });
             if (votedForUsers[0].numbersOfVotes == votedForUsers[1].numbersOfVotes) {
                 this.players.map(item => {
-                    item.dsUser.dmChannel.send(item.local.role_vote_results_tie);
+                    item.dmChannel.send(item.local.role_vote_results_tie);
                 });
             } else {
                 this.players.map(item => {
-                    item.dsUser.dmChannel.send(item.local.role_vote_results_ban1 + this.GetUser(votedForUsers[0].userid).dsUser.tag + item.local.role_vote_results_ban2);
+                    item.dmChannel.send(item.local.role_vote_results_ban1 + this.GetUser(votedForUsers[0].userid).dsUser.tag + item.local.role_vote_results_ban2);
                 });
                 this.GetUser(votedForUsers[0].userid).isKilled = true;
             }
@@ -210,7 +210,7 @@ export default class MafiaGame {
 
 
             this.players.map(item => {
-                item.dsUser.dmChannel.send({
+                item.dmChannel.send({
                     embeds: [MafiaEmbedFactory.sleepTime(item.local)],
                 });
                 item.clearActions();
@@ -218,7 +218,7 @@ export default class MafiaGame {
             this.GetActionAliveUser().map(item => {
                 let row = item.role.GetNightVoteRow(this.GetAliveUsers(), false, item);
                 if (row) {
-                    item.dsUser.dmChannel.send({
+                    item.dmChannel.send({
                         components: [row]
                     });
                 }
@@ -282,7 +282,7 @@ export default class MafiaGame {
 
     public SendToAll(msg: string = " ", embeds: EmbedBuilder[] = []) {
         this.players.map(item => {
-            item.dsUser.dmChannel.send({content: msg, embeds: embeds}).catch()
+            item.dmChannel.send({content: msg, embeds: embeds}).catch()
         })
     }
 
@@ -392,7 +392,8 @@ export default class MafiaGame {
                 const dbUser = await User.findOne({where: {userid: users[0]}, relations: ["games"]});
                 let lang: Langs;
                 lang = dbUser.lang;
-                const player = new MafiaUser(users[0], dsUser, dbUser, lang, role)
+                const dm = dsUser.dmChannel ?? await dsUser.createDM();
+                const player = new MafiaUser(users[0], dsUser, dbUser, lang, role, dm);
                 players.push(player);
                 users.splice(0, 1);
                 if (users.length == 0)

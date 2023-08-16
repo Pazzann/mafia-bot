@@ -40,17 +40,17 @@ export default async function start(interaction: ButtonInteraction, gameid = 0, 
     curHandlingGames.set(gameid, game);
     const theme = getRandomTheme();
     for (let player of game.players) {
-        const dm = player.dsUser?.dmChannel ?? await player.dsUser.createDM();
+
         const row = player.role.GetNightVoteRow(game.GetAliveUsers(), false, player);
         if (row && player.role.DelayForActivity === 1)
-            dm.send({
+            player.dmChannel.send({
                 embeds: [MafiaEmbedFactory.sleepTime(player.local), await MafiaEmbedFactory.roleGiver(player, game.GetAliveUsers(), theme, player.local, player.lang, host.roles)],
                 components: [row]
             }).catch(err => {
                 console.log(err)
             });
         else
-            dm.send({embeds: [MafiaEmbedFactory.sleepTime(player.local), await MafiaEmbedFactory.roleGiver(player, game.GetAliveUsers(), theme, player.local, player.lang, host.roles)]}).catch(err => {
+            player.dmChannel.send({embeds: [MafiaEmbedFactory.sleepTime(player.local), await MafiaEmbedFactory.roleGiver(player, game.GetAliveUsers(), theme, player.local, player.lang, host.roles)]}).catch(err => {
                 console.log(err)
             });
     }

@@ -2,7 +2,7 @@ import {ILangProps} from "../types/interfaces/ILang";
 import {Langs} from "../types/Langs";
 import BaseRole from "./Roles/BaseRole";
 import {ILocalProps, localisations} from "../index";
-import {User as DiscordUser} from "discord.js";
+import {DMChannel, User as DiscordUser} from "discord.js";
 import User from "../Entities/User.entity";
 
 export default class MafiaUser {
@@ -13,6 +13,9 @@ export default class MafiaUser {
     public readonly lang: Langs;
     public readonly role: BaseRole;
     public isKilled: boolean = false;
+
+    public readonly dmChannel: DMChannel;
+
     public actionsOnUser: {
         kill: boolean,
         heal: boolean,
@@ -30,7 +33,7 @@ export default class MafiaUser {
         hasVoted: false,
         hasDoneAction: false
     };
-    constructor(id: string, dsUser: DiscordUser, dbUser: User, lang: Langs, role: BaseRole) {
+    constructor(id: string, dsUser: DiscordUser, dbUser: User, lang: Langs, role: BaseRole, dmChannel: DMChannel) {
         this.id = id;
         this.dsUser = dsUser;
         this.dbUser = dbUser;
@@ -38,6 +41,7 @@ export default class MafiaUser {
         this.lang = lang;
         this.role = role;
         this.actionsOnUser.hasDoneAction = (this.role.ActionOnSelect === "no_activity");
+        this.dmChannel = dmChannel;
     }
 
     public clearActions() {
