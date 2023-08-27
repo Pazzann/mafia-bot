@@ -37,7 +37,7 @@ export default async function help(interaction: ChatInputCommandInteraction, use
                 locale.help_about_value_developers + "boyfromgod" +
                 locale.help_about_value_text + "denyshon, boyfromgod" +
                 locale.help_about_value_localization + "denyshon (`uk`, `ru`), boyfromgod (`fu`), stasnerymuity (`sp`)" +
-                locale.help_about_value_arts + " Midjourney, popa_sani"
+                locale.help_about_value_arts + "Midjourney, popa_sani"
         }])
 
 
