@@ -172,7 +172,7 @@ const commands = {
 }
 
 export const AppDataSource = new DataSource({
-    type: "mysql",
+    type: "mariadb",
     host: process.env.SQLHOST,
     port: +process.env.SQLPORT,
     username: process.env.SQLUSERNAME,
@@ -239,7 +239,7 @@ discordBot.on("guildMemberAdd", async (member: GuildMember) => {
 
 discordBot.on("interactionCreate", async (interaction: ChatInputCommandInteraction | ButtonInteraction | SelectMenuInteraction | ModalSubmitInteraction) => {
     try {
-        // await interaction.deferReply();
+        //await interaction.deferReply();
         const dataUser = await User.findOne({
             where: {userid: interaction.user.id},
             relations: ["customRoles", "conditions"]

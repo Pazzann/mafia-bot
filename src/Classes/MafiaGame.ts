@@ -350,23 +350,27 @@ export default class MafiaGame {
 
     public async generatePlayers(users: string[], roles: BaseRole[]): Promise<BaseRole[]> {
         const totalUsers = users.length;
+
         users = shuffle(users);
         users = shuffle(users);
         users = shuffle(users);
 
         roles = roles.filter(item => totalUsers >= item.SpawnFrom);
+
         if (roles.filter(item => typeof item.Count === "string" && item.Count.includes("{oRolesPCount}")).length > 0) {
             const arr = roles.filter(item => typeof item.Count === "string" && item.Count.includes("{oRolesPCount}"));
             roles = roles.filter(item => !(typeof item.Count === "string" && item.Count.includes("{oRolesPCount}")));
             roles.push(arr[0]);
         }
+
         roles.push(new PeacefulRole());
         let totalRoleCount = 0;
         for (let i = 0; i < roles.length; i++) {
             if (typeof roles[i].Count === "string") {
                 roles[i].Count = ScriptFactory.RoleCountCalc(roles[i].Count as string, users.length, totalRoleCount);
             }
-            roles[i].Count = Math.max(roles[i].Count as number, totalUsers - totalRoleCount);
+            roles[i].Count = Math.min(roles[i].Count as number, totalUsers - totalRoleCount);
+
             if (!isNaN(roles[i].Count as number)) {
                 totalRoleCount += roles[i].Count as number;
             }
@@ -376,6 +380,7 @@ export default class MafiaGame {
         }
         roles = roles.filter(item => (item.Count as number) > 0 && !isNaN(item.Count as number));
 
+
         let players: MafiaUser[] = [];
         let totalRoleHandledCount = 0;
         for (let role of roles) {
@@ -384,7 +389,7 @@ export default class MafiaGame {
                 const dbUser = await User.findOne({where: {userid: users[totalRoleHandledCount]}, relations: ["games"]});
                 const lang = dbUser.lang;
                 const dm = dsUser.dmChannel ?? await dsUser.createDM();
-                const player = new MafiaUser(users[0], dsUser, dbUser, lang, role, dm);
+                const player = new MafiaUser(users[totalRoleHandledCount], dsUser, dbUser, lang, role, dm);
                 players.push(player);
             }
         }
