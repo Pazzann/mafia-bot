@@ -78,6 +78,7 @@ export interface ILocalProps {
     SP: ILangProps;
     SE: ILangProps;
     LT: ILangProps;
+    AR: ILangProps;
 }
 
 function get(target: any, field: string) {
@@ -98,7 +99,8 @@ export const localisations: ILocalProps = {
     PL: new Proxy(require('./langs/pl.json'), {get}),
     SP: new Proxy(require('./langs/sp.json'), {get}),
     SE: new Proxy(require('./langs/se.json'), {get}),
-    LT: new Proxy(require('./langs/lt.json'), {get})
+    LT: new Proxy(require('./langs/lt.json'), {get}),
+    AR: new Proxy(require('./langs/ar.json'), {get}),
 }
 
 

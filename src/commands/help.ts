@@ -31,12 +31,12 @@ export default async function help(interaction: ChatInputCommandInteraction, use
             value: '\u200B'
         }, {
             name: locale.help_about_name,
-            value: locale.help_about_value_version + "2.0.1" +
+            value: locale.help_about_value_version + "2.0.2" +
                 locale.help_about_value_code + "https://github.com/Pazzann/mafia-bot" +
                 locale.help_about_value_server + "https://discord.gg/ZWnx8rqGTD" +
                 locale.help_about_value_developers + "boyfromgod" +
                 locale.help_about_value_text + "denyshon, boyfromgod" +
-                locale.help_about_value_localization + "denyshon (`uk`, `ru`), boyfromgod (`fu`), stasnerymuity (`sp`)" +
+                locale.help_about_value_localization + "denyshon (`uk`, `ru`), boyfromgod (`fu`), stasnerymuity (`sp`), qaut (`ar`)" +
                 locale.help_about_value_arts + "Midjourney, popa_sani"
         }])
 

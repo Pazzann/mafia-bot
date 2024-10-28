@@ -70,6 +70,12 @@ export default function getLangButtons() {
                     .setStyle(ButtonStyle.Primary)
                     .setCustomId("lt")
                     .setDisabled(false),
+                new ButtonBuilder()
+                    .setEmoji("🇸🇦")
+                    .setLabel("Arabic")
+                    .setStyle(ButtonStyle.Primary)
+                    .setCustomId("ar")
+                    .setDisabled(false),
             )
     ]
     return disabledButtons;

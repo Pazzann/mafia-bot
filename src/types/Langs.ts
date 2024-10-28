@@ -8,6 +8,7 @@ export enum Langs {
     PL = "pl",
     SP = "sp",
     SE = "se",
-    LT = "lt"
+    LT = "lt",
+    AR = "ar"
 }
-export const LangArray = ["en", "de", "ru", "ua", "pl", "fu", "sp", "ee", "se", "lt"];
+export const LangArray = ["en", "de", "ru", "ua", "pl", "fu", "sp", "ee", "se", "lt", "ar"];
