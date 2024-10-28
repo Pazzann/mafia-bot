@@ -105,11 +105,9 @@ export const localisations: ILocalProps = {
 export const discordBot = new Client({
     intents: [
         GatewayIntentBits.Guilds,
-        GatewayIntentBits.GuildMembers,
         GatewayIntentBits.DirectMessages,
         GatewayIntentBits.DirectMessageTyping,
         GatewayIntentBits.DirectMessageReactions,
-        GatewayIntentBits.MessageContent
     ],
     partials: [
         Partials.Channel
