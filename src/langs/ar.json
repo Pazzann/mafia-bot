@@ -173,7 +173,7 @@
   "role_create_goNext_message": "اضغط على الزر للمتابعة:",
   "role_create_title2": "إنشاء دور: ",
   "role_create_roleAction_label": "الإجراء",
-  "role_create_roleAction_placeHolder": "قتل | شفاء | حجة | تحقق | تحقق كامل | عدم نشاط؛ لمزيد من التفاصيل انظر /help → البرمجة",
+  "role_create_roleAction_placeHolder": "kill | heal | alibi | check | full_check | no_activity نشاط؛ لمزيد من التفاصيل انظر /help → البرمجة",
   "role_create_roleSelectable_label": "هل يمكن اختياره ذاتيًا؟",
   "role_create_roleSelectable_placeHolder": "true | false",
   "role_create_roleDelay_label": "التأخير بين الإجراءات",

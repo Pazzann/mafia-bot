@@ -173,15 +173,15 @@ export interface ILangProps {
     role_create_goNext_message: string;
     role_create_title2: string;         // <= 256 symbols; usage: locale.role_create_title2 + name
     role_create_roleAction_label: string;                   // <= 45 symbols; usage: CAPS
-    role_create_roleAction_placeHolder: string;             // <= 100 symbols
+    role_create_roleAction_placeHolder: string;             // <= 100 symbols; do not localize "kill | heal | alibi | check | full_check | no_activity"
     role_create_roleSelectable_label: string;               // <= 45 symbols; usage: CAPS
-    role_create_roleSelectable_placeHolder: string;         // <= 100 symbols
+    role_create_roleSelectable_placeHolder: string;         // <= 100 symbols; do not localize
     role_create_roleDelay_label: string;                    // <= 45 symbols; usage: CAPS
     role_create_roleDelay_placeHolder: string;              // <= 100 symbols
     role_create_roleSpawnFrom_label: string;                // <= 45 symbols; usage: CAPS
     role_create_roleSpawnFrom_placeHolder: string;          // <= 100 symbols
     role_create_roleGroupSelection_label: string;           // <= 45 symbols; usage: CAPS
-    role_create_roleGroupSelection_placeHolder: string;     // <= 100 symbols
+    role_create_roleGroupSelection_placeHolder: string;     // <= 100 symbols; do not localize
     role_create_success_message: string;
 
     role_edit_error_notFound: string;                       // = role_view_error_notFound
@@ -212,15 +212,15 @@ export interface ILangProps {
     role_edit_rolePlaceHolder_label: string;                // = role_create_rolePlaceHolder_label; usage: CAPS
     role_edit_rolePlaceHolder_placeHolder: string;          // <= 100 symbols
     role_edit_roleAction_label: string;                     // = role_create_roleAction_label; usage: CAPS
-    role_edit_roleAction_placeHolder: string;               // <= 100 symbol
+    role_edit_roleAction_placeHolder: string;               // <= 100 symbol; do not localize
     role_edit_roleSelectable_label: string;                 // = role_create_roleSelectable_label; usage: CAPS
-    role_edit_roleSelectable_placeHolder: string;           // <= 100 symbols
+    role_edit_roleSelectable_placeHolder: string;           // <= 100 symbols; do not localize
     role_edit_roleDelay_label: string;                      // = role_create_roleDelay_label; usage: CAPS
     role_edit_roleDelay_placeHolder: string;                // <= 100 symbols
     role_edit_roleSpawnFrom_label: string;                  // = role_create_roleSpawnFrom_label; usage: CAPS
     role_edit_roleSpawnFrom_placeHolder: string;            // <= 100 symbols
     role_edit_roleGroupSelection_label: string;             // = role_create_roleGroupSelection_label; usage: CAPS
-    role_edit_roleGroupSelection_placeHolder: string;       // <= 100 symbols
+    role_edit_roleGroupSelection_placeHolder: string;       // <= 100 symbols; do not localize
     role_edit_success_message: string;
 
     role_delete_error_noRoles: string;
