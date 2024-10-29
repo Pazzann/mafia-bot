@@ -16,6 +16,8 @@ export default class MafiaUser {
 
     public readonly dmChannel: DMChannel;
 
+    public readonly metaData: Array<string> = [];
+
     public actionsOnUser: {
         kill: boolean,
         heal: boolean,
@@ -42,6 +44,7 @@ export default class MafiaUser {
         this.role = role;
         this.actionsOnUser.hasDoneAction = (this.role.ActionOnSelect === "no_activity");
         this.dmChannel = dmChannel;
+        this.metaData = [];
     }
 
     public clearActions() {

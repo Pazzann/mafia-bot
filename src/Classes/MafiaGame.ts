@@ -23,6 +23,7 @@ export default class MafiaGame {
     private readonly _author: string;
     private readonly _voteSelect: boolean;
     private readonly _guildId: string;
+    private readonly _metaData: Array<string>;
     private _roles: BaseRole[];
     private _winCond: BaseCondition[];
     private _day: number = 1;
@@ -34,6 +35,7 @@ export default class MafiaGame {
         this._author = author;
         this._voteSelect = voteSelect;
         this._guildId = guildId;
+        this._metaData = [];
     }
 
     public async CheckEndGame(): Promise<boolean> {
