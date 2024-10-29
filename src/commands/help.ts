@@ -34,9 +34,9 @@ export default async function help(interaction: ChatInputCommandInteraction, use
             value: locale.help_about_value_version + "2.0.2" +
                 locale.help_about_value_code + "https://github.com/Pazzann/mafia-bot" +
                 locale.help_about_value_server + "https://discord.gg/ZWnx8rqGTD" +
-                locale.help_about_value_developers + "~bfg" +
-                locale.help_about_value_text + "denyshon, ~bfg" +
-                locale.help_about_value_localization + "denyshon (`uk`, `ru`), ~bfg (`fu`), stasnerymuity (`sp`), qaut (`ar`)" +
+                locale.help_about_value_developers + "<@390561515054563328>" +
+                locale.help_about_value_text + "<@739746313511501854>, <@390561515054563328>" +
+                locale.help_about_value_localization + "<@739746313511501854> (`uk`, `ru`), <@390561515054563328> (`fu`), stasnerymuity (`sp`), <@344587949830176780> (`ar`)" +
                 locale.help_about_value_arts + "Midjourney, popa_sani"
         }])
 
