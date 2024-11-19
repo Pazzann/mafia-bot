@@ -124,15 +124,15 @@
   "profile_accountSince": "الحساب منذ:",
   "profile_totalGames": ":video_game: إجمالي الألعاب:",
   "profile_totalWins": ":trophy: إجمالي الانتصارات:",
-  "profile_premium": ":dollar: بريميوم:",
+  "profile_premium": ":dollar: Premium:",
   "profile_premium_purchased": "نشط",
   "profile_premium_notPurchased": "غير نشط",
-  "profile_button_premium": "بريميوم",
+  "profile_button_premium": "Premium",
   "profile_button_custom": "تخصيص",
   "profile_button_news": "إشعارات الأخبار",
 
 
-  "premium_title": "بريميوم :money_with_wings:",
+  "premium_title": "Premium :money_with_wings:",
   "premium_description": ":zap: قم بإنشاء **أدوار مخصصة** بميزات فريدة، مثل الإجراء، أسلوب اللعب، الوصف والصورة المصغرة!\n:dizzy: قم بإنشاء **شروط نهاية اللعبة المخصصة** لوصف اللعب بأدوارك أو لتغيير الافتراضي!\n:fire: قم بإنشاء **ألعاب مخصصة** بأدوارك وشروطك و **أبهر أصدقاءك**!\n:sparkling_heart: **ادعمنا** في تحسين بوت مافيا، وإضافة ميزات جديدة والمزيد!\nاشترك فقط بـ`$1/الشهر`",
   "premium_howDoIGet_name": ":gem: كيف أحصل على بريميوم؟",
   "premium_howDoIGet_value": "1. انضم إلى سيرفر المافيا الرسمي: https://discord.gg/ZWnx8rqGTD\n2. اشترك في بريميوم مافيا بوت على Patreon: https://www.patreon.com/MafiaBot775\n3. اربط حساب Discord الخاص بك بـPatreon.\n4. انتظر قليلاً واستمتع :3",

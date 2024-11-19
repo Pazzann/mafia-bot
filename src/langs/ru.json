@@ -39,7 +39,7 @@
   "game_leave_error_alreadyLeft": "Не переживайте, вы и так не в игре :wink:",
   "game_leave_success_message": ":ballot_box_with_check: Вы успешно покинули игру.",
   "game_edit_error_noAccess": ":man_gesturing_no: Извините, вы не можете изменять эту игру, потому что не являетесь её организатором!",
-  "game_edit_roles_placeHolder6": "Выберите роли...",
+  "game_edit_roles_placeHolder": "Выберите роли...",
   "game_edit_roles_error_notFound": ":jigsaw: Некоторые из выбранных ролей не найдены! Возможно, они были удалены.",
   "game_edit_conditions_placeHolder": "Выберите условия окончания игры...",
   "game_edit_conditions_error_notFound": ":jigsaw: Некоторые из выбранных условий не найдены! Возможно, они были удалены.",
@@ -293,7 +293,7 @@
   "help_commands_value": "</create:1015716817945247794> — создать новую игру\n</lang:1044351625621405797> — изменить язык бота\n</profile:1100344392067338261> — просмотреть свой профиль\n</help:1100344392067338262> — вы здесь ^_^",
   "help_faq_name": ":question: ЧЗВ",
   "help_faq_value": ":small_orange_diamond: Могу ли я играть бесплатно?\n:small_blue_diamond: Да, вы можете свободно присоединяться к любым играм и создавать свои со стандартными ролями и условиями окончания. Premium позволяет создавать, изменять и использовать собственные роли и условия.\n:small_orange_diamond: С кем я могу играть?\n:small_blue_diamond: Только пользователи, которые есть на сервере и имеют доступ к каналу, где создаётся игра, могут присоединиться к ней.\n:small_orange_diamond: Что мне делать, если что-то идёт не так?\n:small_blue_diamond: Закончите игру и создайте новую. Также, пожалуйста, _напишите в поддержку_ о том, что произошло, с помощью кнопки ниже.\n:small_orange_diamond: Все ли игроки должны иметь Premium, чтобы играть с нестандартными элементами?\n:small_blue_diamond: Нет, Premium необходим только организатору.",
-  "help_plans_name": ":crystal_ball: Планы на будущие обовления",
+  "help_plans_name": ":crystal_ball: Планы на будущие обновления",
   "help_plans_value": "Мы планируем предоставить больше возможностей организаторам игр, расширить профиль пользователя, добавить больше действий для ролей, кастомизацию этапов игры, новые локализации и многое другое!",
   "help_about_name": ":notepad_spiral: О Mafia Bot",
   "help_about_value_version": "`Версия:` ",
@@ -331,7 +331,7 @@
   "start_role_mafia": "Ваша убить всех и самому остаться в живых! \n Ваши мафиозные друзья:",
   "start_role_doctor": "Ваша задача попытаться не дать никому умереть!",
   "start_role_police": "Ваша задача вычислить мафию и убедить всех проголосовать за мафию!",
-  "start_role_killer": "Ваша задача убить всех и остаться в живих одному!",
+  "start_role_killer": "Ваша задача убить всех и остаться в живых одному!",
   "start_role_mistress": "string",
   "help_about_value": "`Версия:` 2.0.0\n`Исходный код:` https://github.com/Pazzann/mafia-bot\n`Официальный сервер:` https://discord.gg/ZWnx8rqGTD\n`Разработка:` Boy From God#2772\n`Тексты:` denyshon#9143, Boy From God#2772\n`Локализация:` denyshon#9143 (`uk`, `ru`), Boy From God#2772 (`fu`)\n`Арты:` Midjourney, popa_sani#4041"
 }
