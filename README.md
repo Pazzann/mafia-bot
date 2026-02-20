@@ -9,8 +9,8 @@
 [![Discord.js](https://img.shields.io/badge/Discord.js-5865F2?style=for-the-badge&logo=discord&logoColor=white)]()
 [![TypeORM](https://img.shields.io/badge/TypeORM-FE0803?style=for-the-badge&logo=typeorm&logoColor=white)]()
 
-![demo](https://media.discordapp.net/attachments/541691734833496084/1474401073870540881/image.png?ex=6999b681&is=69986501&hm=d7434f1fde56d53e1ff170d4279d95b69dad9d0698786d85d411dce49acf4795&=&format=webp&quality=lossless&width=833&height=1177)
 
+<img src="https://media.discordapp.net/attachments/541691734833496084/1474401073870540881/image.png?ex=6999b681&is=69986501&hm=d7434f1fde56d53e1ff170d4279d95b69dad9d0698786d85d411dce49acf4795&=&format=webp&quality=lossless&width=833&height=1177" alt="demo" width="200"/>
 </div>
 
 ---
@@ -53,7 +53,6 @@ To get a local copy up and running, follow these simple steps.
    git clone [https://github.com/Pazzann/mafia-bot.git](https://github.com/Pazzann/mafia-bot.git)
    cd mafia-bot
 
-```
 
 2. **Install NPM packages:**
 ```sh
@@ -88,7 +87,7 @@ npm run start
 
 
 The bot relies on a **Finite State Machine (FSM)** architecture to transition between game phases (`Lobby` -> `Night Phase` -> `Day Phase` -> `Voting`). All interactions are handled asynchronously via Discord's Slash Commands and Button Interactions, ensuring non-blocking performance.
-
+For roles, interactions and actions uses custom scripts made with Factory and Builder patterns
 ---
 
 <div align="center">
