@@ -13,6 +13,8 @@
 <img src="https://media.discordapp.net/attachments/541691734833496084/1474401073870540881/image.png?ex=6999b681&is=69986501&hm=d7434f1fde56d53e1ff170d4279d95b69dad9d0698786d85d411dce49acf4795&=&format=webp&quality=lossless&width=833&height=1177" alt="demo" width="200"/>
 </div>
 
+[Add to server](https://discord.com/oauth2/authorize?client_id=1015703495288037407)
+
 ---
 
 ## 📌 About The Project
