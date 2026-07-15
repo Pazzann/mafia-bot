@@ -63,5 +63,5 @@ export default async function help(interaction: ChatInputCommandInteraction, use
                 .setDisabled(false)
         );
 
-    interaction.reply({embeds: [embed], components: [buttons], flags: MessageFlags.Ephemeral}).catch();
+    interaction.reply({embeds: [embed], components: [buttons], flags: MessageFlags.Ephemeral}).catch(() => {});
 }

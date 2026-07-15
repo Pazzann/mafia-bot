@@ -7,18 +7,18 @@ import {Action} from "../../types/Action";
 
 export default async function editRole (interaction: ModalSubmitInteraction, user: User, locale: ILangProps) {
     if (!user.premium) {
-        interaction.reply({content: locale.error_premium, flags: MessageFlags.Ephemeral}).catch();
+        interaction.reply({content: locale.error_premium, flags: MessageFlags.Ephemeral}).catch(() => {});
         return;
     }
     try {
         let roleId = +interaction.customId.split("editRole").join('');
         const role = await Role.findOne({where: {id: roleId}, relations: ["user"]});
         if (role == null) {
-            interaction.reply({content: locale.role_edit_error_notFound, flags: MessageFlags.Ephemeral}).catch();
+            interaction.reply({content: locale.role_edit_error_notFound, flags: MessageFlags.Ephemeral}).catch(() => {});
             return;
         }
         if (role.user.userid != user.userid) {
-            interaction.reply({content: locale.role_edit_error_noAccess, flags: MessageFlags.Ephemeral}).catch();
+            interaction.reply({content: locale.role_edit_error_noAccess, flags: MessageFlags.Ephemeral}).catch(() => {});
             return;
         }
 
@@ -68,7 +68,7 @@ export default async function editRole (interaction: ModalSubmitInteraction, use
         }
 
         role.save();
-        interaction.reply({content: locale.role_edit_success_message, flags: MessageFlags.Ephemeral, embeds:[MafiaEmbedFactory.roleEmbed(role, locale)]}).catch();
+        interaction.reply({content: locale.role_edit_success_message, flags: MessageFlags.Ephemeral, embeds:[MafiaEmbedFactory.roleEmbed(role, locale)]}).catch(() => {});
     } catch (err) {
     }
 }

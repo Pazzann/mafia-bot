@@ -25,5 +25,5 @@ export default async function premium(interaction: ButtonInteraction, user: User
             }
         ]);
 
-    interaction.reply({flags: MessageFlags.Ephemeral, embeds: [embed]}).catch()
+    interaction.reply({flags: MessageFlags.Ephemeral, embeds: [embed]}).catch(() => {})
 }

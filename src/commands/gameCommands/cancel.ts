@@ -7,11 +7,11 @@ import setGameEmbedDescription from "../../Functions/setGameEmbedDescription";
 
 export default function cancel(interaction: ButtonInteraction, gameid = 0, user: User, locale: ILangProps) {
     if (!curHostGames.has(gameid))
-        return interaction.reply({content: locale.game_error_incorrectGameID, flags: MessageFlags.Ephemeral}).catch();
+        return interaction.reply({content: locale.game_error_incorrectGameID, flags: MessageFlags.Ephemeral}).catch(() => {});
 
     const host = curHostGames.get(gameid);
     if (host.author != interaction.user.id)
-        return interaction.reply({content: locale.game_cancel_error_noAccess, flags: MessageFlags.Ephemeral}).catch();
+        return interaction.reply({content: locale.game_cancel_error_noAccess, flags: MessageFlags.Ephemeral}).catch(() => {});
 
     clearTimeout(host.timeout);
     setGameEmbedDescription(host, true);
@@ -19,7 +19,7 @@ export default function cancel(interaction: ButtonInteraction, gameid = 0, user:
         content: `**${locale.game_cancel_success_message_aboveEmbed}**`,
         embeds: [host.embed],
         components: getDisabledButtons(gameid, locale)
-    }).catch();
+    }).catch(() => {});
     curHostGames.delete(gameid);
-    return interaction.reply(locale.game_cancel_success_message).catch();
+    return interaction.reply(locale.game_cancel_success_message).catch(() => {});
 }

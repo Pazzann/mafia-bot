@@ -228,33 +228,33 @@ export default class MafiaGame {
 
     public async Choose(who: MafiaUser, whom: string, interaction: SelectMenuInteraction) {
         if (!this.HasPlayer(whom))
-            return interaction.reply(who.local.role_select_error_notFound).catch();
+            return interaction.reply(who.local.role_select_error_notFound).catch(() => {});
         let whomU = this.GetUser(whom);
         if (!this._validateSelection(who, whomU))
-            return interaction.reply(who.local.role_select_error_invalidSelection).catch();
+            return interaction.reply(who.local.role_select_error_invalidSelection).catch(() => {});
         const row = new StringSelectMenuBuilder((interaction.component as SelectMenuComponent).data).setDisabled(true);
-        interaction.message.edit({components: [new ActionRowBuilder<StringSelectMenuBuilder>().addComponents(row)]}).catch();
+        interaction.message.edit({components: [new ActionRowBuilder<StringSelectMenuBuilder>().addComponents(row)]}).catch(() => {});
         switch (this._stage) {
             case "choosing": {
                 const role = this.GetRole(who);
                 switch (who.role.ActionOnSelect) {
                     case "check": {
-                        interaction.reply(whomU.role.name == "mafia" ? who.local.role_check_reply_mafia1 + whomU.dsUser.tag + who.local.role_check_reply_mafia2 : who.local.role_check_reply_notMafia1 + whomU.dsUser.tag + who.local.role_check_reply_notMafia2).catch();
+                        interaction.reply(whomU.role.name == "mafia" ? who.local.role_check_reply_mafia1 + whomU.dsUser.tag + who.local.role_check_reply_mafia2 : who.local.role_check_reply_notMafia1 + whomU.dsUser.tag + who.local.role_check_reply_notMafia2).catch(() => {});
                         who.actionsOnUser.hasDoneAction = true;
                         break;
                     }
                     case "full_check": {
-                        interaction.reply(who.local.role_fullCheck_reply1 + whomU.dsUser.tag + who.local.role_fullCheck_reply2 + whomU.role.name + who.local.role_fullCheck_reply3).catch();
+                        interaction.reply(who.local.role_fullCheck_reply1 + whomU.dsUser.tag + who.local.role_fullCheck_reply2 + whomU.role.name + who.local.role_fullCheck_reply3).catch(() => {});
                         who.actionsOnUser.hasDoneAction = true;
                         break;
                     }
                     case "no_activity": {
-                        interaction.reply(who.local.role_select_error_noActivity).catch();
+                        interaction.reply(who.local.role_select_error_noActivity).catch(() => {});
                         break;
                     }
                     default: {
                         role.Selection.push(whomU);
-                        interaction.reply(who.local.role_select_success_message1 + whomU.dsUser.tag + who.local.role_select_success_message2).catch();
+                        interaction.reply(who.local.role_select_success_message1 + whomU.dsUser.tag + who.local.role_select_success_message2).catch(() => {});
                         who.actionsOnUser.hasDoneAction = true;
                         break;
                     }
@@ -266,7 +266,7 @@ export default class MafiaGame {
             case "discussion": {
                 whomU.actionsOnUser.voted++;
                 who.actionsOnUser.hasVoted = true;
-                interaction.reply(who.local.role_vote_select_success_message1 + whomU.dsUser.tag + who.local.role_vote_select_success_message2).catch();
+                interaction.reply(who.local.role_vote_select_success_message1 + whomU.dsUser.tag + who.local.role_vote_select_success_message2).catch(() => {});
                 this.SendToAll(this.GetVotedLength() + "/" + this.getAliveUsers().length + (this._voteSelect ? "\n" + who.dsUser.tag + " - " + whomU.dsUser.tag : ""));
                 await this.EndVoteMoveHandler();
                 return;
@@ -281,7 +281,7 @@ export default class MafiaGame {
 
     public SendToAll(msg: string = " ", embeds: EmbedBuilder[] = []) {
         this.players.map(item => {
-            item.dmChannel.send({content: msg, embeds: embeds}).catch()
+            item.dmChannel.send({content: msg, embeds: embeds}).catch(() => {})
         })
     }
 

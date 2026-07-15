@@ -8,7 +8,7 @@ export default async function viewrole(interaction: SelectMenuInteraction, user:
 
     const role = await Role.findOne({where: {id: roleId}, relations: ["user"]});
     if (role == null) {
-        interaction.reply({content: locale.role_view_error_notFound, flags: MessageFlags.Ephemeral}).catch();
+        interaction.reply({content: locale.role_view_error_notFound, flags: MessageFlags.Ephemeral}).catch(() => {});
         return;
     }
     const buttonRow: ActionRowBuilder<ButtonBuilder> =
@@ -22,5 +22,5 @@ export default async function viewrole(interaction: SelectMenuInteraction, user:
             );
     const embed = MafiaEmbedFactory.roleEmbed(role, locale);
 
-    interaction.reply({flags: MessageFlags.Ephemeral, embeds: [embed], components: [buttonRow]}).catch();
+    interaction.reply({flags: MessageFlags.Ephemeral, embeds: [embed], components: [buttonRow]}).catch(() => {});
 }

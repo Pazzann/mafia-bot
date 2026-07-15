@@ -5,7 +5,7 @@ import {ILangProps} from "../../types/interfaces/ILang";
 export default async function editrole(interaction: ButtonInteraction, user: User, locale: ILangProps) {
 
     if (!user.premium) {
-        interaction.reply({content: locale.error_premium, flags: MessageFlags.Ephemeral}).catch();
+        interaction.reply({content: locale.error_premium, flags: MessageFlags.Ephemeral}).catch(() => {});
         return;
     }
 
@@ -26,5 +26,5 @@ export default async function editrole(interaction: ButtonInteraction, user: Use
                 .setMaxValues(1)
                 .addOptions(chooseArr)
         );
-    interaction.reply({content: locale.role_edit_select_message, flags: MessageFlags.Ephemeral, components: [row]}).catch();
+    interaction.reply({content: locale.role_edit_select_message, flags: MessageFlags.Ephemeral, components: [row]}).catch(() => {});
 }

@@ -4,7 +4,7 @@ import {ILangProps} from "../../types/interfaces/ILang";
 
 export default async function newrolehalfbut(interaction: ButtonInteraction, user: User, locale: ILangProps) {
     if (!user.premium) {
-        interaction.reply({content: locale.error_premium, flags: MessageFlags.Ephemeral}).catch();
+        interaction.reply({content: locale.error_premium, flags: MessageFlags.Ephemeral}).catch(() => {});
         return;
     }
     const name = interaction.customId.split("newrolehalfbut").join("");

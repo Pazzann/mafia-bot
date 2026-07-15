@@ -64,6 +64,17 @@ import Game from "./Entities/Game.entity";
 
 dotenv.config();
 
+// Safety net: keep the bot alive and log anything that escapes a handler.
+// Discord API calls reject routinely (e.g. 10062 Unknown interaction when a
+// reply arrives after the 3s window); registering these listeners also stops
+// Node from terminating the process on an unhandled rejection (Node 15+).
+process.on("unhandledRejection", (reason) => {
+    console.error("[unhandledRejection]", reason);
+});
+process.on("uncaughtException", (err) => {
+    console.error("[uncaughtException]", err);
+});
+
 const TOKEN = process.env.TOKEN;
 
 export interface ILocalProps {
@@ -244,14 +255,14 @@ discordBot.on("interactionCreate", async (interaction: ChatInputCommandInteracti
             relations: ["customRoles", "conditions"]
         })
         if (interaction.isButton() && LangArray.includes(interaction.customId))
-            return await commands.common.langSet(interaction, dataUser).catch();
+            return await commands.common.langSet(interaction, dataUser).catch(() => {});
 
         if (!dataUser) {
             interaction.reply({
                 content: "To use the bot, please select the language first:",
                 flags: MessageFlags.Ephemeral,
                 components: getLangButtons()
-            }).catch();
+            }).catch(() => {});
             return;
         }
         if (interaction.isChatInputCommand()) {
@@ -265,23 +276,23 @@ discordBot.on("interactionCreate", async (interaction: ChatInputCommandInteracti
             commands.common[commandName](interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps]);
         } else if (interaction.isStringSelectMenu()) {
             if (interaction.customId == "editrole")
-                return commands.profileCommands.editroleselectmenu(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps], +interaction.values[0].split("editrole").join("")).catch();
+                return commands.profileCommands.editroleselectmenu(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps], +interaction.values[0].split("editrole").join("")).catch(() => {});
             if (interaction.customId == "viewrole")
-                return commands.profileCommands.viewrole(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps], +interaction.values[0].split("viewrole").join("")).catch();
+                return commands.profileCommands.viewrole(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps], +interaction.values[0].split("viewrole").join("")).catch(() => {});
             if (interaction.customId == "deleterole")
-                return commands.profileCommands.deleteroleselect(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps], +interaction.values[0].split("deleterole").join("")).catch();
+                return commands.profileCommands.deleteroleselect(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps], +interaction.values[0].split("deleterole").join("")).catch(() => {});
             if (interaction.customId == "viewcondition")
-                return commands.profileCommands.viewcondition(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps], +interaction.values[0].split("viewcondition").join("")).catch();
+                return commands.profileCommands.viewcondition(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps], +interaction.values[0].split("viewcondition").join("")).catch(() => {});
             if (interaction.customId == "deletecondition")
-                return commands.profileCommands.deleteconditionselect(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps], +interaction.values[0].split("deletecondition").join("")).catch();
+                return commands.profileCommands.deleteconditionselect(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps], +interaction.values[0].split("deletecondition").join("")).catch(() => {});
             if (interaction.customId == "editcondition")
-                return commands.profileCommands.editconditionselect(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps], +interaction.values[0]).catch();
+                return commands.profileCommands.editconditionselect(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps], +interaction.values[0]).catch(() => {});
             if (interaction.customId == "editroleselection")
-                return commands.profileCommands.editrolecomplete(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps]).catch();
+                return commands.profileCommands.editrolecomplete(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps]).catch(() => {});
             if (interaction.customId == "editgamerolelist")
-                return commands.gameCommands.editgamerolelist(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps]).catch();
+                return commands.gameCommands.editgamerolelist(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps]).catch(() => {});
             if (interaction.customId == "editcondtiongamelist")
-                return commands.gameCommands.editgameconditionlist(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps]).catch();
+                return commands.gameCommands.editgameconditionlist(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps]).catch(() => {});
             let mafGame: MafiaGame = null;
             for (let game of curHandlingGames.values()) {
                 if (game.HasPlayer(interaction.user.id)) {
@@ -298,16 +309,16 @@ discordBot.on("interactionCreate", async (interaction: ChatInputCommandInteracti
         } else if (interaction.isButton()) {
             try {
                 if (interaction.customId === "createnew")
-                    return commands.common.create(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps]).catch();
+                    return commands.common.create(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps]).catch(() => {});
                 if (["premium", "editrole", "editcondition", "custom", "createrole", "deleterole", "createcondition", "deletecondition", "news", "helpmessage", "rules", "scripting"].includes(interaction.customId))
                     // @ts-ignore
-                    return commands.profileCommands[interaction.customId](interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps]).catch()
+                    return commands.profileCommands[interaction.customId](interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps]).catch(() => {})
                 if (interaction.customId.includes("newrolehalfbut"))
-                    return commands.profileCommands.newrolehalfbut(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps]).catch();
+                    return commands.profileCommands.newrolehalfbut(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps]).catch(() => {});
                 if (interaction.customId.includes("newconditionhalfbut"))
-                    return commands.profileCommands.newconditionhalfbut(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps]).catch();
+                    return commands.profileCommands.newconditionhalfbut(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps]).catch(() => {});
                 if (interaction.customId.includes("clone"))
-                    return commands.profileCommands.clone(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps]).catch();
+                    return commands.profileCommands.clone(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps]).catch(() => {});
                 if (['j', 'c', 's', 'l', 'e', 'r', 'v'].includes(interaction.customId[0])) {
                     const gameId = Number(interaction.customId.split('').splice(1, 5).join(''));
                     // @ts-ignore
@@ -319,16 +330,16 @@ discordBot.on("interactionCreate", async (interaction: ChatInputCommandInteracti
         } else if (interaction.isModalSubmit()) {
             try {
                 if (interaction.customId.includes("newConditionPartTwo"))
-                    return commands.modals.newConditionPartTwo(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps]).catch();
+                    return commands.modals.newConditionPartTwo(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps]).catch(() => {});
                 if (interaction.customId.includes("newRolePartTwo"))
-                    return commands.modals.newRolePartTwo(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps]).catch();
+                    return commands.modals.newRolePartTwo(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps]).catch(() => {});
                 if (interaction.customId.includes("editRole"))
-                    return commands.modals.editRole(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps]).catch();
+                    return commands.modals.editRole(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps]).catch(() => {});
                 if (interaction.customId.includes("editCondition"))
-                    return commands.modals.editCondition(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps]).catch();
+                    return commands.modals.editCondition(interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps]).catch(() => {});
                 if (includeFromArray(interaction.customId, ["newRolePartOne", "newConditionPartOne", "textToModeration", "editCondition"])) {
                     // @ts-ignore
-                    commands.modals[interaction.customId.match(/\w+/)[0]](interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps], discordBot).catch();
+                    commands.modals[interaction.customId.match(/\w+/)[0]](interaction, dataUser, localisations[dataUser.lang.toUpperCase() as keyof ILocalProps], discordBot).catch(() => {});
 
                 }
 

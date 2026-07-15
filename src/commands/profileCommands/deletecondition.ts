@@ -5,7 +5,7 @@ import {ILangProps} from "../../types/interfaces/ILang";
 export default async function deletecondition(interaction: ButtonInteraction, user: User, locale: ILangProps) {
 
     if (!user.premium) {
-        interaction.reply({content: locale.error_premium, flags: MessageFlags.Ephemeral}).catch();
+        interaction.reply({content: locale.error_premium, flags: MessageFlags.Ephemeral}).catch(() => {});
         return;
     }
     if (user.conditions.length > 0) {
@@ -25,8 +25,8 @@ export default async function deletecondition(interaction: ButtonInteraction, us
                     .setMaxValues(1)
                     .addOptions(chooseArr)
             );
-        interaction.reply({content: locale.condition_delete_select_message, flags: MessageFlags.Ephemeral, components: [row]}).catch();
+        interaction.reply({content: locale.condition_delete_select_message, flags: MessageFlags.Ephemeral, components: [row]}).catch(() => {});
     } else {
-        interaction.reply({content: locale.condition_delete_error_noConditions, flags: MessageFlags.Ephemeral}).catch();
+        interaction.reply({content: locale.condition_delete_error_noConditions, flags: MessageFlags.Ephemeral}).catch(() => {});
     }
 }

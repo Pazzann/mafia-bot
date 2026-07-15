@@ -12,11 +12,11 @@ export default async function editGameConditionList(interaction: SelectMenuInter
     try {
         let gameid = +interaction.values[0].split('%')[0];
         if (!curHostGames.has(gameid))
-            return interaction.reply({content: locale.game_error_incorrectGameID, flags: MessageFlags.Ephemeral}).catch();
+            return interaction.reply({content: locale.game_error_incorrectGameID, flags: MessageFlags.Ephemeral}).catch(() => {});
 
         const host = curHostGames.get(gameid);
         if (host.author != interaction.user.id)
-            return interaction.reply({content: locale.game_start_error_noAccess, flags: MessageFlags.Ephemeral}).catch();
+            return interaction.reply({content: locale.game_start_error_noAccess, flags: MessageFlags.Ephemeral}).catch(() => {});
 
         // if (!user.premium)
         //     return interaction.reply("You don't have premium to change game preset");
@@ -39,10 +39,10 @@ export default async function editGameConditionList(interaction: SelectMenuInter
                 }
                 default: {
                     if (!user.premium)
-                        return interaction.reply({content: locale.error_premium, flags: MessageFlags.Ephemeral}).catch();
+                        return interaction.reply({content: locale.error_premium, flags: MessageFlags.Ephemeral}).catch(() => {});
                     const customCond = await WinningCondition.findOne({where: {id: +conditionId}, relations: ["user"]});
                     if (customCond == null)
-                        return interaction.reply({content: locale.game_edit_conditions_error_notFound, flags: MessageFlags.Ephemeral}).catch();
+                        return interaction.reply({content: locale.game_edit_conditions_error_notFound, flags: MessageFlags.Ephemeral}).catch(() => {});
                     if (customCond.user.userid != user.userid)
                         break;
                     host.conditions.push(new CustomWin(
@@ -65,9 +65,9 @@ export default async function editGameConditionList(interaction: SelectMenuInter
                 name: `__**${locale.game_created_gameEndConditions}**__`
             });
         curHostGames.set(gameid, host);
-        host.interaction.editReply({embeds: [host.embed]}).catch();
-        return interaction.reply({content: locale.game_edit_success_message, flags: MessageFlags.Ephemeral}).catch();
+        host.interaction.editReply({embeds: [host.embed]}).catch(() => {});
+        return interaction.reply({content: locale.game_edit_success_message, flags: MessageFlags.Ephemeral}).catch(() => {});
     } catch (err) {
-        return interaction.reply({content: locale.error_unknown, flags: MessageFlags.Ephemeral}).catch();
+        return interaction.reply({content: locale.error_unknown, flags: MessageFlags.Ephemeral}).catch(() => {});
     }
 }

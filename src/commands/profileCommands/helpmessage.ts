@@ -20,5 +20,5 @@ export default async function helpmessage(interaction: ButtonInteraction, user: 
         new ActionRowBuilder<TextInputBuilder>().addComponents(textInput)
     );
 
-    await interaction.showModal(modal).catch();
+    await interaction.showModal(modal).catch(() => {});
 }

@@ -89,5 +89,5 @@ export default async function scripting(interaction: ChatInputCommandInteraction
         .setColor("#f813ff");
 
 
-    interaction.reply({flags: MessageFlags.Ephemeral, embeds: [embed_warning, embed, embed2, embed3]}).catch();
+    interaction.reply({flags: MessageFlags.Ephemeral, embeds: [embed_warning, embed, embed2, embed3]}).catch(() => {});
 }

@@ -13,8 +13,8 @@ export default async function textToModeration (interaction: ModalSubmitInteract
             .setColor("#ffffff")
             .setAuthor({iconURL: interaction.user.avatarURL(), name: interaction.user.tag})
         await dm.send({embeds: [embed]});
-        await interaction.reply({content: "sended", flags: MessageFlags.Ephemeral}).catch();
+        await interaction.reply({content: "sended", flags: MessageFlags.Ephemeral}).catch(() => {});
     }).catch(async () => {
-        await interaction.reply({content: "unsuccessful", flags: MessageFlags.Ephemeral}).catch();
+        await interaction.reply({content: "unsuccessful", flags: MessageFlags.Ephemeral}).catch(() => {});
     });
 }

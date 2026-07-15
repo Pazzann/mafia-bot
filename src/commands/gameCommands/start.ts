@@ -15,16 +15,16 @@ import setGameEmbedDescription from "../../Functions/setGameEmbedDescription";
 
 export default async function start(interaction: ButtonInteraction, gameid = 0, user: User, locale: ILangProps) {
     if (!curHostGames.has(gameid))
-        return interaction.reply({content: locale.game_error_incorrectGameID, flags: MessageFlags.Ephemeral}).catch();
+        return interaction.reply({content: locale.game_error_incorrectGameID, flags: MessageFlags.Ephemeral}).catch(() => {});
     if (curHostGames.get(gameid).author != interaction.user.id)
-        return interaction.reply({content: locale.game_start_error_noAccess, flags: MessageFlags.Ephemeral}).catch();
+        return interaction.reply({content: locale.game_start_error_noAccess, flags: MessageFlags.Ephemeral}).catch(() => {});
 
     const host = curHostGames.get(gameid);
     clearTimeout(host.timeout);
     if (host.users.length < 4)
-        return interaction.reply({content: locale.game_start_error_notEnoughPlayers, flags: MessageFlags.Ephemeral}).catch();
+        return interaction.reply({content: locale.game_start_error_notEnoughPlayers, flags: MessageFlags.Ephemeral}).catch(() => {});
     if (host.roles.length < 1)
-        return interaction.reply({content: locale.game_start_error_notEnoughRoles, flags: MessageFlags.Ephemeral}).catch();
+        return interaction.reply({content: locale.game_start_error_notEnoughRoles, flags: MessageFlags.Ephemeral}).catch(() => {});
 
     setGameEmbedDescription(host);
     await interaction.deferReply();
@@ -75,5 +75,5 @@ export default async function start(interaction: ButtonInteraction, gameid = 0, 
         }])
         .setColor("#99ffb5")
         .setThumbnail("https://media.discordapp.net/attachments/1015944207220879370/1016410833112268910/Boy_From_God_Shrek_peaky_blinders_family_2a6ce986-1bad-472e-b288-481161d806af.png?width=566&height=566");
-    return interaction.followUp({embeds: [embed], components: [buttonRow]}).catch();
+    return interaction.followUp({embeds: [embed], components: [buttonRow]}).catch(() => {});
 }

@@ -12,11 +12,11 @@ import {ILangProps} from "../../types/interfaces/ILang";
 export default async function createrole(interaction: ButtonInteraction, user: User, locale: ILangProps) {
 
     if (!user.premium) {
-        interaction.reply({content: locale.error_premium, flags: MessageFlags.Ephemeral}).catch();
+        interaction.reply({content: locale.error_premium, flags: MessageFlags.Ephemeral}).catch(() => {});
         return;
     }
     if (user.customRoles.length >= 19) {
-        interaction.reply({content: locale.role_create_error_number, flags: MessageFlags.Ephemeral}).catch();
+        interaction.reply({content: locale.role_create_error_number, flags: MessageFlags.Ephemeral}).catch(() => {});
         return;
     }
 
@@ -70,5 +70,5 @@ export default async function createrole(interaction: ButtonInteraction, user: U
         new ActionRowBuilder<TextInputBuilder>().addComponents(placeHolderInput),
     );
 
-    await interaction.showModal(modal).catch();
+    await interaction.showModal(modal).catch(() => {});
 }

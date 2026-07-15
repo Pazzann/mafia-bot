@@ -23,5 +23,5 @@ export default async function langSet(interaction: ButtonInteraction, dataUser: 
     interaction.reply({
         content: localisations[interaction.customId.toUpperCase() as keyof ILocalProps].lang_set_success_message,
         flags: MessageFlags.Ephemeral
-    }).catch();
+    }).catch(() => {});
 }

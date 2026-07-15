@@ -99,7 +99,7 @@ export default async function profile(interaction: ChatInputCommandInteraction |
                 interaction.reply({
                     content: locale.profile_error_noProfile1 + `<@${interaction.options.getUser("user").id}>` + locale.profile_error_noProfile2,
                     flags: MessageFlags.Ephemeral
-                }).catch();
+                }).catch(() => {});
                 return;
             }
         }
@@ -140,7 +140,7 @@ export default async function profile(interaction: ChatInputCommandInteraction |
             embeds: [embed],
             components: [getProfileButtons(user, locale)],
             flags: MessageFlags.Ephemeral
-        }).catch();
+        }).catch(() => {});
     } else {
         interaction.reply({content: text, embeds: [embed], components: componentsTarget, flags: MessageFlags.Ephemeral});
     }

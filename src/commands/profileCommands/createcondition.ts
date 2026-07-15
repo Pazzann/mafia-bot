@@ -5,11 +5,11 @@ import {ILangProps} from "../../types/interfaces/ILang";
 export default async function createcondition(interaction: ButtonInteraction, user: User, locale: ILangProps) {
 
     if (!user.premium) {
-        interaction.reply({content: locale.error_premium, flags: MessageFlags.Ephemeral}).catch();
+        interaction.reply({content: locale.error_premium, flags: MessageFlags.Ephemeral}).catch(() => {});
         return;
     }
     if (user.conditions.length >= 21) {
-        interaction.reply({content: locale.condition_create_error_number, flags: MessageFlags.Ephemeral}).catch();
+        interaction.reply({content: locale.condition_create_error_number, flags: MessageFlags.Ephemeral}).catch(() => {});
         return;
     }
 
@@ -34,5 +34,5 @@ export default async function createcondition(interaction: ButtonInteraction, us
         new ActionRowBuilder<TextInputBuilder>().addComponents(nameInput),
     );
 
-    await interaction.showModal(modal).catch();;
+    await interaction.showModal(modal).catch(() => {});;
 }

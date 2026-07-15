@@ -6,7 +6,7 @@ import Role from "../../Entities/Role.entity";
 export default async function newConditionPartOne (interaction: ModalSubmitInteraction, user: User, locale: ILangProps) {
 
     if (!user.premium) {
-        interaction.reply({content: locale.error_premium, flags: MessageFlags.Ephemeral}).catch();
+        interaction.reply({content: locale.error_premium, flags: MessageFlags.Ephemeral}).catch(() => {});
         return;
     }
     const name = interaction.fields.getTextInputValue("conditionName");
@@ -19,6 +19,6 @@ export default async function newConditionPartOne (interaction: ModalSubmitInter
                 .setCustomId("newconditionhalfbut" + name)
                 .setDisabled(false),
         );
-    await interaction.reply({content: locale.condition_create_goNext_message, flags: MessageFlags.Ephemeral, components: [buttons]}).catch();
+    await interaction.reply({content: locale.condition_create_goNext_message, flags: MessageFlags.Ephemeral, components: [buttons]}).catch(() => {});
 
 }
