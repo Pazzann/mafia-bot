@@ -1,4 +1,4 @@
-import {EmbedBuilder, ModalSubmitInteraction} from "discord.js";
+import {MessageFlags, EmbedBuilder, ModalSubmitInteraction} from "discord.js";
 import User from "../../Entities/User.entity";
 import {ILangProps} from "../../types/interfaces/ILang";
 import Role from "../../Entities/Role.entity";
@@ -6,18 +6,18 @@ import MafiaEmbedFactory from "../../Classes/MafiaEmbedFactory";
 
 export default async function newRolePartTwo(interaction: ModalSubmitInteraction, user: User, locale: ILangProps) {
     if (!user.premium) {
-        interaction.reply({content: locale.error_premium, ephemeral: true}).catch();
+        interaction.reply({content: locale.error_premium, flags: MessageFlags.Ephemeral}).catch();
         return;
     }
     try {
         let id = Number(interaction.customId.split("newRolePartTwo").join(''));
         const role = await Role.findOne({where: {id: id}, relations: ["user"]});
         if (role == null) {
-            interaction.reply({content: locale.role_create_error_notFound, ephemeral: true}).catch();
+            interaction.reply({content: locale.role_create_error_notFound, flags: MessageFlags.Ephemeral}).catch();
             return;
         }
         if (role.user.userid != user.userid) {
-            interaction.reply({content: locale.role_create_error_noAccess, ephemeral: true}).catch();
+            interaction.reply({content: locale.role_create_error_noAccess, flags: MessageFlags.Ephemeral}).catch();
             return;
         }
 
@@ -33,7 +33,7 @@ export default async function newRolePartTwo(interaction: ModalSubmitInteraction
         await role.save();
 
         const embed = MafiaEmbedFactory.roleEmbed(role, locale);
-        await interaction.reply({content: locale.role_create_success_message, embeds: [embed], ephemeral: true}).catch();
+        await interaction.reply({content: locale.role_create_success_message, embeds: [embed], flags: MessageFlags.Ephemeral}).catch();
     } catch (err) {
         await interaction.reply(locale.error_unknown).catch();
     }

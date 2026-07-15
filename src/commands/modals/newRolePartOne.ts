@@ -1,5 +1,4 @@
-import {
-    ActionRowBuilder, ButtonBuilder,
+import {MessageFlags, ActionRowBuilder, ButtonBuilder,
     ButtonStyle,
     ModalSubmitInteraction
 } from "discord.js";
@@ -12,7 +11,7 @@ let validUrl = require('valid-url');
 export default async function newRolePartOne (interaction: ModalSubmitInteraction, user: User, locale: ILangProps) {
 
     if (!user.premium) {
-        interaction.reply({content: locale.error_premium, ephemeral: true}).catch();
+        interaction.reply({content: locale.error_premium, flags: MessageFlags.Ephemeral}).catch();
         return;
     }
     let imageURL = interaction.fields.getTextInputValue("roleImage");
@@ -43,6 +42,6 @@ export default async function newRolePartOne (interaction: ModalSubmitInteractio
                 .setCustomId("newrolehalfbut" + role.id)
                 .setDisabled(false),
         );
-    await interaction.reply({content: locale.role_create_goNext_message, ephemeral: true, components: [buttons]}).catch();
+    await interaction.reply({content: locale.role_create_goNext_message, flags: MessageFlags.Ephemeral, components: [buttons]}).catch();
 
 }

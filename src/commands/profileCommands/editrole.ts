@@ -1,11 +1,11 @@
-import {ActionRowBuilder, ButtonInteraction, RestOrArray, StringSelectMenuBuilder, StringSelectMenuOptionBuilder} from "discord.js";
+import {MessageFlags, ActionRowBuilder, ButtonInteraction, RestOrArray, StringSelectMenuBuilder, StringSelectMenuOptionBuilder} from "discord.js";
 import User from "../../Entities/User.entity";
 import {ILangProps} from "../../types/interfaces/ILang";
 
 export default async function editrole(interaction: ButtonInteraction, user: User, locale: ILangProps) {
 
     if (!user.premium) {
-        interaction.reply({content: locale.error_premium, ephemeral: true}).catch();
+        interaction.reply({content: locale.error_premium, flags: MessageFlags.Ephemeral}).catch();
         return;
     }
 
@@ -26,5 +26,5 @@ export default async function editrole(interaction: ButtonInteraction, user: Use
                 .setMaxValues(1)
                 .addOptions(chooseArr)
         );
-    interaction.reply({content: locale.role_edit_select_message, ephemeral: true, components: [row]}).catch();
+    interaction.reply({content: locale.role_edit_select_message, flags: MessageFlags.Ephemeral, components: [row]}).catch();
 }

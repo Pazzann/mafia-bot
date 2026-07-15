@@ -1,4 +1,4 @@
-import {ActionRowBuilder, ButtonBuilder, ButtonStyle, ChatInputCommandInteraction, EmbedBuilder} from "discord.js";
+import {MessageFlags, ActionRowBuilder, ButtonBuilder, ButtonStyle, ChatInputCommandInteraction, EmbedBuilder} from "discord.js";
 import User from "../Entities/User.entity";
 import {ILangProps} from "../types/interfaces/ILang";
 
@@ -31,7 +31,7 @@ export default async function help(interaction: ChatInputCommandInteraction, use
             value: '\u200B'
         }, {
             name: locale.help_about_name,
-            value: locale.help_about_value_version + "2.0.2" +
+            value: locale.help_about_value_version + "2.0.3" +
                 locale.help_about_value_code + "https://github.com/Pazzann/mafia-bot" +
                 locale.help_about_value_server + "https://discord.gg/ZWnx8rqGTD" +
                 locale.help_about_value_developers + "<@390561515054563328>" +
@@ -63,5 +63,5 @@ export default async function help(interaction: ChatInputCommandInteraction, use
                 .setDisabled(false)
         );
 
-    interaction.reply({embeds: [embed], components: [buttons], ephemeral: true}).catch();
+    interaction.reply({embeds: [embed], components: [buttons], flags: MessageFlags.Ephemeral}).catch();
 }

@@ -1,4 +1,4 @@
-import {ActionRowBuilder, ModalBuilder, SelectMenuInteraction, TextInputBuilder, TextInputStyle} from "discord.js";
+import {MessageFlags, ActionRowBuilder, ModalBuilder, SelectMenuInteraction, TextInputBuilder, TextInputStyle} from "discord.js";
 import User from "../../Entities/User.entity";
 import {ILangProps} from "../../types/interfaces/ILang";
 import WinningCondition from "../../Entities/WinningCondition.entity";
@@ -6,17 +6,17 @@ import WinningCondition from "../../Entities/WinningCondition.entity";
 export default async function editconditionselect(interaction: SelectMenuInteraction, user: User, locale: ILangProps, conditionId: number) {
 
     if (!user.premium) {
-        interaction.reply({content: locale.error_premium, ephemeral: true}).catch();
+        interaction.reply({content: locale.error_premium, flags: MessageFlags.Ephemeral}).catch();
         return;
     }
 
     const condition = await WinningCondition.findOne({where: {id: conditionId}, relations: ["user"]});
     if (condition == null) {
-        interaction.reply({content: locale.condition_edit_error_notFound, ephemeral: true}).catch();
+        interaction.reply({content: locale.condition_edit_error_notFound, flags: MessageFlags.Ephemeral}).catch();
         return;
     }
     if (condition.user.userid != user.userid) {
-        interaction.reply({content: locale.condition_edit_error_noAccess, ephemeral: true}).catch();
+        interaction.reply({content: locale.condition_edit_error_noAccess, flags: MessageFlags.Ephemeral}).catch();
         return;
     }
 

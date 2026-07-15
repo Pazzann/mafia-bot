@@ -1,5 +1,4 @@
-import {
-    ActionRowBuilder, BaseInteraction,
+import {MessageFlags, ActionRowBuilder, BaseInteraction,
     ButtonBuilder, ButtonInteraction,
     ButtonStyle,
     ChatInputCommandInteraction,
@@ -99,7 +98,7 @@ export default async function profile(interaction: ChatInputCommandInteraction |
             } else {
                 interaction.reply({
                     content: locale.profile_error_noProfile1 + `<@${interaction.options.getUser("user").id}>` + locale.profile_error_noProfile2,
-                    ephemeral: true
+                    flags: MessageFlags.Ephemeral
                 }).catch();
                 return;
             }
@@ -140,9 +139,9 @@ export default async function profile(interaction: ChatInputCommandInteraction |
             content: text,
             embeds: [embed],
             components: [getProfileButtons(user, locale)],
-            ephemeral: true
+            flags: MessageFlags.Ephemeral
         }).catch();
     } else {
-        interaction.reply({content: text, embeds: [embed], components: componentsTarget, ephemeral: true});
+        interaction.reply({content: text, embeds: [embed], components: componentsTarget, flags: MessageFlags.Ephemeral});
     }
 }

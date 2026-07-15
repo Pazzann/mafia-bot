@@ -1,4 +1,4 @@
-import {ButtonInteraction} from "discord.js";
+import {MessageFlags, ButtonInteraction} from "discord.js";
 import {curHostGames} from "../../index";
 import getDisabledButtons from "../../Functions/getDisabledButtons";
 import User from "../../Entities/User.entity";
@@ -7,11 +7,11 @@ import setGameEmbedDescription from "../../Functions/setGameEmbedDescription";
 
 export default function cancel(interaction: ButtonInteraction, gameid = 0, user: User, locale: ILangProps) {
     if (!curHostGames.has(gameid))
-        return interaction.reply({content: locale.game_error_incorrectGameID, ephemeral: true}).catch();
+        return interaction.reply({content: locale.game_error_incorrectGameID, flags: MessageFlags.Ephemeral}).catch();
 
     const host = curHostGames.get(gameid);
     if (host.author != interaction.user.id)
-        return interaction.reply({content: locale.game_cancel_error_noAccess, ephemeral: true}).catch();
+        return interaction.reply({content: locale.game_cancel_error_noAccess, flags: MessageFlags.Ephemeral}).catch();
 
     clearTimeout(host.timeout);
     setGameEmbedDescription(host, true);

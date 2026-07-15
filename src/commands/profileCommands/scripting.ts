@@ -1,4 +1,4 @@
-import {ChatInputCommandInteraction, EmbedBuilder} from "discord.js";
+import {MessageFlags, ChatInputCommandInteraction, EmbedBuilder} from "discord.js";
 import User from "../../Entities/User.entity";
 import {ILangProps} from "../../types/interfaces/ILang";
 
@@ -89,5 +89,5 @@ export default async function scripting(interaction: ChatInputCommandInteraction
         .setColor("#f813ff");
 
 
-    interaction.reply({ephemeral: true, embeds: [embed_warning, embed, embed2, embed3]}).catch();
+    interaction.reply({flags: MessageFlags.Ephemeral, embeds: [embed_warning, embed, embed2, embed3]}).catch();
 }

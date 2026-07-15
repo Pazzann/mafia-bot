@@ -1,5 +1,4 @@
-import {
-    ButtonInteraction,
+import {MessageFlags, ButtonInteraction,
     ChatInputCommandInteraction,
     Client,
     GatewayIntentBits, GuildMember,
@@ -172,7 +171,7 @@ const commands = {
 }
 
 export const AppDataSource = new DataSource({
-    type: "mariadb",
+    type: "postgres",
     host: process.env.SQLHOST,
     port: +process.env.SQLPORT,
     username: process.env.SQLUSERNAME,
@@ -250,7 +249,7 @@ discordBot.on("interactionCreate", async (interaction: ChatInputCommandInteracti
         if (!dataUser) {
             interaction.reply({
                 content: "To use the bot, please select the language first:",
-                ephemeral: true,
+                flags: MessageFlags.Ephemeral,
                 components: getLangButtons()
             }).catch();
             return;
@@ -344,7 +343,7 @@ discordBot.on("interactionCreate", async (interaction: ChatInputCommandInteracti
 
 });
 
-discordBot.on("ready", () => {
+discordBot.on("clientReady", () => {
     console.log("started");
 });
 

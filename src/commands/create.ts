@@ -1,5 +1,4 @@
-import {
-    ButtonInteraction,
+import {MessageFlags, ButtonInteraction,
     ChatInputCommandInteraction,
     EmbedBuilder
 } from "discord.js";
@@ -23,11 +22,11 @@ import setGameEmbedDescription from "../Functions/setGameEmbedDescription";
 export default function create(interaction: ChatInputCommandInteraction | ButtonInteraction, user: User, locale: ILangProps) {
     for (let v of curHostGames.values()) {
         if (v.users.includes(interaction.user.id))
-            return interaction.reply({content: (v.author == interaction.user.id ? locale.game_error_alreadyCreated : locale.game_error_alreadyJoined), ephemeral: true}).catch();
+            return interaction.reply({content: (v.author == interaction.user.id ? locale.game_error_alreadyCreated : locale.game_error_alreadyJoined), flags: MessageFlags.Ephemeral}).catch();
     }
     for (let v of curHandlingGames.values()) {
         if (v.HasPlayer(interaction.user.id))
-            return interaction.reply({content: (v.author == interaction.user.id ? locale.game_error_alreadyCreated : locale.game_error_alreadyJoined), ephemeral: true}).catch();
+            return interaction.reply({content: (v.author == interaction.user.id ? locale.game_error_alreadyCreated : locale.game_error_alreadyJoined), flags: MessageFlags.Ephemeral}).catch();
     }
 
     const id = MafiaGame.GenerateId();

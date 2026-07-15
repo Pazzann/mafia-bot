@@ -1,4 +1,4 @@
-import {ButtonInteraction} from "discord.js";
+import {MessageFlags, ButtonInteraction} from "discord.js";
 import {LangArray, Langs} from "../types/Langs";
 import User from "../Entities/User.entity";
 import dateParser from "../Functions/dateParser";
@@ -22,6 +22,6 @@ export default async function langSet(interaction: ButtonInteraction, dataUser: 
 
     interaction.reply({
         content: localisations[interaction.customId.toUpperCase() as keyof ILocalProps].lang_set_success_message,
-        ephemeral: true
+        flags: MessageFlags.Ephemeral
     }).catch();
 }

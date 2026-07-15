@@ -1,4 +1,4 @@
-import {ButtonInteraction} from "discord.js";
+import {MessageFlags, ButtonInteraction} from "discord.js";
 import User from "../../Entities/User.entity";
 import {ILangProps} from "../../types/interfaces/ILang";
 import Role from "../../Entities/Role.entity";
@@ -9,11 +9,11 @@ export default async function clone(interaction: ButtonInteraction, user: User, 
         let roleId: number = +interaction.customId.split("cloneRole").join("");
         const role = await Role.findOne({where: {id: roleId}, relations: ["user"]});
         if (role == null) {
-            interaction.reply({content: locale.role_clone_error_notFound, ephemeral: true}).catch();
+            interaction.reply({content: locale.role_clone_error_notFound, flags: MessageFlags.Ephemeral}).catch();
             return;
         }
         if (user.customRoles.length >= 19) {
-            interaction.reply({content: locale.role_clone_error_number, ephemeral: true}).catch();
+            interaction.reply({content: locale.role_clone_error_number, flags: MessageFlags.Ephemeral}).catch();
             return;
         }
 
@@ -31,16 +31,16 @@ export default async function clone(interaction: ButtonInteraction, user: User, 
             description: role.description
         }).save();
 
-        interaction.reply({content: locale.role_clone_success_message, ephemeral: true}).catch();
+        interaction.reply({content: locale.role_clone_success_message, flags: MessageFlags.Ephemeral}).catch();
     } else if (interaction.customId.includes("Condition")) {
         let conditionId: number = +interaction.customId.split("cloneCondition").join("");
         const condition = await WinningCondition.findOne({where: {id: conditionId}, relations: ["user"]});
         if (condition == null) {
-            interaction.reply({content: locale.condition_clone_error_number, ephemeral: true}).catch();
+            interaction.reply({content: locale.condition_clone_error_number, flags: MessageFlags.Ephemeral}).catch();
             return;
         }
         if (user.conditions.length >= 21) {
-            interaction.reply({content: locale.condition_clone_error_notFound, ephemeral: true}).catch();
+            interaction.reply({content: locale.condition_clone_error_notFound, flags: MessageFlags.Ephemeral}).catch();
             return;
         }
         await WinningCondition.create({
@@ -52,6 +52,6 @@ export default async function clone(interaction: ButtonInteraction, user: User, 
             embedThumbnail: condition.embedThumbnail,
             winRole: condition.winRole
         }).save();
-        interaction.reply({content: locale.role_clone_success_message, ephemeral: true}).catch();
+        interaction.reply({content: locale.role_clone_success_message, flags: MessageFlags.Ephemeral}).catch();
     }
 }

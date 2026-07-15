@@ -1,15 +1,15 @@
-import {ActionRowBuilder, ButtonInteraction, ModalBuilder, TextInputBuilder, TextInputStyle} from "discord.js";
+import {MessageFlags, ActionRowBuilder, ButtonInteraction, ModalBuilder, TextInputBuilder, TextInputStyle} from "discord.js";
 import User from "../../Entities/User.entity";
 import {ILangProps} from "../../types/interfaces/ILang";
 
 export default async function createcondition(interaction: ButtonInteraction, user: User, locale: ILangProps) {
 
     if (!user.premium) {
-        interaction.reply({content: locale.error_premium, ephemeral: true}).catch();
+        interaction.reply({content: locale.error_premium, flags: MessageFlags.Ephemeral}).catch();
         return;
     }
     if (user.conditions.length >= 21) {
-        interaction.reply({content: locale.condition_create_error_number, ephemeral: true}).catch();
+        interaction.reply({content: locale.condition_create_error_number, flags: MessageFlags.Ephemeral}).catch();
         return;
     }
 

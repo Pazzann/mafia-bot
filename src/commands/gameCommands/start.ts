@@ -1,5 +1,4 @@
-import {
-    ActionRowBuilder,
+import {MessageFlags, ActionRowBuilder,
     ButtonBuilder,
     ButtonInteraction,
     ButtonStyle,
@@ -16,16 +15,16 @@ import setGameEmbedDescription from "../../Functions/setGameEmbedDescription";
 
 export default async function start(interaction: ButtonInteraction, gameid = 0, user: User, locale: ILangProps) {
     if (!curHostGames.has(gameid))
-        return interaction.reply({content: locale.game_error_incorrectGameID, ephemeral: true}).catch();
+        return interaction.reply({content: locale.game_error_incorrectGameID, flags: MessageFlags.Ephemeral}).catch();
     if (curHostGames.get(gameid).author != interaction.user.id)
-        return interaction.reply({content: locale.game_start_error_noAccess, ephemeral: true}).catch();
+        return interaction.reply({content: locale.game_start_error_noAccess, flags: MessageFlags.Ephemeral}).catch();
 
     const host = curHostGames.get(gameid);
     clearTimeout(host.timeout);
     if (host.users.length < 4)
-        return interaction.reply({content: locale.game_start_error_notEnoughPlayers, ephemeral: true}).catch();
+        return interaction.reply({content: locale.game_start_error_notEnoughPlayers, flags: MessageFlags.Ephemeral}).catch();
     if (host.roles.length < 1)
-        return interaction.reply({content: locale.game_start_error_notEnoughRoles, ephemeral: true}).catch();
+        return interaction.reply({content: locale.game_start_error_notEnoughRoles, flags: MessageFlags.Ephemeral}).catch();
 
     setGameEmbedDescription(host);
     await interaction.deferReply();

@@ -1,4 +1,4 @@
-import {ActionRowBuilder, ButtonBuilder, ButtonStyle, SelectMenuInteraction} from "discord.js";
+import {MessageFlags, ActionRowBuilder, ButtonBuilder, ButtonStyle, SelectMenuInteraction} from "discord.js";
 import User from "../../Entities/User.entity";
 import {ILangProps} from "../../types/interfaces/ILang";
 import Role from "../../Entities/Role.entity";
@@ -9,7 +9,7 @@ export default async function viewcondition(interaction: SelectMenuInteraction, 
 
     const condition = await WinningCondition.findOne({where: {id: conditionId}, relations: ["user"]});
     if (condition == null) {
-        interaction.reply({content: locale.condition_view_error_notFound, ephemeral: true}).catch();
+        interaction.reply({content: locale.condition_view_error_notFound, flags: MessageFlags.Ephemeral}).catch();
         return;
     }
     const buttonRow: ActionRowBuilder<ButtonBuilder> =
@@ -23,5 +23,5 @@ export default async function viewcondition(interaction: SelectMenuInteraction, 
             );
     const embed = MafiaEmbedFactory.conditionEmbed(condition, locale);
 
-    interaction.reply({ephemeral: true, embeds: [embed], components: [buttonRow]}).catch();
+    interaction.reply({flags: MessageFlags.Ephemeral, embeds: [embed], components: [buttonRow]}).catch();
 }

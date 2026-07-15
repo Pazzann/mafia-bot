@@ -1,4 +1,4 @@
-import {ButtonInteraction} from "discord.js";
+import {MessageFlags, ButtonInteraction} from "discord.js";
 import {curHandlingGames} from "../../index";
 import User from "../../Entities/User.entity";
 import {ILangProps} from "../../types/interfaces/ILang";
@@ -14,9 +14,9 @@ export default function end (interaction: ButtonInteraction, gameid = 0, user: U
             curHandlingGames.delete(gameid);
             interaction.reply(locale.game_end_success_message).catch(()=>{});
         } else {
-            interaction.reply({content: locale.game_end_error_noAccess, ephemeral: true}).catch(()=>{});
+            interaction.reply({content: locale.game_end_error_noAccess, flags: MessageFlags.Ephemeral}).catch(()=>{});
         }
     } else {
-        interaction.reply({content:locale.game_error_incorrectGameID, ephemeral: true}).catch(()=>{});
+        interaction.reply({content:locale.game_error_incorrectGameID, flags: MessageFlags.Ephemeral}).catch(()=>{});
     }
 }

@@ -1,11 +1,11 @@
-import {ActionRowBuilder, ButtonInteraction, RestOrArray, StringSelectMenuBuilder, StringSelectMenuOptionBuilder} from "discord.js";
+import {MessageFlags, ActionRowBuilder, ButtonInteraction, RestOrArray, StringSelectMenuBuilder, StringSelectMenuOptionBuilder} from "discord.js";
 import User from "../../Entities/User.entity";
 import {ILangProps} from "../../types/interfaces/ILang";
 
 export default async function editcondition(interaction: ButtonInteraction, user: User, locale: ILangProps) {
 
     if (!user.premium) {
-        interaction.reply({content: locale.error_premium, ephemeral: true}).catch();
+        interaction.reply({content: locale.error_premium, flags: MessageFlags.Ephemeral}).catch();
         return;
     }
     if (user.conditions.length > 0) {
@@ -25,8 +25,8 @@ export default async function editcondition(interaction: ButtonInteraction, user
                     .setMaxValues(1)
                     .addOptions(chooseArr)
             );
-        interaction.reply({content: locale.condition_edit_select_message, ephemeral: true, components: [row]}).catch();
+        interaction.reply({content: locale.condition_edit_select_message, flags: MessageFlags.Ephemeral, components: [row]}).catch();
     } else {
-        interaction.reply({content: locale.condition_delete_error_noConditions, ephemeral: true}).catch();
+        interaction.reply({content: locale.condition_delete_error_noConditions, flags: MessageFlags.Ephemeral}).catch();
     }
 }

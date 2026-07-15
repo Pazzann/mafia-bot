@@ -1,4 +1,4 @@
-import {ModalSubmitInteraction, TextInputComponent} from "discord.js";
+import {MessageFlags, ModalSubmitInteraction} from "discord.js";
 import User from "../../Entities/User.entity";
 import {ILangProps} from "../../types/interfaces/ILang";
 import MafiaEmbedFactory from "../../Classes/MafiaEmbedFactory";
@@ -6,18 +6,18 @@ import WinningCondition from "../../Entities/WinningCondition.entity";
 
 export default async function editCondition (interaction: ModalSubmitInteraction, user: User, locale: ILangProps) {
     if (!user.premium) {
-        interaction.reply({content: locale.error_premium, ephemeral: true}).catch()
+        interaction.reply({content: locale.error_premium, flags: MessageFlags.Ephemeral}).catch()
         return;
     }
     try {
         let conditionId = interaction.customId.split("editCondition").join('');
         const condition = await WinningCondition.findOne({where: {id: +conditionId}, relations: ["user"]});
         if (condition == null) {
-            interaction.reply({content: locale.condition_edit_error_notFound, ephemeral: true}).catch()
+            interaction.reply({content: locale.condition_edit_error_notFound, flags: MessageFlags.Ephemeral}).catch()
             return;
         }
         if (condition.user.userid != user.userid) {
-            interaction.reply({content: locale.condition_edit_error_noAccess, ephemeral: true}).catch()
+            interaction.reply({content: locale.condition_edit_error_noAccess, flags: MessageFlags.Ephemeral}).catch()
             return;
         }
 
@@ -28,7 +28,7 @@ export default async function editCondition (interaction: ModalSubmitInteraction
         condition.winRole = interaction.fields.getTextInputValue("winRole");
         condition.save();
 
-        interaction.reply({content: locale.condition_edit_success_message, ephemeral: true, embeds:[MafiaEmbedFactory.conditionEmbed(condition, locale)]}).catch()
+        interaction.reply({content: locale.condition_edit_success_message, flags: MessageFlags.Ephemeral, embeds:[MafiaEmbedFactory.conditionEmbed(condition, locale)]}).catch()
     } catch (err) {
     }
 }

@@ -1,5 +1,4 @@
-import {
-    ActionRowBuilder,
+import {MessageFlags, ActionRowBuilder,
     ModalBuilder,
     SelectMenuInteraction,
     TextInputBuilder,
@@ -12,7 +11,7 @@ import Role from "../../Entities/Role.entity";
 export default async function editrolecomplete(interaction: SelectMenuInteraction, user: User, locale: ILangProps) {
     try {
         if (!user.premium) {
-            interaction.reply({content: locale.error_premium, ephemeral: true}).catch();
+            interaction.reply({content: locale.error_premium, flags: MessageFlags.Ephemeral}).catch();
             return;
         }
 
@@ -20,11 +19,11 @@ export default async function editrolecomplete(interaction: SelectMenuInteractio
         let action = interaction.values[0].split("editrole").join('').split(String(roleId)).join('');
         const role = await Role.findOne({where: {id: roleId}, relations: ["user"]});
         if (role == null) {
-            interaction.reply({content: locale.role_edit_error_notFound, ephemeral: true}).catch();
+            interaction.reply({content: locale.role_edit_error_notFound, flags: MessageFlags.Ephemeral}).catch();
             return;
         }
         if (role.user.userid != user.userid) {
-            interaction.reply({content: locale.role_edit_error_noAccess, ephemeral: true}).catch();
+            interaction.reply({content: locale.role_edit_error_noAccess, flags: MessageFlags.Ephemeral}).catch();
             return;
         }
 

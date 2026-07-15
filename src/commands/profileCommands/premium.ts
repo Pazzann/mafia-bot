@@ -1,4 +1,4 @@
-import {ButtonInteraction, EmbedBuilder} from "discord.js";
+import {MessageFlags, ButtonInteraction, EmbedBuilder} from "discord.js";
 import User from "../../Entities/User.entity";
 import {ILangProps} from "../../types/interfaces/ILang";
 
@@ -25,5 +25,5 @@ export default async function premium(interaction: ButtonInteraction, user: User
             }
         ]);
 
-    interaction.reply({ephemeral: true, embeds: [embed]}).catch()
+    interaction.reply({flags: MessageFlags.Ephemeral, embeds: [embed]}).catch()
 }
